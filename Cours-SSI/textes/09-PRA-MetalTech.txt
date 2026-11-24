@@ -1,0 +1,675 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+<PARSED TEXT FOR PAGE: 1 / 11>
+               PLAN D'ASSURANCE DES REPRISES (PAR)
+                                           MétalTech Solutions SAS
+Composante TIC du dispositif de continuité — Disponibilité et reprise des technologies de l'information et de
+                                            la communication
+
+
+
+     Cadre de structuration : ISO/IEC 27031:2011 — Lignes directrices pour la planification de la continuité des TIC
+
+
+
+   Avertissement : ce document utilise ISO/IEC 27031 uniquement comme cadre de structuration. Il ne reproduit aucun contenu
+normatif protégé et ne constitue ni une démarche de certification, ni un engagement auditable. Le PAR est le volet technique du PCA
+             MétalTech : la cohérence des RTO/RPO, des dépendances et des responsabilités avec le PCA est garantie.
+
+
+
+
+Contrôle du document
+Champ                         Valeur
+Référence                     PAR-MTL-001
+Version                       1.0
+Date                          21 septembre 2026
+Classification                Usage interne — Diffusion restreinte
+Rédacteur                     Eric Roland [— RSSI]
+Vérificateur                  [Vidal Patricia— Resp. Qualité]
+Approbateur                   [Denis Franck – DSI, Pierre Delacroix, PDG]
+Prochaine revue               [À compléter — 12 mois]
+Cadre de référence            ISO/IEC 27031:2011 (structuration)
+Document lié                  PCA-MTL-001 (Plan de Continuité d'Activité)
+
+
+
+Table des matières
+1. 1. Objet, domaine d'application et articulation avec le PCA
+2. 2. Inventaire des services TIC et classification
+3. 3. Dépendances techniques et prestataires
+4. 4. Exigences de reprise — RTO / RPO par service TIC
+5. 5. Architecture de secours et stratégie de bascule
+6. 6. Politique de sauvegardes
+7. 7. Procédures techniques de bascule et de retour arrière
+8. 8. Sécurité des opérations de reprise
+9. 9. Programme de tests techniques
+10. 10. Maintenance en condition opérationnelle et amélioration
+11. Annexes — Schémas, scripts, checklists, KPI
+<PARSED TEXT FOR PAGE: 2 / 11>
+1. Objet, domaine d'application et articulation avec le PCA
+
+1.1 Objet
+Le PAR (Plan d'Assurance des Reprises) définit les dispositions techniques permettant à MétalTech Solutions SAS
+d'assurer la disponibilité et la reprise des services TIC en cas d'incident affectant les serveurs, les applications, le
+réseau, les données ou le cloud. Il est la composante technique du PCA (Plan de Continuité d'Activité — référence
+PCA-MTL-001).
+
+1.2 Domaine d'application
+Critère                    Périmètre
+                           ERP SAP B1, MES Opcenter, PLM Windchill, CRM D365, Power BI, SAP HCM, TalentSoft,
+Services TIC
+                           infrastructure Azure, sauvegardes Veeam, Active Directory, réseau (LAN/WAN/Wi-Fi/VPN)
+Sites                      Site unique Louhans + cloud Azure (PRA, dev/test)
+Utilisateurs               127 collaborateurs + 3 utilisateurs VPN externes + prestataires
+Hypothèses                 Voir §3 — données manquantes marquées [Hypothèse]
+
+1.3 Articulation PCA / PAR
+Le PCA fixe les objectifs métiers (RTO/RPO par activité, gouvernance, communication). Le PAR traduit ces objectifs en
+dispositions techniques pour les services TIC qui les supportent. Toute évolution d'un RTO/RPO métier est propagée
+au PAR ; toute évolution d'architecture TIC est propagée au PCA.
+
+Élément                         PCA (volet métier)                             PAR (volet technique)
+                                                                               PRA ERP/MES/PLM, sauvegardes Veeam
+Cible 1 — Production            RTO 4 h, RPO 1 h
+                                                                               4h, réplique Azure
+Cible 2 — Commercial            RTO 24 h, RPO 8 h                              Mode dégradé CRM D365 + devis Excel
+                                                                               Reporting DAF Excel + reporting SAP
+Cible 3 — Finance               RTO 24 h, RPO 8 h
+                                                                               reconstitué
+                                                                               Cellule SI — décision technique, escalade
+Gouvernance                     Cellule de crise + Directeur de crise
+                                                                               PCA
+                                                                               Communication technique
+Communication                   Matrice PCA Annexe D
+                                                                               éditeurs/intégrateurs
+                                                                               Tests techniques PRA, Veeam, bascule
+Tests                           Exercices de table + call tree
+                                                                               WAN
+                                                                               Revue annuelle PAR + post-mortem
+Amélioration                    Revue annuelle PCA
+                                                                               technique
+Hypothèse : l'articulation PCA/PAR ci-dessus est dérivée du cas pédagogique. Elle suppose une gouvernance unifiée et
+un cycle de revue couplé. En PME, il est recommandé que la même personne pilote PCA et PAR (proposition : Resp. SI
+ou Resp. Qualité).
+
+
+
+2. Inventaire des services TIC et classification
+
+2.1 Inventaire des services TIC
+Code           Service                             Éditeur / Mode        Criticité     Hébergé en
+               ERP SAP Business One (FI, CO,       SAP — v10.0 / On-                   On-premise (HP DL380) + PRA
+TIC-01                                                                   Vital (P1)
+               MM, PP, SD, QM)                     premise                             Azure
+                                                                                       On-premise (HP DL380) + PRA
+TIC-02         Base SAP HANA                       SAP — On-premise      Vital (P1)
+                                                                                       Azure
+TIC-03         MES Siemens Opcenter                Siemens — SaaS        Vital (P1)    Cloud Siemens
+                                                   PTC — Licence
+TIC-04         PLM PTC Windchill                                         Vital (P1)    On-premise + portail cloud
+                                                   perpétuelle
+               CRM Microsoft Dynamics 365                                Essentiel
+TIC-05                                             Microsoft — Cloud                   Cloud Microsoft
+               Sales                                                     (P2)
+                                                                         Essentiel
+TIC-06         Power BI Premium                    Microsoft — Cloud                   Cloud Microsoft
+                                                                         (P2)
+                                                   SAP — v10.0 / On-     Important
+TIC-07         SAP HCM (paie)                                                          On-premise
+                                                   premise               (P3)
+<PARSED TEXT FOR PAGE: 3 / 11>
+                 TalentSoft                                                        Important
+TIC-08                                               Cegid — SaaS                                 Cloud éditeur
+                 (formation/recrutement)                                           (P3)
+                 Plateforme d'intégration (SAP
+TIC-09                                               SAP — On-premise              Vital (P1)     On-premise
+                 PI/PO)
+TIC-10           Active Directory + Azure AD         Microsoft — Hybride           Vital (P1)     On-premise + Azure AD
+                                                                                   Essentiel
+TIC-11           Messagerie (M365)                   Microsoft — Cloud                            Cloud Microsoft
+                                                                                   (P2)
+TIC-12           Réseau LAN (ToR, VLAN)              Interne                       Vital (P1)     On-premise
+                 Réseau WAN / Internet (fibre
+TIC-13                                               Opérateur                     Vital (P1)     Opérateur externe
+                 500+100 Mbps)
+                 Wi-Fi (12 points d'accès Wi-Fi                                    Essentiel
+TIC-14                                               Interne                                      On-premise
+                 6)                                                                (P2)
+                 VPN SSL Fortinet (accès                                           Essentiel
+TIC-15                                               Fortinet                                     On-premise
+                 distants)                                                         (P2)
+TIC-16           Firewall FortiGate 200E             Fortinet                      Vital (P1)     On-premise
+                 Sauvegardes Veeam (snapshots
+TIC-17                                               Veeam                         Vital (P1)     On-premise + Azure Blob
+                 4 h)
+                 Antimalware Sophos Intercept
+TIC-18                                               Sophos                        Vital (P1)     On-premise + cloud Sophos
+                 X
+                                                                                   Important
+TIC-19           WMS Sage X3                         Sage — On-premise                            On-premise
+                                                                                   (P3)
+                 Outil ticketing Jira Service                                      Important
+TIC-20                                               Atlassian — Cloud                            Cloud Atlassian
+                 Management                                                        (P3)
+                                                     Atlassian + Microsoft —       Important
+TIC-21           Wiki Confluence + SharePoint                                                     Cloud
+                                                     Cloud                         (P3)
+                 Impression (5 multifonctions                                      Essentiel
+TIC-22                                               Kyocera — On-premise                         On-premise
+                 Kyocera)                                                          (P2)
+
+2.2 Classification (échelle de criticité TIC)
+Niveau                     Définition                                                RTO max                 RPO max
+                           Arrêt = arrêt de production ou impact
+Vital (P1)                                                                           4h                      1h
+                           client/contractuel immédiat
+                           Arrêt = dégradation forte mais récupération rapide
+Essentiel (P2)                                                                       24 h                    8h
+                           possible
+Important (P3)             Arrêt = report tolérable sans impact direct client        72 h                    24 h
+
+
+
+3. Dépendances techniques et prestataires
+
+3.1 Cartographie des dépendances
+                                       Dépendances amont (qui dépend de ce                Dépendances aval (dont ce service
+Service TIC
+                                       service)                                           dépend)
+                                       Production, commercial, finance, RH,               TIC-02 SAP HANA, TIC-09 SAP PI/PO, TIC-10
+TIC-01 ERP SAP B1
+                                       qualité, ADV                                       AD, TIC-13 WAN
+                                                                                          TIC-12 LAN, TIC-16 FortiGate, alimentation
+TIC-02 SAP HANA                        TIC-01, TIC-07 (paie), reporting Power BI
+                                                                                          électrique
+                                       Production atelier (12 CN + 3 CMM + 25
+TIC-03 MES Opcenter                                                                       TIC-09 SAP PI/PO, TIC-13 WAN (SaaS)
+                                       capteurs)
+                                                                                          TIC-12 LAN, TIC-13 WAN (portail),
+TIC-04 PLM Windchill                   BE / méthodes / industrialisation
+                                                                                          sauvegardes Veeam
+TIC-09 Plateforme intégration          Tous les flux inter-applications                   TIC-12 LAN, TIC-13 WAN
+                                       Authentification de toutes les applications
+TIC-10 AD / Azure AD                                                                      TIC-12 LAN, Azure cloud
+                                       et postes
+                                       Cloud (Azure, SaaS divers), sites distants,
+TIC-13 WAN / Internet                                                                     Opérateur fibre, fournisseur d'accès
+                                       VPN
+TIC-16 FortiGate                       Tous les flux réseau entrants/sortants             TIC-12 LAN, TIC-13 WAN, alimentation
+                                       Restauration de tous les services on-
+TIC-17 Veeam                                                                              Stockage on-premise, Azure Blob, réseau
+                                       premise
+<PARSED TEXT FOR PAGE: 4 / 11>
+3.2 Prestataires et contrats de support
+Service                          Prestataire                Type de contrat               Niveau de service
+                                                            Mise à jour + support 18%     Support 24/7 éditeur, éditeur
+SAP Business One                 SAP (contrat Emerald)
+                                                            prix licence                  officiel
+                                                                                          SLA Siemens SaaS, mises à jour
+Siemens Opcenter                 Siemens                    Inclus dans SaaS
+                                                                                          trimestrielles
+                                                                                          Support heures ouvrées,
+PTC Windchill                    PTC (intégrateur local)    Maintenance 22%
+                                                                                          intégrateur local
+Microsoft Dynamics /
+                                 Microsoft                  Licences + support en ligne   SLA Azure 99,9%
+Power BI / M365
+HP Hardware (serveurs
+                                 HP CarePack                3 ans, réponse onsite J+1     Onsite J+1
+DL380)
+                                 Prestataire sécurité       Contrat de maintenance
+Fortinet FortiGate                                                                        Heures ouvrées
+                                 local                      annuel
+Opérateur fibre (500 + 100
+                                 Opérateur télécom          Contrat opérateur             Bascule automatique, lien backup
+Mbps)
+Veeam (sauvegardes)              Prestataire interne SI     Licence + support éditeur     Heures ouvrées
+                                                            Contrat de tierce             Support 8/5, intervention sur
+Intégrateur SAP / MES            Prestataire externe
+                                                            maintenance                   demande
+DPO externe                      Cabinet Legaltech          Contrat annuel                Notification 72 h RGPD, conseil
+                                                                                          Déclaration incident,
+Assureur cyber                   AXA Cyber Secure           Couverture 2 M€
+                                                                                          accompagnement
+                                 [À confirmer — projet      En cours de mise en place
+SOC externalisé                                                                           Surveillance 24/7 (projet)
+                                 2026]                      (~15 k€/an)
+
+
+
+4. Exigences de reprise — RTO / RPO par service TIC
+Les valeurs ci-dessous reprennent et traduisent les objectifs métiers du PCA (cf. PCA §4) en objectifs techniques pour
+chaque service TIC. Toute modification d'un objectif métier doit entraîner la révision des lignes correspondantes du
+présent tableau.
+
+Code        Service TIC                          Priorité   RTO         RPO         Mode dégradé
+                                                                                    Reprise sur PRA Azure ; bascule instance
+TIC-01      ERP SAP Business One                 P1         4h          1h
+                                                                                    répliquée
+TIC-02      Base SAP HANA                        P1         4h          1h          Snapshots Veeam + restauration sur Azure
+                                                                                    Suivi production manuel + OF papier +
+TIC-03      MES Opcenter                         P1         4h          4h
+                                                                                    relevés machines
+                                                                                    Cache local CAO + suspension nouveaux
+TIC-04      PLM Windchill                        P1         8h          8h
+                                                                                    OF
+                                                                                    Devis Excel + standard téléphonique +
+TIC-05      CRM Dynamics 365                     P2         24 h        8h
+                                                                                    Outlook
+TIC-06      Power BI                             P2         24 h        24 h        Reporting Excel reconstitué
+TIC-07      SAP HCM (paie)                       P3         48 h        24 h        Paie externalisée (récupération tableur)
+                                                                                    Inscriptions reportées — pas d'impact
+TIC-08      TalentSoft                           P3         72 h        72 h
+                                                                                    immédiat
+            Plateforme intégration SAP                                              Saisie manuelle dans ERP pendant la
+TIC-09                                           P1         4h          1h
+            PI/PO                                                                   coupure
+                                                                                    Comptes de service locaux + procédure
+TIC-10      Active Directory + Azure AD          P1         4h          1h
+                                                                                    dégradée
+TIC-11      Messagerie M365                      P2         24 h        4h          Communication Teams + téléphone
+TIC-12      LAN (ToR, VLAN)                      P1         4h          N/A         Mode isolé par VLAN critique
+                                                                                    Bascule lien 100 Mbps ; suspension
+TIC-13      WAN / Internet                       P1         1h          N/A
+                                                                                    services cloud non vitaux
+TIC-14      Wi-Fi                                P2         8h          N/A         Points d'accès filaires de secours
+                                                                                    Accès via 4G/5G nominatif + MFA
+TIC-15      VPN SSL Fortinet                     P2         8h          N/A
+                                                                                    renforcée
+                                                                        1h          Règles manuelles ; isolement VLAN si
+TIC-16      Firewall FortiGate                   P1         4h
+                                                                        (config)    nécessaire
+                                                            1h
+TIC-17      Sauvegardes Veeam                    P1                     1h          Sauvegardes Azure Blob
+                                                            (démarr
+<PARSED TEXT FOR PAGE: 5 / 11>
+                                                       age
+                                                       restaura
+                                                       tion)
+TIC-18     Antimalware Sophos               P1         4h         N/A         Isolement poste ; investigation manuelle
+TIC-19     WMS Sage X3                      P3         48 h       24 h        Inventaire manuel + bons papier
+TIC-20     Jira Service Management          P3         24 h       8h          Tableau Excel partagé + email
+                                                                              Documentation PCA/PAR imprimée en
+TIC-21     Wiki Confluence + SharePoint     P3         72 h       24 h
+                                                                              annexe
+TIC-22     Impression Kyocera               P2         24 h       N/A         Imprimantes locales de secours
+Note : les RTO/RPO sont alignés avec ceux du PCA pour les activités P1 (Production/SI). Les services TIC qui ne sont pas
+en P1 portent un RTO plus long car leur interruption n'affecte pas directement les processus vitaux identifiés dans le
+PCA.
+
+4.1 Hypothèses et données manquantes
+   Hypothèse : les RTO/RPO ci-dessus sont estimés sur la base du cas (RTO 4 h / RPO 1 h confirmés par test PRA mars
+    2026) et d'extrapolations raisonnées pour les services non explicitement chiffrés.
+   Donnée manquante : les RTO/RPO détaillés pour les services P2 et P3 n'ont pas fait l'objet d'un atelier BIA — à
+    valider par un test technique initial.
+   Hypothèse : la latence réseau WAN peut affecter le MES temps réel ; la stratégie de bascule prévoit un seuil
+    d'alerte à 200 ms.
+   Hypothèse : Azure SLA 99,9% (≈ 8,7 h d'indisponibilité/an) couvre les incidents régionaux ; un PRA hors-région
+    reste à étudier.
+
+
+
+5. Architecture de secours et stratégie de bascule
+
+5.1 Architecture cible (état actuel et trajectoire)
+L'architecture existante, telle que documentée dans le cas, repose sur :
+
+   3 serveurs HP ProLiant DL380 Gen10 (128 Go RAM, 20 To SSD RAID 10) en salle serveur on-premise.
+   2 VMs Azure (Std_D4s_v3) hébergeant le PRA (réplique des serveurs) et 2 environnements de pré-production.
+   Stockage Azure Blob (tier archive) pour la rétention longue durée des sauvegardes.
+   2 liens fibre (principal 500 Mbps, backup 100 Mbps) avec bascule automatique.
+   VLAN segmentation (production, bureau, invité, IoT).
+   Firewall FortiGate 200E UTM en coupure Internet / DMZ.
+
+Hypothèse : l'architecture PRA actuelle fonctionne en mode « réplique froide » (failover automatique décrit dans le
+cas). Le présent PAR retient cette hypothèse ; un test technique est requis pour confirmer le délai effectif de bascule
+et l'écart éventuel avec le RTO de 4 h.
+
+5.2 Stratégie de bascule par scénario
+Scénario                    Stratégie de bascule                                            Sens (vers où)
+S-TIC-01 — Panne serveur
+                            Bascule PRA Azure → ac va on réplique → redirec on
+on-premise (HANA, ERP,                                                                      On-premise → Azure
+                            utilisateurs
+PLM)
+S-TIC-02 — Panne Azure      Bascule PRA hors-région (à mettre en place) ou retour on-
+                                                                                            Azure → On-premise
+(région)                    premise
+S-TIC-03 — Coupure fibre                                                                    Fibre principale → Fibre
+                            Bascule lien 100 Mbps → suspension services cloud non P1
+Internet                                                                                    backup
+S-TIC-04 — Panne MES        Mode manuel OF papier + relevés machines ; rattrapage après
+                                                                                            Production → Manuel
+(SaaS)                      reprise
+S-TIC-05 — Panne PLM
+                            Cache local CAO sur postes BE ; suspension nouveaux OF          PLM → Cache local
+Windchill
+S-TIC-06 — Ransomware /     Isolation VLAN, déconnexion Azure, restauration Veeam (RPO
+                                                                                            Production → Veeam
+chiffrement                 1 h)
+<PARSED TEXT FOR PAGE: 6 / 11>
+S-TIC-07 — Panne firewall    Règles manuelles + isolement VLAN ; réimage FortiGate depuis        FortiGate → Règles
+FortiGate                    config                                                              manuelles
+S-TIC-08 — Panne Active      Comptes locaux de service ; procédure d'authentification
+                                                                                                 AD → Comptes locaux
+Directory                    dégradée
+S-TIC-09 — Corruption
+                             Restauration snapshot Veeam ou bascule PRA Azure                    HANA → Veeam ou Azure
+base SAP HANA
+S-TIC-10 — Compromission
+                             Suspension intégration ; bascule sur mode manuel                    SaaS → Manuel
+fournisseur SaaS
+
+5.3 Retour arrière (failback)
+Le retour arrière s'effectue après vérification :
+
+12. 1. Cause racine identifiée et corrigée (post-mortem technique).
+13. 2. Tests d'intégrité des données effectués (checksum, cohérence applicative).
+14. 3. Validation utilisateurs clés (production, qualité, ADV).
+15. 4. Plan de retour documenté (fenêtre de maintenance, communication utilisateurs).
+16. 5. Bascule inverse en sens inverse, vérification synchronisation.
+17. 6. Surveillance renforcée 48 h post-retour.
+18. 7. Documentation de l'incident et mise à jour du PAR.
+
+
+
+6. Politique de sauvegardes
+
+6.1 Politique
+Élément                                   Politique actuelle                         Cible PAR
+Outil                                     Veeam Backup                               Veeam (à confirmer)
+Fréquence — serveurs de fichiers          Snapshot toutes les 4 h                    Maintenu (cf. cas)
+                                                                                     Quotidien + logs transactionnels en
+Fréquence — bases SAP HANA                Non précisé — à confirmer
+                                                                                     continu (cible)
+Rétention — court terme                   30 jours                                   Maintenu
+Rétention — long terme                    Azure Blob tier archive                    1 an minimum (cible)
+                                                                                     Règle 3-2-1 (3 copies, 2 supports, 1
+Stockage                                  On-premise + Azure Blob
+                                                                                     hors site)
+Chiffrement                               Non précisé — à confirmer                  AES-256 au repos + TLS en transit
+Test de restauration                      À formaliser                               Trimestriel (cf. §9)
+
+6.2 Matrice de sauvegardes par service
+Service TIC                        Type de sauvegarde                 Fréquence cible               Rétention
+                                   Snapshot VM + backup base          4 h (VM) / continu (HANA      30 j on-prem + 1 an
+ERP SAP B1 + HANA
+                                   transactionnel                     logs)                         archive
+MES Opcenter                       Sauvegarde SaaS éditeur            Selon éditeur                 Selon éditeur
+                                   Snapshot VM + sauvegarde
+PLM Windchill                                                         Quotidien                     30 j + 1 an archive
+                                   fichiers CAO
+CRM Dynamics 365                   Sauvegarde Microsoft native        Selon SLA Microsoft           30 j
+                                   Sauvegarde modèles Power BI
+Power BI                                                              Hebdomadaire                  30 j
+                                   + datasets
+Active Directory                   Sauvegarde system state            Quotidien                     30 j
+Fichiers utilisateurs              Snapshot Veeam                     4h                            30 j
+Configurations FortiGate /                                            À chaque changement +
+                                   Export configuration                                             1 an
+switchs                                                               mensuel
+
+6.3 Tests de restauration
+Chaque jeu de sauvegarde doit être testé au moins trimestriellement sur un environnement isolé. Les résultats
+(succès/échec, durée, complétude) sont consignés dans le rapport de test (Annexe C).
+<PARSED TEXT FOR PAGE: 7 / 11>
+7. Procédures techniques de bascule et de retour arrière
+
+7.1 Procédure générique de bascule (PRA)
+19. 1. Détection incident et qualification par la Cellule SI (P1 / P2 / P3).
+20. 2. Décision d'activation du PRA par le Responsable SI (P1) ou par le Directeur de crise (P1 majeur).
+21. 3. Notification interne : ouverture canal Teams #incident-si.
+22. 4. Vérification de l'état de la réplique Azure (cohérence, dernière synchronisation).
+23. 5. Activation de la réplique Azure (script documenté — Annexe A).
+24. 6. Redirection DNS / VPN vers Azure ou modification clients SAP.
+25. 7. Tests de connectivité utilisateurs (échantillon : production, qualité, ADV).
+26. 8. Communication aux métiers (cf. matrice PCA Annexe D).
+27. 9. Bascule effective, surveillance renforcée pendant 4 h.
+28. 10. Journalisation horodatée (système + journal de crise).
+
+7.2 Procédure générique de retour arrière (failback)
+29. 1. Vérification cause racine corrigée.
+30. 2. Validation intégrité données.
+31. 3. Fenêtre de maintenance planifiée (faible activité : vendredi soir ou weekend).
+32. 4. Synchronisation inverse Azure → on-premise.
+33. 5. Bascule trafic.
+34. 6. Tests utilisateurs.
+35. 7. Surveillance renforcée 48 h.
+36. 8. Post-mortem technique (cf. §10).
+
+7.3 Procédures spécifiques (extraits)
+Procédure S-TIC-01 — Bascule PRA ERP SAP B1
+
+37. Pré-requis : réplique Azure synchronisée à < 1 h, dernières sauvegardes Veeam valides.
+38. Action 1 : déclenchement script Azure Runbook 'Start-ERP-PRA'.
+39. Action 2 : bascule DNS public sap-pri.metaltech.local → IP Azure.
+40. Action 3 : notification utilisateurs via Teams et SMS (matrice communication PCA).
+41. Action 4 : vérification SAP MMC (r 绿灯 vert).
+42. Action 5 : tests de bout en bout : connexion, transaction, OF, reporting.
+43. Critère de succès : OF créés et consultables, reporting cohérent, transactions validées.
+
+Procédure S-TIC-06 — Ransomware
+
+44. Pré-requis : IRP cyber déclenché (cf. §8), isolement VLAN immédiat.
+45. Action 1 : déconnexion Azure (compte admin coupé).
+46. Action 2 : identification portée (audit AD, scanner EDR Sophos).
+47. Action 3 : notification CSIRT (24 h) — DPO — Assureur cyber.
+48. Action 4 : restauration depuis Veeam (snapshot pré-attaque, RPO cible 1 h).
+49. Action 5 : reconstruction progressive des services (post-mortem préalable).
+50. Critère de succès : production relance sans réinfection ; intégrité données vérifiée.
+
+
+
+8. Sécurité des opérations de reprise
+
+8.1 Mesures de sécurité applicables pendant la reprise
+   Authentification MFA obligatoire pour toutes les opérations de bascule (admin SI).
+   Journalisation exhaustive des actions (logs AD, FortiGate, Azure Activity Log).
+<PARSED TEXT FOR PAGE: 8 / 11>
+     Coffre-fort mots de passe admin (accès justifié et tracé).
+     Validation à 4 yeux pour les changements de configuration critiques (firewall, AD, PRA).
+     Isolation réseau des services en cours de restauration (VLAN dédié).
+     Chiffrement des sauvegardes et des canaux de transfert.
+     Surveillance EDR (Sophos Intercept X) renforcée pendant la fenêtre de reprise.
+     Notification DPO en cas de fuite de données confirmée (RGPD — 72 h).
+     Notification CSIRT en cas d'incident cyber (NIS2 — 24 h alerte, 72 h notification).
+
+8.2 Intégration avec le SMSI et NIS2
+MétalTech vise la certification ISO 27001 (audit Q4 2026) et est qualifiée d'« entité importante » au sens de NIS2. Le
+présent PAR s'inscrit dans cette trajectoire :
+
+     Mesures A.5 à A.8 de l'Annexe A ISO 27001:2022 couvertes (sauvegardes, journalisation, contrôle d'accès, gestion
+      des incidents).
+     Reporting NIS2 : alerte 24 h, notification 72 h, rapport final 1 mois.
+     RGPD : notification CNIL 72 h en cas de violation de données personnelles.
+     Cyberassurance AXA : déclaration dans les 24 h, accompagnement juriste + remédiation.
+
+
+
+9. Programme de tests techniques
+
+9.1 Calendrier annuel des tests
+Mois        Type de test               Service TIC testé              Responsable              Critère de succès
+M+1         Test PRA complet           ERP SAP + MES + PLM            Resp. SI                 RTO 4 h respecté
+            Test restauration
+M+2                                    Fichiers + base SAP HANA       Admin SI                 Restauration intègre < 2 h
+            Veeam
+M+3         Test bascule WAN           Lien fibre 500 / 100 Mbps      Admin SI                 Bascule < 1 h
+M+4         Test PRA PLM               PLM Windchill                  Resp. SI                 Données CAO accessibles
+            Test cyber (phishing
+M+5                                    Tous les utilisateurs          Resp. SI + DPO           Taux de clic < 5%
+            simulé)
+            Exercice tabletop
+M+6                                    Tous services P1               Resp. SI                 Activation < 30 min
+            cellule SI
+            Test PRA hors-région (si                                  Resp. SI + Azure
+M+7                                    ERP SAP                                                 RTO 4 h respecté
+            mis en place)                                             admin
+            Test restauration
+M+8                                    Fichiers + PLM                 Admin SI                 Intégrité 100%
+            Veeam
+M+9         Test panne MES SaaS        MES Opcenter                   Resp. SI                 Mode manuel opérationnel
+            Test compromission
+M+10                                   Réseau + firewall              Resp. SI                 Reconstruction < 4 h
+            FortiGate
+            Test cyber                                                                         Restauration Veeam
+M+11                                   Cellule SI + DPO               Resp. SI + DPO
+            (ransomware simulé)                                                                effective
+            Bilan annuel tests +
+M+12                                   Tous                           Resp. SI + DG            Plan d'action validé
+            mise à jour PAR
+Hypothèse : la fréquence des tests est dimensionnée à une équipe SI de 3 personnes. Les tests PRA complets sont
+semestriels (cas : mars 2026 / à venir septembre 2026) ; les tests de restauration Veeam sont trimestriels.
+
+9.2 Indicateurs de performance du PAR
+Indicateur                                                 Cible                 Mesure
+% de services P1 testés dans l'année                       100%                  Plan de tests
+RTO moyen observé en test                                  ≤4h                   Rapport post-test
+RPO moyen observé en test                                  ≤1h                   Rapport post-test
+% de tests réussis du premier coup                         ≥ 80%                 Historique tests
+Délai moyen de détection incident                          ≤ 30 min              Monitoring
+Délai moyen d'activation PRA                               ≤1h                   Journal de crise
+# d'incidents ayant déclenché le PAR sur 12 mois           Suivi                 Historique
+% d'actions correctives closes < 90 j                      ≥ 90%                 Suivi REX
+<PARSED TEXT FOR PAGE: 9 / 11>
+10. Maintenance en condition opérationnelle et amélioration
+
+10.1 Maintenance du PAR
+   Mise à jour annuelle lors de la revue de direction SI/Qualité.
+   Mise à jour à chaque changement majeur (nouveau service, migration, évolution d'architecture).
+   Test PRA programmé en mars et septembre de chaque année (calqué sur l'historique du cas).
+   Audit interne SMSI (en lien avec ISO 27001 cible Q4 2026).
+
+10.2 Post-mortem technique
+Après chaque activation du PAR ou incident majeur :
+
+51. 1. Réunion REX sous 10 jours (Cellule SI + métiers impactés).
+52. 2. Analyse cause racine (méthode 5-Why ou Ishikawa).
+53. 3. Plan d'actions correctives (responsable, échéance).
+54. 4. Mise à jour du PAR (procédures, contacts, scripts).
+55. 5. Communication au CODIR (synthèse 1 page).
+
+10.3 Plan d'actions priorisé (PAR — J+90)
+Réf.          Action                                                        Responsable                Échéance   Priorité
+PAR-DOC-
+              Formaliser les scripts de bascule PRA Azure (Annexe A)        Resp. SI + Admin SI        M+1        Haute
+01
+PAR-TST-01    Programmer les 12 tests techniques de l'année                 Resp. SI                   M+1        Haute
+              Confirmer et formaliser la fréquence de sauvegarde SAP HANA
+PAR-SAV-01                                                                  Admin SI                   M+1        Haute
+              (logs transactionnels)
+              Mettre en place le coffre-fort mots de passe admin et la
+PAR-SEC-01                                                                  Resp. SI                   M+1        Haute
+              validation à 4 yeux
+PAR-NIS-01    Préparer le template de notification CSIRT (NIS2 24 h)        Resp. SI + DPO             M+2        Haute
+                                                                                                                  Moyenn
+PAR-ARC-01    Étudier un PRA hors-région Azure (objectif RTO 4 h garanti)   Resp. SI + DAF             M+3
+                                                                                                                  e
+PAR-MES-      Documenter la procédure mode dégradé MES Opcenter (OF         Resp. SI + Dir.                       Moyenn
+                                                                                                       M+2
+01            papier)                                                       Production                            e
+              Mettre en place une alerte latence WAN > 200 ms (impact                                             Moyenn
+PAR-LAT-01                                                                  Admin SI                   M+2
+              MES)                                                                                                e
+PAR-AUD-
+              Intégrer le PAR dans la démarche ISO 27001 (audit Q4 2026)    Resp. SI + Resp. Qualité   M+3        Haute
+01
+PAR-FRM-                                                                                                          Moyenn
+              Former l'équipe SI + prestataires aux procédures de bascule   Resp. SI                   M+3
+01                                                                                                                e
+<PARSED TEXT FOR PAGE: 10 / 11>
+Annexes techniques
+
+Annexe A — Scripts de bascule (structure)
+Les scripts sont versionnés dans le dépôt Git interne (projet metaltech-pra). Chaque script comprend : pré-requis,
+vérification préalable, étapes idempérentes, vérifications post-bascule, journalisation, notifications.
+
+Code                 Script                                                   Cible
+S-PRA-01             Start-ERP-PRA.ps1                                        Bascule ERP SAP B1 vers Azure
+S-PRA-02             Start-PLM-PRA.ps1                                        Bascule PLM Windchill vers Azure
+S-VEE-01             Restore-Veeam-Files.ps1                                  Restauration fichiers Veeam
+S-VEE-02             Restore-Veeam-HANA.ps1                                   Restauration base SAP HANA
+S-WAN-01             Switch-WAN-Backup.ps1                                    Bascule fibre principale → backup
+S-FW-01              Apply-FortiGate-Backup.ps1                               Restauration config FortiGate
+S-AD-01              Restore-AD-SystemState.ps1                               Restauration Active Directory
+S-MES-01             MES-Degraded-Mode-Checklist.md                           Mode dégradé MES Opcenter (manuel)
+
+Annexe B — Architecture PRA (schéma descriptif)
+Représentation textuelle de l'architecture PRA (cf. cas §7.3 Infrastructure technique) :
+
+[Site Louhans — salle serveur] → 3x HP DL380 Gen10 (SAP HANA, ERP, PLM, AD, ﬁchiers)
+
+     │ (réplica on asynchrone 15 min, snapshots Veeam 4 h)
+
+     ▼
+
+[Cloud Azure — région France Central] → 2x VMs Std_D4s_v3 (PRA, dev/test) + Azure Blob (archives)
+
+     │ (lien ﬁbre site 500 Mbps / backup 100 Mbps)
+
+     ▼
+
+[Utilisateurs : postes + VPN] — bascule DNS / clients SAP en cas d'activation PRA
+
+Annexe C — Check-list post-test PRA
+#        Vérification                                         Résultat (OK/KO/N/A)      Commentaire
+1        Cause racine identifiée                              []
+2        RPO réel observé (delta dernière synchro)            []
+3        RTO réel observé (durée totale de bascule)           []
+         Tests de bout en bout (OF, transaction,
+4                                                             []
+         reporting)
+         Validation utilisateurs clés (production, qualité,
+5                                                             []
+         ADV)
+         Intégrité données (checksum, cohérence
+6                                                             []
+         applicative)
+7        Sécurité pendant la reprise (logs, MFA, 4 yeux)      []
+         Communication effectuée (matrice PCA
+8                                                             []
+         Annexe D)
+9        Surveillance renforcée 48 h                          []
+10       Plan d'actions correctives (RCA)                     []
+
+Annexe D — Liste des contacts techniques (à compléter)
+Rôle                             Nom                               Téléphone                  Email
+Responsable SI                   Kevin Morel                       [À compléter]              [À compléter]
+Administrateur SI                Sarah Benali                      [À compléter]              [À compléter]
+Intégrateur SAP                  [À compléter]                     [À compléter]              [À compléter]
+Support Siemens                  [Inclus SaaS]                     [À compléter]              [À compléter]
+Support PTC                      [À compléter]                     [À compléter]              [À compléter]
+<PARSED TEXT FOR PAGE: 11 / 11>
+Microsoft Premier Support   [À confirmer]                [À compléter]              [À compléter]
+Support Veeam               [À compléter]                [À compléter]              [À compléter]
+Support Fortinet            [À compléter]                [À compléter]              [À compléter]
+Opérateur fibre             [À compléter]                [À compléter]              [À compléter]
+DPO externe                 Cabinet Legaltech            [À compléter]              [À compléter]
+CSIRT / ANSSI               Portail ANSSI                https://cert.ssi.gouv.fr   cert@ssi.gouv.fr
+AXA Cyber Secure            N° contrat : [À compléter]   [À compléter]              [À compléter]
+
+Annexe E — Glossaire
+   PAR : Plan d'Assurance des Reprises (équivalent du Disaster Recovery Plan / DRP).
+   RTO (Recovery Time Objective) : durée d'interruption admissible avant reprise.
+   RPO (Recovery Point Objective) : perte de données admissible (décalage maximal des sauvegardes).
+   PRA : Plan de Reprise d'Activité (terme français) — désigne ici l'infrastructure de secours Azure.
+   ERP / MES / PLM / CRM : progiciels de gestion intégrés (cf. cas §7).
+   NIS2 : directive (UE) 2022/2555 — cybersécurité des entités essentielles et importantes.
+   SMSI : Système de Management de la Sécurité de l'Information (ISO 27001).
+   EDR : Endpoint Detection and Response (ici Sophos Intercept X).
+   MFA : Multi-Factor Authentication.
+   CSIRT : Computer Security Incident Response Team (en France : CERT-FR / ANSSI).
+   Hypothèses clés : tous les RTO/RPO P2/P3, fréquences de sauvegarde HANA, mode détaillé du PRA Azure sont des
+    hypothèses à confirmer en atelier technique avec la cellule SI.
+
+Annexe F — Références documentaires
+   Cas pédagogique « MétalTech Solutions SAS » — version 1, juin 2026.
+   ISO/IEC 27031:2011 — Lignes directrices pour la planification de la continuité des TIC (cadre).
+   ISO/IEC 27001:2022 — SMSI (cadre, certification visée Q4 2026).
+   ISO 22301:2019 — Continuité d'activité (cadre du PCA associé PCA-MTL-001).
+   NIST SP 800-34 Rev. 1 — Contingency Planning Guide (référence méthodologique complémentaire).
+   Directive (UE) 2022/2555 (NIS2).
+   Règlement (UE) 2016/679 (RGPD).
+   EN 9100:2018 — QMS Aéronautique.
+   Documentation Veeam, Fortinet, SAP, Siemens, PTC, Microsoft (éditeurs).

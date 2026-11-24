@@ -1,0 +1,766 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+<PARSED TEXT FOR PAGE: 1 / 20>
+                                                                                                06/10/2026
+
+
+
+
+Identity & Access
+Management (IAM)
+Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA
+
+
+
+
+Pourquoi l’IAM est stratégique
+
+
+ Réduire le risque : comptes orphelins, privilèges excessifs,
+  usurpation.
+ Fluidifier l’expérience : accès cohérent, SSO, self-service.
+ Prouver la conformité : qui a accès à quoi, pourquoi et quand ?
+ Échelle : collaborateurs, partenaires, clients, machines et services.
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   2
+<PARSED TEXT FOR PAGE: 2 / 20>
+                                                                                                                      06/10/2026
+
+
+
+
+Le modèle AAA
+
+                                                                            À retenir : une authentification
+                                                                             réussie ne vaut pas
+ Authentication — prouver une
+                                                                             autorisation.
+  identité.
+                                                                            Les journaux doivent relier sujet,
+ Authorization — décider ce
+                                                                             ressource, action, contexte et
+  qu’elle peut faire.
+                                                                             résultat.
+ Accounting / Auditing — tracer
+                                                                            Le moindre privilège et la
+  les actions et décisions.
+                                                                             séparation des tâches
+                                                                             complètent AAA.
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            3
+
+
+
+
+Composants d’un système IAM
+
+
+ Identité : annuaire, attributs,                                           Contrôle : gouvernance,
+  identifiant unique.                                                        recertification, audit.
+ IAM : cycle de vie,                                                       Protection : PAM, secrets,
+  workflows, provisioning, SSO.                                              détection et réponse.
+ Accès : IdP, MFA, fédération,
+  politiques.
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            4
+<PARSED TEXT FOR PAGE: 3 / 20>
+                                                                                                                                        06/10/2026
+
+
+
+
+                           Authentification : facteurs et
+                                              assurance
+
+
+             Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                         5
+
+
+
+
+Multi Factor Authentication MFA
+
+ Le MFA (Multi-Factor Authentication, ou authentification multifacteur) consiste à exiger au moins deux
+  preuves d'identité de natures différentes avant d'accorder l'accès. Si un facteur est volé (un mot de passe,
+  par exemple), l'attaquant ne peut pas entrer sans le second.
+ Les trois familles de facteurs
+
+       Facteur                                  Principe                                      Exemples
+
+       Connaissance                             Ce que vous savez                             Mot de passe, code PIN
+
+                                                                                              Application d'authentification, clé
+       Possession                               Ce que vous avez                              de sécurité physique, carte à
+                                                                                              puce, téléphone
+                                                                                              Empreinte digitale,
+       Inhérence                                Ce que vous êtes
+                                                                                              reconnaissance faciale
+
+
+ Deux mots de passe ne font pas un MFA : il faut deux familles différentes.
+
+
+
+             Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                         6
+<PARSED TEXT FOR PAGE: 4 / 20>
+                                                                                                                       06/10/2026
+
+
+
+
+MFA, passwordless et récupération
+
+
+                                                                             Anti-patterns : SMS comme unique
+ MFA résiste mieux au phishing qu’un
+                                                                              barrière, push fatigue, questions
+  mot de passe seul.
+                                                                              secrètes.
+ Préférer les passkeys / WebAuthn aux
+                                                                             Mesurer : taux d’adoption, échecs,
+  OTP quand possible.
+                                                                              verrouillages, contournements.
+ Prévoir enrôlement, perte d’appareil,
+                                                                             Récupération = parcours
+  facteurs de secours et support.
+                                                                              d’authentification à haut risque.
+
+
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            7
+
+
+
+
+Protocoles : quand utiliser quoi ?
+
+
+ LDAP : accès à un annuaire ;                                               SAML : fédération web
+  pas un protocole SSO web.                                                   d’entreprise, assertions signées.
+ Kerberos : tickets et                                                      Auth 2.0 / OIDC : délégation et
+  authentification mutuelle en                                                identité moderne via jetons.
+  domaine.
+
+
+
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            8
+<PARSED TEXT FOR PAGE: 5 / 20>
+                                                                                                                                06/10/2026
+
+
+
+
+LDAP
+
+ LDAP (Lightweight Directory Access Protocol) est un protocole informatique standard qui permet de centraliser,
+  gérer et consulter des informations sur les utilisateurs et les ressources d'un réseau informatique.
+ Il fonctionne comme un annuaire électronique géant hautement optimisé pour la lecture rapide des données :
+•   Centralisation des identités : Au lieu de créer un compte pour chaque utilisateur sur chaque machine ou
+    application, toutes les informations (identifiants, mots de passe, emails, rôles) sont stockées à un seul endroit.
+•   Authentification unique (SSO) :
+•   Il permet à un employé d'utiliser un seul identifiant et mot de passe pour se connecter à son ordinateur, à sa boîte
+    mail et aux outils de son entreprise.
+•   Gestion des permissions : LDAP permet de regrouper les utilisateurs (par exemple, le groupe "Ressources
+    Humaines") pour leur donner accès à des dossiers spécifiques.
+
+
+              Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                9
+
+
+
+
+Kerberos
+
+
+ Kerberos est un protocole d'authentification réseau conçu pour vérifier l'identité
+  d'un utilisateur ou d'une machine de manière hautement sécurisée.
+ Son rôle est de permettre à un utilisateur de prouver son identité auprès d'un
+  serveur (et vice versa) via un réseau qui n'est pas sécurisé (comme internet ou un
+  réseau d'entreprise), sans jamais faire circuler de mots de passe en clair sur le
+  réseau.
+ Son nom fait référence au chien à trois têtes de la mythologie grecque, Cerbère,
+  car le protocole repose sur trois entités clés (le "triumvirat").
+
+
+              Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                               10
+<PARSED TEXT FOR PAGE: 6 / 20>
+                                                                                              06/10/2026
+
+
+
+
+LDAP et Kerberos
+
+
+LDAP organise des entrées (DN), attributs et groupes ;
+ sécuriser par TLS et ACL.
+Kerberos délivre des tickets via KDC : TGT puis ticket de
+ service.
+Attention aux horloges, SPN, délégation et comptes de
+ service.
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   11
+
+
+
+
+Single Signe On SSO
+
+
+
+ Le SSO (Single Sign-On), ou Authentification Unique en français, est
+  un mécanisme qui permet à un utilisateur de se connecter une
+  seule fois à l'aide d'un unique couple d'identifiants (nom d'utilisateur
+  et mot de passe) pour accéder automatiquement à plusieurs
+  applications ou sites web distincts.
+
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   12
+<PARSED TEXT FOR PAGE: 7 / 20>
+                                                                                                                06/10/2026
+
+
+
+
+SAML
+
+
+ SAML (Security Assertion Markup Language) est un protocole
+  standard ouvert basé sur le format XML qui permet d'échanger des
+  informations d'authentification et d'autorisation entre deux entités
+  distinctes.
+ Son objectif principal est de permettre le Single Sign-On (SSO), c'est-
+  à-dire de permettre à un utilisateur de se connecter une seule fois
+  pour accéder à plusieurs applications web différentes, sans avoir à
+  ressaisir ses identifiants.
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                   13
+
+
+
+
+Modèle d ’accès 1/2
+
+ les modèles peuvent être regroupés selon les aspects suivants
+    Le système ciblé
+    La principale propriété de sécurité du modèle : intégrité ou confidentialité des données.
+    Le type de contrôle : le modèle est orienté vers le contrôle des accès directs ou le contrôle
+     des flux indirects d'information (lutte contre l'inférence et les canaux cachés).
+ Les deux éléments constituant un modèle d'accès sont :
+    Un ensemble de stratégie (aspects généraux de la sécurité de l'organisation) et de règles
+     d'accès (aspects opérationnels de la stratégie d'accès) qui définissent comment un sujet
+     (quel mode d'accès) peut accéder aux objets.
+    L’ouverture du système
+    Un ensemble de procédures de contrôle qui garantit qu'une requête ne modifie pas
+     illégalement l'état de la base, i.e. la requête est autorisée, ne donne pas accès, ne détruit
+     pas et ne modifie pas des données protégées de la base.
+
+
+          Master Système d’Information – UCLY                                              © Eric Disson
+<PARSED TEXT FOR PAGE: 8 / 20>
+                                                                      06/10/2026
+
+
+
+
+Modèle d ’accès 2 / 2
+
+Flux d ’information (read + write)
+Intégrité => Contrôle de flux, séparation /
+ cloisonnement des droits
+« Container » d ’information
+Orientation du contrôle de flux
+Inférence et canaux cachés
+Obligation
+Autorisation vs interdiction ou les deux !
+       Master Système d’Information – UCLY            © Eric Disson
+
+
+
+
+Les modèles discrétionnaires
+(Discretionary Access Control)
+
+Définition : « Les modèles de sécurité discrétionnaires
+ contrôlent l'accès à l'information par les utilisateurs sur la
+ base de l'identité des utilisateurs et des règles qui
+ spécifient pour chaque utilisateur ou groupe
+ d'utilisateurs quels droits ou modes d'accès ils possèdent
+ sur les entités sécurisées du système. »
+Concepts : utilisateur, objet, groupe (relation
+ d ’inclusion), règle d ’accès, mode d ’accès.
+
+       Master Système d’Information – UCLY            © Eric Disson
+<PARSED TEXT FOR PAGE: 9 / 20>
+                                                                                                             06/10/2026
+
+
+
+
+Les modèles discrétionnaires (DAC)
+implantation
+Matrice d ’accès : modèle Access Matrix
+ (HRU) [HARR76]
+orienté utilisateur : capacité (capability)
+orienté ressource : Access Control List
+ (ACL)
+orienté « conteneur » : RBAC
+          Master Système d’Information – UCLY                                                © Eric Disson
+
+
+
+
+La Matrice HRU
+
+
+ triptyque (S, O, A), S pour Subjects, O pour Objects et A pour
+  Access.
+ Modes d ’accès :
+    read                                       Sujets                      Objets
+
+    write                                                  O1                Oj                Om
+
+    append                                      S1      A[S1, O1]         A[S1, Oj]         A[S1, Om]
+                                                  ...
+    execute                                      SI     A[Si, O1]   ...   A[Si, Oj]   ...   A[Si, Om]
+    + own                                        ...
+                                                 Sn      A[Sn, O1]         A[Sn, Oj]         A[Sn, Om]
+
+
+
+
+          Master Système d’Information – UCLY                                                © Eric Disson
+<PARSED TEXT FOR PAGE: 10 / 20>
+                                                                                                           06/10/2026
+
+
+
+
+Le modèle Take-Grant [JONE76]
+
+Modèle pour la gestion de la propagation des droits
+Concepts : propriétaire, gestionnaire
+Commandes :
+     Take
+     Grant
+     Create
+     Remove / Revoke
+
+
+
+            Master Système d’Information – UCLY                                            © Eric Disson
+
+
+
+
+Le modèle Take-Grant : commandes
+
+ "Take" (d,s,x,y) : le sujet s donne le droit d sur le sujet (ou objet) y depuis le sujet (objet) x ; s
+  doit avoir le privilège "Take" sur x et x doit avoir le droit d sur y. L'effet de cette opération
+  est la construction d'un arc supplémentaire, défini par d, de s à
+ "Grant" (d,s,x,y) : le sujet s octroie le droit d du sujet (objet) y au sujet (objet) x ; s doit avoir
+  le privilège "Grant" sur x et x doit avoir le droit d sur y. L'effet de cette opération entraîne la
+  construction d'un arc supplémentaire, défini par d, de s à y
+ "Create" {sujetp | objetp(s,x) : le sujet s crée le sujet (objet) x et octroie les droits p sur x.
+  Cette opération crée un nouveau noeud représentant x et un arc de s à x.
+ "Removep" (s,x) : le sujet s reprend le droit p qu'il avait octroyé à x. L'arc de s à x est
+  supprimé.
+
+
+
+            Master Système d’Information – UCLY                                            © Eric Disson
+<PARSED TEXT FOR PAGE: 11 / 20>
+                                                                 06/10/2026
+
+
+
+
+Propagation et gestion des droits
+
+ DAC stricte
+ DAC libérale :
+   un niveau de libéralité
+   2 ou n niveaux
+ DAC avec changement de propriétaire
+ DAC à révocation indépendante ou dépendante
+ Problèmes des modèles discrétionnaires
+   Gestion de la propagation
+   Gestion des flux
+   Trojan Horse
+
+
+        Master Système d’Information – UCLY      © Eric Disson
+
+
+
+
+Les modèles à sécurité obligatoire
+MAC
+ Objectifs : contrôle de flux unidirectionnel
+ TCSEC B1
+ Modèle Bell LaPadula (1976)
+ Concepts :
+   hiérarchie de sensibilité
+   sujet (physique et mandaté) habilitation
+   objet (niveau de sensibilité)
+   catégorie (hiérarchie d ’inclusion)
+   session (niveau de sensibilité)
+
+
+        Master Système d’Information – UCLY      © Eric Disson
+<PARSED TEXT FOR PAGE: 12 / 20>
+                                                                                                                 06/10/2026
+
+
+
+
+  Axiomatiques MAC
+
+   Moniteur de référence
+   Choix du niveau de la session
+   Un utilisateur ne peut connaître l'information contenue dans un objet
+    que si l'habilitation de cet individu domine le niveau de classification
+    de l'objet.
+    - Property »
+       Axiome en lecture : un utilisateur peut lire les objets de niveaux dominés par le niveau
+        de sa session
+       Axiome en écriture stricte : un utilisateur peut écrire les objets de niveaux égaux au
+        niveau de sa session
+       Axiome en écriture libérale : un utilisateur peut écrire les objets de niveaux dominés
+        par le niveau de sa session
+
+            Master Système d’Information – UCLY                                                  © Eric Disson
+
+
+
+
+  Exemple de catégorie MAC
+
+                                                              Catégorie : Finance
+Avec les niveaux de sensibilité =
+                                                              Sujet                  Objet
+{Public, Confidentiel, Secret, Très                        utilisateur         olnom = compte
+Secret}                                                  nom = Durand
+                                                          hab = Secret
+                                                                                    n° 105
+                                                                                olniv = Secret
+et Public  Confidentiel  Secret 
+Très Secret                                           Objet               Objet
+                                                                                             Objet
+                                                  nom = résultat      nom = plan
+                                                                                         nom = salaire
+                                                   des ventes           financier
+                                                                                       niv = Confidentiel
+                                                   niv = Public    niv = Très Secret
+
+
+
+
+            Master Système d’Information – UCLY                                                  © Eric Disson
+<PARSED TEXT FOR PAGE: 13 / 20>
+                                                                                                           06/10/2026
+
+
+
+
+Le modèle Bell - LaPadula (76)
+
+ {non, confidential, secret, top secret}
+ Subject, Object, Category
+ Machine d ’état
+ Access Modes :
+     read
+     write (strict *)
+     append (liberal *)
+     + « own »
+ Propriétés des modèles MAC
+     Classement de l ’information : relation d ’ordre partiel
+     flux d ’information unidirectionnel : le niveau d ’un objet ne peut qu’être « augmenté »
+     Problème : la granularité des objets
+
+
+           Master Système d’Information – UCLY                                             © Eric Disson
+
+
+
+
+Les Modèles de Rôles (1)
+
+ Modèle de Sandhu [96]
+ Concepts de base : utilisateur, objet, rôle, permission,
+  session
+ Hiérarchie de rôle
+ Contraintes
+ Modèle administratif
+ Propriétés
+     Modèle orienté « organisation »
+     Possibilité d ’orienter le contrôle de flux
+     Modèle RBAC pour les modèles MAC ou DAC
+
+           Master Système d’Information – UCLY                                             © Eric Disson
+<PARSED TEXT FOR PAGE: 14 / 20>
+                                                                                                                        06/10/2026
+
+
+
+
+Les Modèles de Rôles (2)
+                                                          Hiérarchie
+                                                           de rôles
+
+
+
+
+                                         Attributions                     Attributions
+                                       des utilisateurs                 des permissions
+
+                  Utilisateurs                            Rôles                           Permissions
+
+
+
+
+                              Sessions                                 Contraintes
+        Master Système d’Information – UCLY                                                             © Eric Disson
+
+
+
+
+Types de contraintes
+
+ rôle « mutuellement exclusif »
+ contrainte de cardinalité.
+ Le concept de rôle pré requis permet d'obliger l'attribution
+  préalable d'un utilisateur à un rôle r1 avant de pouvoir être
+  attribué au rôle r2 sur lequel s'applique la contrainte.
+ Les contraintes peuvent aussi être appliquées sur les sessions et
+  sur les fonctions rôles et utilisateur associées à une session. Le
+  système accepte alors qu'un utilisateur appartienne à deux rôles
+  mais il ne peut alors plus les activer simultanément lors d'une
+  même session. On peut aussi appliquer les contraintes de
+  cardinalités sur une session.
+
+        Master Système d’Information – UCLY                                                             © Eric Disson
+<PARSED TEXT FOR PAGE: 15 / 20>
+                                                                                                                                                    06/10/2026
+
+
+
+
+Les Modèles de Rôles : administration
+                                                                   Hiérarchie
+                                                                    de rôles
+
+                                                                                       Attributions
+                                        Attributions                                 des permissions
+                                      des utilisateurs
+                                                                   Rôles                               Permissions
+
+                   Utilisateurs          Sessions
+
+
+
+                                                                                    Contraintes
+
+
+
+                     Attributions                                     Rôles            Attributions
+                                                                                                        Permissions
+                   administratives                                 administratifs    des permissions   administratives
+                   des utilisateurs                                                  administratives
+
+
+                                                   Hiérarchie
+                                                    de rôles
+                                                  administratifs                                                         nàn
+                                                                                                                         1àn
+        Master Système d’Information – UCLY                                                                                    © Eric Disson
+
+
+
+
+  Autorisation : RBAC, ABAC, PBAC
+
+
+  RBAC : rôle → permissions ;                                                      PBAC : politiques évaluées
+   simple, mais explosion des                                                        par un moteur ; décision
+   rôles.                                                                            centralisée.
+  ABAC : attributs                                                                 Bon départ : deny by
+   sujet/ressource/contexte ;                                                        default, moindre privilège,
+   expressif.                                                                        séparation des tâches.
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                         30
+<PARSED TEXT FOR PAGE: 16 / 20>
+                                                                                                           06/10/2026
+
+
+
+
+Concevoir une politique d’accès
+
+
+Sujet : identité, rôle, niveau d’assurance.
+Ressource : classification, propriétaire, environnement.
+Action : lire, modifier, administrer.
+Contexte : appareil, heure, réseau, risque.
+Décision : autoriser, refuser, demander une étape forte.
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA             31
+
+
+
+
+Moindre privilège PoLP
+
+ Le principe du moindre privilège (PoLP, pour Principle of Least Privilege) consiste à donner
+  à chaque utilisateur, application ou système uniquement les accès stricts et minimaux
+  nécessaires pour accomplir son travail, sans aucun droit superflu.
+ Définition : Un compte informatique (humain ou technique) ne dispose que des
+  permissions indispensables à sa fonction immédiate.
+ Exemple : Un employé du service marketing n'a aucun droit d'accès aux serveurs de
+  production informatique ou aux données financières de l'entreprise.
+ Objectif :
+     Réduire la surface d'attaque.
+     Limiter les mouvements latéraux d'un pirate ou la propagation d'un logiciel malveillant si un
+      compte venait à être compromis
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA             32
+<PARSED TEXT FOR PAGE: 17 / 20>
+                                                                                                                                                  06/10/2026
+
+
+
+
+Séparation des pouvoirs SoD
+
+   La séparation des pouvoirs en cybersécurité correspond au principe de la séparation des tâches (SoD - Segregation
+    of Duties), qui consiste à répartir les rôles et les accès sensibles entre plusieurs personnes ou entités pour qu'aucun
+    individu ne détienne tous les privilèges.
+   Objectifs et fonctionnement
+      Contrôle et prévention : Empêcher qu'un seul utilisateur puisse réaliser une action critique ou frauduleuse de bout en bout.
+      Réduction des risques : Limiter l'impact des erreurs humaines, des abus de pouvoir et des menaces internes ou externes.
+      Cloisonnement : Veiller à ce que la compromission d'un compte ou d'un composant ne se propage pas à l'ensemble du système
+       d'information.
+   Exemples d'application
+      Gestion des accès : La personne qui crée un compte utilisateur ne doit pas être celle qui valide ses habilitations de sécurité.
+      Administration et audit : L'administrateur de la base de données ne doit pas être le seul à pouvoir auditer ses propres journaux de
+       connexion (logs).
+      Gouvernance organisationnelle : Séparer les autorités qui fixent les règles de sécurité, celles qui contrôlent leur application et
+       celles qui exploitent les services.
+
+
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                33
+
+
+
+
+IAM cloud : responsabilités et contrôles
+
+
+ Le fournisseur sécurise le cloud ; le client sécurise identités,
+  données et configuration.
+ Centraliser SSO et MFA ; éviter les comptes locaux persistants.
+ Privilégier les rôles temporaires et les identités de workload.
+ Surveiller API, changements IAM, clés et comptes d’urgence.
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                34
+<PARSED TEXT FOR PAGE: 18 / 20>
+                                                                                                                              06/10/2026
+
+
+
+
+Gouvernance Joiner / Mover / Leaver
+
+
+
+ Joiner : identité créée depuis une source                                   Automatiser les règles ; garder une
+  RH fiable, accès de base.                                                    validation pour les accès sensibles.
+ Mover : changement d’équipe ou de                                           Recertifier propriétaires et managers ;
+  poste, recalcul des droits.                                                  traiter les exceptions datées.
+ Leaver : désactivation rapide, sessions                                     Indicateurs : délai, comptes orphelins,
+  révoquées, secrets tournés.                                                  droits dormants, exceptions.
+
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                 35
+
+
+
+
+PAM : protéger les privilèges
+
+
+ Le privilège devient temporaire et justifié.
+ Coffre de secrets et rotation.
+ Élévation juste-à-temps et approbation.
+ Sessions enregistrées, commandes contrôlées.
+ Comptes break-glass testés et fortement surveillés.
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                 36
+<PARSED TEXT FOR PAGE: 19 / 20>
+                                                                                              06/10/2026
+
+
+
+
+Architecture IAM de référence
+
+
+Sources : RH, annuaires, inventaires et partenaires.
+Plan identité : annuaire, IdP, MFA, fédération, CIEM.
+Plan accès : moteur de politiques, PAM, secrets, proxies.
+Plan preuve : logs, SIEM, recertification et indicateurs.
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   37
+
+
+
+
+Maturité IAM : du réactif au piloté
+
+ Niveau 1 — comptes manuels, visibilité partielle.
+ Niveau 2 — annuaire central, MFA sur périmètre critique.
+ Niveau 3 — JML, SSO, RBAC/ABAC, PAM, logs corrélés.
+ Niveau 4 — politiques adaptatives, accès just-in-time, mesure
+  continue.
+ Niveau 5 — automatisation pilotée par le risque et amélioration
+  continue.
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   38
+<PARSED TEXT FOR PAGE: 20 / 20>
+                                                                                                 06/10/2026
+
+
+
+
+Synthèse : les 10 réflexes IAM
+
+
+ Une identité = un owner, une source et un cycle de vie.
+ Authentifier fort ; autoriser au contexte et au moindre privilège.
+ Séparer humains, machines, workloads et privilèges.
+ Fédérer sans propager de secrets ; valider les jetons.
+ Automatiser JML, recertifier et journaliser.
+ Tester les chemins de récupération et break-glass.
+ Traiter IAM comme un produit : indicateurs, risques, amélioration.
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   39
+
+
+
+
+Questions & discussion
+À retenir : identité fiable • accès minimal • preuve exploitable

@@ -1,0 +1,1651 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+<PARSED TEXT FOR PAGE: 1 / 42>
+FORMATION M2 SIA / Audit et Cybersécurité des SI
+
+
+
+
+      MétalTech Solutions SAS
+
+    PME industrielle de pièces métalliques de précision
+            pour l'automobile et l'aérospatial
+
+
+
+
+                         Juin 2026
+
+                             1
+<PARSED TEXT FOR PAGE: 2 / 42>
+SOMMAIRE
+
+1. INTRODUCTION                                            2
+2. PRÉSENTATION DE L'ENTREPRISE                            3
+3. PROCESSUS DE FABRICATION                                5
+4. PROCESSUS COMMERCIAL                                    7
+5. SUPPLY CHAIN                                            9
+6. PRINCIPAUX PROCESSUS DE GESTION                        11
+7. SYSTÈMES D'INFORMATION ET APPLICATIONS INFORMATIQUES   16
+8. ANALYSE FINANCIÈRE DÉTAILLÉE                           34
+9. QUESTIONS                                              36
+10. ANNEXES                                               37
+11. RESSOURCES COMPLÉMENTAIRES                            38
+
+
+
+
+                                2
+<PARSED TEXT FOR PAGE: 3 / 42>
+1. INTRODUCTION
+
+Contexte du cas
+
+Vous êtes consultant(e) en transformation industrielle et on vous demande d'auditer MétalTech
+Solutions SAS, une PME française spécialisée dans la fabrication de pièces métalliques de
+précision pour les secteurs automobile et aérospatial. Votre mission consiste à :
+
+   Cartographier l'ensemble des processus (fabrication, commercial, supply chain, gestion).
+   Analyser les systèmes d'information et leur intégration.
+   Évaluer la performance financière et organisationnelle.
+   Identifier les axes d'amélioration pour assurer la pérennité et la croissance de l'entreprise.
+
+
+Objectifs pédagogiques
+
+Ce cas permet d'addresser les compétences suivantes :
+
+   Comprendre le fonctionnement d'une PME industrielle dans un contexte de transition
+    numérique et écologique.
+   Analyser les processus de production, commercial et supply chain d'une entreprise
+    manufacturière.
+   Évaluer la performance financière d'une PME et proposer des recommandations stratégiques.
+   Identifier les enjeux de la gestion des ressources humaines dans un secteur en tension.
+   Proposer des axes de transformation digitale et d'amélioration continue.
+
+
+
+
+                                                  3
+<PARSED TEXT FOR PAGE: 4 / 42>
+2. PRÉSENTATION DE L'ENTREPRISE
+
+2.1 Fiche d'identité
+
+ Nom de l'entreprise              MétalTech Solutions SAS
+ Secteur d'activité               Industrie manufacturière - Pièces métalliques
+                                  de précision
+ Date de création                 2005
+ Siège social                     ZAC des 工业园区 - 71500 Louhans, France
+
+ Effectif total                   127 salariés (2025)
+ Chiffre d'affaires 2025          18,4 M€
+ Capital social                   800 000 €
+ Dirigeant                        Pierre Delacroix, PDG
+ Certification ISO 9001           Depuis 2012
+ Certification EN 9100            Depuis 2018
+ Certification IATF 16949         Depuis 2020
+
+
+2.2 Historique et évolution
+
+ Année                            Événement clé
+ 2005                             Création de l'entreprise par Pierre Delacroix à
+                                  Louhans
+ 2008                             Premiers contrats avec l'industrie automobile
+                                  (équipementiers)
+ 2010                             Acquisition de la certification ISO 9001
+ 2012                             Diversification vers l'aérospatial - 1er contrat
+                                  avec un constructeur
+ 2015                             Investissement dans un parc de machines CN
+                                  5 axes - 2,5 M€
+ 2018                             Obtention de la certification EN 9100
+                                  (aérospatial)
+ 2020                             Certification IATF 16949 - Mise en place du
+                                  nouvel ERP
+ 2022                             Extension de 800 m² du site de production
+ 2024                             Lancement du projet Industry 4.0 -
+                                  digitalisation des процессов
+ 2025                             CA = 18,4 M€ - Effectif = 127 salariés
+
+
+
+
+                              4
+<PARSED TEXT FOR PAGE: 5 / 42>
+3. PROCESSUS DE FABRICATION
+
+3.1 Flux de production global
+
+ Étape                     Description                  Durée estimée            Responsable
+ 1. Réception              Analyse du dossier           2-4 h                    Planificateur
+ commande                  technique et                                          production
+                           planification
+ 2. Approvisionnement      Vérification                 1-3 jours                Approvisionneur
+                           disponibilité matières
+                           et outils
+ 3. Programmation          Création des                 4-8 h                    Technicien méthodes
+                           programmes FAO et
+                           simulation
+ 4. Fabrication            Usinage sur                  2-8 h                    Opérateur CN
+                           machines CN -
+                           opération 1
+ 5. Fabrication            Usinage sur                  2-8 h                    Opérateur CN
+                           machines CN -
+                           opération 2+
+ 6. Contrôle qualité       Mesure et validation         30 min - 2 h             Technicien qualité
+                           des pièces
+ 7. Finition               Traitement                   1-3 jours                Technicien surface
+                           thermique,
+                           anodisation,
+                           émerisage
+ 8. Expédition             Conditionnement et           1-2 jours                Magasinier
+                           expédition client                                     expéditeur
+
+
+3.2 Machines utilisées
+
+ Type             Modèle           Nb                   Année           Coût unitaire   Capacité
+                                                                        (k€)
+ Fraiseuse 5      DMG Mori         3                    2019            420             500x500x500
+ axes             DMU 50                                                                mm
+ Fraiseuse 5      Haas VF-         2                    2017            180             500x400x400
+ axes             4SS                                                                   mm
+ Tour CN          Mazak            2                    2018            350             Ø200mm
+                  Integrex i-                                                           L800mm
+                  200
+ Centre de        Hermle C32       2                    2015            280             600x600x500
+ usinage                                                                                mm
+ Rectifieuse      Studer S33       1                    2020            190             Ø300mm
+                                                                                        L500mm
+
+
+
+                                                    5
+<PARSED TEXT FOR PAGE: 6 / 42>
+ Découpe        Trumpf           1                 2016              250          3000x1500
+ laser          TruLaser                                                          mm
+                3030
+ Érodeuse       Sodick           1                 2018              220          600x400x300
+                AG60L                                                             mm
+ Machine        Zeiss            1                 2021              180          900x1200x600
+ mesure         Contura G2                                                        mm
+
+
+3.3 Systèmes d'information liés à la fabrication
+
+ Système                 Fonction                  Éditeur/Version         Année mise en place
+ Siemens NX (PLM)        Conception et FAO         Siemens 2022            2020
+ Siemens Opcenter        Pilotage production       Siemens 2023            2021
+ (MES)
+ SAP S/4HANA (ERP)       Gestion intégrée          SAP 2022                2020
+ SolidWorks              Validation calculs        Dassault Systèmes       2023
+ Simulation                                        2023
+ PolyWorks               Contrôle mesure           Innovmetric 2022        2022
+
+
+
+
+                                               6
+<PARSED TEXT FOR PAGE: 7 / 42>
+4. PROCESSUS COMMERCIAL
+
+4.1 Flux commercial global
+
+ Étape                    Description                Acteur                    Outil
+ Prospection              Identification             Chef des ventes           Salesforce CRM
+                          prospects, salons,
+                          veille
+ Qualification            Analyse besoins et         Chef des ventes           Salesforce CRM
+                          potentiel client
+ Devis                    Élaboration offre          Ingénieur commercial      SAP + Excel
+                          technique et
+                          commerciale
+ Négociation              Discussion prix,           Ingénieur commercial      Email + réunions
+                          délais, conditions         + Direction
+ Commande                 Validation et              Assistant commercial      SAP SD
+                          enregistrement
+                          commande
+ Suivi livraison          Tracking et                Assistant commercial      SAP SD + portal
+                          satisfaction client
+ Facturation              Émission factures et       Service facturation       SAP FI
+                          relances
+ Revenus                  Analyse                    Direction                 Salesforce + BI
+                          performances et            commerciale
+                          fidélisation
+
+
+4.2 Outils utilisés
+
+ Application                      Fonction                           Éditeur
+ Salesforce Sales Cloud           CRM - Gestion relation client      Salesforce
+ SAP S/4HANA SD                   Module commercial ERP              SAP
+ Excel (modèles)                  Calculs coûts et marges            Microsoft
+ Sage Gestimum                    Logiciel comptabilité              Sage
+ Power BI                         Reporting commercial               Microsoft
+
+
+4.3 Exemple de devis détaillé
+
+                                   DEVIS N° DEV-2026-0847
+ Date                              15/04/2026                        Validité: 60 jours
+ Client                            AeroParts International           Contact: Mme Sophie Martin
+ Projet                            Pièces structurales serie
+                                   A320 - Lot 500 pcs
+
+
+                                                 7
+<PARSED TEXT FOR PAGE: 8 / 42>
+Pos          Désignation                   Prix unitaire €
+1            Support structure central -   125,00
+             Ref AP-7854
+2            Bride fixation moteur - Ref   89,50
+             AP-7855
+3            Pièce jointe pale - Ref AP-   67,20
+             7856
+
+
+             TOTAL HT                      281,70 €
+             TVA 20%                       56,34 €
+             TOTAL TTC                     338,04 €
+
+
+Délai        8 semaines après commande
+Conditions   30% à commande, 70% à
+             livraison
+
+
+
+
+                           8
+<PARSED TEXT FOR PAGE: 9 / 42>
+5. SUPPLY CHAIN
+
+5.1 Flux supply chain global
+
+    Acteur                         Flux                            Description
+    Fournisseurs                   Flux entrant                    Acier, aluminium, titanium -
+                                                                   Transport routier
+    Réception                      Contrôle                        Vérification quantités et
+                                                                   qualité
+    Stock                          Stockage                        Gestion automatique avec
+                                                                   WMS
+    Production                     Consommation                    Ordres de fabrication via SAP
+    Expédition                     Flux sortant                    Transport vers clients -
+                                                                   Routier/Avion
+    Clients                        Livraison                       Suivi et satisfaction
+
+
+5.2 Gestion des approvisionnements
+
+MétalTech Solutions utilise une stratégie de double sourcing pour les matières stratégiques afin
+de limiter les risques de rupture. Les stocks de sécurité sont calibrés selon la méthode ABC des
+articles.
+
+    Fournisseur       Matière             CA annuel (k€)     % du total          Délai
+    Aciers du Rhône   Acier carbone       1 850              28%                 J+3
+    Aluminium Sud-    Aluminium           1 420              21%                 J+2
+    Est
+    Titanium Works    Titanium            980                15%                 J+10
+    GmbH
+    Aciers du Nord    Acier carbone       1 320              20%                 J+4
+    Special Metals    Alliages            680                10%                 J+7
+    SA                spéciaux
+    Autres            Divers              380                6%                  Variable
+
+
+5.3 Méthodes de gestion des stocks
+
+L'entreprise utilise une combinaison de méthodes :
+
+     Méthode ABC pour le classement des articles et la priorisation des contrôles
+     Kanban électronique pour les références à forte rotation
+     Stock de sécurité calculé sur la base du lead time et de la demande maximale
+     Inventaire tournant mensuel avec vérification automática
+
+
+
+                                                  9
+<PARSED TEXT FOR PAGE: 10 / 42>
+5.4 Logistique et transport
+
+ Type                   Prestataire              Contrat            Volume mensuel
+ Transport entrant      Transports Durand        Annuel             120 tonnes
+                        SA
+ Transport sortant      Chronopost               Au 全球              800 palettes
+ national
+ Transport sortant      DHL Freight              Annuel             200 palettes
+ international
+ Transport express      FedEx                    Au 全球              50 expéditions
+
+
+5.5 Systèmes d'information supply chain
+
+ Système                        Fonction                    Intégration
+ SAP MM                         Gestion approvisionnement   ERP central
+ SAP WM                         Gestion entrepôt            Module SAP
+ Easy WMS                       WMS expansion               Interface SAP
+ EDI                            Échange documents           VAN/Gateway
+                                fournisseurs
+ RFID                           Traçabilité palettes        En test depuis 2024
+
+
+
+
+                                              10
+<PARSED TEXT FOR PAGE: 11 / 42>
+6. PRINCIPAUX PROCESSUS DE GESTION
+
+6.1 Gestion financière
+
+Structure financière 2025
+
+ Indicateur              2025              2024                 Évolution
+ Chiffre d'affaires      18,4 M€           16,8 M€              +9,5%
+ Marge brute             7,36 M€ (40%)     6,55 M€ (39%)        +12%
+ Charges personnel       5,52 M€           5,1 M€               +8,2%
+ EBE                     2,76 M€ (15%)     2,35 M€ (14%)        +17%
+ Résultat net            1,12 M€ (6,1%)    0,89 M€ (5,3%)       +26%
+ Capacité                1,65 M€           1,38 M€              +20%
+ d'autofinancement
+ Trésorerie nette        2,85 M€           2,2 M€               +30%
+ Dettes financières      3,2 M€            3,5 M€               -8,6%
+ Fonds de roulement      3,4 M€            2,9 M€               +17%
+
+
+Bilan simplifié 2025 (en k€)
+
+ ACTIF                                     PASSIF
+ Immobilisations         4 850             Capital              800
+ Stocks                  2 120             Réserves             3 250
+ Créances clients        3 480             Résultat             1 120
+ Trésorerie              2 850             Dettes long terme    2 800
+                                           Dettes court terme   3 330
+ TOTAL ACTIF             13 300            TOTAL PASSIF         13 300
+
+
+Compte de résultat 2025 (en k€)
+
+ Charges                                   Produits
+ Achats                  7 200             Ventes               18 400
+ Charges externes        2 840             Production           120
+                                           immobilisée
+ Charges personnel       5 520             Autres produits      85
+ Impôts et taxes         480
+ Dotations               680
+ amortissements
+ Charges financières     210
+
+
+                                          11
+<PARSED TEXT FOR PAGE: 12 / 42>
+ Résultat net          1 120
+ TOTAL                 18 050                     TOTAL              18 605
+
+
+Systèmes d'information financiers
+
+ Système                        Fonction                   Éditeur
+ SAP S/4HANA FI                 Comptabilité générale et   SAP
+                                analytique
+ Sage Gestimum                  Paie et social             Sage
+ Kyriba                         Gestion trésorerie         Kyriba
+ Excel VBA                      Reporting et budgétaire    Microsoft
+
+
+
+
+                                                 12
+<PARSED TEXT FOR PAGE: 13 / 42>
+6.2 Gestion des ressources humaines
+
+
+Organigramme des services
+
+ Direction générale         Pierre Delacroix - PDG
+
+
+ Direction Production       Marie Lefebvre - Directeur      74 personnes
+                            Production
+  - Atelier usinage         Jean-Michel Roche - Chef        28 personnes
+                            atelier
+  - Atelier contrôle        Patricia Vidal - Cheffe         12 personnes
+                            contrôle
+  - Atelier montage         Alain Morel - Chef atelier      18 personnes
+  - Methods                 Sophie Bernard -                8 personnes
+                            Responsable méthodes
+  - Maintenance             Michel Durand - Responsable     8 personnes
+                            maintenance
+
+
+ Direction Commerciale      Catherine Roux - Directrice     8 personnes
+                            commerciale
+  - Ventes                  2 ingénieurs commerciaux
+  - ADV                     4 assistantes
+  - Marketing               2 chargées marketing
+
+
+ Direction Technique        Thomas Chevallier - Directeur   12 personnes
+                            technique
+  - BE                      6 ingénieurs
+  - Qualité                 4 ingénieurs qualité
+  - RSSI                    Externe ½ temps Monsieur
+                            Eric Roland
+  - DSI                     Denis Franck – DSI
+  - IT                      2 administrateurs
+  - OT                      1 administrateur
+
+
+
+
+ Direction Administrative   Isabelle Mercier - DAF          33 personnes
+  - Comptabilité            4 personnes
+  - RH                      3 personnes
+
+
+                                            13
+<PARSED TEXT FOR PAGE: 14 / 42>
+  - Achats                     4 personnes
+  - Logistique                 12 personnes
+  - Magasin                    10 personnes
+
+
+
+
+Liste des employés cadres
+
+ Nom             Prénom        Poste               Service       Années exp.   Formation
+ Delacroix       Pierre        PDG                 Direction     25            Ingénieur
+                                                   Générale                    UTC
+ Lefebvre        Marie         Directeur           Production    18            Docteur
+                               Production                                      mécanique
+ Roux            Catherine     Directrice          Commercial    15            ESC Dijon
+                               Commerciale
+ Chevallier      Thomas        Directeur           Technique     12            PhD INSA
+                               Technique                                       Lyon
+ Mercier         Isabelle      Directrice          Admin         20            DSCG
+                               Administrative
+ Roche           Jean-Michel   Chef atelier        Production    22            BTS MAI
+                               usinage
+ Vidal           Patricia      Cheffe              Qualité       14            Ingénieur
+                               contrôle                                        ENSAM
+                               qualité
+ Morel           Alain         Chef atelier        Production    16            BTS MS
+                               montage
+ Bernard         Sophie        Responsable         Méthodes      10            Ingénieur
+                               méthodes                                        ENSAM
+ Durand          Michel        Responsable         Maintenance   19            BTS
+                               maintenance                                     maintenance
+ Moreau          Laurent       Chef des            Commercial    11            Master
+                               ventes                                          commercial
+ Garcia          Ana           Ingénieur           Qualité       8             Ingénieur
+                               qualité                                         qualité
+ Petit           Christophe    Responsable         Technique     13            PhD
+                               BE                                              mécanique
+ Martin          Julie         RH Manager          RH            9             Master RH
+
+
+Systèmes d'information RH
+
+ Système                       Fonction                          Éditeur
+ SAP HCM                       Gestion RH et payroll             SAP
+ TalentSoft                    Formation et compétences          TalentSoft
+
+                                              14
+<PARSED TEXT FOR PAGE: 15 / 42>
+Zep          Plateforme formation   Zep
+Teamtailor   Recrutement            Teamtailor
+
+
+
+
+                           15
+<PARSED TEXT FOR PAGE: 16 / 42>
+6.3 Gestion qualité
+Normes appliquées
+
+ Certification          Scope                   Date obtention               Prochaine audit
+ ISO 9001:2015          Système                 2012 / Recert 2024           Déc 2027
+                        management qualité
+ EN 9100:2018           Aérospatial - QMS       2018 / Recert 2023           Juin 2026
+ IATF 16949:2016        Automobile              2020 / Recert 2023           Sept 2026
+ NADCAP                 Traitements             2021                         Déc 2026
+                        thermiques
+
+
+Processus de contrôle qualité
+
+ Étape                  Type contrôle           Équipement                   Logiciel
+ Réception matière      Analyse chimique,       Spectromètre, Pied à         PolyWorks
+                        dimens.                 coulisse
+ En cours               Contrôle                Machine mesure 3D,           Siemens Opcenter
+                        intermédiaire           Palpeur
+ Fin de ligne           Contrôle final          CMM                          PolyWorks + SAP
+                                                Zeiss,projecteur             QM
+                                                profils
+ Finition               Contrôle 外观             Contrôle visuel outillé      Checklists digitales
+
+
+Systèmes d'information qualité
+
+ Système                         Fonction                          Éditeur
+ SAP QM                          Module qualité ERP                SAP
+ PolyWorks                       Analyse métrologique              Innovmetric
+ Quality Portal                  Gestion non-conformités           Interne
+ Power BI                        tableaux de bord qualité          Microsoft
+
+
+
+
+                                              16
+<PARSED TEXT FOR PAGE: 17 / 42>
+7. SYSTÈMES D'INFORMATION ET APPLICATIONS
+INFORMATIQUES
+
+
+
+1. ARCHITECTURE GLOBALE DU SYSTÈME D'INFORMATION
+Le système d'information de MétalTech Solutions SAS s'articule autour d'une architecture à trois
+niveaux (opérationnel, tactique, stratégique) interconnectée via une plateforme d'intégration.
+Cette architecture permet de répondre aux besoins de traçabilité, de réactivité et de pilotage de
+l'activité industrielle.
+
+1.1 Schéma d'architecture
+ NIVEAU OPÉRATIONNEL             NIVEAU TACTIQUE                  NIVEAU STRATÉGIQUE
+ • ERP (SAP Business One)        • Power BI                       • BI stratégique
+ • MES (Siemens Opcenter)        • Tableaux de bord               • Simulations financières
+ • PLM (PTC Windchill)           production                       • KPIs avance de commande
+ • CRM (Dynamics 365)            • Reporting RH                   • Benchmarking
+ • WMS (sage)                    • Analytics qualité
+ Exécution des opérations        Analyse et décision              Pilotage long terme
+ (Saisie, suivi temps réel)      intermédiaire                    (trimestriel/annuel)
+                                 (hebdomadaire/mensuel)
+
+
+⇒ Le système fonctionne en temps réel sur le périmètre production et stocks. Les données sont
+consolidées quotidiennement pour les reports tactiques et hebdomadairement pour le stratégique.
+
+1.2 Flux d'information entre processus
+Les flux d'information sont orchestrés par l'ERP commehub central, avec des intégrations
+bidirectionnelles:
+
+ FLUX                             DONNÉES ÉCHANGÉES          FRÉQUENCE
+ COMMERCIAL →                     bons de commande clients → Quotidien
+ PRODUCTION                       OF (SAP → MES)
+ PRODUCTION →                     avancements, délais 预估 → Temps réel
+ COMMERCIAL
+                                  disponibilités clients
+ SUPPLY CHAIN →                    réception matières →           Temps réel
+ PRODUCTION                       disponibilités stocks
+ PRODUCTION →                      non-conformités → alertes et   Temps réel
+ QUALITÉ                          suivi
+ FINANCE → TOUS                    coûts réels → analyse          Hebdomadaire
+                                  profitability par affaire
+ RH → PRODUCTION                   planning→ affectation          Hebdomadaire
+                                  opérateurs
+
+
+
+
+                                               17
+<PARSED TEXT FOR PAGE: 18 / 42>
+1.3 Intégration des systèmes
+L'intégration se fait via un middleware SAP PI/PO et des connecteurs natifs:
+
+ SYSTÈMES                         TYPE D'INTÉGRATION               DONNÉES ÉCHANGÉES
+ SAP Business One ↔               API REST / Connecteur            OF, gamme, disponibilités
+ Siemens Opcenter                 OPC-UA
+ SAP Business One ↔ PTC           File gateway / Web Services      Nomenclature, plans,更改
+ Windchill
+ SAP Business One ↔               Connecteur natif Microsoft       Clients, commandes,
+ Dynamics 365                                                      facturation
+ Siemens Opcenter ↔               OPC-UA / MQTT                    Consignes, mesures, alertes
+ Machines
+ Power BI ↔ SAP                   Connecteur Power BI              Extraction tables SAP pour
+                                                                   BI
+
+
+Point clé : La synchronisation est quasi temps réel (< 5 min) pour les données de production et
+stocks. Les données comptables sont synchronisées chaque nuit.
+
+
+
+
+                                                18
+<PARSED TEXT FOR PAGE: 19 / 42>
+2. DÉTAIL DES APPLICATIONS ET OUTILS
+
+2.1 ERP – SAP Business One
+MétalTech Solutions SAS a déployé SAP Business One en 2019 pour remplacer un ERP
+personnaliséobsolète.
+
+L'ERP constitue le cœur du système d'information et centralise l'ensemble des données
+transactionnelles.
+
+
+
+ Module                           Version                         Fonctionnalités principales
+
+ -----------------------          --------------                  ------------------------------------
+                                                                  ----------
+
+ Finance                          SAP B1 10.0                     Comptabilité générale,
+                                                                  analytique, immobilisations,
+                                                                  budgétaire
+
+ Gestion commerciale              SAP B1 10.0                     CRM intégré, devis,
+                                                                  commandes, facturation,
+                                                                  relances
+
+ Gestion production               SAP B1 10.0                     OF, nomenclatures,
+                                                                  gamme,calcultemps, MRP
+
+ Gestion stocks                   SAP B1 10.0                     Articles, emplacements,
+                                                                  inventaires,UM
+
+ RH                               SAP B1 10.0                     Paie externalisée, présence,形
+                                                                  成
+
+ Qualité                          SAP B1 10.0                     Non-conformités, alertes,
+                                                                  traçabilité
+
+Personnalisations réalisées :
+
+• 15 champs utilisateur (UDAF) pouradaptation aux règles métier
+
+• 8 rapports spécifiques développés en Crystal Reports
+
+• 3 formulaires personnalisés (bons delivraison, étiquettes)
+
+• Module "Pilotage Production" développé en interne (interface web)
+
+
+
+Coût total de possession (TCO) : ~85 k€/an (licences + maintenance + hébergement)
+
+                                                   19
+<PARSED TEXT FOR PAGE: 20 / 42>
+2.2 MES – Siemens Opcenter (anciennement SIMATIC IT)
+
+
+Le MES (Manufacturing Execution System) a été déployé en 2021 pour digitaliser le suivi de
+production
+
+et collecter les données machines en temps réel.
+
+
+
+Fonctionnalités principales :
+
+✓ Suivi des ordres de fabrication (OF) : lancement, avancement, fin
+
+✓ Collecte des données machines via OPC-UA (taux de panne, temps de cycle, compteur pièces)
+
+✓ Traçabilité complète : qui, quand, sur quelle machine, avec quels paramètres
+
+✓ Gestion des modes de marche (production, pause, maintenance, incident)
+
+✓ Affectation des opérateurs aux postes de travail
+
+✓ Gestion des ordres de maintenance préventive/curative
+
+
+
+Intégration machines :
+
+• 12 machines CN (fraiseuses, tours, électroérosion) connectées en OPC-UA
+
+• 3 machines de contrôle dimensionnel (CMM) connectées
+
+• Capteurs température et humidité atelier (IoT - 25 capteurs)
+
+
+
+Indicateurs temps réel accessibles :
+
+• TRS (Taux de Rendement Synthétique) – Objectif : 75%
+
+• Taux de rebut – Objectif : < 2%
+
+• Temps de cycle réel vs. théorique
+
+• Nombre de pièces produites / équipe
+
+Coût MES : ~45 k€/an (licence SaaS + connecteurs)
+
+
+                                                20
+<PARSED TEXT FOR PAGE: 21 / 42>
+2.3 PLM – PTC Windchill
+
+
+Le PLM gère l'ensemble des données techniques du cycle de vie des produits : plans 3D,
+nomenclatures,
+
+dossiers de fabrication,/specifications clients.
+
+
+
+Fonctionnalités principales :
+
+✓ Gestion documentaire technique (CAO, PDF, specs)
+
+✓ Gestion des nomenclatures multi-niveaux avec lien vers SAP
+
+✓ Workflow de validation technique (cotraitance interne)
+
+✓ Gestion des versions et configurations
+
+✓ Bibliothèque de pièces standards et composants buys
+
+✓ Lien bidirectionnel avec les postes CAO ( Creo Parametric)
+
+
+
+Collaboration clients :
+
+• Portail client Windchill (accès sécurisé) : partage plans 3D/2D, specs, BAT
+
+• Échanges de fichiers CAO via Windchill (formats : STEP, IGES, PDF 3D)
+
+• Gestion des demandes de modification clients (ECN)
+
+
+
+Données gérées :
+
+• 2 800 articles gérés dans Windchill
+
+• 450 dossiers de définition (pièces uniques)
+
+• 120Go de données CAO
+
+
+
+Intégration SAP : toutes les nomenclatures sont automatiquement synchronisées (quotidien).
+
+
+
+
+                                                   21
+<PARSED TEXT FOR PAGE: 22 / 42>
+Coût PLM : ~38 k€/an (licence perpétuelle + maintenance 22%)
+
+
+
+2.4 CRM – Microsoft Dynamics 365 Sales
+
+
+Le CRM gère la relation commerciale, le suivi des opportunités et la coordination entre les
+fonctions
+
+commerciale et technique.
+
+
+
+Modules déployés :
+
+✓ Sales (gestion des opportunités etpipeline)
+
+✓ Customer Service (suivi des demandesclients, SAV)
+
+✓ Field Service (interventions terrain – peu utilisé)
+
+
+
+Données clés :
+
+• 85 clients actifs (dont 12 en   aérospatial, 73 en       automobile)
+
+• 250 contacts identifiés (acheteurs, méthodes, qualité client)
+
+• Pipeline moyen : 1,2 M€ d'opportunités (taux de conversion ~35%)
+
+
+
+Intégrations :
+
+• Synchronisation automatique des clients et contacts avec SAP Business One
+
+• Lien vers les devis SAP (affichage direct dans Dynamics)
+
+• Reporting vers Power BI (tableau de bord commercial)
+
+
+
+Indicateurs suivis :
+
+• CA par client, marge par affaire, taux de réponse aux appels d'offres
+
+• Délai moyen de réponse aux demandes clients
+
+
+
+                                                 22
+<PARSED TEXT FOR PAGE: 23 / 42>
+Coût CRM : ~18 k€/an (licence 15 utilisateurs)
+
+
+
+2.5 BI et Analytics – Power BI
+
+
+Power BI est utilisé depuis 2022 pour democratiser l'accès aux donnees et accompagner le
+pilotage
+
+operationnel etstrategique.
+
+
+
+Rapports developpes :
+
+
+
+ NIVEAU                   RAPPORT                       FRÉQUENCE          UTILISATEURS
+
+ -------------------      --------------------------    ----------------   ----------------
+                          --------
+
+ Stratégique              Tableau de bord               Hebdomadaire       DG, DAF
+                          Direction
+
+ Production               Pilotage atelier              Quotidien          Responsable
+                                                                           production
+
+ Production               TRS et qualite                Quotidien          Chefs d'equipe
+
+ Commercial               Pipeline et CA                Hebdomadaire       Directeur commercial
+
+ Finance                  Marge par affaire             Mensuel            DAF, Controlling
+
+ RH                       Absenteisme et                Mensuel            DRH
+                          effectif
+
+ Qualite                  Non-conformites               Mensuel            Responsable qualite
+
+ Fournisseurs             Performance-                  Mensuel            Achats
+                          logistique
+
+
+
+Indicateurs cles (KPI) presentes :
+
+• TRS global atelier (75% objectif)
+
+• Taux de service client (90% objectif)
+
+
+                                                       23
+<PARSED TEXT FOR PAGE: 24 / 42>
+• Marge brute (38% objectif)
+
+• Delai moyen de fabrication
+
+• Nombre de non-conformites / 1000 pieces
+
+• Taux de turnover (object < 10%)
+
+• Creancier clients (DSO = 45 jours)
+
+
+
+Connecteurs utilises :
+
+• SAP Business One (via connecteur natif)
+
+• Fichiers Excel partages (donnees externes)
+
+• API REST (donnees MES – environ toutes les 5 min)
+
+
+
+Budget Power BI : ~8 k€/an (licence Premium Per User)
+
+
+
+2.6 Supply Chain et Logistique
+
+
+La gestion de la supply chain s'appuie sur plusieurs outils completes par des processus manuels.
+
+
+
+Outils deployes :
+
+• SAP Business One : gestion des stocks, approvisionnements, commandes fournisseurs
+
+• Module MRP de SAP : calcul des besoins nets et generation des propositions de commande
+
+• Gestion manuelle Excel : planning fournisseurs, reliquats, suivi des tailles de lot
+
+• Portails fournisseurs : commandes electroniques (EDI) avec 8 fournisseurs strategiques
+
+
+
+KPI Supply Chain suivis dans Power BI :
+
+• Delai moyen de livraison fournisseurs (objectif : < 10 jours)
+
+• Taux de rupture de stock (objectif : < 1%)
+
+
+
+                                                 24
+<PARSED TEXT FOR PAGE: 25 / 42>
+• Taux de fournisseurs conformes (ISO 9001, AS9100)
+
+• Nombre de litiges logistiques / mois
+
+
+
+Defis identifies :
+
+• Faible maturite de la planification (MRP non optimise, reorder point empirique)
+
+• Dependance a certains fournisseurs uniques (single-source)
+
+• Pas de visibilite sur les approvisionnements en temps reel (pas de portal fournisseur integre)
+
+
+
+Outils en projet : evaluation de solutions de SRM (Supplier Relationship Management) et TMS
+(Transportation Management).
+
+
+
+Budget SI Supply Chain (incl. Achats) : ~12 k€/an (hors depenses achats)
+
+
+
+2.7 Qualité et Conformité
+
+
+La gestion de la qualite s'appuie sur SAP (module qualite) et des processus complementaires.
+
+
+
+Fonctionnalites qualite dans SAP Business One :
+
+✓ Gestion des non-conformites (NC) internes et externes
+
+✓ Workflow de traitement NC (creation → analyse → action corrective → cloture)
+
+✓ Traçabilite des lots : lien entre lot matiere, lot production, lot client
+
+✓ Alertes qualite en temps reel (defauts declares dans le MES → notification automatique)
+
+
+
+Conformite et certifications :
+
+• ISO 9001 (qualite) : audit annuel bureau Veritas – dernier audit : septembre 2025
+
+• AS9100 (aerospatial) : audit certificateur – novembre 2024
+
+• Nadcap (traitements thermiques) : accreditation en cours de renouvellement
+
+                                                   25
+<PARSED TEXT FOR PAGE: 26 / 42>
+Outils complementaires :
+
+• Fichiers Excel partages : suivi des indicateurs qualite, tableau de bord SPC
+
+• Logiciel externe : module SPC (Statistical Process Control) sur 3 machines de mesure
+
+
+
+Doc add_paragraph('Les donnees qualite sont egalement integrees dans le tableau de bord Power
+BI pour suivi hebdomadaire en COMEX.')
+
+
+
+Coût qualite (SI) : ~6 k€/an (hors personnel qualite)
+
+
+
+2.8 Sécurité et Infrastructure
+
+
+La securite du SI est managed en interne avec l'appui d'un prestataire externe pour la supervision.
+
+
+
+Infrastructure reseau :
+
+• Topologie : ToR (Top of Rack) avec VLAN-segmentation (production, bureau, invite, IoT)
+
+• Connexion Internet : 2 liens fiber (principal 500 Mbps, backup 100 Mbps)
+
+•Wifi : 12 points d'acces Wi-Fi 6 couvre atelier et bureaux
+
+
+
+Securite deployee :
+
+• Firewall : Fortinet FortiGate 200E (UTM complet)
+
+• Antimalware : Sophos Intercept X (postes + serveur)
+
+• Authentification : Active Directory + MFA pour acces sensibles
+
+• Chiffrement : BitLocker sur postes et serveurs
+
+• VPN : Fortinet SSL-VPN pour acces distant (3 utilisateurs reguliers)
+
+
+
+
+                                                   26
+<PARSED TEXT FOR PAGE: 27 / 42>
+Conformite :
+
+• ISO 27001 : certification en cours d'obtention (audit prevu Q4 2026)
+
+• RGPD : registre des traitements a jour, DPO externe (cabinet Legaltech)
+
+• NIS2 : evaluation en cours (entreprise considered "importante" selon criteria EU)
+
+
+
+CyberAssurance : contrat Axa Cyber Secure (couverture 2 M€)
+
+
+
+Sauvegardes et PRA :
+
+• Sauvegarde : Veeam Backup (snapshot toutes les 4h, retention 30 jours)
+
+• Replica serveur sur cloud Azure (failover automatique)
+
+• Test PRA annuel (dernier test : mars 2026 – RTO = 4h, RPO = 1h)
+
+
+
+Budget securite SI : ~28 k€/an
+
+
+
+
+                                               27
+<PARSED TEXT FOR PAGE: 28 / 42>
+3. INFRASTRUCTURE TECHNIQUE
+
+L'infrastructure technique de MétalTech Solutions SAS combine des ressources on-premise et
+cloud.
+
+ Composant                         Description                  Caracteristiques/Version
+ Serveurs                          On-premise (salle serveur)   3 serveurs HP ProLiant
+                                                                DL380 Gen10, 128 Go RAM,
+                                                                20 To SSD RAID 10
+ Serveurs                          Cloud (Azure)                2 VMs Azure (Std_D4s_v3)
+                                                                pour PRA et dev/test
+ Postes de travail                 Poste fixe et portable       45 postes Windows 11 Pro,
+                                                                15 portables (Dell Latitude)
+ Equipements industriels           Machines connectees          12 CN + 3 CMM + 25
+                                                                capteurs IoT
+ Impression                        Parc.Imprimantes             5 multifonction Kyocera
+                                                                (gestion centralisee)
+ Telephonie                        IPBX                         3CX (solution logicielle), 30
+                                                                postes SIP
+
+
+Strategie Cloud
+MétalTech Solutions SAS adopte une strategie cloud hybride :
+
+
+
+ON-PREMISE (70% des charges de travail) :
+
+• ERP, MES, PLM, fichiers (performances, latence)
+
+• Base de donnees SAP sur serveur local (SAP HANA)
+
+• Donnees sensibles (propriete intellectuelle, plans clients)
+
+
+
+CLOUD PUBLIC – Azure (30%) :
+
+• PRA (disaster recovery) : replica automatique des VMs
+
+• Env dev/test : 2 environnements de pre-production
+
+• Backup Azure Blob (tier archive – retention longue duree)
+
+• Services manageds : Azure AD, monitoring Azure Monitor
+
+
+
+
+                                                 28
+<PARSED TEXT FOR PAGE: 29 / 42>
+Avantages identifies :
+
+✓ Redondance et disponibilite (SLA Azure 99,9%)
+
+✓ Elasticite pour les pics de charge (dev/test)
+
+✓ Reduite les couts de maintenance materiel
+
+
+
+Inconvenients identifies :
+
+✗ Cout recurrent (environ 18 k€/an)
+
+✗ Latencereseau pourMES (peut impacte le temps reel)
+
+✗ Dependance au reseau (panne internet = impact production)
+
+
+
+Budget cloud Azure : ~18 k€/an
+
+
+
+
+                                                  29
+<PARSED TEXT FOR PAGE: 30 / 42>
+4. PROCESSUS DE GESTION DU SI
+
+La gestion du SI repose sur une equipe interne reduite et des partenaires externes.
+
+ Poste                             Nom                               Experience
+ Responsable SI                    Kevin Morel                       12 ans (ex-ingenieur
+                                                                     production)
+ Administrateur SI                 Sarah Benali                      5 ans (ex-technicienne
+                                                                     support)
+ Developpeur interne               Vacant                            Recrutement en cours (profil
+                                                                     full-stack)
+
+
+4.1 Maintenance et mises a jour
+
+
+Processus de maintenance deploye :
+
+• SAP Business One : mise a jour annuelle (SP + Support Pack) – prevu mois de juillet
+
+• Windows 11 : mises a jour patch Tuesday ( chaque 2e mardi du mois)
+
+• Siemens Opcenter : mise a jour trimestrielle (SaaS – automatique)
+
+• Power BI : mises a jour continues (mensuelles)
+
+
+
+Gestion des changements :
+
+• Procedure de changement documentee (formulaire, test pre-prod, validation, deploiement)
+
+• Changes majeurs traites en comite SI (hebdomadaire)
+
+• Changes de production : fenetres definies (vendredi soir, weekend)
+
+
+
+SLA interne defini : priorite 1 (panne critique) < 4h, priorite 2 < 24h, priorite 3 < 1 semaine
+
+
+
+Contrats de support :
+
+• SAP : contrat Emerald (mise a jour + support – 18% du prix licence)
+
+• Siemens : inclus dans le SaaS
+
+• Hardware : contrat HP CarePack (3 ans, reponse onsite J+1)
+
+
+                                                  30
+<PARSED TEXT FOR PAGE: 31 / 42>
+4.2 Gestion des incidents
+
+
+Outil de ticketing : Jira Service Management (deploiement en 2023)
+
+
+
+Workflow de gestion des incidents :
+
+1. Declaration (utilisateur) → ticket cree automatiquement
+
+2. Classification (equipe SI) → priorite, categorie, assignee
+
+3. Resolution ou escalade
+
+4. Validation utilisateur → cloture
+
+5. Analyse post-incident (si incident majeur)
+
+
+
+Statistiques 2025 :
+
+• 420 tickets traites (taux de resolution < 24h : 78%)
+
+• Top 3 causes : imprimantes (25%), acces reseau (20%), application SAP (18%)
+
+• Temps moyen de resolution : 6,2 heures
+
+
+
+Formation et support :
+
+• Support de niveau 1 : equipe SI (3 personnes) – handles 70% des demandes
+
+• Support de niveau 2 : prestataires externes (SAP, integrateur MES)
+
+• Formation : 2 sessions par an (SAP nouveaux utilisateurs, Excel avance)
+
+• Documentation : Wiki interne (Confluence) – 120 articles
+
+
+
+Budget formation SI : ~5 k€/an
+
+
+
+
+                                                 31
+<PARSED TEXT FOR PAGE: 32 / 42>
+4.3 Budget du SI
+
+
+ Poste budgetaire                Montant annuel (k€)             % du budget SI
+ Licences logicielles (SAP,      175                             38%
+ MES, PLM, CRM)
+ Maintenance et support          42                              9%
+ Infrastructure (cloud,          85                              18%
+ hardware)
+ Securite (licences, audit,      28                              6%
+ cyberassurance)
+ Personnel (remunerations +      95                              21%
+ charges)
+ Formation et documentation      12                              3%
+ Prestations externes            25                              5%
+ (integrateur, conseils)
+ TOTAL                           462                             100%
+
+
+Le budget SI represente environ 3,5% du chiffre d'affaires (CA 2025 : 13,2 M€).
+
+
+
+Return on Investment (ROI) des investissements SI :
+
+ Projet                  Investissement          Economies/Benefices     ROI (3 ans)
+ Deploiement MES         120 k€                  40 k€/an (reduct.       +100%
+ (2021)                                          rebuts, amelioration
+                                                 TRS)
+ Power BI (2022)         25 k€                   15 k€/an (temps         +180%
+                                                 reporting - 60%)
+ Cybersecurite (2023-    65 k€                   Avoidance incident      N/A (prevention)
+ 24)                                             majeur (est. 200 k€)
+
+
+
+
+                                              32
+<PARSED TEXT FOR PAGE: 33 / 42>
+5. ENJEUX ET DÉFIS DU SYSTÈME D'INFORMATION
+
+Le SI de MétalTech Solutions SAS doit répondre à plusieurs enjeux stratégiques pour les années
+à venir.
+
+5.1 Obsolescence technologique
+Points d'obsolescence identifies :
+
+• SAP Business One version 10 : fin de support prevue fin 2027 → migration S/4HANA Cloud
+necessaire
+
+• Windows 10 : fin de support octobre 2025 → upgrade a Windows 11 requis
+
+• Equipements reseau (firewall, switchs) : 5 ans d'age, renouvellement prevu 2026
+
+• 12 postes de travail (sur 60) ont + de 5 ans → remplacer
+
+
+
+Actions prevues :
+
+✓ Projet migration SAP S/4HANA : etude en cours (budget estime 350-500 k€ sur 3 ans)
+
+✓ Plan de renouvellement materiel : 25 k€/an (而不是 un gros investissement)
+
+✓ Migration Windows 11 : en cours (fin prevue Q1 2026)
+
+
+
+
+5.2 Cyber-risques et conformite
+Enjeux de securite et conformite :
+
+CYBER-RISQUES :
+
+• Menace croissante des ransomware (PME industrielles cibles depuis 2023)
+
+• Attaques spear-phishing visant les donnees techniques (espionnage industriel)
+
+• Mise en place d'un SOC (Security Operations Center) externalise
+
+• Budget prevu pour SOC : ~15 k€/an (projet 2026)
+
+
+
+
+                                                33
+<PARSED TEXT FOR PAGE: 34 / 42>
+CONFORMITE :
+
+• RGPD : renforcement des process (consentements clients, politique de retention)
+
+• NIS2 : directive europeenne – classification comme "entite importante" probable
+
+ → obligations : reporting incident 24h, Cyberscore minimal, gouvernance
+
+• ISO 27001 : certification visee Q4 2026 (prerequis pour contrats aerospatiaux)
+
+
+
+IMPACT SI : ces obligations vont generer des charges supplémentaires (audit externe,
+documentation, gouvernance).
+
+5.3 Integration des nouvelles technologies
+Technologies evaluatees pour les 3 prochaines annees :
+
+
+
+INTELLIGENCE ARTIFICIELLE :
+
+• Maintenance predictive : analyse des donnees machines (Siemens Analytics)
+
+ → Projet pilote prevu 2026 sur 3 machines CN (budget : 40 k€)
+
+• QA visuel : detection de defauts par vision (Deep Learning)
+
+ → Test en cours (solution Cognex) – ROI potentiel eleve
+
+
+
+JUMEAUX NUMERIQUES :
+
+• Mise en place d'un jumeau numerique de la ligne de production
+
+ → Utilisation pour optimisation des flux, formation, simulation
+
+ → Budget prevu : 80 k€ (projet 2027)
+
+
+
+FABRICATION ADDITIVE :
+
+• Besoin de specifique pour clients aerospatiaux (pieces complexes)
+
+ → SI doit supporter la gestion de la production additive (PLM + ERP)
+
+ → Impact modere sur le SI actuel
+
+
+
+
+                                               34
+<PARSED TEXT FOR PAGE: 35 / 42>
+OBJETS CONNECTES (IIoT) :
+
+• Extension du reseau de capteurs (temperature, vibration,energie)
+
+ → Collecte de donnees pour optimisation energétique
+
+ → Projet greenIT prevu 2026
+
+5.4 Alignement du SI avec la strategie industrielle
+Le SI doit accompagner la strategie de developpement de l'entreprise :
+
+
+
+STRATEGIE METALTECH 2025-2028                           | BESOIN SI CORRESPONDANT
+
+----------------------------------------|-----------------------------------------
+
+Croissance CA (15%/an)                     | Scalabilite ERP/MES, automation commerciale
+
+Diversification aerospatial (30% CA) | Conformite AS9100, traçabilite etanche
+
+Reduction empreinte carbone (-15%)              | Mesure et pilotage energetique (IoT)
+
+Industrie 4.0 (usine connectee)            | MES etendu, jumeau numerique, IA
+
+Recrutement (10 nouveaux salaries)             | SIRH evolue, formation, Onboarding digital
+
+
+
+ROADMAP SI 2025-2028 :
+
+• 2025 : Migration Windows 11, upgrade Power BI Premium
+
+• 2026 : Debut projet SAP S/4HANA, SOC, maintenance predictive
+
+• 2027 : Migration SAP S/4HANA (phase 1), jumeau numerique
+
+• 2028 : Achevement transformation SI, certification ISO 27001
+
+
+
+
+                                                         35
+<PARSED TEXT FOR PAGE: 36 / 42>
+8. ANALYSE FINANCIÈRE DÉTAILLÉE
+
+8.1 Budget prévisionnel 2026
+
+ Poste                      Budget 2026              Réalisé 2025          Écart
+ Chiffre d'affaires         20,0 M€                  18,4 M€               +8,7%
+ Achats directs             8,5 M€                   7,2 M€                +18%
+ Marge brute                11,5 M€ (57,5%)          7,36 M€ (40%)         N/A
+ Charges externes           3,1 M€                   2,84 M€               +9%
+ Charges personnel          5,95 M€                  5,52 M€               +8%
+ EBE                        2,45 M€ (12,3%)          2,76 M€ (15%)         -11%
+ Investissements            1,8 M€                   0,9 M€                +100%
+ Résultat net               1,0 M€                   1,12 M€               -11%
+
+
+8.2 Plan d'investissement 2026-2030
+
+ Année                      Projet                   Montant (M€)          Financement
+ 2026                       Nouvelle machine CN      0,65                  CREDIT BAIL
+                            5 axes DMG
+ 2026                       Modernisation WMS        0,35                  CASH
+ 2027                       Extension bâtiment       1,2                   EMPRUNT
+                            (500m²)
+ 2027                       Automatisation ligne     0,9                   CREDIT BAIL
+                            montage
+ 2028                       Nouvelle salle propre    1,5                   EMPRUNT
+                            pour traitements
+ 2028                       Digitalisation           0,6                   SUBVENTION +
+                            процессов (IA)                                 CASH
+ 2029-2030                  Parc machines            2,5                   CREDIT BAIL +
+                            renouvellement                                 CASH
+
+
+8.3 Analyse des ratios financiers
+
+ Ratio                2025                2024                 Benchmark         Commentaire
+ Taux marge           40%                 39%                  35-45%            Correct - secteur
+ brute
+ TauxEBE/CA           15%                 14%                  10-15%            Bon
+ Taux résultat net    6,1%                5,3%                 4-8%              Correct
+ Taux                 24%                 28%                  <40%              Sain
+ endettement
+
+
+                                                    36
+<PARSED TEXT FOR PAGE: 37 / 42>
+BFR (jours CA)      78       82            60-90    Un peu élevé
+Trésorerie (jours   57       48            30-60    Correct
+CA)
+Capacité            1,9 an   2,5 an        <3 ans   Sain
+remboursement
+
+
+
+
+                                      37
+<PARSED TEXT FOR PAGE: 38 / 42>
+9. QUESTIONS
+
+9.1 Partie 1 : Analyse des processus et Audit des SI
+
+9.1.1 Cartographiez le processus de fabrication en identifiant les points critiques et les goulots
+d'étranglement. Cartographier les types d’information par processus.
+
+9.1.2 Proposez des améliorations pour optimiser le flux de production et réduire les temps de
+changement de série.
+
+9.1.3 Analysez le processus commercial et suggérez des axes pour améliorer le taux de
+conversion des devis.
+
+9.1.4 Évaluez la supply chain et proposez des actions pour renforcer la résilience face aux
+ruptures d'approvisionnement.
+
+
+9.2 Partie 2 : Cybersécurité
+
+9.2.1 Analyse de surface d'attaque OT/IT
+MetalTech exploite un MES Siemens communiquant en OPC-UA/MQTT avec 25 capteurs IoT et
+12 machines à commande numérique, interconnecté à l'ERP. Identifiez les principaux risques de
+convergence IT/OT dans cette architecture et proposez trois mesures de segmentation réseau
+(VLAN, DMZ industrielle, firewall OT) pour limiter la propagation d'une attaque depuis le SI de
+gestion vers l'atelier de production.
+
+9.2.2 Gestion des vulnérabilités et obsolescence logicielle
+Le parc de MetalTech repose sur Windows 10 (fin de support en octobre 2025) et un ERP dont le
+support s'arrête fin 2027, sur des équipements réseau vieux de 5 ans. En vous appuyant sur une
+méthodologie de gestion des risques (ex. EBIOS RM ou ISO 27005), évaluez l'impact de cette dette
+technique et proposez un plan de remédiation priorisé sur 18 mois.
+
+9.2.3 Protection de la propriété intellectuelle sensible (PLM/CAO)
+Le PLM Windchill héberge 120 Go de données CAO incluant des spécifications liées à
+l'aéronautique (A320). Quelles mesures techniques et organisationnelles (chiffrement, DLP,
+gestion des accès, traçabilité) recommanderiez-vous pour protéger ces données contre l'espionnage
+industriel, en tenant compte des exigences EN 9100/NADCAP ?
+
+9.2.4 Réponse à incident : scénario ransomware
+En supposant un scénario de ransomware ciblant l'ERP et les serveurs de fichiers de MetalTech
+(PME industrielle, équipe SI de 3 personnes, absence de SOC), rédigez un plan de réponse à
+incident simplifié (détection, confinement, éradication, restauration via Veeam/Azure,
+communication) adapté aux ressources limitées de l'entreprise.
+
+
+
+                                                 38
+<PARSED TEXT FOR PAGE: 39 / 42>
+9.2.5 Conformité réglementaire (RGPD / NIS2)
+MetalTech est qualifiée d'« entité importante » au sens de la directive NIS2 et traite des données
+personnelles soumises au RGPD. Quelles obligations concrètes (notification d'incident, mesures de
+sécurité minimales, gouvernance) découlent de ce double cadre réglementaire, et quelles actions
+prioritaires proposeriez-vous pour atteindre la certification ISO 27001 visée au T4 2026 ?
+
+9.2.6 Sécurisation des accès distants et VPN
+L'entreprise utilise un VPN SSL Fortinet et dispose d'un VLAN invités, dans un contexte hybride
+avec le cloud Azure. Décrivez les risques associés à cette architecture d'accès distant (phishing, vol
+de credentials, mouvement latéral) et proposez une stratégie d'authentification renforcée (MFA,
+Zero Trust, filtrage par rôle) pour sécuriser les connexions des collaborateurs et prestataires
+externes.
+
+
+Consignes :
+
+       Groupes de 4-5
+       Pdf à rendre pour le 29 Novembre 2026 (à envoyer à eric.disson@univ-lyon3.fr
+
+
+
+
+                                                 39
+<PARSED TEXT FOR PAGE: 40 / 42>
+10. ANNEXES
+
+10.1 Documents financiers complémentaires
+
+Le bilan détaillé, le compte de résultat par fonction et le tableau des flux de trésorerie sont
+disponibles sur demande auprès de l'enseignant.
+
+
+10.2 Procédures de contrôle qualité
+
+ Procédure                           Code                             Version
+ Contrôle réception matières         PC-QCM-001                       V3.2
+ Contrôle en cours de                PC-QCP-002                       V2.1
+ fabrication
+ Contrôle final avant livraison      PC-QCF-003                       V4.0
+ Gestion des non-conformités         PC-QNC-004                       V2.3
+ Traçabilité des pièces              PC-QTR-005                       V1.5
+
+
+10.3 Fiches techniques des logiciels
+
+ Logiciel                  Version                   Modules                    Coût annuel (k€)
+ SAP S/4HANA               2023                      FI, CO, MM, PP, SD,        180
+                                                     QM, HCM
+ Salesforce Sales          Winter 26                 Account, Opportunity,      35
+ Cloud                                               Service
+ Siemens Opcenter          2024                      MES, Quality,              95
+                                                     Maintenance
+ Siemens NX                1953                      CAD, CAM, CAE              65
+ Power BI Pro              2024                      Rapports,                  12
+                                                     Dashboards
+ TalentSoft                23.1                      Formation,                 18
+                                                     Recrutement,
+                                                     Evaluations
+
+
+
+
+                                                  40
+<PARSED TEXT FOR PAGE: 41 / 42>
+11. RESSOURCES COMPLÉMENTAIRES
+
+Livres et ouvrages de référence
+
+   « Management industriel » - C. Hell, Vuibert
+   "Supply Chain Management" - Chopra & Meindl, Pearson
+   « Finance d'entreprise » - Berk & DeMarzo, Pearson
+   « руководство по Industry 4.0 » - Acatech, Springer
+   « Le contrôle de gestion » - Lebas & Maugez, IFRS
+
+
+Articles et rapports
+
+   Rapport annuel de l'observatoire de la sous-traitance industrielle - 2025
+   Étude Xerfi : « La métallerie industrielle en France » - 2025
+   Article « Transition écologique : enjeux pour la métallerie » - L'Usine Nouvelle, 2024
+   Rapport« Compétences industriels : état des lieux » - France Stratégie, 2025
+
+
+Formations en ligne
+
+   Coursera : « Operations Management » - Rutgers University
+   EdX : « Supply Chain Analytics » - MIT
+   Fun MOOC : « Comprendre le numérique industriel » - Mines ParisTech
+
+
+
+
+                                               41
+<PARSED TEXT FOR PAGE: 42 / 42>
+12. CONSEILS POUR LES ÉTUDIANTS
+   Bien lire l'ensemble du cas avant de commencer l'analyse - une vision globale est essentielle.
+   Ne pas hésiter à faire des hypothèses si certaines informations manque, en les explicitant.
+   Utiliser les outils d'analyse stratégique vus en cours (SWOT, forces de Porter, canvas, etc.).
+   S'appuyer sur des données chiffrées pour justifier les recommandations.
+   Contextualiser les recommandations : la PME a des ressources différentes d'un grand groupe.
+   Penser à la cohérence entre les recommandations (ex: investissement = financement =
+    rentabilié).
+   Soigner la présentation et la formulation - les recommandations sont destinées à être
+    présentées.
+
+
+
+
+                                                42

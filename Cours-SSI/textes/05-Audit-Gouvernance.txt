@@ -1,0 +1,661 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+<PARSED TEXT FOR PAGE: 1 / 18>
+                                                                                                   19/10/2026
+
+
+
+
+Fondamentaux de l’audit et de la gouvernance
+des systèmes d’information
+
+
+Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA
+
+
+
+
+Objectifs pédagogiques
+
+
+ Comprendre les notions clés : système d’information, audit, contrôle interne, gouvernance
+  SI
+ Appréhender la gestion des risques SI : identification, analyse, traitement, cartographie
+ Situer la gouvernance SI et la fonction GRC dans l’organisation
+ Identifier les rôles, responsabilités et instances (DSI, RSSI, MOA/MOE, auditeurs)
+ Connaître les principaux référentiels : ISO 27001/27002/27005, COBIT, ITIL, NIST CSF, RGPD
+ Maîtriser la démarche d’audit SI et la production d’éléments de preuve
+ Appliquer les acquis sur des cas pratiques et exercices
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA      2
+<PARSED TEXT FOR PAGE: 2 / 18>
+                                                                                                                                19/10/2026
+
+
+
+
+                                                   Partie 1 — Concepts fondamentaux
+
+
+                                                                                            SI, audit et contrôle interne
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                   3
+
+
+
+
+Le système d’information (SI)
+
+
+
+ Ensemble organisé de ressources (matériels, logiciels, données, procédures, personnes)
+  permettant d’acquérir, traiter, stocker et diffuser l’information
+     Composantes : infrastructure, applications, données, réseaux, utilisateurs, processus,
+      gouvernance
+ Le SI est un actif stratégique : il sert les métiers et expose l’organisation à des risques
+ Périmètre : SI interne, SI externe (SaaS, partenaires, cloud), SI industriel (OT)
+ L’audit SI évalue la fiabilité, la sécurité, la conformité et l’efficacité du SI
+
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                   4
+<PARSED TEXT FOR PAGE: 3 / 18>
+                                                                                                 19/10/2026
+
+
+
+
+L’audit des systèmes d’information
+
+
+ Examen méthodique et indépendant d’un SI pour évaluer la conformité à un référentiel et
+  l’efficacité des dispositifs
+ Trois grandes familles : audit organisationnel, audit de sécurité, audit de conformité
+  (RGPD, PCI-DSS…)
+ Auditeur interne vs auditeur externe : indépendance, périmètre, rapport rendu à la
+  gouvernance
+ L’audit produit des constats, des risques associés et des recommandations hiérarchisées
+ Il s’appuie sur des preuves : documents, entretiens, observations, tests techniques
+
+
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   5
+
+
+
+
+Contrôle interne appliqué au SI
+
+
+ Fiabilité des informations financières et opérationnelles
+ Conformité aux lois, règlements et procédures internes
+ Efficacité et efficience des opérations
+ Protection des actifs et des données
+ Environnement de contrôle
+ Évaluation des risques
+ Activités de contrôle (préventives, détectives, correctives)
+ Information et communication
+ Pilotage (monitoring)
+
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   6
+<PARSED TEXT FOR PAGE: 4 / 18>
+                                                                                                                           19/10/2026
+
+
+
+
+Modèle des trois lignes de défense (3LoD)
+
+
+ 1ʳᵉ ligne : le management opérationnel — il est propriétaire des risques et
+  des contrôles
+ 2ᵉ ligne : les fonctions de contrôle (RSSI, conformité, contrôle interne SI, risk
+  management)
+ 3ᵉ ligne : l’audit interne — assurance indépendante pour la gouvernance
+Chaque ligne a un rôle, des responsabilités et un reporting distincts
+L’audit SI s’inscrit principalement en 3ᵉ ligne, avec une coordination en 2ᵉ
+ligne
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                7
+
+
+
+
+                                                              Partie 2 — Gestion des risques SI
+
+
+                                                                 Identification, analyse, traitement et cartographie
+
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                8
+<PARSED TEXT FOR PAGE: 5 / 18>
+                                                                                                19/10/2026
+
+
+
+
+Qu’est-ce qu’un risque SI ?
+
+
+ Risque = combinaison d’une menace, d’une vulnérabilité et d’un impact sur un
+  actif
+    Menace : cause potentielle d’un incident (malveillant, accidentel, environnemental,
+     structurel)
+    Vulnérabilité : faiblesse exploitable par une menace
+    Impact : conséquence sur les activités (financière, réputationnelle, juridique,
+     opérationnelle)
+ Exemples : ransomware, fuite de données, panne d’un datacenter, erreur de
+  configuration cloud
+ Le risque SI est piloté par la direction, pas seulement par la DSI
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA    9
+
+
+
+
+Démarche de gestion des risques SI
+
+
+ 1. Contexte : périmètre, actifs, critères d’évaluation, parties prenantes
+ 2. Identification : actifs, menaces, vulnérabilités, scénarios
+ 3. Analyse : probabilité × impact (qualitative, semi-quantitative, quantitative)
+ 4. Évaluation : priorisation, niveau de risque résiduel
+ 5. Traitement : éviter, réduire (contrôles), transférer (assurance, contrat),
+  accepter
+ 6. Suivi, revue et communication : reporting, KRIs, incidents
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   10
+<PARSED TEXT FOR PAGE: 6 / 18>
+                                                                                                                                               19/10/2026
+
+
+
+
+  Cartographie des risques SI
+
+
+   Représentation visuelle des risques évalués sur un graphique Probabilité × Impact
+        Quatre à cinq niveaux : Faible, Modéré, Élevé, Critique (matrice 4×4 ou 5×5)
+   Permet de hiérarchiser les plans d’action et de communiquer avec la
+    gouvernance
+        Outils : logiciels GRC, tableurs, outils dédiés (exemples génériques de catégories)
+   Mise à jour annuelle minimum, et à chaque changement majeur (incident,
+    projet, fusion)
+   La cartographie est un livrable clé pour l’audit et pour le comité des risques
+
+
+                 Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                           11
+
+
+
+
+  Traitement du risque et contrôles
+
+
+Éviter : supprimer l’activité ou l’exposition                                              Contrôle d’accès, MFA, segmentation réseau
+
+Réduire : implémenter des contrôles                                                        Sauvegardes 3-2-1, PCA/PRA
+
+Transférer : assurance cyber, clauses                                                      Journalisation, supervision, SIEM
+contractuelles                                                                             Ségrégation des tâches, validation à 4 yeux
+Accepter : décision documentée du                                                          Tests d’intrusion, revues de code,
+management
+                                                                                            durcissement
+
+
+
+
+                 Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                           12
+<PARSED TEXT FOR PAGE: 7 / 18>
+                                                                                                                      19/10/2026
+
+
+
+
+                                                     Partie 3 — Gouvernance SI et GRC
+
+
+                                                                   Gouvernance, management SI et fonctions GRC
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                           13
+
+
+
+
+Gouvernance des systèmes d’information
+
+
+ Ensemble de mécanismes (structures, processus, indicateurs) qui
+  orientent et contrôlent le SI
+ Aligne le SI avec la stratégie et les métiers (value delivery)
+ S’appuie sur des instances : comité SI, comité sécurité, comité
+  risques
+ Référentiels de gouvernance : COBIT, ISO 38500 (gouvernance IT)
+ Pilote la performance, les risques, les coûts, la conformité et
+  l’innovation
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                           14
+<PARSED TEXT FOR PAGE: 8 / 18>
+                                                                                                                                             19/10/2026
+
+
+
+
+  Management SI vs Gouvernance SI
+
+
+
+Décide des orientations et priorités                                                     Planifie, exécute et contrôle les activités
+Fixe les objectifs et budgets                                                            Met en œuvre les politiques décidées
+Suit la performance et les risques majeurs                                               Gère les ressources, projets, incidents
+Rend compte au conseil / direction                                                       Produit les indicateurs opérationnels
+générale
+                                                                                         Acteurs : DSI, RSSI, MOA, MOE, équipes
+Acteurs : COMEX, Conseil d’administration,
+DSI
+
+
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                           15
+
+
+
+
+  La fonction GRC (Governance, Risk, Compliance)
+
+
+
+   Approche intégrée qui aligne gouvernance, gestion des risques et conformité
+        G — Governance : structures, processus, politiques, indicateurs
+        R — Risk : identification, analyse, traitement, surveillance
+        C — Compliance : conformité aux lois, règlements et normes internes/externes
+   Bénéfices : vision 360°, réduction des redondances, meilleure traçabilité
+   Outils GRC : solutions logicielles (exemples génériques : suites leaders du marché)
+
+
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                           16
+<PARSED TEXT FOR PAGE: 9 / 18>
+                                                                                                 19/10/2026
+
+
+
+
+Rôles et responsabilités
+
+
+ DSI : responsable du SI, membre du COMEX, rend compte de la performance et des
+  risques
+ RSSI : pilote la sécurité de l’information, conseille la direction
+ MOA (maîtrise d’ouvrage) : exprime les besoins, valide les solutions
+ MOE (maîtrise d’œuvre) : conçoit, construit, intègre et maintient
+ DPO / DPD : pilote la conformité RGPD, interface avec la CNIL
+ Risk manager : consolide la cartographie, coordonne les lignes de défense
+ Auditeur interne / externe : assure la 3ᵉ ligne de défense
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   17
+
+
+
+
+Conformité, normes et réglementations
+
+
+
+ La conformité = respect des exigences légales, réglementaires, contractuelles et
+  internes
+     Cadres normatifs : ISO 27001/27002/27005, COBIT, ITIL, NIST CSF
+     Cadres réglementaires : RGPD, NIS2, lois sectorielles (santé, finance…)
+     Les exigences doivent être vérifiées dans leur version en vigueur
+ Cartographie des exigences applicables = livrable clé de la conformité
+ Lien direct avec l’audit : référentiel = base d’évaluation
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   18
+<PARSED TEXT FOR PAGE: 10 / 18>
+                                                                                                                                         19/10/2026
+
+
+
+
+                                                            Partie 4 — Référentiels et normes
+
+
+                                                                                          ISO, COBIT, ITIL, NIST, RGPD — panorama
+
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                             19
+
+
+
+
+ISO/IEC 27001 et 27002 — SMSI
+
+
+ ISO 27001 : exigences pour établir, mettre en œuvre, maintenir et améliorer un
+  SMSI
+ ISO 27002 : bonnes pratiques de mesures de sécurité (catalogue de 93 mesures
+  en 4 thèmes)
+ Structure : contexte → leadership → planification → support → opération →
+  évaluation → amélioration
+ Approche des risques : identification, analyse, traitement (détaillée dans ISO
+  27005)
+ Certification possible (organisme tiers) — moteur d’amélioration continue
+    Avertissement : se référer à la dernière version en vigueur
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                             20
+<PARSED TEXT FOR PAGE: 11 / 18>
+                                                                                                                19/10/2026
+
+
+
+
+ISO/IEC 27005 — gestion du risque
+
+
+ Guide la gestion des risques de sécurité de l’information
+     Aligné avec ISO 31000 (management du risque, approche générique)
+ Étapes : contexte, appréciation du risque (identification, analyse, évaluation), traitement,
+  acceptation, communication, surveillance, revue
+     Méthodes d’appréciation : qualitative, semi-quantitative, quantitative (ex : ISO 27005 fournit des
+      orientations)
+ Compatible avec EBIOS RM (méthode française de l’ANSSI)
+ Le risque résiduel et l’acceptation doivent être documentés
+
+
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                 21
+
+
+
+
+COBIT — gouvernance et management du SI
+
+
+ Framework de gouvernance et de management des technologies de l’information
+  (ISACA)
+     Principes : satisfaire les besoins des parties prenantes, couvrir l’entreprise de bout en bout,
+      appliquer un modèle unique, etc.
+ Système de gouvernance : 5 domaines, 40 objectifs de gouvernance et de management
+     Évaluation de la maturité (CMMI) et des capacités des processus
+ Complémentaire avec ISO 27001 (sécurité) et ITIL (gestion de services)
+ Utilisable comme référentiel d’audit SI
+
+
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                 22
+<PARSED TEXT FOR PAGE: 12 / 18>
+                                                                                                19/10/2026
+
+
+
+
+ITIL — gestion des services SI
+
+
+ Ensemble de bonnes pratiques pour la gestion des services informatiques
+    Architecture : système de valeur des services (SVS) — chaîne de valeur des services
+     (SVC)
+    Pratiques : gestion des incidents, problèmes, changements, niveaux de service,
+     demandes, actifs, connaissances, continuité…
+ Lien direct avec COBIT : ITIL = pratique, COBIT = gouvernance
+ Audit ITIL : évaluer la maturité des processus de gestion de service
+ Utilisé fréquemment comme référentiel par les DSI et les auditeurs externes
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   23
+
+
+
+
+NIST Cybersecurity Framework (CSF)
+
+
+
+ Cadre de référence en cybersécurité, créé par le NIST (États-Unis), largement
+  utilisé internationalement
+    Fonctions : Identifier, Protéger, Détecter, Répondre, Récupérer
+    Catégories et sous-catégories déclinant les fonctions en actions concrètes
+    Profils : « current » vs « target » pour piloter l’amélioration
+ Complémentaire avec ISO 27001 et CIS Controls
+ Recommandé pour les organisations de toutes tailles, dont les PME
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   24
+<PARSED TEXT FOR PAGE: 13 / 18>
+                                                                                                                                    19/10/2026
+
+
+
+
+RGPD — protection des données personnelles
+
+
+ Règlement (UE) 2016/679, en vigueur depuis mai 2018
+     S’applique à toute organisation traitant des données personnelles de résidents
+      européens
+ Principes : licéité, loyauté, transparence, limitation des finalités, minimisation,
+  exactitude, limitation de la conservation, intégrité et confidentialité
+ Droits des personnes : accès, rectification, effacement, opposition, portabilité,
+  limitation
+ Obligations : registre des traitements, AIPD, notification des violations (72 h), DPO
+     Avertissement : RGPD à vérifier dans sa version en vigueur et avec la jurisprudence
+      CNIL/CE
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                       25
+
+
+
+
+Panorama comparatif des référentiels
+
+
+
+ COBIT : gouvernance SI                                                                    ISO 27001 : SMSI (exigences)
+  d’ensemble                                                                                ISO 27002 : mesures de sécurité
+ ISO 38500 : gouvernance IT                                                                ISO 27005 : risques sécurité
+
+ ITIL : gestion des services IT                                                            NIST CSF : cybersécurité
+                                                                                            RGPD : données personnelles
+ CMMI : maturité des processus
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                       26
+<PARSED TEXT FOR PAGE: 14 / 18>
+                                                                                                                                        19/10/2026
+
+
+
+
+                                                                    Partie 5 — Démarche d’audit SI
+
+
+                                                                                            De la préparation au rapport d’audit
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                          27
+
+
+
+
+Étapes de la démarche d’audit SI
+
+
+
+ 1. Cadrage : objectifs, périmètre, référentiels, parties prenantes
+ 2. Préparation : plan d’audit, équipe, calendrier, outils
+ 3. Collecte des preuves : documents, entretiens, observations, tests
+ 4. Évaluation : conformité, efficacité, risque résiduel, maturité
+ 5. Restitution : constats, recommandations, plan d’action
+ 6. Suivi : vérification de la mise en œuvre des actions
+
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                          28
+<PARSED TEXT FOR PAGE: 15 / 18>
+                                                                                                 19/10/2026
+
+
+
+
+Éléments de preuve d’audit
+
+
+
+ Documentaire : politiques, procédures, contrats, PV, rapports
+ Technique : logs, captures d’écran, exports, configurations
+ Témoignage : comptes-rendus d’entretien signés
+ Observation : visite des locaux, datacenters, salles serveurs
+ Test : simulation d’incident, test d’intrusion, contrôle de cohérence
+ Qualités de la preuve : fiable, pertinente, suffisante, traçable, conservée
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   29
+
+
+
+
+Techniques d’audit SI
+
+ Questionnaires de maturité
+ Revue documentaire
+ Entretiens structurés
+ Walkthrough (test de cheminement)
+ Observation directe
+ Scanners de vulnérabilités
+ Tests d’intrusion (pentest)
+ Audit de configuration
+ Analyse de logs (SIEM)
+ Revue de code, tests de sécurité applicative
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   30
+<PARSED TEXT FOR PAGE: 16 / 18>
+                                                                                                 19/10/2026
+
+
+
+
+Rapport d’audit SI — structure type
+
+
+ Synthèse exécutive : constats majeurs, niveau de risque global,
+  recommandations prioritaires
+ Contexte et périmètre : référentiels, période, équipe, méthode
+ Constats : numérotés, factuels, rattachés à un référentiel
+ Évaluation du risque : impact, vraisemblance, niveau
+ Recommandations : correctives, préventives, hiérarchisées
+ Annexes : preuves, glossaire, méthodologie détaillée
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   31
+
+
+
+
+Synthèse du cours
+
+
+ Le SI est un actif stratégique, à protéger et à gouverner
+ Les 3 lignes de défense structurent les responsabilités
+ La gestion des risques SI est un cycle continu (PDCA)
+ La gouvernance SI s’appuie sur des référentiels (COBIT, ISO 38500) et la fonction GRC
+ L’audit SI produit constats et recommandations hiérarchisés, sur la base de preuves
+ Aucun référentiel ne suffit seul : la cartographie des exigences est indispensable
+ Avertissement : normes et réglementations doivent être vérifiées dans leur version en
+  vigueur
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   32
+<PARSED TEXT FOR PAGE: 17 / 18>
+                                                                                                                                                                19/10/2026
+
+
+
+
+CISA (Certified Information Systems Auditor)
+
+   Certification de référence pour l'audit, le contrôle et l'assurance des systèmes d'information par l’ISACA.
+   Public visé : auditeurs IT, auditeurs internes/externes, contrôleurs, consultants en gouvernance et conformité.
+   Les 5 domaines de l'examen :
+        Processus d'audit des SI
+        Gouvernance et management des SI
+        Acquisition, développement et implémentation des SI
+        Exploitation des SI et résilience
+        Protection des actifs informationnels
+   Examen : 150 questions à choix multiples en 4 heures, score de 200 à 800 (minimum 450 pour réussir), disponible en plusieurs
+    langues dont le français.
+   Pour obtenir la certification :
+        Réussir l'examen.
+        Justifier de 5 ans d'expérience professionnelle en audit/contrôle/sécurité des SI (des dispenses partielles existent, par exemple pour certains
+         diplômes).Adhérer au code de déontologie et suivre une formation continue annuelle (CPE) pour la maintenir.
+         Le SIA vous donne 3 ans sur les 5 ans.
+
+
+                Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                             33
+
+
+
+
+Pour aller plus loin — ressources
+
+
+ Normes à consulter dans leur version en vigueur :
+          – ISO/IEC 27001, 27002, 27005, 38500, 19011
+          – COBIT 2019 (ISACA), ITIL 4 (AXELOS / PeopleCert)
+          – NIST CSF 2.0, NIST SP 800-53
+          – RGPD, NIS2, recommandations ANSSI / CNIL
+ Organismes : ISACA, IIA, (ISC)², OWASP, ENISA, ANSSI, CNIL
+ Méthodes : EBIOS RM (ANSSI), MEHARI, OCTAVE
+      Communautés professionnelles et veille sécurité
+
+
+
+                Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                             34
+<PARSED TEXT FOR PAGE: 18 / 18>
+                                                                                                                      19/10/2026
+
+
+
+
+Questions et discussion
+
+
+
+                                                                                           Adapté — Bruce Schneier
+
+
+
+
+          « La sécurité n’est pas un produit, c’est un processus. »
+
+
+
+
+       Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                           35
+
+
+
+
+Question ?
+
+
+
+
+Merci de votre attention
+
+
+
+
+       Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                           36

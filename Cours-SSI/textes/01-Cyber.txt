@@ -1,0 +1,751 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+<PARSED TEXT FOR PAGE: 1 / 17>
+                                                                                                      15/09/2026
+
+
+
+
+Fondamentaux en cybersécurité
+
+                 Cybersécurité · Risques · Gouvernance · Conformité
+
+                 Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA
+
+
+
+
+Plan de la séance 1 (3h)
+
+
+• 1. Introduction & objectifs
+• 2. Concepts fondamentaux : CIA, vocabulaire, types d'attaques, défense en
+profondeur
+• 3. Gestion des risques : EBIOS RM, ISO 27005, NIST RMF, matrice, appétence, cas
+• 4. Gouvernance & management : RSSI, DPO, PSSI, ISO 27001, NIST CSF,
+sensibilisation
+• 5. GRC : RGPD, NIS2, LPM, DORA, audit & conformité continue (35 min)
+
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA          2
+<PARSED TEXT FOR PAGE: 2 / 17>
+                                                                                                                                                          15/09/2026
+
+
+
+
+                                              1. Introduction & objectifs
+             Pourquoi la cybersécurité est-elle un enjeu majeur aujourd'hui ?
+
+
+
+
+                 Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                       3
+
+
+
+
+  Quelques chiffres clés
+
+
+
+
+8 000
+                                          + 70 %                                              68 %                         2,9 Md€
+Md$                                       Hausse des attaques DDoS
+                                          dans l'UE en 2024 (ENISA)
+                                                                                              Breaches impliquant un
+                                                                                              humain (Verizon DBIR 2024)
+                                                                                                                           Amendes RGPD cumulées en
+                                                                                                                           Europe fin 2024
+Coût mondial cumulé de la
+cybercriminalité 2023-2028
+
+
+
+
+        Sources : Cybersecurity Ventures 2024, ENISA Threat Landscape 2024, Verizon DBIR 2024, EDPB RGPD enforcement tracker 2024.
+
+
+
+
+                 Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                       4
+<PARSED TEXT FOR PAGE: 3 / 17>
+                                                                                                15/09/2026
+
+
+
+
+ Objectifs pédagogiques
+
+
+• Comprendre le vocabulaire et les concepts fondamentaux (CIA, menace,
+risque, vulnérabilité, actif, impact).
+• Identifier les principales familles d'attaques et les mécanismes de défense en
+profondeur.
+• Appliquer une méthodologie de gestion des risques (EBIOS RM, ISO 27005,
+NIST RMF).
+• Comprendre les rôles, normes et dispositifs de gouvernance (RSSI, DPO, ISO
+27001, NIST CSF).
+• Articuler la triade GRC et les principaux cadres réglementaires (RGPD, NIS2,
+LPM, DORA).
+
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   5
+
+
+
+
+                                       2. Concepts fondamentaux
+
+          Vocabulaire, triade CIA, types d'attaques, principes de défense
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   6
+<PARSED TEXT FOR PAGE: 4 / 17>
+                                                                                                                                              15/09/2026
+
+
+
+
+ La triade CIA
+
+
+
+
+    Confidentialité                                                Intégrité                          Disponibilité
+   Seules les personnes autorisées                      Les données ne sont pas altérées de     Le service est accessible quand on en a
+      accèdent à l'information.                               manière non autorisée.                             besoin.
+
+    Chiffrement, contrôle d'accès,                    Hachage, signatures, MAC, journaling,     Redondance, PRA/PCA, sauvegardes 3-
+      classification, DLP, NDA.                                   code signing.                           2-1, anti-DDoS.
+
+
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                             7
+
+
+
+
+ Vocabulaire essentiel
+
+
+• Actif (asset) : tout élément ayant de la valeur : données, matériel, logiciel, personne,
+processus.
+• Menace (threat) : cause potentielle d'un incident. Source interne/externe,
+intentionnelle/accidentelle.
+• Vulnérabilité (vulnerability) : faiblesse d'un actif exploitable par une menace. Ex : CVE
+non patchée, mot de passe faible.
+• Risque (risk) : croisement d'une menace, d'une vulnérabilité et de la valeur de l'actif.
+Risque = Probabilité × Impact.
+• Impact : conséquence financière, juridique, réputationnelle, opérationnelle.
+• Contre-mesure / Mesure de sécurité : moyen de réduire le risque (préventif, détectif,
+correctif).
+• Résilience : capacité à continuer d'opérer malgré un incident (PRA/PCA, gestion de crise).
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                             8
+<PARSED TEXT FOR PAGE: 5 / 17>
+                                                                                                15/09/2026
+
+
+
+
+Types d'attaques (1/3) – Phishing & ingénierie
+sociale
+
+
+• Phishing email : pièce jointe malveillante ou lien vers page de connexion
+contrefaite.
+• Spear phishing : ciblage précis (dirigeant, comptable). Whaling = ciblage de la
+direction.
+• Smishing / Vishing : phishing par SMS ou par appel téléphonique.
+• Ingénierie sociale : manipulation psychologique (urgence, autorité, appât du
+gain, peur).
+• Pretexting : faux scénario (faux support IT, faux président).
+• Statistiques : Verizon DBIR 2024 -> phishing présent dans ~36% des violations.
+ENISA 2024 : phishing = vecteur initial #1.
+• L’OSINT (Open Source Intelligence)
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA    9
+
+
+
+
+Types d'attaques (2/3) – Malware &
+ransomware
+
+
+
+• Malware = terme générique : virus, ver, cheval de Troie, spyware, keylogger,
+rootkit.
+• Ransomware : chiffre les données (ou exfiltre) et exige une rançon.
+Double/triple extorsion.
+• Exemple : LockBit 3.0, BlackCat/ALPHV (déjà neutralisé 2023), Cl0p (MOVEit
+2023 : 2 600 organisations, 60 M de personnes).
+• Charge utile : dropper -> loader -> payload. Souvent as-a-Service (RaaS).
+• Canaux : email, site web compromis, supply chain, média amovible.
+• Contre-mesures : EDR, sauvegardes immuables 3-2-1, segmentation réseau,
+moindre privilège.
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   10
+<PARSED TEXT FOR PAGE: 6 / 17>
+                                                                                                                               15/09/2026
+
+
+
+
+Types d'attaques (3/3) – DDoS, zero-day,
+supply chain
+
+
+• DDoS : saturation de service (volumétrique, protocole, applicatif). Ex : attaque
+AWS 2020 (2,3 Tbps).
+    • Cloudflare Q1 2024 : pic mondial à 5,6 Tbps (record absolu). En France,
+    plusieurs ministères touchés en 2024.
+• Zero-day : faille inconnue de l'éditeur. ~50 CVE zero-day exploités publiquement
+par an (Google/Mandiant 2023).
+• Attaque supply chain : compromission d'un fournisseur pour atteindre plusieurs
+clients.
+    • Exemples : SolarWinds (2020), Kaseya (2021), 3CX (2023), XZ Utils (CVE-
+    2024-3094).
+• Contre-mesures : anti-DDoS (Cloudflare, Akamai), SBOM, gestion des
+dépendances, attestations fournisseurs.
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                  11
+
+
+
+
+Défense en profondeur (Defense in depth)
+
+Gouvernance, politiques, sensibilisation, audit
+
+
+
+Identité & accès (IAM, MFA, PAM, moindre privilège)
+
+
+
+Réseau (segmentation, IDS/IPS, VPN, anti-DDoS)
+
+
+
+Hôte (EDR, hardening, patch management, anti-malware)
+
+
+
+Données (chiffrement, classification, DLP, sauvegardes)
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA
+                   Principe : aucun niveau n'est parfait ; chaque couche ralentit l'attaquant et fournit une détection.
+                                                                                                                          12
+<PARSED TEXT FOR PAGE: 7 / 17>
+                                                                                                15/09/2026
+
+
+
+
+Moindre privilège & Zero Trust
+
+
+
+• Principe de moindre privilège : n'accorder que les droits strictement nécessaires
+(PoLP, Principle of Least Privilege).
+• Just-in-Time : droits octroyés temporairement, révoqués automatiquement.
+• Séparation des tâches : un même acteur ne peut pas initier + valider une
+opération sensible.
+• Defense via PAM (Privileged Access Management) : bastion, rotation, session
+recording.
+• Zero Trust (NIST SP 800-207, 2020) : 'Never trust, always verify'. Micro-
+segmentation + identité + contexte.
+• NIST CSF 2.0 ajoute la fonction 'Govern' -> aligne Zero Trust et gouvernance.
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   13
+
+
+
+
+                                                               3. Gestion des risques
+
+                                   Méthodologies, matrices, appétence
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   14
+<PARSED TEXT FOR PAGE: 8 / 17>
+                                                                                                                                                                          15/09/2026
+
+
+
+
+     Démarche générale de gestion des risques
+
+
+
+          1.                                                                                                                            5. Suivi &
+                                        2. Analyse                      3. Évaluation                    4. Traitement
+    Identification                                                                                                                        revue
+                                       Probabilité, impact,            Criticité, matrice, seuils         Réduire, transférer,
+        Actifs, menaces,               scénarios EBIOS RM                    d'acceptation                  accepter, éviter        Indicateurs, tests, retour
+    vulnérabilités, scénarios                                                                                                             d'expérience
+
+
+
+
+    Normes : ISO 31000:2018 (management du risque), ISO/IEC 27005:2022 (risque SSI), NIST SP 800-30 Rev.1 (2012), NIST RMF (SP 800-37 Rev.2,
+                                                                   2018).
+
+
+
+
+                        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                               15
+
+
+
+
+     Méthodes de gestion du risque — tableau
+     comparatif
+Méthode                                    Origine                                        Forces                                 Limites
+
+
+
+EBIOS RM v1.5 (2018)                       ANSSI / France                                 Méthodologie publique, ateliers        Moins connue hors France, formation
+                                                                                          structurés, base du SMSI en France,    nécessaire
+                                                                                          intégrée à ISO 27005
+
+ISO/IEC 27005:2022                         ISO / international                            Norme universelle, vocabulaire         Cadre général : peu d'outils pratiques
+                                                                                          commun, compatible avec ISO 31000
+
+
+NIST RMF (SP 800-37)                       NIST / États-Unis                              Couvre tout le cycle                   Très orienté administrations US
+                                                                                          (Prepare→Monitor), fort dans le
+                                                                                          public, lien avec NIST CSF
+
+NIST CSF 2.0 (2024)                        NIST                                           Lisible, hiérarchique, 'Govern' en     Volontaire (pas de certification)
+                                                                                          2024, applicable tous secteurs
+
+
+OCTAVE                                     CMU SEI                                        Centrée actif/équipe, qualitative,     Vieillissante, peu d'outils
+                                                                                          adaptée aux grandes org.
+
+
+MEHARI                                     CLUSIF / France                                Base de connaissances partagée,        Communauté plus restreinte
+                                                                                          scénarios
+
+
+                        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                               16
+<PARSED TEXT FOR PAGE: 9 / 17>
+                                                                                                                                                      15/09/2026
+
+
+
+
+   EBIOS RM en 5 ateliers
+   Atelier 1          Cadrage & socle de sécurité                          Périmètre, événements redoutés, écosystème
+
+
+
+
+   Atelier 2          Sources de risque                                    Cartographie des acteurs malveillants
+
+
+
+
+   Atelier 3          Scénarios stratégiques                               Croisement sources / événements redoutés
+
+
+
+
+   Atelier 4          Scénarios opérationnels                              Cibles, chemins d'attaque, vulnérabilités
+
+
+
+
+   Atelier 5          Traitement du risque                                 Mesures, plan d'action, résiduel
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                  17
+
+
+
+
+Matrice de risque                                                               Insignifiant      Mineur
+                                                                                Probabilité \ Impact          Modéré       Majeur
+                                                                                                                                        Catastrophi
+                                                                                                                                        que
+
+
+Probabilité ×
+Impact                                                      Très
+                                                            improbable
+                                                                                1-2 Faible       1-2 Faible   3-4 Modéré   3-4 Modéré   5-7 Élevé
+
+
+
+
+                                                            Improbable          1-2 Faible       3-4 Modéré   3-4 Modéré   5-7 Élevé    5-7 Élevé
+
+
+
+
+Vert : risque acceptable                                    Possible            3-4 Modéré       3-4 Modéré   5-7 Élevé    5-7 Élevé
+                                                                                                                                        8-10
+                                                                                                                                        Critique
+
+Orange : à traiter en priorité
+Rouge : traitement immédiat
+Hors matrice : refuser
+l'activité                                                  Probable            3-4 Modéré       5-7 Élevé    5-7 Élevé
+                                                                                                                           8-10
+                                                                                                                           Critique
+                                                                                                                                        8-10
+                                                                                                                                        Critique
+
+
+
+
+                                                            Quasi                                             8-10         8-10         8-10
+                                                                                5-7 Élevé        5-7 Élevé
+                                                            certain                                           Critique     Critique     Critique
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                  18
+<PARSED TEXT FOR PAGE: 10 / 17>
+                                                                                                                                                                15/09/2026
+
+
+
+
+ Traitement du risque – 4 stratégies
+
+
+         Réduire                                  Transférer                                      Accepter                            Éviter
+
+Implémenter des contre-mesures                Assurance cyber, contrats                    Risque résiduel sous le seuil   Supprimer l'activité ou le système
+ pour abaisser la probabilité ou            SaaS/IaaS avec responsabilité               d'appétence, décision documentée    qui porte le risque (ex : ne pas
+           l'impact.                         partagée, outsourcing SOC.                          par la direction.                stocker la donnée).
+
+
+
+        Assurance cyber : le marché français a doublé entre 2020 et 2024 (~180 M€ → ~380 M€ de primes, source France Assureurs 2024).
+
+
+
+
+                 Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                       19
+
+
+
+
+ Appétence au risque & tolérance
+
+
+• Appétence au risque (risk appetite) : niveau de risque qu'une organisation est
+prête à accepter pour atteindre ses objectifs.
+• Tolérance au risque : variation acceptable autour de l'appétence pour un
+domaine précis.
+• Capacité au risque : niveau maximal de risque que l'organisation peut supporter
+sans menacer sa survie.
+• Formalisation : Risk Appetite Statement (RAS), validé par le Conseil
+d'Administration ou COMEX.
+• Exemples de seuils : 'Aucune perte de données clients', 'Interruption < 4h',
+'Budget cyber < 1,5% du CA'.
+• Lien réglementaire : NIS2 art.21, DORA art.5, RGPD (sécurité des données).
+
+                 Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                       20
+<PARSED TEXT FOR PAGE: 11 / 17>
+                                                                                                                                          15/09/2026
+
+
+
+
+4. Gouvernance & management de la sécurité
+
+
+                                 Rôles, politiques, normes, sensibilisation
+
+
+             Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                          21
+
+
+
+
+   Acteurs de la cybersécurité
+
+
+
+ Côté organisation                                                                       Côté écosystème
+ • Direction générale : ultimement responsable                                           • ANSSI : autorité nationale française
+ (RGPD art.24, NIS2).                                                                    (Premier ministre).
+ • RSSI / CISO : pilote la sécurité                                                      • CERT-FR : centre de réponse aux incidents
+ opérationnelle, rapporte au CODIR/CA.                                                   (ANSSI).
+ • DPO (Data Protection Officer) : obligatoire                                           • ENISA : agence européenne (rôle renforcé
+ RGPD si traitement à grande échelle.                                                    par NIS2).
+ • DSI : garant des actifs techniques.                                                   • NIST (US) : référentiels CSF, SP 800-53, SP
+ • Risk Manager : interface avec assurance,                                              800-37.
+ finance, audit.                                                                         • ISO/IEC : normes 27000, 27001, 27002,
+ • Utilisateurs : première ligne de défense.                                             27005.
+                                                                                         • Prestataires : SOC, MSSP, auditeurs PASSI
+                                                                                         (ANSSI), CERT.
+             Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                          22
+<PARSED TEXT FOR PAGE: 12 / 17>
+                                                                                                                                                                    15/09/2026
+
+
+
+
+Politique de Sécurité des Systèmes d'Information
+(PSSI)
+
+
+• PSSI : document de référence qui formalise les objectifs, règles et
+responsabilités SSI de l'organisation.
+• Hiérarchie typique : PSIS (politique générale) → règles sectorielles → procédures
+→ chartes utilisateurs.
+• Cycle de vie : rédaction → validation COMEX/CA → diffusion → sensibilisation →
+révision annuelle.
+• Contenu type : périmètre, rôles, exigences CIA, gestion des accès, gestion des
+incidents, conformité.
+• Lien avec la PIA (Privacy Impact Assessment) et les chartes d'utilisation (BYOD,
+nomadisme).
+• Indicateurs : taux de lecture/acceptation de la charte, conformité aux règles
+d'accès.
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                                  23
+
+
+
+
+ISO 27001 vs NIST CSF 2.0
+
+
+ ISO/IEC 27001:2022                                                                             NIST CSF 2.0 (févr. 2024)
+    Norme internationale certifiable (Annexe SL).                                                 Cadre volontaire, lisible, hiérarchique.
+    Exigences : SMSI, leadership, planification, support,                                         6 fonctions : Govern, Identify, Protect, Detect,
+     opération, évaluation, amélioration.                                                           Respond, Recover.
+    93 mesures en Annexe A (4 catégories).                                                        Catégories → sous-catégories → références.
+    Cycle PDCA (Plan-Do-Check-Act).                                                               Profiles (Tiers 1-3) : adaptation au secteur.
+    Cycle d'audit : interne + externe + surveillance                                              Lien avec les autres cadres (NIST RMF, SP 800-53).
+     continue.
+                                                                                                   Pensé pour tous secteurs, gratuit, pas de certification.
+    Certification reconnue mondialement (B2B, marchés
+     publics).
+
+
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                                  24
+<PARSED TEXT FOR PAGE: 13 / 17>
+                                                                                                15/09/2026
+
+
+
+
+Sensibilisation – facteur humain
+
+
+• Verizon DBIR 2024 : 68% des compromissions impliquent un humain non-
+malveillant.
+• Programme de sensibilisation : e-learning mensuel, phishing simulé, briefs
+sécurité trimestriels.
+• Cibles : nouveaux arrivants (onboarding), dirigeants (whaling), sous-traitants.
+• Indicateurs : taux de clic au phishing simulé (< 5% cible), complétion des
+modules (> 95%).
+• Sanctions positives : gamification, badges, reconnaissance. Sanctions
+disciplinaires en cas de violation grave.
+• Culture sécurité : soutien visible de la direction, intégration aux objectifs
+annuels.
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   25
+
+
+
+
+                                 5. GRC – Gouvernance, Risque,
+                                                   Conformité
+
+                       Articulation des 3 piliers et cadre réglementaire
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   26
+<PARSED TEXT FOR PAGE: 14 / 17>
+                                                                                                                                                                                15/09/2026
+
+
+
+
+        GRC : les 3 piliers
+
+                                                                                                Gouvernance                                 Risque
+                                                                                                 Cadre de décision,                       Identification,
+                                                                                                  politiques, rôles,                   analyse, traitement,
+                                                                                                     indicateurs                            appétence
+
+
+
+
+        GRC = aligner stratégie, risques et
+        conformité pour une prise de décision
+        éclairée.
+                                                                                                                    Conformité
+                                                                                                                         Respect des
+                                                                                                                     obligations internes
+                                                                                                                          & externes
+
+
+
+
+                         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                                   27
+
+
+
+
+        Cadres réglementaires – tableau comparatif
+
+Texte                                       Périmètre                                      Date clé                                    Sanctions / exigences
+
+
+
+
+RGPD                                        Toutes org. traitant données personnelles      Application : 25 mai 2018                   Amende jusqu'à 4% du CA mondial ou 20
+Règlement UE 2016/679                       de résidents UE                                                                            M€
+
+
+
+
+NIS2                                        Entités essentielles (EE) et importantes       Transposition France : loi n°2025-379 du    EE : 10 M€ ou 2% CA ; EI : 7 M€ ou 1,4%
+Directive UE 2022/2555                      (EI) : énergie, transport, santé,              29 avril 2025 ; application : oct. 2025     CA
+                                            numérique…
+
+
+
+LPM 2024-2030                               Opérateurs de services essentiels (OSE),       Promulguée 31 déc. 2023                     ~7 Md€ cyber 2024-2030 ; blocage sites
+France                                      opérateurs télécoms, hébergeurs Cloud                                                      (art. L2321-2-3 du CSI)
+
+
+
+
+DORA                                        Institutions financières (banques,             Application : 17 janvier 2025               Sanctions par autorités nationales ;
+Règlement UE 2022/2554                      assurances, fonds, gestions d'actifs,                                                      gouvernance ICT obligatoire
+                                            fintech)
+
+
+
+Cyber Resilience Act (CRA)                  Produits connectés (IoT, logiciels)            Adoption finale 2024, application 2027      Amende jusqu'à 15 M€ ou 2,5% CA
+UE
+
+
+
+
+                         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                                   28
+<PARSED TEXT FOR PAGE: 15 / 17>
+                                                                                                 15/09/2026
+
+
+
+
+ RGPD – focus
+
+• RGPD = Règlement Général sur la Protection des Données (UE 2016/679),
+applicable depuis 25 mai 2018.
+• Principes : licéité, loyauté, transparence, minimisation, exactitude, limitation de
+conservation, intégrité/confidentialité.
+• Droits : accès, rectification, effacement, opposition, portabilité, limitation, retrait
+du consentement.
+• Obligations : registre des traitements, PIA/DPIA, notification CNIL en 72h en cas
+de violation, DPO si nécessaire.
+• EDPB : cumul des amendes fin 2024 ≈ 5,88 Md€ (ex : Meta 1,2 Md€, TikTok 345
+M€, Cdiscount 10 M€).
+• Lien cybersécurité : art.32 RGPD impose 'mesures techniques et
+organisationnelles appropriées'.
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   29
+
+
+
+
+ NIS2 – focus
+
+
+• NIS2 = Directive (UE) 2022/2555, adoptée le 14 déc. 2022, remplace NIS1
+(2016).
+• Transposition France : loi n°2025-379 du 29 avril 2025, application à partir
+d'octobre 2025.
+• Deux catégories : Entités Essentielles (EE) et Entités Importantes (EI) – 18
+secteurs (énergie, transport, santé, eau, numérique, administrations…).
+• Obligations : analyse de risques, mesures proportionnées, notification ANSSI <
+24h (alerte), < 72h (incident).
+• Gouvernance : la direction est responsable ; le représentant légal doit suivre
+une formation cyber.
+• Sanctions : EE jusqu'à 10 M€ ou 2% du CA mondial ; EI jusqu'à 7 M€ ou 1,4%
+du CA.
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   30
+<PARSED TEXT FOR PAGE: 16 / 17>
+                                                                                                    15/09/2026
+
+
+
+
+ LPM & DORA – focus
+
+
+• LPM 2024-2030 (loi 2023-1322, 31 déc. 2023) : programmation militaire, livre blanc
+cyber.
+• Opérateurs régulés : OSE (Opérateurs de Services Essentiels), Opérateurs Télécoms,
+hébergeurs Cloud de confiance (SecNumCloud).
+• Mesures : qualification PASSI pour les audits, blocage administratif de noms de domaine
+malveillants, CAE (certificats d'audit électronique).
+• DORA (UE) 2022/2554 : entrée en application 17 janvier 2025. Secteur financier :
+banques, assurances, gestion d'actifs, fintech, pensions.
+• Exigences DORA : gouvernance ICT, gestion du risque tiers (chap. III), tests de résilience
+(TLPT), tests de pénétration majeurs.
+• Sanctions DORA : définies par chaque autorité nationale (ACPR, AMF, EIOPA…).
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA      31
+
+
+
+
+ Audit & conformité continue
+
+
+• Audit interne : vérifier l'efficacité des contrôles, la conformité aux politiques.
+• Audit externe (PASSI pour l'État) : assurance indépendante pour le COMEX, le
+CA, les régulateurs.
+• Test d'intrusion : boîte noire / grise / blanche. Cadre PTES ou OWASP pour le
+web.
+• Red Team : simulation d'attaque multi-vecteurs (mimique APT). Très utilisé dans
+OIV/OSE.
+• Conformité continue : outils de monitoring (Drata, Vanta, OneTrust) +
+cartographie des contrôles.
+• Reporting : NIS2 (ANSSI), RGPD (CNIL), DORA (ACPR/AMF), PCI-DSS (banques
+acquéreurs).
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA      32
+<PARSED TEXT FOR PAGE: 17 / 17>
+                                                                                                 15/09/2026
+
+
+
+
+Des questions ?
+
+
+
+
+ C’est fini pour aujourd’hui !
+
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   33

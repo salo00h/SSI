@@ -1,0 +1,1469 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Présentation PowerPoint
+
+Comprendre, concevoir et défendre les réseaux
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+
+
+
+
+
+Objectifs pédagogiques
+Décrire les modèles OSI et TCP/IP
+Analyser adressage, commutation et routage
+Comparer TCP/UDP et les protocoles applicatifs
+Identifier les menaces réseau et les contrôles adaptés
+Proposer une architecture segmentée et Zero Trust
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+2
+
+
+
+
+Qu’est-ce qu’un réseau informatique ?
+PARTIE 1 — FONDAMENTAUX RÉSEAUX
+Relier des équipements pour échanger des données
+Objectif : comprendre le trajet d’un paquet
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+3
+
+
+
+
+Réseaux : QUESACO ?
+Un réseau informatique est un ensemble d'appareils connectés entre eux pour échanger des données et partager des ressources.
+Types de réseaux courants
+LAN (Local Area Network) : Réseau local pour une maison ou un bureau.
+WAN (Wide Area Network) : Réseau étendu qui couvre de grandes distances, dont Internet est le plus grand exemple.
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+4
+
+
+Grand réseau  wan
+
+Ce ne sont pas les mêmes technologies.
+
+
+
+Le modèle OSI (vue d’ensemble)
+7 Application — services réseau
+6 Présentation — format, chiffrement
+5 Session — dialogue et reprise
+4 Transport — ports, fiabilité
+3 Réseau — IP, routage
+2 Liaison — trames, MAC
+1 Physique — bits, signaux
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+5
+
+
+
+les 7 couches du modèle OSI (Open Systems Interconnection).
+Ce modèle théorique standardise la façon dont les différents systèmes informatiques communiquent entre eux à travers un réseau. C'est la structure parfaite qui englobe l'intégralité des concepts que nous avons passés en revue jusqu'ici.
+7. Application : L'interface utilisateur
+C'est la couche la plus proche de l'utilisateur final. Elle fournit les services réseau directement aux applications logicielles.
+Protocoles clés : HTTP/HTTPS (web), SMTP/IMAP (e-mails), DNS (résolution de noms), FTP (transfert de fichiers) [Cloudflare].
+Lien avec notre fil : C'est à ce niveau qu'interviennent l'inspection applicative (App-ID) des pare-feu de nouvelle génération (NGFW) et le filtrage d'URL.
+6. Présentation : Le traducteur des données
+Cette couche s'assure que les données soient lisibles par la couche Application. Elle gère le formatage, la syntaxe, la compression et la sécurité des données.
+Rôle concret : Encodage des fichiers (ASCII, JPEG, MP4) et mécanismes de chiffrement/déchiffrement.
+Lien avec notre fil : Le protocole TLS (HTTPS) et le mécanisme de déchiffrement SSL opèrent principalement à ce niveau pour garantir la confidentialité [Cloudflare].
+5. Session : Le gestionnaire du dialogue
+Elle ouvre, gère et ferme les sessions de communication entre les applications distantes. Elle gère la synchronisation et permet de reprendre un échange là où il s'est arrêté en cas de micro-coupure.
+Protocoles clés : NetBIOS, RPC, sockets de session.
+Lien avec notre fil : La gestion des jetons d'authentification et la persistance des connexions des utilisateurs (liée au MFA ou au ZTNA).
+4. Transport : Le contrôleur du trafic
+Cette couche découpe les flux de données en segments et gère la connexion de bout en bout entre les deux machines. Elle définit les ports applicatifs et le niveau de fiabilité souhaité.
+Protocoles clés : TCP (fiable, avec accusés de réception et contrôle de flux) et UDP (rapide, sans garantie de livraison).
+Lien avec notre fil : C'est ici que fonctionnent les pare-feu traditionnels (Stateful Layer 4) qui filtrent les ports (ex: bloquer le port 22/SSH).
+3. Réseau : L'aiguilleur universel (Routage)
+Elle est responsable du transport des paquets de données d'un réseau à un autre à travers le monde. Elle utilise l'adressage logique.
+Protocoles clés : IP (IPv4, IPv6), et les protocoles de routage comme OSPF, IS-IS, BGP [Cloudflare].
+Lien avec notre fil : C'est le royaume du routeur, du calcul des métriques, de l'authentification des adjacences et des attaques par IP Spoofing.
+2. Liaison de données : L'aiguilleur local (Commutation)
+Elle assure le transport des trames de données au sein d'un même réseau physique local (LAN) et gère la détection des erreurs physiques.
+Protocoles clés : Ethernet, Wi-Fi (802.11), protocole de tags 802.1Q.
+Lien avec notre fil : C'est ici que travaillent le commutateur (switch), la table d'adresses MAC, le protocole Spanning Tree (STP), les VLANs, le contrôle d'accès 802.1X et la menace du poisoning ARP.
+1. Physique : La tuyauterie matérielle
+C'est la couche matérielle pure. Elle s'occupe de la transmission brute des bits (les 0 et les 1) sous forme de signaux électriques, optiques ou radio.
+Composants physiques : Câbles en cuivre (RJ45), fibre optique, ondes Wi-Fi, hubs, prises murales.
+Lien avec notre fil : La sécurité physique des infrastructures (ne pas laisser n'importe qui brancher un câble dans un commutateur, protection des locaux).
+
+
+La couche 1 : les média
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+6
+Réseau « matériel » :
+La fibre optique,
+Le câble cuivre.
+Réseau « immatériel » :
+Les satellites,
+Les réseaux locaux Wifi,
+Les réseaux GSM : 3, 4 et 5 G.
+
+
+
+
+
+
+
+
+Cette distinction sépare la couche physique (Couche 1 du modèle OSI) en deux grandes familles de supports de transmission : les supports filaires (guidés) et les supports hertziens ou sans fil (non guidés).
+Tous ces supports ont pour unique but de transformer des données numériques (des bits) en signaux physiques (lumière, électricité ou ondes électromagnétiques) pour les transporter d'un point à un autre.
+1. Le Réseau « matériel » (Supports guidés)
+Les données voyagent à l'intérieur d'un support physique fermé. C'est la solution privilégiée pour la stabilité, le débit et la sécurité, car le signal reste confiné dans le câble.
+La fibre optique : Les données sont converties en impulsions lumineuses (laser ou LED) qui voyagent à l'intérieur d'un fil de verre ou de plastique transparent très fin.
+Avantages : Débits gigantesques, aucune sensibilité aux interférences électromagnétiques, et pertes minimales sur de très longues distances (c'est elle qui interconnecte les continents via les câbles sous-marins).
+Le câble en cuivre (Paire torsadée RJ45 ou câble coaxial) : Les données sont transmises sous forme de signaux électriques.
+Avantages : Très économique et facile à déployer. C'est le standard incontournable pour relier les ordinateurs aux commutateurs (switchs) dans les réseaux locaux (LAN) sur de courtes distances (moins de 100 mètres).
+2. Le Réseau « immatériel » (Supports non guidés)
+Les données voyagent "dans l'air" sous forme d'ondes radioélectriques ou électromagnétiques. Ces réseaux offrent une liberté totale de mouvement mais sont plus sensibles aux obstacles physiques et aux interférences.
+Les satellites : Les données transitent par des ondes envoyées vers des stations en orbite terrestre.
+Usage : Idéal pour désenclaver les zones blanches ou isolées (montagnes, océans) où il est impossible de tirer des câbles. Les constellations modernes en orbite basse (LEO, comme Starlink) offrent aujourd'hui des temps de réponse (latence) très courts par rapport aux anciens satellites géostationnaires.
+Les réseaux locaux Wi-Fi (802.11) : Permettent de connecter sans fil des appareils à une borne locale sur une portée restreinte (quelques dizaines de mètres).
+Lien sécurité : C'est le point d'entrée privilégié des attaques de proximité. L'authentification y est renforcée par des protocoles comme le WPA3 ou le 802.1X/NAC pour éviter que n'importe qui capte le signal.
+Les réseaux mobiles (GSM, 3G, 4G, 5G) : Réseaux cellulaires gérés par des opérateurs télécoms grâce à des antennes-relais réparties sur le territoire.
+Évolution : La 5G ne se contente pas d'accélérer le débit ; elle introduit le Network Slicing, une technologie qui permet de découper virtuellement les bandes passantes pour garantir des connexions ultra-fiables aux services critiques (ambulances, usines automatisées) et aux objets connectés (IoT).
+
+
+Comparaison des supports couche 1
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+7
+	Support	Type de signal	Portée type	Sensibilité aux perturbations	Usage principal
+	Fibre optique	Lumière	Très longue (milliers de km)	Nulle	Cœur de réseau, Internet mondial
+	Câble cuivre	Électricité	Courte (< 100 m)	Moyenne	Bureaux, connexions PC à Switch
+	Wi-Fi	Ondes radio	Très courte (30-50 m)	Forte (murs, micro-ondes)	Mobilité domestique et entreprise
+	Réseau Mobile	Ondes radio	Moyenne (quelques km/antenne)	Moyenne	Smartphones, PC nomades
+	Satellite	Ondes radio	Spatiale (centaines/milliers de km)	Forte (météo, orages)	Zones isolées
+
+
+
+
+
+Détail des couches basses (1–4)
+Couche 1 : déjà vu
+Couche 2 : Ethernet, Wi-Fi, trames, MAC
+Couche 3 : IP, paquets, routeurs
+Couche 4 : TCP/UDP, ports
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+8
+Entête couche 2
+Entête couche 3
+Entête couche 4
+Données
+
+
+
+
+
+Entêtes Ethernet + TCP + IP
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+9
+
+
+
+
+
+Le matériel réseau couche 1
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+10
+
+Cette couche gère la transmission brute des signaux (bits) sur un support physique (câbles, ondes).
+Câbles : Câbles à paires torsadées (cuivre), câbles coaxiaux et fibres optiques.
+ Répéteur (Repeater) : Amplifie et régénère le signal électrique ou optique pour étendre la distance de câblage.
+ Concentrateur (Hub) : Un répéteur multiport qui diffuse les signaux reçus sur un port vers tous les autres ports sans filtrage.
+ Cartes réseau (NIC - Network Interface Card) : Composant matériel de base (partie physique) qui convertit les données en signaux physiques.
+ Modem (basique) : Convertit les signaux numériques en signaux analogiques (et inversement) pour la ligne téléphonique ou le câble
+
+
+
+
+
+
+Le matériel réseau couche 2
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+11
+
+Cette couche gère le transfert de données entre machines d'un même réseau local (utilisation des adresses MAC). 
+ Commutateur (Switch de couche 2) : Un pont multiport qui dirige les trames uniquement vers le port du destinataire en analysant l'adresse MAC. 
+ Pont (Bridge) : Relie deux segments de réseau local de manière intelligente en filtrant le trafic grâce aux adresses MAC.
+ Point d'accès Wi-Fi (Access Point) : Gère la liaison radio (niveau liaison/physique) pour connecter des appareils sans fil au réseau local.
+
+
+
+
+
+Le matériel réseau couche 3
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+12
+
+Cette couche assure le routage et l'acheminement des paquets de données entre différents réseaux (utilisation des adresses IP). 
+Routeur (Router) : Interconnecte des réseaux distincts (comme un réseau local et Internet) et détermine le meilleur chemin pour les paquets.
+Commutateur de niveau 3 (Switch multilayer / routeur de commutation) : Un commutateur capable de faire du routage IP matériel en plus de la fonction de commutation de niveau 2.
+
+
+
+
+Le matériel réseau couché 4
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+13
+
+Cette couche gère le transport de bout en bout, le contrôle de flux et la fiabilité (gestion des ports et des segments avec TCP ou UDP). 
+Remarque : Il n'existe pas de matériel réseau "pur" fonctionnant uniquement sur la couche 4. Ce rôle est assuré de manière logicielle par le système d'exploitation des hôtes (ordinateurs, serveurs). Cependant, certains équipements d'infrastructure avancés intègrent des fonctions de cette couche :
+Répartiteurs de charge (Load Balancers / commutateurs de services applicatifs) : Analysent le trafic jusqu'à la couche 4 (et au-delà) pour distribuer les connexions TCP/UDP entrantes sur plusieurs serveurs.
+Pare-feu matériel (Firewalls stateful / de niveau 4) : Inspectent les en-têtes des segments TCP/UDP et les numéros de ports pour autoriser ou bloquer les flux de données.
+
+
+Cette couche gère le transport de bout en bout, le contrôle de flux et la fiabilité (gestion des ports et des segments avec TCP ou UDP). 
+Remarque : Il n'existe pas de matériel réseau "pur" fonctionnant uniquement sur la couche 4. Ce rôle est assuré de manière logicielle par le système d'exploitation des hôtes (ordinateurs, serveurs). Cependant, certains équipements d'infrastructure avancés intègrent des fonctions de cette couche :
+Répartiteurs de charge (Load Balancers / commutateurs de services applicatifs) : Analysent le trafic jusqu'à la couche 4 (et au-delà) pour distribuer les connexions TCP/UDP entrantes sur plusieurs serveurs.
+Pare-feu matériel (Firewalls stateful / de niveau 4) : Inspectent les en-têtes des segments TCP/UDP et les numéros de ports pour autoriser ou bloquer les flux de données.
+
+
+Matériel : les symboles
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+14
+
+
+
+
+
+
+Détail des couches hautes (5–7)
+Session : ouverture et reprise
+Présentation : encodage, chiffrement
+Application : DNS, HTTP(S), SSH
+Regroupées dans Application en TCP/IP
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+15
+
+
+
+1. La couche Session (Couche 5 OSI) : La gestion du dialogue
+La couche Session ouvre, gère et ferme les canaux de communication (les sessions) entre les applications distantes.
+Son rôle concret : Elle synchronise les échanges et gère les points de reprise. Si une micro-coupure réseau survient au milieu du téléchargement d'un gros fichier, c'est elle qui permet de reprendre le transfert là où il s'est arrêté plutôt que de tout recommencer depuis le début.
+Exemples : Les sockets réseau, les protocoles RPC (Remote Procedure Call) ou NetBIOS.
+2. La couche Présentation (Couche 6 OSI) : Le traducteur universel
+Cette couche s'assure que l'information envoyée par la couche Application d'un système soit lisible par la couche Application d'un autre système. Elle agit comme un traducteur et un optimisateur de données.
+L'encodage et les formats : Elle convertit les chaînes de texte ou les médias dans des formats standards (ex : ASCII, UTF-8, JSON, XML, JPEG, MP4).
+La sécurité : C'est traditionnellement à ce niveau que s'opèrent le chiffrement et la compression des données (comme les mécanismes de chiffrement asymétrique et symétrique que nous avons étudiés).
+3. La couche Application (Couche 7 OSI) : L'interface utilisateur
+C'est la couche la plus haute, celle qui interagit directement avec vos logiciels (navigateurs web, clients e-mail, consoles de commande). Elle fournit les services réseau nécessaires aux applications.
+DNS (UDP/TCP 53) : Résolution des noms de domaine en adresses IP [Cloudflare].
+HTTP/HTTPS (TCP 80/443) : Transfert hypertexte pour le chargement des sites web et des API [Cloudflare].
+SSH (TCP 22) : Administration à distance entièrement chiffrée.
+4. La simplification : Le modèle TCP/IP
+Le modèle OSI est un excellent modèle théorique et éducatif. Cependant, le modèle réel sur lequel repose l'Internet moderne est le modèle TCP/IP (ou modèle Internet).
+Pour gagner en efficacité et coller à la réalité du développement logiciel, le modèle TCP/IP a regroupé les couches 5 (Session), 6 (Présentation) et 7 (Application) de l'OSI en une seule et unique couche : la couche Application.
+
+
+Le modèle TCP/IP
+Accès réseau : Ethernet, Wi-Fi, ARP
+Internet : IPv4/IPv6, ICMP, routage
+Transport : TCP, UDP, QUIC
+Application : DNS, HTTP(S), SSH, DHCP
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+16
+
+
+
+En informatique, ARP signifie Address Resolution Protocol (ce qui se traduit en français par Protocole de résolution d'adresse). Wikipédia
+Rôle et fonctionnement
+Lien IP / MAC : Il permet de faire correspondre une adresse IP (couche réseau) à une adresse MAC physique (couche de liaison ou couche matérielle) sur un réseau local. Fortinet +1
+Nécessité : Les équipements d'un réseau local (comme un réseau Ethernet) ont besoin de connaître l'adresse MAC du destinataire pour acheminer correctement les paquets de données. IT-Connect +2
+Table ARP : Chaque machine conserve un cache (la table ARP) qui liste ces associations récentes pour éviter d'avoir à redemander l'information à chaque communication
+
+QUIC est un protocole de transport réseau rapide et sécurisé, fonctionnant sur UDP et servant de base au web moderne et à HTTP/3
+
+
+L’adressage IP (IPv4)
+32 bits, quatre octets
+Adresse réseau + identifiant hôte
+Exemple : 192.0.2.25/24
+Adresses spéciales : réseau, broadcast, loopback
+La passerelle permet de sortir du sous-réseau
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+17
+
+
+Une adresse spéciale en réseau (comme le réseau, le broadcast et le loopback) est une adresse IP réservée à un usage précis de gestion, de test ou d'identification, et non assignée à une machine classique. [1]
+1. Adresse de réseau (Network Address)
+Définition : C'est la première adresse d'une plage IP de sous-réseau. Elle sert à identifier le réseau lui-même.
+Caractéristiques : Tous les bits de la partie « hôte » (machine) sont à 0.
+Exemple : Pour un réseau 192.168.1.0 avec un masque 255.255.255.0, l'adresse 192.168.1.0 désigne le réseau global et ne peut pas être attribuée à un ordinateur. [1, 2]
+2. Adresse de broadcast (Diffusion)
+Définition : C'est la dernière adresse d'une plage IP. Elle permet d'envoyer un message simultané à tous les équipements connectés au même sous-réseau. [1, 2, 3]
+Caractéristiques : Tous les bits de la partie « hôte » sont à 1. [1]
+Exemple : Pour le réseau 192.168.1.0/24, l'adresse de diffusion est 192.168.1.255. Un paquet envoyé ici est lu par toutes les machines du sous-réseau, mais les routeurs bloquent sa propagation vers l'extérieur. [1]
+3. Adresse de loopback (Bouclage)
+Définition : C'est une adresse virtuelle qui permet à une machine de s'envoyer des paquets à elle-même, sans passer par le réseau physique. [1, 2, 3]
+Utilité : Tester le bon fonctionnement de la pile logicielle TCP/IP de l'appareil ou communiquer avec des services locaux (serveur web en développement, base de données). [1, 2, 3]
+
+
+Masques de sous-réseau et CIDR
+CIDR : /n bits de préfixe
+/24 -> 256 adresses
+/26 -> 64 adresses
+VLSM selon les besoins
+Limiter le broadcast, préparer la segmentation
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+18
+
+
+Notes pédagogiques — Masques de sous-réseau et CIDR
+
+Calculer /26 dans un /24. Broadcast n existe pas en IPv6. Transition : toutes les adresses ne sont pas publiques.
+
+Animation : faire participer, poser une question courte, relier à un cas d exploitation ou de sécurité.
+
+Une adresse CIDR est une méthode d'écriture compacte qui combine une adresse IP et son masque de sous-réseau sous la forme adresse_IP/préfixe. [1, 2]
+Qu'est-ce que le CIDR ?
+Définition : CIDR signifie Classless Inter-Domain Routing (routage interdomaine sans classe).
+Rôle : Il remplace l'ancien système d'adresses par classes (A, B, C) pour économiser les adresses IP et simplifier le routage sur Internet.
+Fonctionnement : Le nombre après le slash (le préfixe) indique combien de bits composent la partie réseau de l'adresse au début. [1, 2, 3, 4]
+Exemples d'utilisation
+192.168.1.0/24 : Signifie que les 24 premiers bits définissent le réseau, ce qui correspond au masque classique 255.255.255.0 et englobe 256 adresses IP.
+10.0.0.0/8 : Signifie que les 8 premiers bits définissent le réseau, correspondant au masque 255.0.0.0.
+192.168.1.5/32 : Désigne une seule et unique machine (tous les 32 bits sont utilisés)
+
+Le VLSM (Variable Length Subnet Mask, ou masque de sous-réseau à longueur variable) est une technique de découpage d'un réseau IP en sous-réseaux de tailles différentes. [1]
+Pourquoi utiliser le VLSM ?
+Économie d'adresses IP : Contrairement au découpage classique où tous les sous-réseaux ont la même taille, le VLSM adapte le masque au nombre réel d'appareils (hôtes) de chaque segment. [1]
+Moins de gaspillage : Les petits segments (comme une liaison entre deux routeurs) n'utilisent que le nombre exact de bits nécessaires, par exemple un masque /30 pour 2 adresses utiles. [1]
+Comment ça fonctionne ?
+Recenser les besoins : Lister tous les sous-réseaux et le nombre d'hôtes requis pour chacun.
+Trier par ordre décroissant : Classer les besoins du plus grand nombre d'hôtes au plus petit.
+Attribuer les plages : Assigner les sous-réseaux en commençant par les plus grands pour éviter les chevauchements d'adresses
+
+
+
+Exemple de réseaux CIDR
+	Notation CIDR	Masque de sous-réseau	Nombre total d'adresses IP	Type d'usage courant
+
+	/32	255.255.255.255	1 Machine unique 	(Hôte)
+	/30	255.255.255.252	4	Liaison entre 2 routeurs
+	/24	255.255.255.0	256	Réseau domestique standard
+	/16 5	255.255.0.065	36	Grand réseau / VPC Cloud
+	/8	255.0.0.016	777 216 	Fournisseur d'accès (FAI)
+
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+19
+
+
+La méthode de séparation ou de découpage CIDR (Classless Inter-Domain Routing) consiste à diviser une plage d'adresses IP en sous-réseaux plus petits et optimisés. Elle remplace l'ancien système rigide des "classes" (A, B, C) au profit d'un masque de sous-réseau dynamique représenté par un slash (ex: /24). 
+Pour comprendre et appliquer la séparation CIDR, il faut suivre une méthode logique en 4 étapes. 
+Le concept de base : La frontière des bits
+Une adresse IPv4 fait 32 bits (représentés par 4 nombres de 0 à 255 séparés par des points).
+Le suffixe CIDR (le chiffre après le slash) indique le nombre de bits réservés pour identifier le réseau. Le reste des bits sert à identifier les machines (hosts). 
+Dans un /24, les 24 premiers bits appartiennent au réseau. Il reste 32 - 24 = 8 bits pour les machines.
+Nombre d'adresses possibles pour les machines : 2⁸ = 256 adresses. 
+La méthode pour découper un réseau en sous-réseaux
+Prenons un exemple concret : Vous disposez du réseau 192.168.1.0/24 (256 adresses) et vous devez le séparer en 4 sous-réseaux égaux pour isoler vos services (Comptabilité, Marketing, Invités, Direction). 
+Étape 1 : Calculer le nombre de bits à "emprunter" 
+Pour créer des sous-réseaux, on va voler des bits à la partie "machine". On utilise la formule 2𝑛
+≥Nombre de sous-réseaux voulus
+. 
+Ici, nous voulons 4 sous-réseaux.
+2² = 4. Nous devons donc emprunter n = 2 bits. 
+Étape 2 : Déterminer le nouveau masque CIDR 
+On ajoute les bits empruntés au masque d'origine. 
+Masque d'origine : /24
+Nouveau masque : 24 + 2 = /26 
+Étape 3 : Calculer la taille de chaque sous-réseau (Le "Pas") 
+On regarde combien de bits il reste pour les machines : 32 - 26 = 6 bits. 
+Nombre total d'adresses par sous-réseau : 2⁶ = 64 adresses.
+Le "pas" de progression entre chaque réseau sera donc de 64. 
+Étape 4 : Lister les nouveaux sous-réseaux 
+Il suffit maintenant de faire progresser le dernier nombre (octet) de l'adresse IP en ajoutant le "pas" (64) à chaque fois : 
+Sous-réseau 1 : 192.168.1.0/26 (Plage d'adresses de .0 à .63)
+Sous-réseau 2 : 192.168.1.64/26 (Plage d'adresses de .64 à .127)
+Sous-réseau 3 : 192.168.1.128/26 (Plage d'adresses de .128 à .191)
+Sous-réseau 4 : 192.168.1.192/26 (Plage d'adresses de .192 à .255) 
+⚠️ La règle des 2 adresses réservées
+Dans chaque sous-réseau créé, vous devez impérativement soustraire 2 adresses qui ne pourront jamais être attribuées à un ordinateur ou un serveur : 
+L'adresse réseau (la première) : Elle sert à identifier le réseau lui-même (ex: 192.168.1.0).
+L'adresse de diffusion / Broadcast (la dernière) : Elle sert à envoyer un message à toutes les machines du sous-réseau en même temps (ex: 192.168.1.63). 
+Formule des machines utiles : Nombre d'adresses - 2. Dans notre exemple /26, chaque sous-réseau a 64 - 2 = 62 adresses disponibles pour des équipements.
+
+
+Adresses publiques, privées, NAT
+Privées : 10/8, 172.16/12, 192.168/16
+Publique : routable sur Internet
+NAT/PAT traduit adresses et ports
+Avantages : économie d IPv4
+Limites : traçabilité, connexions entrantes
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+20
+
+
+Ces 5 concepts décrivent le fonctionnement de l'adressage IP et le mécanisme de transition indispensable qu'est le NAT (Network Address Translation) [Cloudflare].
+Ils se situent à la couche Réseau (Couche 3 du modèle OSI) et expliquent comment des milliards d'appareils peuvent communiquer à travers le monde malgré la pénurie historique d'adresses IPv4.
+1. Les Adresses Privées : L'isolement local
+Définies par la norme RFC 1918, les adresses IP privées sont réservées exclusivement aux réseaux locaux (LAN), comme votre entreprise ou votre box domestique.
+La règle absolue : Ces adresses ne sont pas routables sur Internet. Les routeurs du monde entier rejettent systématiquement tout paquet dont la destination ou la source est une IP privée.
+Les 3 plages réservées :
+10.0.0.0 à 10.255.255.255 (Notation CIDR : 10.0.0.0/8) : Idéal pour les très grands réseaux d'entreprise.
+172.16.0.0 à 172.31.255.255 (172.16.0.0/12) : Utilisé pour les réseaux de taille moyenne.
+192.168.0.0 à 192.168.255.255 (192.168.0.0/16) : Le standard par excellence pour les box résidentielles et les petits bureaux.
+2. Les Adresses Publiques : L'accès mondial
+À l'inverse, une adresse IP publique est unique au monde et routable sur Internet.
+Le rôle : Tout serveur web, routeur frontal d'entreprise ou box Internet doit posséder une adresse publique pour pouvoir envoyer et recevoir des données sur le réseau mondial. Ces adresses sont allouées et contrôlées par des organismes internationaux (comme le RIPE NCC en Europe).
+3. NAT/PAT : Le traducteur universel
+Puisque les adresses privées ne peuvent pas aller sur Internet, un équipement (généralement le routeur ou le pare-feu) doit traduire ces adresses à la volée. C'est le rôle du NAT (Network Address Translation) [Cloudflare].
+Le PAT (Port Address Translation) ou NAT de surcharge : C'est la forme la plus courante. Lorsque 50 ordinateurs d'une entreprise (en IP privées) visitent des sites web en même temps, le routeur modifie le paquet sortant : il remplace l'IP privée par l'unique IP publique de l'entreprise, et il attribue un numéro de port source unique à chaque connexion.
+La table de traduction : Le routeur note ce port dans une table interne. Quand le site web répond, le routeur regarde le numéro de port pour savoir à quel ordinateur local il doit réacheminer la réponse.
+4. L'Avantage majeur : Économie des adresses IPv4
+Le protocole IPv4 ne permet de créer qu'environ 4,3 milliards d'adresses. C'est beaucoup trop peu pour la population mondiale et l'explosion des objets connectés.
+L'impact du NAT : Grâce au NAT/PAT, des milliers d'équipements au sein d'une même entreprise peuvent partager une seule et unique adresse IP publique pour surfer sur Internet. Sans le NAT, le réseau Internet se serait effondré par manque d'adresses bien avant le déploiement massif d'IPv6.
+5. Les Limites : Traçabilité et Connexions entrantes
+Le NAT résout un problème de ressources, mais il introduit des complexités techniques et de sécurité :
+Perte de traçabilité fine : Vu de l'extérieur (par exemple, par un serveur web distant ou par les autorités), tout le trafic d'une entreprise ou d'un immeuble semble provenir de la même adresse IP publique. Si un utilisateur commet un acte malveillant, il faut obligatoirement analyser les logs internes du routeur (la table NAT) pour identifier la machine locale exacte à l'origine du flux.
+Problème des connexions entrantes : Par défaut, le NAT est unidirectionnel. Une machine externe sur Internet ne peut pas initier une connexion vers un serveur interne en IP privée, car le routeur ne sait pas à qui donner le paquet. Pour résoudre cela, l'administrateur doit configurer manuellement une redirection de port (Forwarding / Static NAT) ou utiliser des solutions de publication d'applications (ZTNA).
+
+
+Les adresses IP non routables (privées)
+Définies par la norme RFC 1918, ces adresses ne circulent pas sur l'Internet public et nécessitent une passerelle NAT (Network Address Translation) pour se connecter au web [0.12].
+Classe A (privée) : 10.0.0.0/8 (de 10.0.0.0 à 10.255.255.255) – environ 16 millions d'adresses.
+Classe B (privée) : 172.16.0.0/12 (de 172.16.0.0 à 172.31.255.255) – un peu plus d'un million d'adresses.
+Classe C (privée) : 192.168.0.0/16 (de 192.168.0.0 à 192.168.255.255) – 65 536 adresses.
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+21
+
+
+
+
+IPv6 : pourquoi et comment
+128 bits ; notation hex compressée : L'IPv6 utilise un codage sur 128 bits au lieu de 32 bits, ce qui permet de générer 340 sextillions (34 suivi de 36 zéros) d'adresses. Chaque grain de sable sur Terre pourrait avoir sa propre adresse IP.
+Les principaux avantages
+Configuration automatique : Les appareils peuvent se connecter et s'attribuer une adresse tout seuls sans avoir besoin d'un serveur de configuration complexe.
+Sécurité améliorée : Le chiffrement et l'authentification sont intégrés directement dans le protocole.
+Meilleures performances : Le routage des données est plus rapide et plus direct entre les machines, éliminant les bidouillages réseau comme le NAT (qui cache plusieurs appareils derrière une seule adresse).
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+22
+
+
+L'IPv6 (Internet Protocol version 6) est le successeur de l'IPv4. Il a été conçu pour résoudre définitivement la pénurie d'adresses IP mondiales et moderniser le fonctionnement de la couche Réseau (Couche 3 du modèle OSI).
+Voici les caractéristiques fondamentales, la structure et les avantages de l'IPv6.
+1. La fin de la pénurie : Un nombre d'adresses quasi infini
+La différence majeure réside dans la taille de l'adresse :
+IPv4 : Adresses codées sur 32 bits, offrant environ 4,3 milliards d'adresses au total.
+IPv6 : Adresses codées sur 128 bits.
+Le résultat : Cela permet d'obtenir environ 3,4 × 10³⁸ adresses (340 sextillions). Pour donner une image universelle, cela représente plusieurs millions d'adresses pour chaque millimètre carré de la surface de la Terre. La pénurie est éradiquée.
+2. Format et notation d'une adresse IPv6
+Contrairement à l'IPv4 et ses quatre nombres séparés par des points (ex: 192.168.1.1), l'IPv6 s'écrit en notation hexadécimale (chiffres de 0 à 9 et lettres de A à F).
+Une adresse est composée de 8 groupes de 4 caractères hexadécimaux, séparés par des deux-points (:).
+Exemple d'adresse complète : 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+Les règles de simplification d'écriture :
+Pour rendre ces adresses plus lisibles, deux règles strictes s'appliquent :
+Suppression des zéros non significatifs : On peut enlever les zéros au début d'un groupe. (0db8 devient db8, 0000 devient 0).
+La double colonne (::) : On peut remplacer une suite consécutive de groupes de zéros par ::. Cette règle ne peut être utilisée qu'une seule fois par adresse pour éviter toute ambiguïté.
+L'adresse exemple simplifiée : 2001:db8:85a3::8a2e:370:7334
+3. La structure d'une adresse IPv6 (La séparation)
+En IPv6, le découpage réseau utilise également la notation CIDR, mais les frontières sont simplifiées et standardisées 
+Les 64 premiers bits (Préfixe) : Utilisés pour le routage. Généralement, un fournisseur d'accès Internet (FAI) attribue un bloc en /48 ou /56 à une entreprise ou un particulier, laissant à l'administrateur la liberté de créer ses propres sous-réseaux en /64 (le standard absolu pour un sous-réseau local IPv6).
+Les 64 derniers bits (Interface ID) : Identifient de manière unique la machine dans ce sous-réseau. Cet identifiant est souvent généré automatiquement à partir de l'adresse MAC (méthode EUI-64) ou de manière aléatoire pour protéger la vie privée.
+4. Les avantages techniques par rapport à l'IPv4
+L'IPv6 n'offre pas seulement plus d'adresses, il réinvente des mécanismes réseau obsolètes :
+La suppression du NAT : Chaque appareil (PC, smartphone, objet connecté) possède sa propre adresse IPv6 publique et unique, directement routable sur Internet. Le NAT/PAT (qui traduisait les IP privées en IP publiques) disparaît [Cloudflare]. La communication redevient directe de bout en bout, facilitant les performances des applications en temps réel.
+L'Auto-configuration simplifiée (SLAAC) : Une machine peut s'attribuer elle-même une adresse IP valide et configurer sa passerelle sans avoir obligatoirement besoin d'un serveur DHCP, simplement en dialoguant avec le routeur local.
+Performance du routage : L'en-tête d'un paquet IPv6 est fixe et simplifié par rapport à l'IPv4. Les routeurs Internet perdent moins de temps à analyser les paquets, ce qui accélère le traitement du trafic.
+Sécurité native : Le protocole IPsec (chiffrement et authentification du trafic) a été conçu à l'origine comme un composant obligatoire intégré de base à l'IPv6, alors qu'il a dû être greffé par-dessus l'IPv4 [Cloudflare].
+5. Les types d'adresses IPv6 indispensables
+En IPv6, une même interface réseau possède presque toujours plusieurs adresses IP simultanément :
+L'adresse de liaison locale (Link-Local) — fe80::/10 : Générée automatiquement par chaque machine. Elle sert uniquement à communiquer au sein du même réseau local (équivalent des commutateurs Niveau 2). Elle ne traverse jamais les routeurs.
+L'adresse unique globale (Global Unicast) — 2000::/3 : C'est l'équivalent de l'IP publique IPv4. Elle permet de communiquer sur l'Internet mondial.
+L'adresse de bouclage (Loopback) — ::1 : Équivalent du 127.0.0.1 en IPv4 (teste la machine elle-même).
+
+
+Commutation (switching)
+La commutation en réseaux est le processus qui permet d'acheminer des données d'un point à un autre au sein d'un réseau informatique ou de télécommunication.
+Les deux grands types de commutation :
+La commutation de circuits : Un chemin physique ou virtuel dédié est entièrement réservé entre l'émetteur et le récepteur pendant toute la durée de la communication (utilisé historiquement par la téléphonie classique).
+La commutation de paquets : Les données sont découpées en petits morceaux appelés paquets. Chaque paquet voyage indépendamment à travers le réseau en empruntant le chemin le plus efficace, puis les données sont réassemblées à l'arrivée. C'est la méthode utilisée par Internet et les réseaux modernes.
+Le rôle des équipements (Commutateurs ou Switchs) :
+Définition : Un commutateur réseau (ou switch) est le matériel qui réalise cette fonction au niveau d'un réseau local (LAN).
+Fonctionnement : Il lit l'adresse de destination (comme une adresse MAC) contenue dans le paquet de données reçu et le redirige uniquement vers le port physique relié à l'appareil concerné, évitant ainsi les embouteillages sur le réseau.
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+23
+
+
+La commutation en réseaux est le processus qui permet d'acheminer des données d'un point à un autre au sein d'un réseau informatique ou de télécommunication.
+Les deux grands types de commutation :
+La commutation de circuits : Un chemin physique ou virtuel dédié est entièrement réservé entre l'émetteur et le récepteur pendant toute la durée de la communication (utilisé historiquement par la téléphonie classique).
+La commutation de paquets : Les données sont découpées en petits morceaux appelés paquets. Chaque paquet voyage indépendamment à travers le réseau en empruntant le chemin le plus efficace, puis les données sont réassemblées à l'arrivée. C'est la méthode utilisée par Internet et les réseaux modernes.
+Le rôle des équipements (Commutateurs ou Switchs) :
+Définition : Un commutateur réseau (ou switch) est le matériel qui réalise cette fonction au niveau d'un réseau local (LAN).
+Fonctionnement : Il lit l'adresse de destination (comme une adresse MAC) contenue dans le paquet de données reçu et le redirige uniquement vers le port physique relié à l'appareil concerné, évitant ainsi les embouteillages sur le réseau.
+
+
+Commutation : principes
+Voici les étapes clés qui expliquent comment un commutateur gère les données au sein d'un réseau local (LAN) :
+La découpe et l'encapsulation des données
+L'apprentissage automatique (La table MAC)
+L'acheminement intelligent des paquets
+La gestion d'attente (Mise en mémoire tampon)
+
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+24
+
+
+Lorsqu'un ordinateur souhaite envoyer un fichier ou un message, le système ne transmet pas tout d'un bloc. Les données sont découpées en morceaux plus petits appelés paquets ou trames. Chaque paquet reçoit une « étiquette » (un en-tête) contenant : [1, 2, 3, 4]
+L'adresse de l'expéditeur (adresse MAC source).
+L'adresse du destinataire (adresse MAC de destination). [1, 2]
+2. L'apprentissage automatique (La table MAC)
+Le commutateur possède une mémoire interne appelée table d'adresses MAC (ou table CAM). [1]
+À son démarrage, cette table est complètement vide.
+Dès qu'un appareil connecté envoie un paquet, le commutateur analyse l'en-tête, lit l'adresse MAC de l'expéditeur et enregistre à quel port physique cet appareil est branché. Petit à petit, il cartographie l'ensemble du réseau. [1, 2, 3]
+3. L'acheminement intelligent des paquets
+Lorsqu'un paquet arrive sur l'un des ports du commutateur, l'appareil regarde l'adresse MAC du destinataire : [1, 2]
+Si la destination est connue : Le commutateur redirige le paquet uniquement vers le port où est branché le destinataire. Les autres appareils du réseau ne reçoivent rien, ce qui évite les encombrements (collisions) et sécurise l'échange. [1, 2, 3, 4]
+Si la destination est inconnue : Le commutateur envoie le message sur tous ses ports (c'est ce qu'on appelle une diffusion ou flooding). Seul l'appareil concerné va répondre, permettant au commutateur d'enregistrer sa position pour les prochaines fois. [1, 2, 3]
+4. La gestion d'attente (Mise en mémoire tampon)
+Si plusieurs appareils tentent d'envoyer des données en même temps vers le même destinataire, le port de sortie peut saturer. Pour éviter de perdre des informations, le commutateur stocke temporairement les paquets excédentaires dans sa mémoire tampon (buffer) avant de les envoyer dès que la ligne se libère. [1]
+
+
+Le spanning tree
+Le problème : Les boucles de réseau
+La solution : Comment fonctionne le Spanning Tree ?
+Le protocole STP résout ce problème en transformant une topologie réseau en un arbre logique sans boucle grâce à plusieurs étapes automatiques :
+Élection du pont racine (Root Bridge) : Les commutateurs s'échangent des messages appelés BPDU pour élire un "chef" (le commutateur central du réseau), généralement celui qui a la priorité la plus basse ou la plus petite adresse MAC.
+Calcul des chemins les plus courts : Chaque commutateur calcule le chemin le plus rapide (selon la vitesse des câbles) pour atteindre ce pont racine.
+Blocage des ports redondants : Pour couper la boucle, STP va désactiver logiquement certains ports. Les données ne peuvent plus passer par là.
+Secours automatique : Si un câble principal est débranché ou tombe en panne, le protocole STP le détecte instantanément. Il réactive alors le port qui était bloqué pour que les données continuent de circuler par le chemin de secours.
+
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+25
+
+
+Le problème : Les boucles de réseau
+Pour éviter qu'une panne de câble ne coupe tout le réseau, les administrateurs branchent souvent les commutateurs en double (redondance). Cependant, sans STP, si un commutateur reçoit un message de diffusion (broadcast), il va le renvoyer sur tous ses ports. Le deuxième commutateur fera de même, créant une boucle infinie.
+Cela provoque une tempête de diffusion (broadcast storm) qui sature complètement la mémoire des appareils et fait planter le réseau en quelques secondes.
+La solution : Comment fonctionne le Spanning Tree ?
+Le protocole STP résout ce problème en transformant une topologie réseau en un arbre logique sans boucle grâce à plusieurs étapes automatiques :
+Élection du pont racine (Root Bridge) : Les commutateurs s'échangent des messages appelés BPDU pour élire un "chef" (le commutateur central du réseau), généralement celui qui a la priorité la plus basse ou la plus petite adresse MAC.
+Calcul des chemins les plus courts : Chaque commutateur calcule le chemin le plus rapide (selon la vitesse des câbles) pour atteindre ce pont racine.
+Blocage des ports redondants : Pour couper la boucle, STP va désactiver logiquement certains ports. Les données ne peuvent plus passer par là.
+Secours automatique : Si un câble principal est débranché ou tombe en panne, le protocole STP le détecte instantanément. Il réactive alors le port qui était bloqué pour que les données continuent de circuler par le chemin de secours.
+
+
+Virtual LAN
+VLAN = domaine de broadcast logique
+Un VLAN permet de segmenter logiquement un réseau physique en plusieurs réseaux distincts, sans changer le câblage. Des machines connectées sur le même switch physique peuvent ainsi appartenir à des réseaux différents, isolés les uns des autres. Les VLAN sont étanches : on passe par le routage pour la communication inter VLAN.
+Fonctionnement :
+Chaque VLAN est identifié par un numéro (VLAN ID), de 1 à 4094
+Les switches "administrables" (manageable) permettent d'assigner chaque port à un VLAN
+Pour faire transiter plusieurs VLAN sur un même lien (entre deux switches, par exemple), on utilise le trunking, avec le protocole 802.1Q, qui ajoute une étiquette (tag) dans les trames Ethernet indiquant le VLAN d'origine
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+26
+
+
+VLAN = domaine de broadcast logique
+Un VLAN permet de segmenter logiquement un réseau physique en plusieurs réseaux distincts, sans changer le câblage. Des machines connectées sur le même switch physique peuvent ainsi appartenir à des réseaux différents, isolés les uns des autres. Les VLAN sont étanches : on passe par le routage pour la communication inter VLAN.
+Fonctionnement :
+Chaque VLAN est identifié par un numéro (VLAN ID), de 1 à 4094
+Les switches "administrables" (manageable) permettent d'assigner chaque port à un VLAN
+Pour faire transiter plusieurs VLAN sur un même lien (entre deux switches, par exemple), on utilise le trunking, avec le protocole 802.1Q, qui ajoute une étiquette (tag) dans les trames Ethernet indiquant le VLAN d'origine
+
+
+Routage : principes
+Le routage consiste à acheminer des données (paquets) d'un réseau à un autre, en trouvant le meilleur chemin.
+Comment ça fonctionne ?
+Le routeur possède plusieurs interfaces, chacune connectée à un réseau différent (donc avec des adresses IP de sous-réseaux différents).
+Quand un paquet arrive, le routeur regarde l'adresse IP de destination et consulte sa table de routage pour déterminer :Sur quelle interface envoyer le paquet vers quel routeur suivant (next hop) le transmettre, s'il ne connaît pas directement le réseau de destination
+Le paquet "saute" de routeur en routeur (on parle de hop) jusqu'à atteindre le réseau de destination, où le dernier routeur le remet à la machine finale via son adresse MAC.
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+27
+
+
+Le routage consiste à acheminer des données (paquets) d'un réseau à un autre, en trouvant le meilleur chemin.
+Comment ça fonctionne ?
+1. Le routeur possède plusieurs interfaces, chacune connectée à un réseau différent (donc avec des adresses IP de sous-réseaux différents).
+2. Quand un paquet arrive, le routeur regarde l'adresse IP de destination et consulte sa table de routage pour déterminer :Sur quelle interface envoyer le paquet vers quel routeur suivant (next hop) le transmettre, s'il ne connaît pas directement le réseau de destination
+3. Le paquet "saute" de routeur en routeur (on parle de hop) jusqu'à atteindre le réseau de destination, où le dernier routeur le remet à la machine finale via son adresse MAC.
+
+Routage / OSI
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+28
+
+
+
+
+
+Table de routage
+Chaque routeur maintient une table contenant :
+Les réseaux de destination connus (adresse réseau + masque)
+L'interface ou le next hop à utiliser pour les atteindre
+Une métrique (coût) permettant de choisir le meilleur chemin s'il y en a plusieurs
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+29
+
+
+
+
+
+Protocoles de routage
+RIP : distance-vector
+OSPF/IS-IS : état de liens
+BGP : inter-domaines et politiques
+Métrique et convergence
+Authentifier les adjacences
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+30
+
+
+1. RIP : L'algorithme à vecteur de distance (Distance-Vector)
+Le protocole RIP (Routing Information Protocol) est l'un des plus anciens protocoles de routage dynamique. Il est classé comme un protocole à vecteur de distance. 
+Principe du "rumeur par rumeur" :
+Un routeur RIP ne connaît pas la carte complète du réseau. Il demande simplement à ses voisins directs : "Quels réseaux connaissez-vous et à quelle distance sont-ils de vous ?". Il copie ensuite ces informations dans sa propre table en y ajoutant sa propre distance. 
+Fonctionnement : Toutes les 30 secondes, chaque routeur envoie l'intégralité de sa table de routage à ses voisins sous forme de diffusion (broadcast ou multicast). 
+Limites majeures :
+La distance maximale est de 15 sauts (routeurs traversés). À 16 sauts, le réseau est considéré comme inaccessible. Il est donc inutilisable sur les grands réseaux.
+Il est sujet aux boucles de routage (résolues en partie par des mécanismes comme le Split Horizon ou le Poison Reverse). 
+2. OSPF et IS-IS : Les protocoles à état de liens (Link-State)
+Contrairement à RIP, les protocoles OSPF (Open Shortest Path First) et IS-IS (Intermediate System to Intermediate System) permettent à chaque routeur d'avoir une cartographie exacte et complète de toute la topologie du réseau (une vue "satellite"). 
+Fonctionnement :
+Chaque routeur teste ses connexions directes et génère des paquets d'état de liens (appelés LSA en OSPF ou LSP en IS-IS).
+Ces paquets sont propagés à tous les routeurs du réseau (flooding).
+Chaque routeur stocke ces données dans une base de données topologique (LSDB) identique à celle de ses pairs.
+Chaque routeur exécute ensuite l'algorithme de Dijkstra (SPF - Shortest Path First) pour calculer l'arbre des chemins les plus courts dont il est la racine. 
+Utilisation : Ce sont des protocoles de routage internes à une entreprise ou un opérateur (IGP - Interior Gateway Protocol). OSPF est massivement utilisé en entreprise, tandis que IS-IS est le favori historique au cœur des réseaux des grands opérateurs Internet (ISP). 
+3. BGP : Le routage inter-domaines et les politiques (Path-Vector)
+BGP (Border Gateway Protocol) est le protocole qui fait fonctionner Internet. C'est un protocole à vecteur de chemin (Path-Vector), utilisé pour relier des Systèmes Autonomes (AS), qui sont de grands réseaux indépendants (comme les réseaux d'Orange, Google, ou d'une université). 
+Au-delà de la technique, la politique : Sur Internet, le chemin le plus court en nombre de routeurs n'est pas forcément le meilleur. BGP n'utilise pas de métrique technique pure (comme la vitesse). À la place, il s'appuie sur des politiques commerciales et de sécurité définies par des attributs (comme Local Preference, AS-Path, MED). 
+Exemple de règle : Un opérateur A peut décider d'interdire au trafic de passer par le réseau d'un concurrent B, ou préférer un chemin plus long mais financièrement gratuit (accord de peering). BGP permet de manipuler très finement ces routes d'entrée et de sortie. 
+4. Métrique et Convergence
+Ces deux notions mesurent l'efficacité et la vitesse d'un protocole de routage. 
+La Métrique (Comment choisir la meilleure route ?) 
+La métrique est la valeur numérique qu'un protocole attribue à une route pour déterminer la "meilleure". Plus elle est basse, plus la route est prioritaire. Chaque protocole utilise sa propre méthode de calcul : 
+RIP : Compte uniquement le nombre de sauts (1 câble de 10 Mbps vaut la même chose qu'un câble de 10 Gbps).
+OSPF : Calcule le coût en fonction de la bande passante (𝐶𝑜û𝑡
+=108𝐵𝑎𝑛𝑑𝑒 𝑝𝑎𝑠𝑠𝑎𝑛𝑡𝑒 𝑒𝑛 𝑏𝑝𝑠
+). Une liaison plus rapide a un coût plus bas et est donc préférée.
+IS-IS : Utilise une métrique arbitraire (par défaut fixée à 10 pour chaque lien, modifiable par l'administrateur). 
+La Convergence (Le temps de réaction) 
+La convergence est le temps nécessaire à l'ensemble des routeurs du réseau pour se mettre d'accord sur une cartographie stable après un changement (ex: la coupure d'un câble). 
+RIP : Convergence très lente (plusieurs minutes), car il faut attendre les cycles de mise à jour toutes les 30 secondes.
+OSPF / IS-IS : Convergence très rapide (quelques secondes, voire millisecondes). Dès qu'un lien tombe, l'alerte est propagée immédiatement et l'algorithme SPF recalcule instantanément une nouvelle route. 
+5. Authentifier les adjacences (Sécurité)
+Par défaut, les protocoles de routage acceptent n'importe quel routeur qui se branche sur le réseau et commence à envoyer des informations de routage. Cela représente un risque de sécurité majeur : un attaquant pourrait brancher un routeur malveillant, injecter de fausses routes et détourner le trafic (attaque Man-in-the-Middle ou vol de données). 
+L'authentification des adjacences consiste à obliger les routeurs voisins (adjacents) à prouver leur identité avant de s'échanger des routes. 
+Authentification en texte clair (Cleartext) : Les routeurs s'échangent un mot de passe non chiffré. C'est une protection très faible (vulnérable à l'écoute réseau). 
+Authentification cryptographique (MD5 / SHA) : Les routeurs partagent une clé secrète. Lorsqu'ils s'envoient un message de routage, ils y joignent une empreinte numérique (hash) calculée avec cette clé. Le voisin vérifie l'empreinte. Le mot de passe ne transite jamais sur le câble, ce qui empêche l'interception et la falsification des routes. 
+
+
+Couche transport : TCP vs UDP
+TCP : connexion, fiable, ordonné
+Contrôle de flux et congestion
+UDP : sans connexion, léger
+UDP pour DNS, voix, QUIC
+Le port identifie le service
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+31
+
+
+1. TCP : Connexion, Fiabilité et Ordre
+Le protocole TCP (Transmission Control Protocol) est conçu pour les communications qui exigent une précision absolue (ex : transfert de fichiers, e-mails, pages web) [Cloudflare].
+Orienté connexion : Avant d'envoyer la moindre donnée, les deux machines doivent faire connaissance via un mécanisme en trois étapes appelé le Handshake à 3 voies (SYN, SYN-ACK, ACK).
+Fiable : Chaque paquet envoyé doit être acquitté (confirmé) par le destinataire (ACK). Si un paquet est perdu en route, le protocole TCP s'en aperçoit et le renvoie automatiquement.
+Ordonné : Les paquets reçoivent un numéro de séquence. S'ils arrivent dans le désordre à cause des chemins empruntés sur Internet, TCP les réassemble dans le bon ordre avant de les donner à l'application.
+2. Contrôle de flux et de congestion
+TCP agit comme un régulateur intelligent pour éviter de saturer le réseau ou les machines :
+Le contrôle de flux (Fenêtre glissante) : Il empêche un émetteur rapide de submerger un récepteur lent. Le récepteur indique en permanence la quantité de données qu'il est capable de stocker dans sa mémoire tampon (buffer).
+Le contrôle de congestion : Si les routeurs sur Internet ralentissent ou commencent à perdre des paquets, TCP réduit instantanément sa vitesse d'envoi (algorithmes comme TCP Reno ou BBR). Il réaccélère progressivement une fois le réseau fluidifié.
+3. UDP : Sans connexion et léger
+À l'inverse, UDP (User Datagram Protocol) fait le choix de la vitesse brute et de la légèreté au détriment de la sécurité de livraison [Cloudflare].
+Sans connexion : Une machine envoie ses paquets (appelés datagrammes) directement dans le réseau sans prévenir le destinataire et sans vérifier s'il est en ligne.
+Aucune garantie : UDP ne vérifie pas si les paquets arrivent à destination, s'ils sont perdus ou s'ils arrivent dans le désordre. L'en-tête d'un paquet UDP est minuscule (8 octets contre 20 octets minimum pour TCP), ce qui réduit drastiquement le trafic inutile.
+4. Les usages d'UDP : Vitesse et applications temps réel
+UDP est le protocole idéal lorsque la perte de quelques paquets est moins grave qu'un retard de transmission (latence) :
+La Voix et Vidéo (VoIP / Streaming) : Lors d'un appel en ligne, si un paquet est perdu, vous entendez un léger micro-saut dans le son. C'est préférable à l'utilisation de TCP, qui mettrait l'appel en pause pendant 2 secondes pour tenter de récupérer le morceau de son manquant.
+Le DNS (Domain Name System) : Les requêtes DNS doivent être ultra-rapides. Envoyer une question et recevoir une réponse en un seul paquet UDP est beaucoup plus efficace.
+Le protocole QUIC / HTTP/3 : Le web moderne bascule sur le protocole QUIC [Cloudflare]. Il utilise UDP comme base matérielle rapide, mais recrée une couche de fiabilité intelligente par-dessus, permettant au web (HTTP/3) d'être à la fois ultra-rapide et sécurisé [Cloudflare].
+5. Le port identifie le service
+Si l'adresse IP (Couche 3) permet de trouver la bonne machine sur Internet, le numéro de port (Couche 4) permet de trouver l'application ou le service spécifique à l'intérieur de cette machine.
+Une machine peut recevoir du trafic web, récupérer des e-mails et autoriser une connexion à distance en même temps sur une seule adresse IP. Le système d'exploitation trie les paquets grâce aux ports :
+Le trafic web arrive sur le port 80 (HTTP) ou 443 (HTTPS) [Cloudflare].
+Les connexions d'administration arrivent sur le port 22 (SSH).
+Les requêtes de noms arrivent sur le port 53 (DNS).
+
+Synthèse TCP vs UDP
+	Caractéristique	TCP	UDP
+	Mode	Orienté connexion (Handshake)	Sans connexion
+	Fiabilité	Oui (Acquittements et retransmissions)	Non (Meilleur effort / Best effort)
+	Ordre des données	Garanti par numéros de séquence	Non garanti
+	Vitesse	Plus lent (surcharge de contrôle)	Ultra-rapide (léger)
+
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+32
+
+
+
+
+Le three-way handshake TCP
+1. SYN : le client propose
+2. SYN-ACK : le serveur accepte
+3. ACK : le client confirme
+Puis : données et fenêtre
+Risques : SYN flood, scans
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+33
+
+
+
+Ces 5 étapes décrivent précisément le mécanisme du Three-Way Handshake (Handshake à 3 voies) du protocole TCP [Cloudflare], ainsi que ses vulnérabilités associées au niveau de la couche Transport (Couche 4).
+C'est cette procédure de salutation qui permet d'établir une connexion fiable et ordonnée avant l'échange de données.
+1. SYN : Le client propose
+La connexion est toujours initiée par le client.
+Le mécanisme : Le client envoie un paquet TCP vers le serveur avec le drapeau (flag) SYN (Synchronize) activé.
+L'information clé : Dans ce paquet, le client génère un numéro de séquence initial (ISN) aléatoire (par exemple, X). Ce numéro servira de point de départ pour numéroter et suivre tous les futurs paquets de données envoyés par le client.
+2. SYN-ACK : Le serveur accepte et répond
+Le serveur, qui était en écoute passive sur un port spécifique (ex: port 443 pour HTTPS), reçoit la demande.
+Le mécanisme : Si le port est ouvert et qu'il accepte la connexion, il répond en envoyant un paquet avec deux drapeaux activés : SYN et ACK (Acknowledgment).
+L'information clé :
+Avec le ACK, il confirme la bonne réception du SYN du client en renvoyant X + 1.
+Avec le SYN, il génère à son tour son propre numéro de séquence initial aléatoire (par exemple, Y) pour suivre les données qu'il enverra plus tard.
+3. ACK : Le client confirme la connexion
+Le client reçoit la réponse du serveur.
+Le mécanisme : Le client envoie un dernier paquet TCP avec le drapeau ACK activé.
+L'information clé : Il confirme avoir reçu le SYN du serveur en renvoyant le numéro Y + 1.
+À cet instant précis, la connexion est officiellement établie (ESTABLISHED) des deux côtés. Le canal virtuel est ouvert.
+4. La phase d'échange : Données et Fenêtre (Window)
+Une fois le handshake terminé, les données utiles commencent à transiter.
+Le contrôle de flux : Dans l'en-tête de chaque paquet, les machines s'échangent la taille de leur fenêtre TCP (Window Size). Cette valeur indique la quantité maximale d'octets que la mémoire tampon de la machine peut recevoir avant d'envoyer un acquittement.
+Si le réseau est stable, la taille de la fenêtre augmente pour accélérer le débit. Si des paquets sont perdus, la fenêtre rétrécit instantanément pour éviter la congestion.
+5. Les Risques de sécurité sur la couche 4
+Ce mécanisme d'ouverture de session, basé sur la confiance, présente des failles logiques majeures :
+L'attaque SYN Flood (Déni de service) : Un attaquant envoie des milliers de paquets SYN par seconde à un serveur en falsifiant son adresse IP source (IP Spoofing) [Cloudflare]. Le serveur répond par un SYN-ACK et réserve une place dans sa mémoire en attendant le ACK final du client [Cloudflare]. L'attaquant n'envoie jamais ce dernier ACK [Cloudflare]. La mémoire du serveur est rapidement saturée par ces connexions "à moitié ouvertes" (Half-Open), ce qui le fait crasher ou l'empêche de répondre aux vrais utilisateurs [Cloudflare].
+Les Scans de ports (ex: Scan SYN / Stealth Scan) : Un outil comme Nmap est utilisé par les attaquants pour cartographier les services ouverts sur une machine. Le scanner envoie un SYN.
+Si le serveur répond par un SYN-ACK, l'attaquant sait que le port est ouvert. Il envoie alors immédiatement un paquet RST (Reset) pour couper la connexion avant qu'elle ne soit enregistrée dans les logs applicatifs du serveur.
+Si le serveur répond par un RST, le port est fermé.
+
+
+Protocoles applicatifs essentiels
+DNS : noms logiques <-> adresses (UDP 53)
+HTTP(S) : web et API (TCP 80/443)
+SMTP/IMAP : messagerie (TCP 25 et 587 pour SMTP, 143 ou 993 pour IMAP/IMAPS=
+SSH : administration (TCP 22)
+DHCP : configuration (UDP 67 serveur /68 client)
+NTP : synchronisation des réseaux (UDP 123)
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+34
+
+
+Ces 6 services définissent les protocoles fondamentaux de la couche Application (Couche 7 du modèle OSI). Ce sont les applications réseaux universelles avec lesquelles les utilisateurs et les systèmes interagissent directement au quotidien.
+1. DNS : L'annuaire d'Internet (UDP/TCP 53)
+Le DNS (Domain Name System) traduit les noms de domaine lisibles par l'homme (ex: google.com) en adresses IP compréhensibles par les machines (ex: 142.250.179.78) [Cloudflare].
+Pourquoi UDP 53 ? Pour garantir une vitesse maximale. Une résolution de nom doit prendre quelques millisecondes seulement.
+Et le TCP ? Le DNS bascule sur TCP port 53 pour les réponses de grande taille (supérieures à 512 octets) ou pour la réplication de bases de données entre serveurs DNS (Zone Transfers).
+2. HTTP(S) : Le moteur du Web et des API (TCP 80 / 443)
+Le protocole HTTP / HTTPS gère le transfert des pages web, des images et des données d'API [Cloudflare].
+Port 80 (HTTP) : Version historique, les données transitent en texte clair, exposées au sniffing.
+Port 443 (HTTPS) : Version sécurisée moderne. Le flux HTTP est encapsulé dans un tunnel TLS [Cloudflare]. C'est ce trafic que le NGFW doit déchiffrer temporairement pour y chercher des malwares.
+3. SMTP / IMAP : Les rouages de la messagerie
+La gestion des e-mails est séparée en deux fonctions distinctes : l'envoi et la réception.
+SMTP (Envoi) : Il transfère les e-mails de serveur à serveur. Le port historique 25 sert au routage de cœur de réseau. Le port 587 (ou 465) est utilisé par les clients de messagerie pour soumettre leurs e-mails de manière sécurisée (chiffrée).
+IMAP (Réception) : Il permet à un utilisateur de consulter ses messages restés stockés sur le serveur. Le port 143 est non sécurisé, tandis que le port 993 (IMAPS) utilise TLS pour protéger les identifiants et le contenu des messages.
+4. SSH : L'administration à distance sécurisée (TCP 22)
+Le protocole SSH (Secure Shell) permet à un administrateur système de se connecter à distance à la console (CLI) d'un serveur Linux, d'un routeur ou d'un switch.
+Il a totalement remplacé le protocole obsolète Telnet (port 23) car SSH chiffre l'intégralité du flux, y compris les mots de passe. C'est un accès hautement sensible qui nécessite obligatoirement du MFA ou des clés d'authentification robustes.
+5. DHCP : L'attribution automatique de la configuration (UDP 67/68)
+Le protocole DHCP (Dynamic Host Configuration Protocol) évite aux administrateurs de devoir configurer manuellement chaque appareil du réseau.
+Lorsqu'une machine se branche, elle envoie une requête de diffusion (broadcast) sur le port UDP 68. Le serveur DHCP lui répond sur le port UDP 67 en lui louant temporairement une adresse IP, un masque de sous-réseau (CIDR), une passerelle par défaut et des serveurs DNS.
+6. NTP : L'horloge commune des réseaux (UDP 123)
+Le protocole NTP (Network Time Protocol) synchronise à la milliseconde près les horloges de tous les ordinateurs, serveurs et pare-feu du réseau.
+C'est une brique de sécurité invisible mais absolument cruciale pour la journalisation centralisée (SIEM). Sans NTP, les journaux d'événements seraient désalignés temporairement, rendant toute enquête sur un incident de sécurité impossible.
+
+Synthèse Partie 1
+Couches et encapsulation
+IP route ; MAC commute localement
+TCP/UDP exposent des services
+DNS et DHCP rendent le réseau utilisable
+Segmentation commence par sous-réseaux et VLAN
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+35
+
+
+
+
+Introduction à la cybersécurité réseau
+PARTIE 2 — CYBERSÉCURITÉ DES RÉSEAUX
+Confidentialité, intégrité, disponibilité
+Raisonner en actifs, menaces, contrôles, preuves
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+36
+
+
+
+
+Panorama des menaces réseau
+Écoute et interception
+Usurpation : IP, ARP, DNS, identité
+Services exposés
+Mouvement latéral
+DoS/DDoS (attaque saturation)
+Erreurs de configuration
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+37
+
+
+1. Écoute et interception (Sniffing & MitM)
+L'écoute consiste à capturer le trafic réseau pour lire les données qui y transitent.
+Le Sniffing : Un attaquant utilise un logiciel (comme Wireshark) pour intercepter les paquets. Sur un commutateur, il peut saturer la mémoire de l'appareil (attaque MAC Flooding) pour le forcer à se comporter comme un simple hub et ainsi recevoir tout le trafic.
+L'attaque de l'Homme du Milieu (MitM - Man-in-the-Middle) : L'attaquant s'interpose invisiblement entre deux machines légitimes (par exemple, entre un utilisateur et sa passerelle Internet) pour intercepter, lire, voire modifier les données à la volée.
+2. Usurpation (Spoofing) : IP, ARP, DNS, identité
+L'usurpation consiste à falsifier des informations pour se faire passer pour quelqu'un d'autre et contourner les mécanismes de sécurité.
+L'empoisonnement ARP (ARP Spoofing) : Sur un réseau local, l'attaquant envoie de faux messages ARP pour associer son adresse MAC à l'adresse IP du routeur. Toutes les machines du réseau lui envoient alors leur trafic Internet par erreur.
+L'usurpation d'identité IP (IP Spoofing) : Consiste à créer des paquets de données avec une fausse adresse IP source pour masquer l'origine d'une attaque ou usurper les droits d'une machine de confiance.
+L'empoisonnement DNS (DNS Spoofing) : L'attaquant corrompt les caches d'un serveur DNS pour associer un nom de domaine légitime (ex: banque.com) à une adresse IP malveillante, redirigeant les utilisateurs vers un faux site.
+L'usurpation d'identité (Session Hijacking) : Voler le jeton de session ou le cookie d'un utilisateur authentifié pour prendre le contrôle de son compte sans connaître son mot de passe.
+3. Services exposés
+Un service exposé est une application ou un port ouvert sur Internet ou sur un réseau public qui n'aurait pas dû l'être (par exemple, une base de données ou une interface d'administration de routeur).
+Le Risque : Si ce service contient une vulnérabilité logicielle non corrigée (faille Zero-Day ou bug connu), un attaquant peut l'exploiter à distance pour prendre le contrôle de la machine.
+La Solution : Restreindre les accès via des pare-feu, utiliser des réseaux privés virtuels (VPN) pour les accès distants et fermer tous les ports non essentiels.
+4. Mouvement latéral
+Le mouvement latéral est une technique utilisée par un attaquant après avoir réussi à s'infiltrer sur une première machine du réseau (souvent peu importante ou compromise par un e-mail d'hameçonnage).
+Le But : Au lieu de s'arrêter là, l'attaquant utilise cette première machine comme base pour scanner le réseau interne, voler des identifiants (via des outils comme Mimikatz) et infecter d'autres machines de proche en proche.
+L'Objectif final : Atteindre les cibles à haute valeur ajoutée, comme les serveurs de fichiers, le contrôleur de domaine (Active Directory) ou les sauvegardes. C'est ici que le cloisonnement par VLAN prend tout son sens pour bloquer sa progression.
+5. DoS / DDoS (Déni de service)
+Le but de ces attaques n'est pas de voler des données, mais de rendre un service indisponible.
+DoS (Denial of Service) : Une seule machine submerge une cible de requêtes techniques pour saturer sa mémoire ou sa bande passante.
+DDoS (Distributed Denial of Service) : L'attaque provient de milliers de machines compromises simultanément (un botnet ou réseau de machines zombies).
+Types d'attaques : Cela va de la saturation volumétrique (inonder le lien Internet) à des attaques applicatives plus subtiles (comme le Slowloris ou le SYN Flood), qui maintiennent des milliers de connexions ouvertes à moitié pour épuiser les ressources du serveur.
+6. Erreurs de configuration
+Les erreurs humaines restent l'une des causes principales des failles de sécurité dans les réseaux modernes.
+Mots de passe par défaut : Laisser les identifiants admin/admin sur un commutateur, un routeur ou une caméra IP connectée.
+Absence de chiffrement : Utiliser des protocoles obsolètes et non sécurisés comme Telnet (pour administrer les équipements) ou HTTP au lieu de SSH et HTTPS. Les mots de passe y circulent en texte clair.
+VLANs mal isolés : Créer des VLANs pour séparer les flux mais oublier de configurer des règles de pare-feu (ACLs) pour bloquer le routage entre eux, rendant la séparation inutile.
+
+Attaque Man-in-the-Middle
+L'attaquant s’interpose (Man in the middle)
+Vecteurs : ARP spoofing, Wi-Fi rogue, proxy
+Lire, modifier, rediriger
+TLS valide le serveur si vérifié
+Défenses : segmentation, 802.1X, VPN
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+38
+
+
+
+Ces 5 concepts décrivent le fonctionnement, les vecteurs et les contre-mesures d'une attaque de l'Homme du Milieu (MitM - Man-in-the-Middle) [Cloudflare].
+Cette menace combine des vulnérabilités de la couche Liaison (Niveau 2) et de la couche Application (Niveau 7) pour briser la confidentialité des échanges.
+1. L'interposition : Le principe du Man-in-the-Middle
+Dans une communication normale, le client parle directement à sa passerelle ou à un serveur.
+Le mécanisme : L'attaquant force logiquement le trafic à transiter par sa propre machine avant qu'il n'atteigne sa destination finale.
+Pour le client et le serveur, l'interposition est totalement transparente : le pirate fait suivre les paquets à leur destinataire légitime après les avoir interceptés, évitant ainsi de couper la connexion.
+2. Les Vecteurs d'interposition : Comment le pirate s'impose ?
+L'attaquant dispose de plusieurs méthodes selon sa position sur le réseau :
+L'ARP Spoofing (Empoisonnement ARP) : Sur un réseau local (LAN), le pirate envoie de fausses réponses aux commutateurs pour associer son adresse MAC à l'adresse IP du routeur de l'entreprise. Les PC du réseau lui envoient alors tout leur trafic par erreur.
+Le Wi-Fi Rogue (Rogue AP) : L'attaquant installe une borne Wi-Fi pirate portant le même nom (SSID) que le réseau officiel (ex: Wi-Fi_Hotel_Gratuit). Les appareils des victimes s'y connectent automatiquement en pensant utiliser le vrai réseau.
+Le Proxy malveillant : L'installation d'un logiciel malveillant sur le poste de la victime modifie les paramètres système pour forcer tout le trafic web à passer par un serveur proxy contrôlé par le pirate.
+3. Les Actions : Lire, modifier et rediriger
+Une fois installé au milieu, le pirate possède un contrôle absolu sur le flux :
+Lire : Si le trafic n'est pas chiffré (HTTP, Telnet), il capture les identifiants, cookies de session et données personnelles via un sniffer.
+Modifier : Il peut altérer les fichiers téléchargés à la volée pour y injecter un malware, ou modifier le contenu d'un e-mail ou d'une transaction bancaire.
+Rediriger : Il peut détourner les requêtes vers de faux serveurs (via des attaques de DNS Spoofing).
+4. Le rôle de TLS : La validation par le certificat
+Le protocole TLS (HTTPS) est le bouclier principal contre cette attaque [Cloudflare].
+Le mécanisme : Lors du handshake, le serveur doit présenter un certificat signé par une Autorité de Certification (CA) reconnue par le navigateur du client [Cloudflare].
+Si le pirate tente d'intercepter la connexion TLS en présentant son propre certificat falsifié, le navigateur de la victime affiche instantanément une alerte de sécurité critique (page rouge d'avertissement), bloquant l'attaque à moins que l'utilisateur n'ignore délibérément l'avertissement.
+5. Les Défenses clés de l'architecture réseau
+Pour neutraliser définitivement le risque de MitM, la sécurité doit être appliquée à toutes les couches :
+La segmentation par VLAN : Confinement du trafic pour empêcher un attaquant situé dans un VLAN public ou invité d'écouter le trafic des serveurs ou de la direction.
+Le protocole 802.1X / NAC : Empêche l'accès physique au réseau local. Si l'appareil qui tente de faire de l'ARP spoofing n'est pas authentifié par le commutateur, son port est désactivé. Sur les commutateurs, on active également l'option DAI (Dynamic ARP Inspection) pour rejeter les faux messages ARP.
+Le VPN / ZTNA : Chiffre de bout en bout l'intégralité du flux dès qu'un utilisateur se connecte depuis un réseau non fiable (comme un Wi-Fi public), rendant toute interception illisible pour l'attaquant.
+
+Attaque réaliste: prendre la place du serveur et faire une attaque ddos sur le site web pour le down pendant un certain temps.
+
+Déni de service (DoS/DDoS)
+Épuiser une ressource
+Plusieurs sources coordonnées
+Volumétrique, protocolaire, applicatif
+Saturation lien, états, CPU, base
+Capacité, rate limit, CDN, plan de crise
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+39
+
+
+Ces 5 notions décrivent précisément le fonctionnement, la taxonomie et les stratégies de défense contre les attaques par Déni de Service Distribué (DDoS) [Cloudflare].
+Cette menace cherche à détruire la disponibilité d'un service (le "D" du triptyque de sécurité CID / DIC) en exploitant des limites physiques ou logicielles à toutes les couches du modèle OSI.
+1. Le but ultime : Épuiser une ressource
+Le principe fondamental d'une attaque DDoS n'est pas l'infiltration ou le vol de données. Son unique objectif est de submerger un système pour épuiser ses capacités de traitement jusqu'à ce qu'il ne puisse plus répondre aux demandes des utilisateurs légitimes. La cible est mise hors ligne par asphyxie.
+2. Le vecteur : Plusieurs sources coordonnées (Botnets)
+Contrairement à une attaque DoS simple (venant d'une seule machine), le DDoS utilise la puissance de la distribution.
+Le mécanisme : Un pirate prend le contrôle de milliers de machines mal sécurisées à travers le monde (ordinateurs, serveurs, téléviseurs ou objets connectés comme des caméras IP) à l'aide d'un malware.
+Cet ensemble d'appareils forme un botnet (réseau de machines zombies) [Cloudflare]. Sur commande du pirate, toutes ces machines envoient leurs requêtes simultanément vers la même cible. L'attaque devient extrêmement difficile à bloquer, car le trafic provient de milliers d'adresses IP différentes et légitimes.
+3. Les trois grandes catégories d'attaques
+Les attaques DDoS se divisent en trois familles distinctes selon le mécanisme utilisé :
+Les attaques Volumétriques (Couches 3 et 4) : Envoyer une quantité industrielle de données brutes pour saturer complètement la bande passante du lien Internet de la victime.
+Exemple : Les attaques par amplification DNS ou NTP, où le botnet force des serveurs publics à renvoyer des réponses géantes vers la cible.
+Les attaques Protocolaires (Couche 4) : Exploiter les faiblesses ou les limites des protocoles réseau pour saturer les tables d'état des équipements de sécurité (comme les pare-feu ou les répartiteurs de charge).
+Exemple : L'attaque SYN Flood que nous avons étudiée, qui laisse des milliers de connexions TCP à moitié ouvertes en mémoire.
+Les attaques Applicatives (Couche 7) : Plus subtiles et gourmandes en ressources pour la cible. Elles imitent le comportement d'utilisateurs réels pour surcharger la couche applicative.
+Exemple : L'inondation de requêtes HTTP GET ou POST massives sur une fonction lourde du site web (comme un moteur de recherche interne).
+4. Les points de rupture : Saturation lien, états, CPU et base
+Chaque type d'attaque cible un maillon faible précis de l'infrastructure :
+Le lien Internet : Le tuyau physique est plein. Plus aucun paquet ne rentre ni ne sort.
+La table d'états (State Table) : Le pare-feu classique s'effondre car sa mémoire interne est pleine à force de suivre des connexions protocolaires invalides.
+Le processeur (CPU) & la mémoire : Le serveur web s'épuise à tenter de traiter les requêtes applicatives.
+La base de données : Les requêtes applicatives forcent le serveur à faire des milliers de calculs ou de recherches complexes en base de données simultanément, figeant le service.
+5. L'arsenal défensif : Capacité, Rate limit, CDN et Plan de crise
+Face à un DDoS massif, un pare-feu classique ou un serveur seul est totalement impuissant. Il faut déployer des contre-mesures spécifiques :
+Le surdimensionnement de la capacité : Disposer d'une bande passante réseau supérieure à ce que le botnet peut générer (très difficile à tenir financièrement sans aide extérieure).
+Le Rate Limiting (Limitation de débit) : Configurer les serveurs ou pare-feu pour limiter le nombre de requêtes qu'une unique adresse IP ou un utilisateur peut envoyer par seconde.
+Le déploiement d'un CDN (Content Delivery Network) ou service de scrubbing : Utiliser des boucliers cloud mondiaux (comme Cloudflare, Akamai ou AWS Shield) [Cloudflare]. Le trafic de l'attaque est distribué à travers leur réseau mondial géant, nettoyé (scrubbing) des paquets malveillants, et seul le trafic propre est transmis au serveur final.
+Le plan de crise opérationnel : Avoir des procédures claires pour basculer rapidement sur des pages de maintenance statiques légères, modifier les routes de l'infrastructure (ex: routage Anycast / BGP Blackholing) et savoir comment contacter son fournisseur d'accès en urgence.
+
+Attaques DNS 1/2
+1. DNS Spoofing / Cache Poisoning (empoisonnement de cache)Principe : l'attaquant injecte de fausses associations nom de domaine ↔ adresse IP dans le cache d'un serveur DNS (résolveur). Quand un utilisateur demande la résolution d'un nom de domaine légitime, le serveur DNS corrompu répond avec une adresse IP frauduleuse contrôlée par l'attaquant.Conséquence : l'utilisateur est redirigé vers un site pirate (souvent une copie du site légitime) sans s'en rendre compte, à des fins de phishing, vol d'identifiants, etc.
+2. DNS Hijacking (détournement de DNS)Principe : l'attaquant prend le contrôle de la configuration DNS elle-même (routeur, compte d'hébergement du domaine, ou serveur DNS) pour rediriger tout le trafic vers ses propres serveurs.Variantes : modification des paramètres DNS d'un routeur/box, compromission du registrar, ou DNS malveillant poussé via un malware sur le poste client.
+3. DNS TunnelingPrincipe : détourner le protocole DNS (normalement destiné à la résolution de noms) pour faire transiter des données arbitraires (commandes, exfiltration de données) encapsulées dans des requêtes/réponses DNS.Usage typique : contournement de pare-feu, communication avec un serveur de commande et contrôle (C2) en malware, car le trafic DNS est rarement bloqué ou inspecté finement.
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+40
+
+
+1. DNS Spoofing / Cache Poisoning (empoisonnement de cache)Principe : l'attaquant injecte de fausses associations nom de domaine ↔ adresse IP dans le cache d'un serveur DNS (résolveur). Quand un utilisateur demande la résolution d'un nom de domaine légitime, le serveur DNS corrompu répond avec une adresse IP frauduleuse contrôlée par l'attaquant.Conséquence : l'utilisateur est redirigé vers un site pirate (souvent une copie du site légitime) sans s'en rendre compte, à des fins de phishing, vol d'identifiants, etc.
+2. DNS Hijacking (détournement de DNS)Principe : l'attaquant prend le contrôle de la configuration DNS elle-même (routeur, compte d'hébergement du domaine, ou serveur DNS) pour rediriger tout le trafic vers ses propres serveurs.Variantes : modification des paramètres DNS d'un routeur/box, compromission du registrar, ou DNS malveillant poussé via un malware sur le poste client.
+3. DNS TunnelingPrincipe : détourner le protocole DNS (normalement destiné à la résolution de noms) pour faire transiter des données arbitraires (commandes, exfiltration de données) encapsulées dans des requêtes/réponses DNS.Usage typique : contournement de pare-feu, communication avec un serveur de commande et contrôle (C2) en malware, car le trafic DNS est rarement bloqué ou inspecté finement.
+
+
+Attaques DNS 2/2
+4. DDoS sur DNS (attaque par déni de service)Principe : saturer un serveur DNS de requêtes (souvent via un botnet) pour le rendre indisponible, empêchant ainsi la résolution de noms pour tous les domaines qu'il gère.Variante amplifiée (DNS Amplification) : l'attaquant envoie de petites requêtes avec une adresse IP source usurpée (celle de la victime) à des serveurs DNS ouverts, qui renvoient de grosses réponses vers la victime, amplifiant le volume de trafic.
+5. Typosquatting / Domain HijackingPrincipe : enregistrement de noms de domaine très proches d'un domaine légitime (faute de frappe) pour piéger les utilisateurs qui se trompent en tapant l'URL.
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+41
+
+
+4. DDoS sur DNS (attaque par déni de service)Principe : saturer un serveur DNS de requêtes (souvent via un botnet) pour le rendre indisponible, empêchant ainsi la résolution de noms pour tous les domaines qu'il gère.Variante amplifiée (DNS Amplification) : l'attaquant envoie de petites requêtes avec une adresse IP source usurpée (celle de la victime) à des serveurs DNS ouverts, qui renvoient de grosses réponses vers la victime, amplifiant le volume de trafic.
+5. Typosquatting / Domain HijackingPrincipe : enregistrement de noms de domaine très proches d'un domaine légitime (faute de frappe) pour piéger les utilisateurs qui se trompent en tapant l'URL.
+
+
+Segmentation réseau : principe de défense
+Limiter le mouvement latéral
+Séparer utilisateurs, serveurs, admin, IoT, invités
+Contrôler les flux nécessaires
+Micro-segmentation : identité/workload
+Mesurer flux, refus, exceptions
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+42
+
+
+Ces 5 concepts décrivent les principes de la segmentation et de la micro-segmentation réseau.
+Il s'agit des contre-mesures directes face aux tactiques de mouvement latéral utilisées par les attaquants. Une fois qu'un pirate a franchi la périphérie (le pare-feu externe), ces mécanismes visent à le confiner dans une cellule étanche pour protéger le reste du système d'information.
+1. L'objectif premier : Limiter le mouvement latéral
+Le mouvement latéral est la capacité d'un attaquant à sauter d'une machine compromise à une autre au sein du même réseau local (LAN).
+Le problème historique : Dans un réseau "plat" (sans segmentation), si le PC d'une secrétaire est infecté par un malware, ce dernier peut scanner et attaquer directement le serveur de la comptabilité ou les contrôleurs de domaine, car aucune barrière ne les sépare.
+La solution : Segmenter le réseau permet de dresser des murs intérieurs pour bloquer cette propagation.
+2. La macro-segmentation : Séparer par fonctions et profils
+La première étape consiste à regrouper les équipements par grandes familles logiques au sein de VLANs distincts. On sépare rigoureusement :
+Les Utilisateurs : Les PC portables et les smartphones des employés (la population la plus exposée au phishing).
+Les Serveurs : Les applications métiers, les bases de données et les serveurs de fichiers.
+La zone Admin : Les postes dédiés exclusivement à la maintenance des routeurs, switchs et infrastructures critiques.
+L'IoT (Internet des Objets) : Les caméras IP, les imprimantes, les télévisions connectées. Ces objets sont rarement mis à jour et constituent des cibles faciles ; ils doivent être totalement isolés.
+Les Invités (Guests) : Le Wi-Fi public pour les visiteurs, qui ne doit avoir aucun point de contact avec l'infrastructure interne, seulement un accès direct à Internet.
+3. Contrôler les flux nécessaires
+Séparer en VLANs est inutile si on laisse le routeur faire transiter tout le trafic de manière transparente.
+Chaque interconnexion entre ces zones doit être validée par un pare-feu interne (ou des ACLs strictes).
+On applique la règle du moindre privilège : un PC de la zone Utilisateurs n'a le droit de parler à un serveur de la zone Serveurs que sur le port spécifique de l'application (ex: port 443/HTTPS), et tout le reste du trafic (comme les scans de ports ou le protocole SSH) est rejeté par défaut (Deny by default).
+4. La micro-segmentation : Aller jusqu'à l'identité et le Workload
+La macro-segmentation (par VLAN et IP) montre ses limites dans le Cloud moderne ou les environnements virtualisés où les serveurs et les conteneurs se créent et se détruisent en permanence. On passe alors à la micro-segmentation.
+Le principe : On ne filtre plus par adresse IP, mais par identité applicative ou étiquette (Tag / Label).
+L'application : Les pare-feu virtuels ou les agents installés directement sur les machines isolent les serveurs au sein d'un même VLAN. Par exemple, même si deux serveurs web sont dans le même sous-réseau, la micro-segmentation peut leur interdire de se parler entre eux. Le filtrage descend jusqu'au niveau du conteneur individuel ou de la charge de travail (workload).
+5. La gouvernance : Mesurer les flux, les refus et les exceptions
+Une segmentation efficace nécessite une surveillance continue pour ne pas devenir obsolète :
+Mesurer les flux : Cartographier en continu les communications légitimes pour comprendre les besoins réels des applications.
+Analyser les refus (Drops) : Surveiller les journaux du pare-feu. Si un PC de l'administration tente soudainement de se connecter en SSH sur une caméra IP et se fait bloquer, c'est le signal fort d'une compromission ou d'un mouvement latéral en cours.
+Gérer les exceptions : Auditer régulièrement les règles spécifiques accordées temporairement à un prestataire ou un projet, pour éviter qu'elles ne se transforment en failles permanentes.
+
+Principes de segmentation
+Principe de fonctionnement
+Chaque VLAN est isolé des autres au niveau 2 (switch), même si les appareils sont branchés sur le même commutateur physique.
+Un pare-feu ou un routeur inter-VLAN contrôle précisément quels flux sont autorisés à passer d'un VLAN à un autre (ex. : les utilisateurs peuvent accéder aux serveurs, mais les invités ne peuvent pas).
+La DMZ (zone démilitarisée) isole les services accessibles depuis Internet, pour que même en cas de compromission, l'attaquant n'accède pas directement au réseau interne.
+Pourquoi segmenter ?
+Sécurité : limiter la propagation d'une attaque (si un poste invité est infecté, le réseau serveurs reste protégé).
+Confidentialité : isoler les données sensibles (RH, direction).
+Performance : réduire le trafic de diffusion (broadcast) sur chaque segment.
+Conformité : répondre à des exigences réglementaires (RGPD, PCI-DSS, etc.).
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+43
+
+
+Principe de fonctionnement
+Chaque VLAN est isolé des autres au niveau 2 (switch), même si les appareils sont branchés sur le même commutateur physique.
+Un pare-feu ou un routeur inter-VLAN contrôle précisément quels flux sont autorisés à passer d'un VLAN à un autre (ex. : les utilisateurs peuvent accéder aux serveurs, mais les invités ne peuvent pas).
+La DMZ (zone démilitarisée) isole les services accessibles depuis Internet, pour que même en cas de compromission, l'attaquant n'accède pas directement au réseau interne.
+Pourquoi segmenter ?
+Sécurité : limiter la propagation d'une attaque (si un poste invité est infecté, le réseau serveurs reste protégé).
+Confidentialité : isoler les données sensibles (RH, direction).
+Performance : réduire le trafic de diffusion (broadcast) sur chaque segment.
+Conformité : répondre à des exigences réglementaires (RGPD, PCI-DSS, etc.).
+
+Exemple de segmentation
+	VLAN	Usage	Plage IP (exemple)	Niveau d'accès
+	VLAN 10 – Direction/RH	Postes de la direction et RH (données sensibles)	192.168.10.0/24	Accès restreint
+	VLAN 20 – Utilisateurs	Postes des employés standards	192.168.20.0/24	Accès internet + applications métier
+	VLAN 30 – Serveurs	Serveurs internes (ERP, fichiers, messagerie)	192.168.30.0/24	Accès limité aux VLANs autorisés
+	VLAN 40 – DMZ	Serveurs exposés publiquement (site web, mail)	192.168.40.0/24	Accessible depuis Internet, isolé du réseau interne
+	VLAN 50 – Invités (Wi-Fi)	Visiteurs, appareils personnels	192.168.50.0/24	Accès Internet uniquement, aucun accès au réseau interne
+	VLAN 60 – IoT/Impression	Imprimantes, caméras, objets connectés	192.168.60.0/24	Accès très restreint, pas d'accès à Internet
+
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+44
+
+
+/24  256 IP
+
+
+
+Exemple de segmentation avec DMZ
+
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+45
+
+
+
+
+
+Le pare-feu (firewall)
+Filtrage IP, port, protocole, état
+Règles ordonnées, journalisées, revues
+Ingress, egress, inter-zones
+Deny by default
+Risque : règles obsolètes, shadow IT
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+46
+
+
+1. Le Filtrage : IP, port, protocole et état (Stateful)
+Un pare-feu examine chaque paquet réseau et décide de le laisser passer (Allow/Accept) ou de le bloquer (Deny/Drop) en se basant sur quatre critères principaux :
+L'adresse IP : Filtrage selon la source (qui envoie) et la destination (qui reçoit).
+Le port : Détermine l'application visée (ex : port 80 ou 443 pour le web, port 22 pour SSH).
+Le protocole : Le type de transport utilisé (généralement TCP, UDP ou ICMP pour les pings).
+L'état de la connexion (Stateful Inspection) : C'est une distinction cruciale. Un pare-feu moderne ne se contente pas de regarder les paquets isolés. Il garde en mémoire l'état des connexions en cours.
+Exemple : Si un ordinateur interne initie une connexion vers un site web externe, le pare-feu enregistre cette session. Lorsque le site web répond, le pare-feu reconnaît le trafic de retour comme légitime et le laisse passer automatiquement, sans avoir besoin d'une règle spécifique pour l'entrée.
+2. La gestion des règles : Ordonnées, journalisées et revues
+La politique de sécurité d'un pare-feu est matérialisée par une liste de règles (une Access Control List ou ACL).
+Des règles ordonnées : Le pare-feu lit les règles dans l'ordre, du haut vers le bas. Dès qu'un paquet correspond à une règle, celle-ci est appliquée (Match) et le pare-feu s'arrête là ; il ne lit pas la suite. L'ordre est donc stratégique : les règles très spécifiques doivent être placées en haut, et les règles générales en bas.
+Des règles journalisées (Logging) : Il est indispensable d'activer les journaux (logs) sur les règles critiques. Cela permet de savoir qui a tenté d'accéder à quoi, de détecter des comportements suspects ou de mener une enquête après un incident.
+Des règles revues : Un pare-feu vit avec l'entreprise. Sans un audit régulier (revue des règles), la liste devient illisible, contradictoire et crée des failles de sécurité.
+3. Les flux : Ingress, Egress et Inter-zones
+Pour simplifier la configuration, les pare-feu découpent le réseau en Zones de confiance (ex: Zone Internet, Zone LAN, Zone DMZ pour les serveurs publics). Le trafic est ensuite filtré selon sa direction :
+Ingress (Trafic entrant) : Flux provenant de l'extérieur du réseau (généralement d'Internet) et cherchant à entrer. C'est le trafic le plus surveillé et le plus restreint.
+Egress (Trafic sortant) : Flux initié depuis le réseau interne vers l'extérieur. Trop souvent négligé, filtrer l'Egress est crucial pour empêcher une machine infectée de communiquer avec le serveur de contrôle d'un pirate (Command & Control).
+Inter-zones : Flux circulant entre deux zones internes distinctes (par exemple, du VLAN Utilisateurs vers le VLAN Serveurs).
+4. Le principe du Deny by Default (Le rejet par défaut)
+C'est la règle d'or de la sécurité réseau.
+Le concept : Tout ce qui n'est pas explicitement autorisé est interdit.
+En pratique : La toute dernière règle, tout en bas de la liste du pare-feu, est une règle invisible ou explicite appelée "Cleanup Rule" qui bloque l'intégralité du trafic resté sans correspondance (Drop All).
+L'avantage : Si un administrateur oublie de configurer un accès, le réseau est bloqué par défaut (ce qui génère un ticket au support), plutôt que de laisser une porte ouverte par ignorance.
+5. Les Risques : Règles obsolètes et Shadow IT
+Même le meilleur pare-feu perd son efficacité face aux dérives opérationnelles.
+Les règles obsolètes (Règles "fantômes") : Lorsqu'un projet technique se termine ou qu'un serveur est mis à la poubelle, les administrateurs oublient souvent de supprimer la règle de pare-feu correspondante. Ces règles inutilisées s'accumulent au fil des ans, créant des trous dans la raquette de sécurité que les attaquants peuvent exploiter lors de mouvements latéraux.
+Le Shadow IT (L'informatique de l'ombre) : C'est le fait pour un utilisateur ou un service d'installer des solutions matérielles ou logicielles (comme un routeur 4G personnel branché sur le LAN, ou un service cloud grand public) sans l'accord de la direction informatique. Le Shadow IT contourne complètement le pare-feu de l'entreprise, rendant toutes les règles de filtrage inefficaces.
+
+Firewall nouvelle génération (NGFW)
+Inspection applicative
+Identification utilisateurs
+IPS intégré, URL, malware
+Déchiffrement TLS
+Politiques par risque et contexte
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+47
+
+
+1. L'Inspection Applicative (Couche 7 du modèle OSI)
+Les pare-feu classiques (Layer 4) fermaient des ports. Les attaquants et les applications modernes ont donc appris à utiliser les ports standards ouverts (80/HTTP et 443/HTTPS) pour contourner les règles.
+Le mécanisme : Le NGFW utilise la technologie de Deep Packet Inspection (DPI). Il ne regarde pas seulement l'en-tête du paquet, mais son contenu utile (payload). Il analyse les signatures applicatives et les comportements transactionnels.
+Le contrôle fin : Cela permet une granularité extrême. Vous pouvez autoriser l'application globale Salesforce, mais interdire BitTorrent ou Tor, même si ces derniers tentent de se masquer en utilisant le port 443.
+2. L'Identification des Utilisateurs (User-ID)
+L'adresse IP n'est plus une preuve d'identité fiable (utilisation du DHCP, télétravail, Wi-Fi).
+Le mécanisme : Le NGFW communique en continu avec les contrôleurs de domaine (comme l'Active Directory de Microsoft, des serveurs Syslog ou des fournisseurs d'identité cloud via SAML/OIDC). Il associe instantanément l'adresse IP d'un paquet au compte utilisateur qui a ouvert la session.
+La règle logique : Les politiques de sécurité sont rédigées sous la forme : [Groupe RH] est autorisé à utiliser [Application Paie]. Si un utilisateur change de bureau ou passe du Wi-Fi au câble, son IP change, mais sa politique de sécurité reste identique.
+3. La trinité de la sécurité : IPS, Filtrage d'URL, Anti-Malware
+Le NGFW consolide plusieurs moteurs de sécurité autrefois dispersés :
+L'IPS (Intrusion Prevention System) : Il analyse les flux à la recherche d'exploits de failles (ex: tentatives d'injection SQL ou attaques par débordement de tampon). Il compare le trafic à une base de signatures mise à jour en temps réel et bloque la connexion dès qu'une anomalie est détectée.
+Le Filtrage d'URL : Les sites web sont classés dynamiquement par réputation et catégories (Jeux, Contenu Adulte, Hameçonnage/Phishing). Le pare-feu bloque l'accès aux catégories dangereuses ou non productives.
+L'Anti-Malware & la Sandbox : Le pare-feu intercepte les fichiers à la volée (ex: un .exe ou un .docx). S'il est inconnu des bases de données de virus, le fichier est envoyé dans une sandbox (bac à sable) virtuelle dans le cloud. Le fichier y est exécuté pour observer son comportement ; s'il s'avère malveillant (ex: tentative de chiffrement type Ransomware), il est bloqué avant d'atteindre le réseau de l'entreprise.
+4. Le Déchiffrement TLS/SSL (L'inspection du trafic chiffré)
+Aujourd'hui, la quasi-totalité du trafic web est chiffrée. Les pirates exploitent ce protocole pour dissimuler leurs malwares au sein de flux HTTPS légitimes.
+Le mécanisme (Reverse Proxy / MitM transparent) :
+Le PC de l'utilisateur demande à visiter un site sécurisé (ex: banque.com).
+Le NGFW intercepte la requête, se fait passer pour le PC auprès de la banque et récupère la page chiffrée.
+Le NGFW déchiffre la page et l'analyse (recherche de virus via l'IPS/Anti-malware).
+Si le trafic est sain, le NGFW rechiffre les données avec son propre certificat racine (préalablement installé sur tous les PC de l'entreprise) et envoie le flux au salarié.
+Exceptions légales : Pour respecter la vie privée des employés, les pare-feu possèdent des règles d'exclusion pour ne jamais déchiffre les sites financiers (banques personnelles) ou de santé.
+5. Les Politiques par Risque et par Contexte
+Au lieu d'appliquer des règles statiques (Oui/Non), le NGFW prend des décisions en fonction du contexte de la requête :
+La provenance : L'appareil est-il un PC géré par l'entreprise ou un smartphone personnel (BYOD) ?
+La géolocalisation (Geo-IP) : Est-il normal que cet utilisateur se connecte depuis ce pays à cette heure-ci ?
+Le score de risque applicatif : Le pare-feu attribue une note de dangerosité aux applications. Un administrateur peut décider de bloquer automatiquement toutes les applications ayant un niveau de risque supérieur ou égal à 4 (ex: outils de contournement de proxy, partage de fichiers anonyme).
+
+Firewall : segmentation du marché
+Firewalls traditionnels (Layer 3/4) : filtrage par IP/port, de moins en moins utilisés seuls en entreprise.
+NGFW (Next-Generation Firewall) : inspection applicative (Layer 7), détection d'intrusion (IPS), inspection SSL, contrôle utilisateur — standard actuel du marché entreprise.
+Firewalls Cloud / SASE (Secure Access Service Edge) : firewall as a service, combiné à SD-WAN, CASB, ZTNA — segment en forte croissance avec le cloud et le télétravail.
+Firewalls pour datacenter / segmentation interne (micro-segmentation) : protection est-ouest entre serveurs, différent du firewall périmétrique classique.
+UTM (Unified Threat Management) : pour PME, combine firewall + antivirus + antispam + VPN dans un seul boîtier.
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+48
+
+
+Firewalls traditionnels (Layer 3/4) : filtrage par IP/port, de moins en moins utilisés seuls en entreprise.
+NGFW (Next-Generation Firewall) : inspection applicative (Layer 7), détection d'intrusion (IPS), inspection SSL, contrôle utilisateur — standard actuel du marché entreprise.
+Firewalls Cloud / SASE (Secure Access Service Edge) : firewall as a service, combiné à SD-WAN, CASB, ZTNA — segment en forte croissance avec le cloud et le télétravail.
+Firewalls pour datacenter / segmentation interne (micro-segmentation) : protection est-ouest entre serveurs, différent du firewall périmétrique classique.
+UTM (Unified Threat Management) : pour PME, combine firewall + antivirus + antispam + VPN dans un seul boîtier.
+
+
+Firewall : panorama du marché
+	Éditeur	Produits phares	Positionnement
+	Palo Alto Networks	Séries PA, Prisma Access (SASE)	Leader historique NGFW, très présent grand compte
+	Fortinet	FortiGate	Fort rapport performance/prix, ASIC dédiés, très présent PME/ETI et grand compte
+	Cisco	Firepower / Secure Firewall	Intégration forte avec l'écosystème réseau Cisco
+	Check Point	Quantum, CloudGuard	Pionnier historique du firewall, fort sur la sécurité cloud
+	Juniper Networks	SRX Series	Bon positionnement datacenter et service provider
+	SonicWall	TZ, NSa	Marché PME
+	Sophos	XG/XGS Firewall	PME, forte intégration avec EDR
+	WatchGuard	Firebox	PME/ETI
+	Huawei	USG Series	Présent notamment en Asie
+
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+49
+
+
+
+
+VPN : principes
+Tunnel logique sur réseau non fiable
+Authentification et négociation de clés
+Confidentialité, intégrité, anti-rejeu
+Nomade ou inter-sites
+Le VPN ne sécurise pas un poste compromis
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+50
+
+
+
+1. Tunnel logique sur réseau non fiable
+Le principe fondamental du VPN est de créer un tunnel virtuel au-dessus d'un réseau physique sur lequel vous n'avez aucun contrôle (comme l'Internet public ou un Wi-Fi d'hôtel).
+Le mécanisme : Les paquets de données d'origine sont encapsulés à l'intérieur d'un nouveau paquet réseau (généralement via des protocoles comme IPsec, OpenVPN ou WireGuard).
+Le résultat : Même si un attaquant intercepte les paquets sur Internet, il ne voit passer que le trafic du tunnel, sans pouvoir lire ou modifier les données cachées à l'intérieur.
+2. Authentification et négociation de clés
+Avant qu'aucune donnée confidentielle ne soit envoyée, les deux extrémités du VPN (les "pairs") doivent établir une relation de confiance.
+L'authentification : Les équipements prouvent leur identité mutuelle à l'aide de clés partagées (Pre-Shared Keys), de certificats numériques (X.509) ou d'identifiants utilisateurs combinés à du MFA (authentification multifacteur).
+La négociation (Ex: protocole IKE) : Les deux parties s'accordent sur les algorithmes de chiffrement à utiliser et génèrent de manière sécurisée des clés de session éphémères (souvent via l'algorithme de Diffie-Hellman). Ces clés serviront à chiffrer le trafic.
+3. La trinité de la sécurité : Confidentialité, Intégrité, Anti-rejeu
+Un tunnel VPN sécurisé (particulièrement avec IPsec) offre trois garanties mathématiques strictes :
+La Confidentialité : Les données sont chiffrées (généralement en AES-256 ou ChaCha20). Un espion ne voit que du bruit numérique illisible.
+L'Intégrité : Chaque paquet intègre un mécanisme de vérification (comme un code HMAC). Si un routeur ou un pirate tente de modifier ne serait-ce qu'un seul bit du message en cours de route, le destinataire le détecte immédiatement et rejette le paquet.
+L'Anti-rejeu : Le VPN attribue un numéro de séquence unique à chaque paquet. Si un pirate intercepte un paquet légitime (par exemple, un ordre de virement) et tente de le renvoyer plus tard pour dupliquer l'action, le VPN bloque ce doublon car le numéro a déjà été traité.
+4. Deux modes d'usage : Nomade ou Inter-sites (Site-to-Site)
+Le VPN s'adapte à deux besoins professionnels majeurs :
+Le VPN Inter-sites (Site-to-Site) : Il connecte de manière permanente deux infrastructures fixes (par exemple, le siège social d'une entreprise et son usine). Le tunnel est établi directement entre les deux routeurs ou pare-feu de chaque site. Pour les employés, la communication est transparente : ils accèdent aux serveurs distants comme s'ils étaient dans le bâtiment d'en face.
+Le VPN Nomade (Remote Access) : Il permet à un employé en télétravail d'accéder au réseau de l'entreprise. Un logiciel client (ex: FortiClient, Cisco AnyConnect) est installé sur son ordinateur et monte un tunnel temporaire vers le pare-feu de l'entreprise.
+5. La limite absolue : Le VPN ne sécurise pas un poste compromis
+C'est la plus grande idée reçue en sécurité réseau : Le VPN protège le transport, pas les extrémités.
+Le danger : Si l'ordinateur portable d'un télétravailleur est déjà infecté par un malware (un cheval de Troie ou un infostealer), le VPN va simplement chiffrer le trafic du malware et lui offrir un tunnel sécurisé direct vers le cœur du réseau de l'entreprise.
+La conséquence : Le VPN facilite ici le mouvement latéral de l'attaquant. C'est pourquoi les entreprises modernes n'utilisent plus le VPN seul, mais le couplent à des vérifications de l'état de santé du PC (mécanismes ZTNA - Zero Trust Network Access) avant d'ouvrir le tunnel.
+
+Protocoles VPN
+IPsec : réseau, IKEv2
+TLS VPN : navigateur/client
+WireGuard : moderne et simple
+Choix selon contexte
+Certificats, clés, MFA, révocation
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+51
+
+
+1. IPsec : La référence au niveau réseau (Couche 3)
+Le protocole IPsec (Internet Protocol Security) opère directement au niveau de la couche réseau [Cloudflare]. Il englobe tout le trafic entre deux points, indépendamment des applications utilisées.
+Le protocole IKEv2 (Internet Key Exchange v2) : C'est le moteur de négociation d'IPsec. Il gère l'authentification mutuelle et établit dynamiquement les clés de chiffrement de session.
+Points forts : IKEv2 est extrêmement robuste, gère nativement le changement de réseau (MOBIKE — idéal lorsqu'un smartphone passe de la 5G au Wi-Fi sans couper le VPN) et reste le standard incontournable pour les tunnels permanents inter-sites (Site-to-Site).
+2. TLS VPN : La flexibilité par le navigateur ou un client léger
+Contrairement à IPsec, le TLS VPN (souvent appelé VPN SSL) fonctionne plus haut dans les couches réseau (Couche 4 à 7).
+Mode sans client (Clientless) : L'utilisateur se connecte simplement via son navigateur web standard (HTTPS) sur un portail d'entreprise. Il accède uniquement aux applications web qui y sont publiées.
+Mode avec client : Un agent léger (comme Cisco AnyConnect ou FortiClient) émule une carte réseau pour faire passer toutes les applications dans le flux TLS.
+Point fort : Il traverse très facilement tous les pare-feu publics (hôtels, aéroports) car il utilise le port web standard 443, qui n'est presque jamais bloqué.
+3. WireGuard : La modernité et la simplicité
+WireGuard est le protocole VPN moderne qui a révolutionné le domaine [WireGuard]. Conçu pour remplacer IPsec et OpenVPN, il se distingue par sa légèreté.
+Code épuré : Là où IPsec ou OpenVPN comptent des centaines de milliers de lignes de code, WireGuard en compte moins de 5 000. Cela réduit drastiquement la surface d'attaque et facilite les audits de sécurité.
+Performance : Il utilise des algorithmes cryptographiques modernes et très rapides (comme ChaCha20 et Poly1305). Il consomme moins de batterie sur les appareils mobiles et monte le tunnel de manière quasi instantanée.
+Routage Crypto : Il associe de manière fixe les clés publiques des clients à leurs adresses IP internes autorisées dans le tunnel.
+4. Le choix du protocole selon le contexte
+Il n'y a pas de protocole parfait, mais un outil adapté à chaque usage :
+BesoinProtocole recommandéPourquoi ?Relier deux bureaux fixes
+IPsec (IKEv2)Standard mondial, stable, géré nativement par tous les pare-feu industriels.Accès nomade universelTLS VPNFonctionne partout, même derrière les pare-feu publics stricts.Performance et MobilitéWireGuardIdéal pour les flottes de smartphones ou l'infrastructure Cloud moderne (faible latence).
+5. La gestion des accès : Certificats, Clés, MFA et Révocation
+Un tunnel n'est sécurisé que si les clés de la porte d'entrée sont rigoureusement gérées.
+Certificats numériques et Clés : L'authentification par certificat (norme X.509) permet à une machine de prouver son identité sans intervention humaine. Les clés privées doivent être stockées de manière sécurisée (dans une puce TPM sur le PC).
+Le MFA (Multi-Factor Authentication) : Pour les VPN nomades, l'utilisation de certificats ou de mots de passe ne suffit plus. L'obligation de valider une notification sur une application d'authentification (MFA) bloque les attaques par vol d'identifiants.
+La Révocation : C'est le bouton d'urgence. Si un employé perd son ordinateur portable ou quitte l'entreprise, son certificat doit être instantanément inscrit dans une CRL (Certificate Revocation List) ou vérifié via le protocole OCSP pour interdire immédiatement toute reconnexion au VPN.
+
+IDS / IPS
+IDS : détecte et alerte
+IPS : bloque en ligne
+Signature, anomalie, corrélation
+Placement réseau/hôte/cloud
+Tuning : faux positifs et contexte
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+52
+
+
+1. IDS vs IPS : Alerter ou Agir ?
+Bien qu'ils partagent les mêmes moteurs d'analyse, leur positionnement et leur finalité opérationnelle diffèrent :
+L'IDS (Détection) : Il fonctionne en mode passif (souvent connecté à un port miroir ou port SPAN du switch). Il reçoit une copie du trafic, l'analyse en tâche de fond, et génère une alerte s'il repère une menace. Il ne bloque rien, préservant ainsi la continuité de service en cas d'erreur.
+L'IPS (Prévention) : Il est positionné en mode actif (In-line), directement sur le chemin des paquets (comme un péage d'autoroute). Chaque paquet doit le traverser. S'il détecte une menace, il a le pouvoir de bloquer immédiatement le trafic malveillant (couper la connexion TCP, jeter les paquets).
+2. Les méthodes d'analyse : Signatures, Anomalies et Corrélation
+Pour identifier une cyberattaque, ces systèmes utilisent trois moteurs complémentaires :
+L'analyse par signatures (Pattern Matching) : Le système compare le trafic à une base de données d'empreintes d'attaques connues (semblable à un antivirus). Exemple : Une chaîne de caractères spécifique exploitant une faille de serveur web. C'est très précis pour les menaces connues, mais inefficace contre les failles inédites (Zero-Day).
+La détection d'anomalies (Comportementale) : Le système établit d'abord un profil de trafic "normal" (le baseline). Si le volume de requêtes explose soudainement ou si un protocole est utilisé de manière inhabituelle, il lève une alerte. Utile pour détecter les Zero-Days, mais sujet aux fausses alertes.
+La corrélation d'événements : Le moteur croise plusieurs indices distincts qui, isolés, semblent anodins (ex: un scan de port lent, suivi d'une tentative de connexion infructueuse, suivie d'une requête admin). Mis bout à bout, ils révèlent une attaque complexe.
+3. Le placement : Réseau (NIDS), Hôte (HIDS) ou Cloud
+L'emplacement de ces sondes détermine leur périmètre de visibilité :
+NIDS (Network-based) : Placé aux points stratégiques du réseau (derrière le pare-feu ou entre les VLANs). Il surveille le trafic de tous les équipements, mais perd sa visibilité si le trafic est chiffré (d'où l'importance de le coupler au déchiffrement TLS du NGFW).
+HIDS (Host-based) : Installé directement sur un serveur ou un poste de travail critique. Il surveille les journaux système, l'intégrité des fichiers locaux et les processus, même si le trafic réseau entrant était chiffré.
+Cloud-native IPS : Intégré directement dans les infrastructures cloud (AWS, Azure) ou les architectures SASE pour analyser le trafic entre microservices et conteneurs.
+4. Le Tuning : La guerre contre les faux positifs
+Un IDS/IPS mal configuré est inutilisable car il génère des milliers d'alertes par jour, provoquant la "fatigue des alertes" chez les analystes de sécurité.
+Faux Positif : Une activité tout à fait légitime déclenche à tort une alerte de sécurité (ex: une mise à jour applicative interne qui ressemble à une modification de fichier suspecte).
+Faux Négatif : Le pire scénario. Une vraie attaque passe à travers les mailles du filet sans être détectée.
+Le Tuning (Ajustement) : C'est le travail quotidien des équipes sécurité. Il consiste à désactiver les règles obsolètes, à créer des exceptions contextuelles (ex: autoriser un outil d'administration réseau uniquement pour l'équipe IT) et à adapter la sensibilité des sondes au contexte de l'entreprise.
+
+Chiffrement et sécurisation des flux
+Confidentialité : chiffrer
+Intégrité : détecter la modification
+Authenticité : identité
+TLS : certificats, suites, versions
+Gestion des clés
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+53
+
+
+1. La Confidentialité : Rendre la donnée illisible
+La confidentialité garantit que seules les personnes autorisées peuvent prendre connaissance des informations.
+Le mécanisme : On utilise le chiffrement. Les données en clair sont transformées en un bruit numérique incompréhensible (le cryptogramme) à l'aide d'un algorithme et d'une clé.
+Chiffrement Symétrique : Une seule et même clé secrète sert à chiffrer et à déchiffrer (ex : AES-256). C'est extrêmement rapide, idéal pour les gros volumes de données.
+Chiffrement Asymétrique : Utilise une paire de clés mathématiquement liées : une clé publique (que tout le monde peut connaître pour chiffrer) et une clé privée (gardée secrète par le destinataire pour déchiffrer, ex : RSA ou ECC).
+2. L'Intégrité : Détecter la moindre modification
+L'intégrité assure que la donnée n'a pas été modifiée, altérée ou corrompue de manière accidentelle ou malveillante durant son voyage.
+Le mécanisme : On utilise des fonctions de hachage (comme SHA-256). Une fonction de hachage prend une donnée de n'importe quelle taille et génère une empreinte numérique unique de taille fixe.
+La propriété clé : Ce mécanisme est à sens unique (on ne peut pas recréer le fichier à partir de l'empreinte) et toute modification, même d'un seul bit ou d'une simple virgule dans un fichier de 1 Go, change complètement l'empreinte finale.
+3. L'Authenticité : Prouver son identité
+L'authenticité permet de vérifier l'identité de l'émetteur d'un message ou d'un service. Elle garantit que vous communiquez bien avec la bonne entité et non avec un imposteur.
+Le mécanisme : On utilise la signature numérique. L'émetteur utilise sa clé privée pour signer le hachage d'un message. Le destinataire utilise la clé publique de l'émetteur pour vérifier la signature. Si le calcul correspond, cela prouve l'origine de la donnée (authenticité) et empêche l'émetteur de nier avoir envoyé le message (non-répudiation).
+4. Le protocole TLS : Certificats, suites et versions
+Le protocole TLS (Transport Layer Security) est le standard mondial qui combine confidentialité, intégrité et authenticité pour sécuriser les connexions web (HTTPS) [Cloudflare].
+Les Certificats Numériques : Délivrés par une Autorité de Certification (CA) de confiance, ils lient une clé publique à une identité (ex : prouver que la clé appartient bien à google.com) [Cloudflare].
+Les Versions : TLS 1.3 est la norme moderne et sécurisée. Les versions antérieures (TLS 1.0, 1.1) sont totalement obsolètes et interdites, tandis que TLS 1.2 reste toléré mais est progressivement écarté au profit de la version 1.3, plus rapide et purgée d'algorithmes vulnérables.
+Les Suites Cryptographiques (Cipher Suites) : C'est la liste d'algorithmes négociée au début de la connexion. Elle dicte comment les clés seront échangées, comment le trafic sera chiffré et comment l'intégrité sera vérifiée (ex : TLS_AES_256_GCM_SHA384).
+5. La Gestion des Clés (Key Management)
+C'est le point le plus critique et souvent le plus vulnérable de toute l'architecture de sécurité. Un excellent algorithme ne sert à rien si sa clé est mal protégée.
+Le Cycle de Vie : La gestion des clés englobe la génération (qui doit être parfaitement aléatoire), la distribution sécurisée, le stockage (généralement dans des modules matériels de sécurité ou HSM), la rotation régulière (changer les clés souvent) et la destruction en fin de vie.
+Le Principe de Forward Secrecy (PFS) : Utilisé nativement dans TLS 1.3, il garantit que la clé de session utilisée pour chiffrer une conversation est éphémère. Si un pirate parvient à voler la clé privée à long terme d'un serveur dans le futur, il ne pourra quand même pas déchiffrer les conversations passées qu'il aurait enregistrées.
+
+Authentification réseau
+MFA pour accès sensibles
+802.1X/NAC : identité avant réseau
+RADIUS/TACACS+ : AAA centralisé
+Certificats machine et utilisateur
+Comptes de service : secrets et rotation
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+54
+
+
+Ces 5 concepts décrivent les fondations du contrôle d'accès et de la gestion des identités (IAM) appliqués aux infrastructures réseau. Après avoir vu comment sécuriser les données avec TLS, découvrons comment valider et contrôler l'identité des utilisateurs, des terminaux et des applications avant de leur accorder des privilèges.
+1. Le MFA pour les accès sensibles (Authentification Multifacteur)
+L'authentification par simple mot de passe est obsolète. Le MFA impose à l'utilisateur de fournir au moins deux preuves d'identité issues de catégories distinctes : ce qu'il sait (mot de passe), ce qu'il a (un smartphone, une clé FIDO2) ou ce qu'il est (biométrie).
+Application aux réseaux : Le MFA est obligatoire pour toutes les connexions critiques : accès aux tunnels VPN, connexions aux consoles d'administration des pare-feu, des routeurs ou des environnements Cloud.
+Résistance au Phishing : Les méthodes basées sur des codes SMS ou des applications d'authentification classiques (OTP) restent vulnérables aux attaques par interception ou par fatigue des notifications. Les entreprises migrent vers des clés physiques matérielles (FIDO2 / WebAuthn) ou des notifications contextuelles géolocalisées pour garantir une sécurité maximale.
+2. 802.1X et NAC : L'identité avant l'accès au réseau
+Par défaut, si quelqu'un branche un ordinateur sur une prise Ethernet murale dans une entreprise, il accède au réseau. Le standard IEEE 802.1X associé à un NAC (Network Access Control) corrige cette vulnérabilité majeure.
+Le mécanisme : Dès qu'un câble est branché ou qu'un appareil se connecte au Wi-Fi, le commutateur (switch) ou la borne Wi-Fi bloque tout le trafic. Il agit comme un portillon fermé.
+Le dialogue : L'appareil doit d'abord s'authentifier (via un protocole comme EAP-TLS). Tant que l'identité de la machine ou de l'utilisateur n'est pas validée, le port du switch reste confiné dans un VLAN d'invité ou totalement désactivé. Le NAC peut également vérifier la conformité du poste (antivirus actif, mises à jour système à jour) avant de lui ouvrir la porte.
+3. RADIUS et TACACS+ : L'architecture AAA centralisée
+Pour gérer les accès de centaines d'équipements réseau (switchs, routeurs, pare-feu), il est impossible de créer des comptes locaux sur chaque boîtier. On centralise tout via des serveurs AAA (Authentification, Autorisation, Comptabilité).
+RADIUS (Remote Authentication Dial-In User Service) : Principalement utilisé pour le contrôle d'accès des utilisateurs finaux (authentification 802.1X, connexions VPN). Il valide l'identité en transmettant la requête à un annuaire central (Active Directory).
+TACACS+ (Terminal Access Controller Access-Control System Plus) : Conçu par Cisco et orienté pour l'administration des équipements réseau eux-mêmes. Contrairement à RADIUS, il sépare strictement l'authentification de l'autorisation. Cela permet de définir précisément qu'un technicien a le droit de lire la configuration d'un routeur (show running-config), mais pas de la modifier (configure terminal). Il chiffre également l'intégralité du paquet réseau.
+4. Certificats machine et utilisateur
+Pour automatiser et renforcer la sécurité sans dépendre des erreurs humaines (mots de passe faibles), les architectures d'entreprise s'appuient sur une infrastructure de clés publiques (PKI).
+Le certificat machine (Device Certificate) : Il est déployé de manière transparente sur le terminal par les outils de gestion de parc (MDM / Intune). Il prouve de manière mathématique et inviolable que l'ordinateur portable appartient bien à l'entreprise.
+Le certificat utilisateur (User Certificate) : Lié à l'identité propre du collaborateur. La combinaison des deux certificats permet au réseau d'appliquer des règles très fines : "J'autorise l'accès au VLAN 'Finance' uniquement si l'utilisateur est comptable ET s'il utilise un PC fourni par l'entreprise".
+
+Le modèle Zero Trust
+Ne jamais faire confiance
+Vérifier identité, appareil, contexte
+Moindre privilège
+Supposer la compromission
+Décider par ressource, pas par périmètre
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+55
+
+
+Il s'agit d'une rupture philosophique totale avec la sécurité informatique traditionnelle. Auparavant, le réseau fonctionnait comme un château fort : une fois passés le pont-levis et les douves (le pare-feu/VPN), tout le monde à l'intérieur était jugé digne de confiance. Le Zero Trust supprime définitivement cette confiance implicite. [1, 2]
+1. Ne jamais faire confiance (Never Trust, Always Verify)
+C'est le postulat de départ. Que la demande de connexion vienne d'un utilisateur situé en télétravail à l'autre bout du monde ou d'un cadre assis à son bureau dans le siège social de l'entreprise, le niveau de confiance initial est strictement le même : zéro. [1, 2]
+En pratique : L'emplacement réseau (être "dans les murs" de l'entreprise) ne confère plus aucun droit. [1, 2]
+2. Vérifier l'identité, l'appareil et le contexte
+Puisqu'aucun accès n'est accordé par défaut, chaque transaction fait l'objet d'une évaluation stricte et continue basée sur une multitude de signaux dynamiques : [1, 2]
+L'identité : Qui demande l'accès ? (Vérifié de manière forte via un annuaire centralisé et du MFA robuste).
+L'appareil (Device Posture) : Quel est l'état de santé du terminal utilisé ? L'ordinateur est-il sain, chiffré, équipé de son antivirus, à jour de ses correctifs ?
+Le contexte : D'où vient la requête (géolocalisation) ? À quelle heure ? Est-ce un comportement habituel ? [1]
+3. Le moindre privilège (Least Privilege)
+Il s'agit de limiter l'accès à ce qui est strictement nécessaire, pendant le temps strictement nécessaire, et rien de plus. [1]
+En pratique : Un employé du service Marketing n'a aucune raison technique d'avoir accès, même en lecture seule, aux serveurs de développement ou de comptabilité. Si ses identifiants sont compromis, les droits restreints de son compte empêcheront le pirate de causer des dommages sur le reste des systèmes. [1]
+4. Supposer la compromission (Assume Breach)
+C'est une posture de réalisme défensif. Les équipes de sécurité conçoivent l'architecture en partant du principe que les attaquants sont déjà présents à l'intérieur du réseau ou que le système va être corrompu. [1, 2, 3]
+La conséquence : Tout le trafic interne est systématiquement chiffré, tracé et analysé. On met en place une microsegmentation réseau extrêmement fine. Si une machine est infectée, elle est isolée dans un micro-périmètre hermétique, ce qui bloque immédiatement tout mouvement latéral de l'attaquant. [1, 2, 3, 4]
+5. Décider par ressource, pas par périmètre
+C'est la concrétisation technique opérée par les solutions de ZTNA (Zero Trust Network Access). Avec un VPN classique, une fois authentifié, l'utilisateur est connecté au réseau global. Avec le ZTNA, le réseau sous-jacent est totalement masqué. [1, 2]
+Le mécanisme : L'utilisateur est connecté de manière exclusive et éphémère à une ressource précise (une application web ou un serveur de fichiers donné) après validation par un moteur de politique de sécurité. Il ne peut ni voir, ni scanner, ni tenter de se connecter aux autres serveurs voisins qui partagent la même infrastructure. [1, 2, 3]
+
+Zero trust vs VPN
+	Caractéristique	Modèle Traditionnel (Périmètre)	Modèle Moderne (Zero Trust)
+	Philosophie	"Faire confiance mais vérifier"	"Ne jamais faire confiance, toujours vérifier"
+	Confiance Interne	Implicite (si vous êtes dans le LAN, vous êtes sûr)	Nulle (l'interne est traité comme l'externe)
+	Type d'accès	Accès large à un segment réseau complet	Accès granulaire, par application et par session
+	Visibilité	Les serveurs sont visibles sur le réseau interne	Ressources masquées (pas de découverte publique)
+
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+56
+
+
+
+
+Mise en œuvre du Zero Trust
+Inventaire utilisateurs/appareils/apps/flux
+Classer les ressources
+Politiques et signaux de contexte
+Déploiement pilote
+Mesurer accès, incidents, exceptions
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+57
+
+
+Le Zero Trust n'est pas un logiciel que l'on achète, c'est un projet de transition à long terme. Voici le détail opérationnel de cette trajectoire d'implémentation : [1]
+1. Inventaire exhaustif (Utilisateurs, Appareils, Applications, Flux)
+Avant de pouvoir protéger quoi que ce soit, il faut savoir exactement ce qui compose le système d'information. C'est la phase de découverte. [1]
+Utilisateurs : Recenser tous les utilisateurs humains (employés, prestataires) et non-humains (comptes de service, API). [1]
+Appareils (Assets) : Cartographier la totalité du parc matériel connectant le réseau (PC de l'entreprise, smartphones personnels/BYOD, serveurs, IoT). [1]
+Applications & Flux : Utiliser des outils de découverte pour cartographier les flux de transactions. Il s'agit de comprendre quelle application parle à quel serveur, à quel moment et via quel protocole. [1, 2, 3]
+2. Classer les ressources (Define the Protect Surface)
+Toutes les données n'ont pas la même valeur. Essayer de tout sécuriser au même niveau maximal dès le premier jour est impossible et trop coûteux. [1]
+Le principe : Définir la "surface de protection" en classant les ressources selon le modèle DAAS (Données, Applications, Assets, Services). [1, 2]
+En pratique : On isole et on priorise les éléments critiques (ex : le fichier client, le code source, le système de paie). C'est autour de ces micro-périmètres prioritaires que l'on va construire les premières barrières. [1, 2, 3]
+3. Politiques et signaux de contexte
+C'est le cerveau du système : le Policy Decision Point (PDP). On y rédige les règles d'accès conditionnel qui n'attendent plus un simple mot de passe, mais analysent des signaux en temps réel. [1, 2, 3]
+Les signaux analysés : L'identité de l'utilisateur est-elle validée ? La posture de l'appareil est-elle conforme (antivirus actif, OS à jour) ? Le contexte spatial et temporel est-il cohérent (ex: connexion depuis la France à 10h, puis depuis la Chine à 11h = anomalie) ?
+L'action : La règle applique le moindre privilège (accès strict à la ressource demandée et rien d'autre). [1, 2, 3, 4]
+4. Déploiement pilote
+L'erreur classique est de vouloir activer le Zero Trust pour toute l'entreprise d'un coup, ce qui risque de bloquer l'activité des utilisateurs et de saturer le support technique.
+La méthode : On sélectionne un groupe pilote d'utilisateurs (souvent l'équipe informatique ou un service spécifique) et une application cible peu critique pour tester les technologies.
+Le mode "Monitor" : Au début, on déploie les règles en mode observation (les alertes remontent mais rien n'est bloqué). Cela permet d'ajuster les règles sans perturber le travail, avant de basculer en mode de blocage strict. [1, 2]
+5. Mesurer (Accès, Incidents, Exceptions)
+Le Zero Trust est un processus d'amélioration continue basé sur la télémétrie. Il faut surveiller les indicateurs clés (KPI) : [1, 2]
+Les accès : Qui accède à quoi ? Y a-t-il des comportements inhabituels ?
+Les incidents : Analyser les tentatives d'accès bloquées. S'agit-il d'une vraie cyberattaque contrecarrée ou d'une mauvaise configuration ?
+Les exceptions (Le "Tuning") : Repérer les utilisateurs légitimes qui sont bloqués par erreur pour affiner les politiques, éliminer les règles obsolètes et s'adapter aux évolutions du réseau. [1, 2]
+
+Bonnes pratiques de sécurisation réseau
+Inventaire et configuration de référence
+Patching, durcissement, sauvegardes
+MFA, moindre privilège, séparation admin
+Journalisation centralisée et NTP
+Tests autorisés et exercices d incident
+Plan de réponse et RETEX
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+58
+
+
+Ces 6 thématiques décrivent l'ossature d'une politique de cyber-résilience et d'hygiène informatique d'entreprise, alignée sur les standards de l'ANSSI.
+Après avoir bâti l'architecture réseau (VLAN, routage) et déployé le modèle Zero Trust, ces actions opérationnelles garantissent la capacité de l'organisation à anticiper, résister et se reconstruire après une attaque majeure.
+1. Inventaire et configuration de référence (Baseline)
+On ne peut pas défendre ce que l'on ne connaît pas. La première brique consiste à établir une cartographie stricte et à figer des configurations de sécurité.
+L'inventaire : Recenser l'intégralité du parc (serveurs, PC, équipements réseau, licences logicielles, objets connectés). Tout appareil inconnu doit être automatiquement rejeté par le NAC/802.1X.
+La configuration de référence : Définir un profil standardisé pour chaque type d'appareil (ex: pare-feu local activé, services inutiles désactivés, ports inutilisés fermés). C'est ce modèle qui sert de point de comparaison pour détecter immédiatement toute modification suspecte.
+2. Maintien en condition : Patching, durcissement et sauvegardes
+C'est le travail de fond qui neutralise la majorité des attaques de masse (Ransomwares).
+Le Patching (Gestion des correctifs) : Appliquer en priorité et au plus vite les mises à jour de sécurité sur les services exposés sur Internet, les systèmes d'exploitation et les applications critiques.
+Le Durcissement (Hardening) : Désactiver les fonctionnalités obsolètes (ex : désactiver le protocole SMBv1 ou les suites cryptographiques faibles) pour réduire la surface d'attaque.
+Les Sauvegardes (La règle du 3-2-1) : Posséder 3 copies des données, sur 2 supports différents, avec au moins 1 copie externalisée, déconnectée du réseau (sauvegarde hors-ligne ou air-gapped). C'est l'assurance-vie ultime en cas d'attaque par rançongiciel destructeur.
+3. Contrôle d'accès : MFA, moindre privilège et séparation admin
+Cette section vise à bloquer le vol d'identité et les mouvements latéraux au sein du réseau.
+Le MFA partout : Imposer l'authentification multifacteur pour tous les accès extérieurs (VPN/ZTNA) et tous les comptes à hauts privilèges.
+Le Moindre privilège : Un employé ou une application n'a accès qu'aux fichiers indispensables à sa mission.
+La Séparation des privilèges : Un administrateur système ne doit jamais utiliser son compte admin pour naviguer sur le web ou lire ses e-mails. Il possède deux comptes distincts : un compte utilisateur classique au quotidien et un compte administrateur dédié exclusivement aux tâches de maintenance.
+4. Visibilité : Journalisation centralisée et synchronisation NTP
+Sans traces, le système est aveugle. Il est impossible de comprendre comment un pirate s'est infiltré.
+La Journalisation centralisée : Envoyer en temps réel l'ensemble des logs (pare-feu, serveurs, routeurs, terminaux) vers un collecteur centralisé, généralement un SIEM (Security Information and Event Management).
+La synchronisation NTP : Forcer tous les équipements du réseau à se synchroniser sur la même horloge (serveur NTP). Si les appareils n'ont pas exactement la même heure, il devient impossible pour les analystes de corréler les événements et de reconstituer la chronologie exacte d'une attaque.
+5. Validation : Tests autorisés et exercices d'incident
+La sécurité théorique ne suffit pas ; elle doit être mise à l'épreuve du réel.
+Les tests d'intrusion (Penetration Testing) : Mandater des experts (hackers éthiques) pour tenter de s'infiltrer dans le réseau de l'entreprise afin de découvrir les vulnérabilités avant les cybercriminels.
+Les exercices de crise : Simuler une attaque de Ransomware à grande échelle avec les équipes techniques et la direction. Cela permet de vérifier l'efficacité des procédures d'alerte, de s'assurer que les équipes savent qui appeler et comment réagir sous pression.
+6. Résilience : Plan de réponse et RETEX
+La question n'est plus de savoir si l'entreprise va être attaquée, mais quand.
+Le Plan de réponse aux incidents (Pca/Pra) : Un document écrit, disponible sur papier (au cas où le réseau informatique est complètement coupé), décrivant les procédures techniques de confinement (comment isoler les machines infectées), de communication de crise et de reconstruction.
+Le RETEX (Retour d'Expérience) : Après chaque incident ou exercice, l'équipe se réunit pour analyser ce qui a fonctionné et ce qui a échoué. Les failles découvertes sont immédiatement corrigées pour améliorer la politique de sécurité générale et recommencer le cycle de protection de manière plus robuste.
+
+Synthèse générale du cours
+Couches pour diagnostiquer
+Adresser et segmenter pour maîtriser les flux
+Routage et transport expliquent le trajet
+Menaces : interception, usurpation, DoS, latéral
+Défense : identité, chiffrement, filtrage, détection, réponse
+Zero Trust : vérifier, limiter, observer
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+59
+
+
+
+
+Ressources complémentaires
+RFC 791 / 8200 : IPv4 / IPv6
+RFC 9293 : TCP ; RFC 768 : UDP
+RFC 1034/1035 : DNS ; RFC 8446 : TLS 1.3
+NIST SP 800-207 : Zero Trust
+ANSSI : hygiène et recommandations
+MITRE ATT&CK : techniques adverses
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+60
+
+
+
+RFC pour le protocole, NIST/ANSSI pour la gouvernance, ATT&CK pour relier menace et détection.
+
+
+Merci  !
+MERCI POUR VOTRE PARTICIPATION
+Eric Disson·-  Audit et gestion de la sécurité des systèmes d'information - SIA
+61
+
+
+
+

@@ -1,0 +1,1055 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+<PARSED TEXT FOR PAGE: 1 / 27>
+                                                                                               22/09/2026
+
+
+
+
+Le chiffrement : fondamentaux, applications et
+réglementations
+
+
+
+
+Objectifs pédagogiques
+
+
+ Comprendre l'évolution historique de la cryptographie : des chiffres classiques à la
+  cryptographie post-quantique
+ Maîtriser les notions clés : chiffrement symétrique, asymétrique, hachage, signature,
+  PKI
+ Connaître les algorithmes majeurs : AES, RSA, ECC, SHA-256/3, CRYSTALS-Kyber,
+  CRYSTALS-Dilithium
+ Appréhender les protocoles de mise en œuvre : TLS/HTTPS, SSH, IPSec, S/MIME,
+  DNSSEC
+ Identifier les cas d'usage en entreprise : VPN, messagerie, stockage, blockchain
+ Connaître le cadre réglementaire : ANSSI, RGPD, eIDAS, EAR, régime chinois
+ Anticiper la transition post-quantique et ses implications pratiques
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   2
+<PARSED TEXT FOR PAGE: 2 / 27>
+                                                                                                      22/09/2026
+
+
+
+
+Plan du cours
+
+
+
+ Partie 1 — Chiffrement classique (histoire et principes)
+ Partie 2 — Chiffrement moderne (symétrique, asymétrique, hachage, PKI)
+ Partie 3 — Chiffrement post-quantique (menace quantique, NIST, migration)
+ Partie 4 — Applications (VPN, messageries, stockage, blockchain)
+ Partie 5 — Réglementation (France, Europe, USA, Chine, comparatif)
+
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA          3
+
+
+
+
+                                                               Partie 1 — Chiffrement classique
+
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA          4
+<PARSED TEXT FOR PAGE: 3 / 27>
+                                                                                                                                                            22/09/2026
+
+
+
+
+  Qu’est ce que la cryptographie ?
+
+ Le chiffrement est un procédé de
+  sécurité informatique et de                                                           Clé de chiffrement                      Clé de déchiffrement
+  cryptographie qui consiste à
+  transformer des données lisibles (en
+  clair) en un format illisible et                                         Texte
+                                                                                               Chiffrement
+                                                                                                             Texte chiffré ou
+                                                                                                                                   Déchiffrement
+                                                                                                                                                        Texte
+  incompréhensible pour toute                                             en clair                           cryptogramme                              en clair
+  personne ne possédant pas la clé
+  nécessaire pour les décoder.
+                                                                                                                Cassage
+ Algorithme +clé de chiffrement =                                                                              du code
+  passage du non codé au codé
+  appellé cryptogramme
+                                                                                                              Texte en clair
+                                                                                                               et / ou clé
+              Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                            5
+
+
+
+
+  Histoire de la cryptographie
+
+
+   Aire classique :
+       Antiquité : hiéroglyphes égyptiens (~1900 av. J.-C.) et scytale spartiate (~500 av. J.-C.)
+       Moyen Âge : chiffre de César, puis al-Kindi pose les bases de l'analyse fréquentielle (IXe s.)
+       Renaissance : Vigenère (1553), considéré comme indéchiffrable pendant 300 ans
+       XIXe-XXe s. : télégraphe, radiotélégraphie militaire, mécanisation
+   Aire moderne :
+       1939-1945 : Enigma et Lorenz, naissance de la cryptanalyse moderne (Turing, Bletchley Park)
+       1976 : Diffie-Hellman révolutionnent avec la cryptographie à clé publique
+       1977 : RSA, premier algorithme asymétrique largement déployé
+   Aire post quantique :
+       2016-2024 : standardisation des algorithmes post-quantiques par le NIST
+
+
+              Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                            6
+<PARSED TEXT FOR PAGE: 4 / 27>
+                                                                                                                                                               22/09/2026
+
+
+
+
+Le chiffre de César
+
+
+ Principe : décalage fixe de chaque lettre de l'alphabet d'un nombre k de positions
+ Exemple : avec k=3, A->D, B->E, ..., X->A, Y->B, Z->C
+ Texte « BONJOUR » devient avec k=3 : « ERQMRXU »
+ Espace de clés : seulement 25 possibilités (k=0 trivial)
+ Cassable trivialement par force brute ou analyse fréquentielle
+ Variante : César avec décalage variable par position, plus robuste mais pas un vrai
+  César
+ Utilité pédagogique uniquement — jamais utilisé en production (sauf par Caesar !)
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                              7
+
+
+
+
+Le chiffre de Vigenère
+
+   Chiffrement par substitution poly-alphabétique publié en 1553                               Imaginons que nous voulons chiffrer le message « CHAT » en
+    (duBellay/Alberti/Vigenère)                                                                 utilisant la clé « ROI ».
+   Clé : un mot (ex. « LEMON »). On additionne lettre à lettre                                 1. Aligner le message et la clé
+    modulo 26                                                                                   On répète la clé autant de fois que nécessaire sous le message :
+   Même lettre claire peut devenir plusieurs lettres chiffrées                                 [1]
+    différentes                                                                                 •Message : C H A T
+   Longtemps considéré comme indéchiffrable (« le chiffre                                      •Clé : R O I R
+    indéchiffrable »)                                                                           2. Convertir les lettres en nombres (A=0, B=1, ..., Z=25) [1]
+   Cassé par Charles Babbage (1854) et Friedrich Kasiski (1863) :                              •C = 2, H = 7, A = 0, T = 19
+    répétition de la clé                                                                        •R = 17, O = 14, I = 8, R = 17
+   Indice de coïncidence permet de retrouver la longueur de la                                 3. Additionner les valeurs (\([Texte + Clé] \pmod{26}\)) [1]
+    clé                                                                                         •Première lettre : 2 + 17 = 19 → T
+   Une fois la longueur connue, analyse fréquentielle sur chaque                               •Deuxième lettre : 7 + 14 = 21 → V
+    colonne                                                                                     •Troisième lettre : 0 + 8 = 8 → I
+   Robuste si la clé est aussi longue que le message (one-time                                 •Quatrième lettre : 19 + 17 = 36. On calcule le reste modulo 26 :
+    pad)                                                                                        36 - 26 = 10 → K
+                                                                                                Le message chiffré obtenu est donc « TVIK ».
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                              8
+<PARSED TEXT FOR PAGE: 5 / 27>
+                                                                                                  22/09/2026
+
+
+
+
+Enigma et les machines à chiffrer
+
+
+ Enigma (1918-1945) : machine électromécanique à rotors utilisée par
+  l'armée allemande
+ Composants : clavier, tableau de connexion, 3 rotors, réflecteur — 1023
+  combinaisons possibles
+ Faiblesses : un message ne peut pas se chiffrer en lui-même, structure
+  protocolaire fixe
+ Casser Enigma : Bomba polonaise (Rejewski), puis Bombe de Turing à
+  Bletchley Park
+ Faiblesse exploitée : message chiffré jamais égal au clair (jamais A->A)
+ Autres machines : Lorenz SZ40/42, Purple japonaise, Hagelin C-38/C-48
+ Impact historique : fin de la guerre de plusieurs mois, naissance de
+  l'informatique.
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA     9
+
+
+
+
+Principes de Kerckhoffs (1883) : cryptographie
+moderne
+
+
+ Principe fondateur : « La sécurité d'un cryptosystème ne doit reposer que sur le secret
+  de la clé »
+ L'algorithme peut être public — il doit rester sûr même si tout le monde le connaît
+ Cela permet l'audit public, la standardisation et la confiance
+ À l'inverse, la sécurité par l'obscurité (« security through obscurity ») est considérée
+  comme faible
+ Toute la cryptographie moderne respecte ce principe (AES, RSA sont publics)
+ Seule exception notable : certaines parties de la cryptographie militaire classifiée
+ Lien avec le théorème de Shannon (1949) sur la sécurité inconditionnelle du one-time
+  pad
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA    10
+<PARSED TEXT FOR PAGE: 6 / 27>
+                                                                                                                            22/09/2026
+
+
+
+
+Le masque jetable, ou one-time pad (OTP)
+
+ Le masque jetable, ou one-time pad (OTP), est un système de chiffrement mathématiquement prouvé
+  inviolable.
+ Principe de fonctionnement
+     Clé aléatoire : Une suite de caractères ou de bits totalement aléatoire.
+     Même longueur : La clé doit être au moins aussi longue que le message à chiffrer.
+     Usage unique : La clé ne sert qu'une seule fois et doit être détruite après l'envoi.
+     Opération XOR : Le texte en clair est combiné à la clé via un ou exclusif (XOR) pour obtenir le texte chiffré.
+ Avantages et limites
+     Sécurité absolue : Démontrée par Claude Shannon en 1949, il est impossible de déchiffrer le message sans la
+      clé.
+     Logistique difficile : Les deux correspondants doivent partager physiquement la clé à l'avance.
+     Volume : La taille des clés pose des problèmes de stockage et de transmission pour de grands volumes de
+      données
+
+
+             Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            11
+
+
+
+
+Transition vers l'ère moderne
+
+
+ 1970s : explosion de l'informatique, premiers algorithmes numériques (DES, 1977)
+ 1976 : Diffie-Hellman introduit l'échange de clés sur canal public
+ 1977 : Rivest-Shamir-Adleman publient RSA (basé sur la factorisation)
+ 1991 : Phil Zimmermann crée PGP, démocratise le chiffrement pour le grand public
+ 1995-2000 : SSL/TLS devient HTTPS, sécurisation du web
+ 2001 : AES remplace DES comme standard fédéral américain
+ 2009 : naissance de Bitcoin et de la blockchain (utilisation massive de hachage et
+  signatures)
+ 2010s : mobile, cloud, IoT — explosion des besoins cryptographiques
+
+             Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            12
+<PARSED TEXT FOR PAGE: 7 / 27>
+                                                                                                     22/09/2026
+
+
+
+
+                                                               Partie 2 — Chiffrement moderne
+
+
+
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA         13
+
+
+
+
+Vue d'ensemble des primitives cryptographiques
+
+
+ Chiffrement symétrique : 1 clé secrète partagée (confidentialité)
+ Chiffrement asymétrique : paire de clés (publique/privée) — échange de clé,
+  signature
+ Fonction de hachage : empreinte de taille fixe (intégrité)
+ Code d'authentification de message (MAC/HMAC) : intégrité + authentification
+ Signature numérique : non-répudiation et authenticité
+ Génération de nombres aléatoires (CSPRNG) : fondation de toute la sécurité
+ Dérivation de clé (KDF, PBKDF2, Argon2) : transformer un mot de passe en clé
+ Construction hybride : combiner symétrique + asymétrique (ex. TLS, PGP)
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA         14
+<PARSED TEXT FOR PAGE: 8 / 27>
+                                                                                                22/09/2026
+
+
+
+
+Chiffrement symétrique — principes
+
+
+ Une seule clé K partagée entre l'émetteur et le récepteur
+ Confidentialité uniquement — pas d'authentification de l'émetteur
+ Deux familles : chiffrement par flot (RC4, ChaCha20) et par bloc (DES, AES)
+ Mode opératoire : comment appliquer le chiffrement par bloc (ECB, CBC, CTR,
+  GCM) :
+     ECB (Electronic Codebook) : dangereux pour des données structurées
+     CBC, CTR, GCM : nécessitent un IV/nonce aléatoire
+     GCM (Galois/Counter Mode) : fournit aussi l'authentification (AEAD)
+     Recommandations 2024 : AES-256-GCM, ChaCha20-Poly1305
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   15
+
+
+
+
+DES, 3DES et AES
+
+
+ DES (1977) : bloc 64 bits, clé 56 bits — obsolète, cassable en quelques heures
+ 3DES (1998) : applique DES 3 fois, clé effective 112 bits — retiré par NIST en 2023
+ AES (1997-2001, Rijndael) : bloc 128 bits, clé 128/192/256 bits — standard mondial
+ AES retenu après concours public du NIST (15 candidats)
+ AES-128 suffisant pour la plupart des usages, AES-256 pour la défense à long terme
+ Implémentations matérielles omniprésentes (AES-NI sur processeurs x86)
+ Alternatives : ChaCha20 (Google, plus rapide sans AES-NI), Serpent, Twofish
+ Attaques connues : AES n'est pas cassé ; seules attaques par canal auxiliaire (timing,
+  cache)
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   16
+<PARSED TEXT FOR PAGE: 9 / 27>
+                                                                                                                         22/09/2026
+
+
+
+
+Cryptographie asymétrique — principes
+
+
+ Paire de clés mathématiquement liées : K_pub (publique) et K_priv (privée)
+ Ce qui est chiffré avec K_pub ne peut être déchiffré qu'avec K_priv (et inversement)
+ Permet l'échange de clé sur canal non sécurisé (DH), la signature, l'identification
+ Basée sur des problèmes mathématiques difficiles : factorisation, logarithme discret
+ Beaucoup plus lente que le symétrique (facteur ~1000x pour RSA vs AES)
+ Tailles recommandées : RSA ≥ 2048 bits, ECC ≥ 256 bits (courbes P-256, Curve25519)
+ À éviter absolument : RSA-1024, ECC sur courbes non-standard (Dual_EC_DRBG)
+ Toujours préférer les courbes et tailles recommandées par NIST/ANSSI
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            17
+
+
+
+
+Chiffrement asymétrique : schéma
+
+                                                           Clef publique de Nicole
+
+
+
+                                                                                                            Texte
+                   Texte en
+          Philippe                                                 Chiffrement asymétrique                  encla
+                     clair                                                                                    ir
+
+                                                                                    Clef privée de Nicole
+
+
+                                                                                                            Texte
+                                   Texte en
+           Nicole                                                                                           encla
+                                     clair                               Chiffrement asymétrique              ir
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            18
+<PARSED TEXT FOR PAGE: 10 / 27>
+                                                                                                                                                                  22/09/2026
+
+
+
+
+  RSA, Diffie-Hellman, ECC
+
+   RSA : chiffrement et signature. n = p×q. Sécurité = factoriser n.
+   Diffie-Hellman : échange de clé sur canal public. Sécurité = logarithme discret
+    modulo p.
+   ECC (Elliptic Curve Cryptography) : mêmes fonctionnalités avec clés plus courtes
+   ECC-256 ≈ RSA-3072 en sécurité — gain en performance et en bande passante
+   Courbes standard : P-256 (NIST), Curve25519 (Bernstein), Ed25519 (signature)
+   DH éphémère (DHE/ECDHE) : forward secrecy — la compromission de la clé long-
+    terme ne casse pas les sessions passées
+   Application concrète : TLS 1.3 utilise ECDHE + X25519 par défaut
+   Limite : aucune de ces primitives ne résiste à un ordinateur quantique de taille
+    suffisante
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                                   19
+
+
+
+
+Diffie-                                                                                                 Clef publique de Nicole
+
+Hellman :
+                                                                                         Clef
+Schéma                          Philippe
+                                         Texte en
+                                           clair
+                                                                                       Aléatoire
+                                                                                       secréte
+                                                                                                           Chiffrement asymétrique          
+
+
+                                                                                                                                                Textee
+                                                                                                                                                nclair
+                                                                                              Chiffrement symétrique
+
+
+
+
+                                                                                                                        Clef privée de Nicole
+
+
+                                                                                         Clef
+                                                                                       Aléatoire
+                                                                                       secréte                Chiffrement asymétrique       
+
+
+                                                   Texte en                                                                                     Textee
+                                Nicole               clair
+                                                                                                                                                nclair
+                                                                                             déchiffrement symétrique
+
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                                   20
+<PARSED TEXT FOR PAGE: 11 / 27>
+                                                                                                                                                    22/09/2026
+
+
+
+
+ Fonctions de hachage cryptographique (Intégrité)
+
+
+  Prend une entrée arbitraire, produit une empreinte de taille fixe (digest)
+  Propriétés : résistance à la pré-image, seconde pré-image, collisions
+  MD5 (1991) : 128 bits, complètement cassé (collisions triviales)
+  SHA-1 (1995) : 160 bits, cassé en 2017 par Google (collision SHAttered)
+  SHA-2 (2001) : SHA-256, SHA-512 — standard omniprésent
+  SHA-3 / Keccak (2015) : sponge construction, sécurité distincte de SHA-2
+  BLAKE2 / BLAKE3 : très rapides, utilisés dans WireGuard, IPFS
+  Usages : stockage de mots de passe (avec KDF), signatures, HMAC, Merkle tree,
+   blockchain
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                      21
+
+
+
+
+Hachage :
+                                                                                       Clef publique de Nicole
+schéma
+                                                               Texte en                                                       Txnc
+                                        Philippe                 clair                      Chiffrement asymétrique              
+
+
+                                                                                                             hachage          Clef aléatoire
+
+
+
+
+                                                               Texte en                                                       Txnc
+                                          Nicole                 clair                         Chiffrement asymétrique           
+
+
+                                                                                                                              Clef aléatoire
+                                                                   hachage                            Clef privée de Nicole
+
+
+                                                                Clef aléatoire
+                                                                                                                 ?
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                      22
+<PARSED TEXT FOR PAGE: 12 / 27>
+                                                                                                                                                                                   22/09/2026
+
+
+
+
+     Signatures numériques
+
+
+      Équivalent numérique d'une signature manuscrite : authenticité + non-répudiation
+      L'émetteur signe avec sa clé privée ; tout le monde peut vérifier avec la clé publique
+      Algorithmes : RSA-PSS, ECDSA (NIST), Ed25519 (recommandé), Ed448
+      Processus : on hache le message, on signe le hash avec la clé privée
+      Ne confondre pas : MAC/HMAC ≠ signature numérique (le MAC nécessite une clé
+       partagée)
+      Cas d'usage : certificats TLS, mises à jour logicielles, transactions blockchain
+      Cadre légal : eIDAS en Europe donne valeur juridique aux signatures électroniques
+      Attention aux usages faibles : signer sans authentification préalable de l'émetteur
+
+                     Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                                           23
+
+
+
+
+     PKI et certificats numériques
+
+                                                                                                                         Chaîne de confiance X.509
+   PKI = Public Key Infrastructure — ensemble des outils,
+    politiques et pratiques
+                                                                                                                                         Root CA
+   Certificat X.509 : lie une clé publique à une identité (CN, O,                                                                   (autorité racine)
+    C, etc.)
+   Signé par une autorité de certification (CA) — chaîne de
+                                                                                                                                   signe                           signe
+    confiance
+   AC racines : VeriSign/Symantec/DigiCert, Let's Encrypt
+    (gratuit, automatisé)                                                                                    Intermediate CA                              Intermediate CA
+                                                                                                         (signataire subordonné)                          (autre politique)
+   AC hiérarchiques : root CA -> intermediate CA -> end-entity
+    certificate
+   Cycle de vie : demande CSR, vérification identité, émission,                                                 signe                                              signe
+
+    révocation (CRL/OCSP)
+   Stockage : keystore Java (.jks), PEM (.pem/.crt), PKCS#12                                           Cert. serveur                                      Cert. serveur
+    (.p12)                                                                                            www.example.com                                    api.example.com
+
+   Enjeux modernes : transparence des certificats (Certificate
+                                                                                                             Le navigateur vérifie la chaîne jusqu'à un root de confiance
+    Transparency), ACME
+                     Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA             ← flèche = signature cryptographique du certificat parent     24
+<PARSED TEXT FOR PAGE: 13 / 27>
+                                                                                                                                                                                         22/09/2026
+
+
+
+
+       TLS / HTTPS — la chaîne en action
+                                                                                                                         Handshake TLS 1.3 (1 aller-retour)
+    TLS 1.0 (1999) → TLS 1.2 (2008) → TLS 1.3 (2018) — 1.0 et 1.1
+                                                                                                            Client                                                        Serveur
+     dépréciés en 2021
+                                                                                                                           ① ClientHello + key_share (ECDHE)
+    TLS 1.3 simplifie : 1 aller-retour au lieu de 2, suppression de
+     cipher suites faibles
+    Handshake : négociation cipher suite, échange ECDHE,                                               ② ServerHello + cert + verify + Finished
+     authentification serveur par certificat
+    Phase applicative : chiffrement symétrique AES-256-GCM ou
+     ChaCha20-Poly1305                                                                                                     ③ Finished (authentification client)
+
+    Le navigateur vérifie : chaîne de certificats, revocation
+     (CRL/OCSP), nom de domaine
+    HSTS force le HTTPS, Certificate Transparency audite les
+     émissions                                                                                                                   ④ Trafic applicatif chiffré
+    DNS over HTTPS (DoH) et DNS over TLS (DoT) chiffrent aussi les
+                                                                                                                            AES-256-GCM ou ChaCha20-Poly1305
+     requêtes DNS                                                                                                             (échange de clé ECDHE terminé)
+
+    Outils : testssl.sh, sslyze, openssl s_client -connect
+
+                       Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA
+                                                                                                                     Forward secrecy garantie par ECDHE — clé de session éphémère
+                                                                                                                                                                                    25
+
+
+
+
+       Les serveurs de temps
+
+    Un serveur de temps est un équipement ou un logiciel sur un réseau qui distribue l'heure exacte à des ordinateurs et
+    des objets connectés.
+     Rôle et fonctionnement
+         Protocole principal : Il utilise le protocole NTP (Network Time Protocol) pour synchroniser les horloges à travers Internet
+          ou un réseau local.
+         Précision : Les serveurs se classent en strates (stratum). La strate 1 est reliée directement à une horloge atomique ou un
+          signal satellite (GPS), tandis que la strate 2 se synchronise sur un serveur de strate 1.
+         Usage courant : Il garantit l'uniformité des horloges pour les journaux d'événements (logs), la sécurité informatique et les
+          transactions.
+     Exemples d'utilisation
+         En France : Le Pool NTP France (fr.pool.ntp.org) met à disposition un ensemble de serveurs publics et redondants pour
+          synchroniser les machines.
+         Par défaut : Les systèmes d'exploitation comme Windows se connectent automatiquement à des serveurs dédiés (ex:
+          time.windows.com).
+         En entreprise : Des fabricants français comme Bodet Time ou Gorgy Time proposent des boîtiers physiques dédiés pour
+          sécuriser les réseaux locaux.
+
+                       Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                                                                               26
+<PARSED TEXT FOR PAGE: 14 / 27>
+                                                                                                           22/09/2026
+
+
+
+
+                                              Partie 3 — Chiffrement post-quantique
+
+
+
+
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA         27
+
+
+
+
+    Physique quantique
+La physique quantique est la branche de la physique qui décrit le comportement de la matière et du
+rayonnement à l'échelle de l'infiniment petit, comme les atomes et les particules.
+• Qu'est-ce que c'est ?
+    • Une échelle microscopique : Elle s'applique aux électrons, aux atomes et aux molécules.
+    • Des lois différentes : Les règles de la physique classique (comme celles de Newton) ne marchent
+      plus à cette taille.
+    • Un monde de probabilités : Les objets ne possèdent pas une position ou une vitesse fixe, mais
+      sont décrits par des probabilités et des fonctions d'onde.
+• Les grands principes
+    • La superposition : Une particule peut se trouver dans plusieurs états ou plusieurs endroits à la fois
+      avant d'être mesurée.
+    • La dualité onde-particule : Les objets quantiques se comportent à la fois comme des ondes et
+      comme des corps solides.
+    • L'intrication quantique : Deux particules peuvent être liées de façon invisible, de sorte que l'état
+      de l'une influence instantanément l'autre, peu importe la distance.
+               Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA         28
+<PARSED TEXT FOR PAGE: 15 / 27>
+                                                                                                         22/09/2026
+
+
+
+
+Informatique quantique 1/2
+
+L'informatique quantique est un domaine innovant de la technologie qui
+utilise la mécanique quantique pour résoudre des problèmes très
+complexes beaucoup plus rapidement que les ordinateurs classiques.
+• Qu'est-ce qu'un qubit ?
+     • Unité de base : L'ordinateur classique utilise des bits (0 ou 1).
+        L'ordinateur quantique utilise des qubits (bits quantiques).
+     • Superposition : Grâce à la superposition, un qubit peut
+        représenter à la fois 0 et 1 en même temps.
+     • Intrication : Les qubits peuvent être liés entre eux, ce qui multiplie
+        la puissance de calcul de façon immense.
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA            29
+
+
+
+
+Informatique quantique 2/2
+•   Comment ça fonctionne ?
+     • Calculs en parallèle : Le système teste de nombreuses solutions en même temps au lieu de
+        les faire une par une.
+     • Conditions extrêmes : Ces machines demandent des températures très froides, proches du
+        zéro absolu, pour fonctionner.
+     • Correction d'erreurs : Les chercheurs doivent corriger les erreurs du matériel actuel pour
+        stabiliser les calculs.
+•   À quoi ça sert ?
+     • Sécurité et chiffrement : Elle pose un défi pour la cybersécurité mondiale et les codes
+        secrets actuels.
+     • Domaines d'avenir : Elle aide à la recherche en médecine, en chimie et pour les prévisions
+        météo complexes.
+     • Grands acteurs : Des entreprises comme IBM développent des systèmes avancés pour
+        progresser dans ce domaine
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA            30
+<PARSED TEXT FOR PAGE: 16 / 27>
+                                                                                                22/09/2026
+
+
+
+
+Ordinateur quantique
+
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   31
+
+
+
+
+La menace de l'ordinateur quantique
+
+ Algorithme de Shor (1994) : casse RSA, DH, ECC en temps polynomial sur ordinateur
+  quantique
+ Réduction : factoriser un entier n en O((log n)3) au lieu de O(exp((log n)(1/3)))
+ Algorithme de Grover : accélération quadratique pour les symétriques (AES-256 reste
+  sûr)
+ État actuel (2026) : plus grand ordinateur quantique ~10000 qubits bruyants
+ Estimations : ~106 qubits logiques pour casser RSA-2048 (avec correction d'erreurs)
+ Roadmap : IBM, Google, IonQ visent des machines cryptographiquement pertinentes
+  d'ici 2035
+ Risque = horizon 10-15 ans pour une cryptanalyse à grande échelle
+ Tous les secrets actuels à longue durée de vie sont menacés
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   32
+<PARSED TEXT FOR PAGE: 17 / 27>
+                                                                                                  22/09/2026
+
+
+
+
+Harvest now, decrypt later
+
+
+ Attaque « stocker maintenant, déchiffrer plus tard »
+ Objectif : déchiffrer rétroactivement quand l'ordinateur quantique sera disponible
+ Données sensibles avec longue durée de vie : dossiers médicaux, secrets d'État,
+  propriété industrielle
+ Durée de confidentialité souvent 20-50 ans — supérieure à l'horizon quantique estimé
+ Pour TLS classique aujourd'hui : tout trafic enregistré est potentiellement lisible vers
+  2035+
+ Implication : migration post-quantique est urgente pour les secrets long-terme
+ MITRE, NSA, ANSSI : tous appellent à la migration dès maintenant
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA    33
+
+
+
+
+Panorama des algorithmes post-quantiques
+
+
+ 3 grandes familles : réseaux euclidiens (lattice-based), codes correcteurs, isogénies
+ Réseaux euclidiens : meilleure performance et sécurité — base des vainqueurs NIST
+ CRYSTALS-Kyber (ML-KEM) : Key Encapsulation Mechanism — remplace RSA/ECDH
+ CRYSTALS-Dilithium (ML-DSA) : signatures — remplace RSA/ECDSA
+ FALCON (FN-DSA) : signatures compactes basées sur réseaux NTRU
+ SPHINCS+ (SLH-DSA) : signatures stateless basées sur hash — backup algorithm
+ Code-based : Classic McEliece (très conservateur, clés publiques énormes)
+ Isogénies : SIKE a été cassé en 2022 — montrer la difficulté du domaine
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA    34
+<PARSED TEXT FOR PAGE: 18 / 27>
+                                                                                                   22/09/2026
+
+
+
+
+ Standardisation NIST et état de la migration
+
+
+ NIST PQC standardization : démarré en 2016, 82 candidatures initiales
+ Round 4 (2022-2024) : sélection de Kyber, Dilithium, SPHINCS+, Falcon
+ FIPS 203 (ML-KEM), FIPS 204 (ML-DSA), FIPS 205 (SLH-DSA) publiés en août 2024
+ FIPS 206 (FN-DSA / FALCON) en cours de finalisation
+ Migration : NSA CNSA 2.0 impose les algo PQC pour les systèmes de sécurité nationale US d'ici
+  2030-2035
+ Google, Apple, Cloudflare : déjà du PQ-TLS hybride en production (X25519+ML-KEM-768)
+ Chrome 124+ : supporte ML-KEM-768 par défaut pour les connexions TLS
+ ANSSI : recommande l'agilité cryptographique et la préparation dès aujourd'hui.
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA    35
+
+
+
+
+ Crypto-agilité et bonnes pratiques
+
+
+  Identifier tous les usages cryptographiques dans le SI (inventaire)
+  Cartographier : algorithmes, tailles de clé, bibliothèques, dépendances tierces
+  Évaluer la durée de vie des données protégées
+  Pour les secrets > 10 ans : priorité PQC
+  Adopter des protocoles négociant les algorithmes (TLS 1.3, IKEv2)
+  Éviter les chiffrements hardcodés (clé + algo dans le code)
+  Tester la transition en environnement contrôlé avant déploiement
+  Surveiller les bulletins cryptographiques (NIST, ANSSI, BSI)
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA    36
+<PARSED TEXT FOR PAGE: 19 / 27>
+                                                                                                    22/09/2026
+
+
+
+
+                                          Partie 4 — Applications du chiffrement
+
+
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA      37
+
+
+
+
+Sécurisation des communications
+
+
+ Messageries grand public : Signal Protocol (X3DH + Double Ratchet) — référence
+ Messageries d'entreprise : Microsoft Teams, Slack — chiffrement TLS au repos et en transit
+ Messageries chiffrées bout-en-bout : WhatsApp, Signal, Wire — clés sur les terminaux
+ E-mail : S/MIME (PKI X.509) ou PGP/OpenPGP — problèmes de métadonnées
+ VPN d'entreprise : IPsec/IKEv2 ou WireGuard — chiffrement des flux réseau
+ VPN grand public : OpenVPN, WireGuard, NordVPN, ProtonVPN
+ TLS 1.3 partout : tous les sites web, API, microservices
+ DNS chiffré : DoH (DNS over HTTPS), DoT (DNS over TLS)
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA      38
+<PARSED TEXT FOR PAGE: 20 / 27>
+                                                                                                22/09/2026
+
+
+
+
+Stockage et chiffrement au repos
+
+
+ Disques chiffrés : BitLocker (Windows), FileVault (macOS), LUKS (Linux)
+ Algorithmes typiques : AES-256-XTS (mode XTS pour disques)
+ Chiffrement matériel : SED (Self-Encrypting Drive), OPAL — clé dans le contrôleur
+ Bases de données : TDE (Transparent Data Encryption) — Oracle, SQL Server,
+  PostgreSQL
+ Chiffrement au niveau colonne : protect PII (RGPD), données très sensibles
+ Sauvegardes chiffrées : VeraCrypt, Duplicati, restic, BorgBackup
+ Stockage objet cloud : SSE-S3 (AWS), CSEK, BYOK, HSM Cloud
+ Gestion des clés : KMS (Key Management Service), HSM (Hardware Security Module)
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   39
+
+
+
+
+Authentification et identité
+
+
+ Mots de passe : stockés hashés + salés + KDF lent (Argon2id, bcrypt)
+ MFA / 2FA : TOTP (RFC 6238), WebAuthn / FIDO2 (clé publique)
+ WebAuthn : clé privée dans le Secure Enclave / TPM — phishing-résistant
+ Cartes à puce : PKI avec certificat X.509 — authentication forte
+ Single Sign-On (SSO) : SAML, OpenID Connect, JWT signés (JWS)
+ Certificats clients : authentification mutuelle TLS (mTLS)
+ Jetons d'accès : OAuth 2.0 + JWT signés (RS256, ES256)
+ Zero Trust : chaque accès authentifié indépendamment (BeyondCorp, ZTNA)
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   40
+<PARSED TEXT FOR PAGE: 21 / 27>
+                                                                                                22/09/2026
+
+
+
+
+Blockchain et cryptomonnaies
+
+
+ Bitcoin / Ethereum : ECDSA pour les signatures, SHA-256 (Keccak-256 pour ETH)
+ Adresses = hash de la clé publique (HASH160 = SHA256 + RIPEMD160)
+ Merkle trees : permettent de prouver l'inclusion d'une transaction
+ Preuve de travail (PoW) : SHA-256 répété — c'est du hachage massif
+ zk-SNARKs / zk-STARKs : preuves à divulgation nulle de connaissance
+ Confidentialité : Zcash (zk-SNARKs), Monero (RingCT)
+ Wallets : HD wallets (BIP32), seed phrase (BIP39), hardware wallets (Ledger, Trezor)
+ Risques : vol de clé privée = perte irréversible (pas de support client)
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   41
+
+
+
+
+Cas d'usage entreprise
+
+
+ Protection des données personnelles (RGPD Art. 32) — chiffrement recommandé
+ Données de santé (HDS en France) — hébergeur certifié, chiffrement fort
+ Contrats intelligents : signatures électroniques qualifiées (eIDAS)
+ Sécurisation des API : TLS mutuel (mTLS), JWT signés
+ Chiffrement des sauvegardes et archives (résilience face aux ransomwares)
+ BYOK / HYOK : Bring Your Own Key pour souveraineté cloud
+ Audit : journaux d'accès aux clés, séparation des rôles (key custodian)
+ Conformité : PCI-DSS (cartes bancaires), SOX, ISO 27001
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   42
+<PARSED TEXT FOR PAGE: 22 / 27>
+                                                                                                   22/09/2026
+
+
+
+
+ Partie 5 — Réglementation et gestion du chiffrement
+                                     dans le monde
+
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA      43
+
+
+
+
+France — ANSSI et régime des moyens de
+cryptologie
+
+ ANSSI (Agence nationale de la sécurité des systèmes d'information) — créée en 2009
+ Régime déclaratif/autorisation : Loi pour une République numérique (2016) a libéré
+  les usages
+ Avant 2016 : déclaration obligatoire pour tout moyen de cryptologie > 128 bits
+  symétrique (datée d’une loi de 1998).
+ Aujourd'hui : usage libre, mais fourniture soumise à déclaration ou autorisation si > 128
+  bits
+ ANSSI délivre des visas de sécurité (certification CSPN, qualification)
+ Référentiel général de sécurité (RGS) : impose des algorithmes et tailles de clé
+ ANSSI publie des guides : choisir ses algorithmes, vers la PQC, sécuriser TLS
+ Rôle international : représentation à l'ENISA, à l'OCDE, dans les standards ITU
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA      44
+<PARSED TEXT FOR PAGE: 23 / 27>
+                                                                                                       22/09/2026
+
+
+
+
+Europe — RGPD, eIDAS, position sur le chiffrement
+
+
+ RGPD (Règlement Général sur la Protection des Données, 2018) — Article 32 cite le chiffrement
+ RGPD ne rend pas le chiffrement obligatoire, mais le recommande comme mesure technique
+  appropriée
+ Notification sous 72h — sauf si données chiffrées et clé non compromise (perte réputée non-
+  avérée)
+ eIDAS 2.0 (2024) : règlement sur l'identification électronique et les signatures
+ Signature qualifiée eIDAS = équivalent signature manuscrite
+ Position UE : pas de porte dérobée imposée (résolution Parlement européen 2014/2015)
+ ENISA : rapports réguliers sur l'état de la cryptographie en Europe
+ Tensions : « Going Dark » plaide pour des backdoors ; l'industrie et le Parlement résistent
+
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA        45
+
+
+
+
+États-Unis — export controls et débat Going Dark
+
+ Export Administration Regulations (EAR) — contrôlent l'export des logiciels
+  cryptographiques
+ Bureau of Industry and Security (BIS) — autorisation d'export via encryption review
+ Avant 1996 : cryptographie considérée comme munition (ITAR)
+ Wassenaar Arrangement : accords multilatéraux sur l'export d'armes (incl.
+  cryptographie)
+ NSA / NIST : NIST publie FIPS (140-2/3/4) — FIPS 140-3 obligatoire pour agences
+  fédérales
+ CISA (Cybersecurity and Infrastructure Security Agency) — guide de mise en œuvre
+ Débat « Going Dark » : FBI/DoJ vs industrie — accès aux communications chiffrées
+ EARN IT Act, LAED Act : propositions controversées d'accès légal au chiffrement
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA        46
+<PARSED TEXT FOR PAGE: 24 / 27>
+                                                                                                         22/09/2026
+
+
+
+
+Chine — réglementation nationale et contrôle
+étatique
+
+ Crypto Law (2020) — entrée en vigueur le 1er janvier 2020
+ Trois catégories : cryptographie nucléaire/militaire (secrète), commerciale (régulée), courante
+  (libre)
+ Cryptographie commerciale : obligatoirement basée sur algorithmes chinois approuvés
+ Algorithmes nationaux : SM2 (asymétrique, ECC-like), SM3 (hachage), SM4 (symétrique, bloc
+  128 bits)
+ OSCCA (Office of State Commercial Cryptography Administration) — autorité de régulation
+ Accès des autorités : obligation de coopération avec les forces de l'ordre
+ Impact pour les entreprises étrangères : données doivent souvent être chiffrées avec algo
+  chinois pour être stockées en Chine
+ Initiatives internationales : pas de participation à la normalisation PQC occidentale
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA           47
+
+
+
+
+Enjeux géopolitiques — souveraineté numérique
+
+ Souveraineté numérique : maîtrise des briques cryptographiques critiques
+ Basculements récents : PRISM (2013), CLOUD Act (2018), extraterritorialité du droit US
+ Réponse européenne : GAIA-X, EUCS (certification cloud), schéma européen de
+  certification crypto
+ Réponse française : doctrine « cloud de confiance », label SecNumCloud
+ Dilemme : sécurité opérationnelle (algorithmes publics audités) vs contrôle national
+ Risque d'un « splinternet cryptographique » : interopérabilité réduite
+ Standards internationaux : IETF, ISO, ITU — difficiles à harmoniser
+ OpenSSL, OpenSSH : briques open source critiques — financement fragile
+  (Heartbleed 2014)
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA           48
+<PARSED TEXT FOR PAGE: 25 / 27>
+                                                                                                                        22/09/2026
+
+
+
+
+La « guerre crypto » — état des forces
+
+
+ NSA (USA) : capacités offensives documentées (BULLRUN, EternalBlue)
+ FSB (Russie) : demande de déchiffrement des communications (Yarovaya Law
+  2016)
+ GCHQ (UK) : programme TEMPEST, lawful intercept
+ MSS / PLA (Chine) : cyber-espionnage industriel et étatique
+ DGSE / ANSSI (France) : doctrine de défense + capacités offensives classifiées
+ Initiative Five Eyes : coopération UK/USA/Canada/Australie/Nouvelle-Zélande
+ Open source vs backdoors : le débat éthique et économique
+ Perspectives : vers une fragmentation ou une convergence ?
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            49
+
+
+
+
+                                                                                          Synthèse et ressources
+
+
+
+
+         Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                            50
+<PARSED TEXT FOR PAGE: 26 / 27>
+                                                                                                22/09/2026
+
+
+
+
+Synthèse — ce qu'il faut retenir
+
+
+ Chiffrement classique : Kerckhoffs, Shannon, secret de la clé uniquement
+ Symétrique (AES-256-GCM) : rapide, pour les volumes
+ Asymétrique (RSA-2048+, ECDSA P-256+, Ed25519) : échange de clé, signature
+ Hachage (SHA-256/3, BLAKE3) : intégrité — toujours salé pour les mots de passe
+ TLS 1.3 partout, ECDHE pour la forward secrecy
+ PKI / certificats X.509 : chaîne de confiance, révocation (OCSP)
+ Post-quantique : ML-KEM (Kyber), ML-DSA (Dilithium), SLH-DSA (SPHINCS+) —
+  migrer dès 2025
+ Réglementation : connaître RGPD, ANSSI, EAR, Crypto Law chinoise
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   51
+
+
+
+
+Ressources complémentaires
+
+
+ ANSSI : guide « Recommandations de sécurité relatives à la cryptographie »
+ ANSSI : guide « Anticiper la migration vers la cryptographie post-quantique » (2024)
+ NIST FIPS 203, 204, 205, 206 (août 2024) — standards PQC
+ ENISA : rapports sur la cryptographie et l'avenir post-quantique
+ IETF : RFC 8446 (TLS 1.3), RFC 9370 (ML-KEM dans TLS 1.3)
+ Cryptography StackExchange, Crypto StackExchange — pour les questions
+  techniques
+ Cryptopals / CryptoHack — challenges pratiques d'apprentissage
+ Cours : Stanford CS255, Dan Boneh — gratuit en ligne, référence académique
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   52
+<PARSED TEXT FOR PAGE: 27 / 27>
+                                                                                                22/09/2026
+
+
+
+
+Pour aller plus loin
+
+
+ Veille : blogs Cryptography Engineering, Schneier on Security, KrebsOnSecurity
+ Conférences : IACR (Crypto, Eurocrypt, Asiacrypt), Real World Crypto, Black Hat
+ Outils à maîtriser : OpenSSL, GnuPG, age, age-plugin-yubikey
+ Veille ANSSI : bulletin d'alerte, mailing-list cyber.gouv.fr
+ Veille NIST : Computer Security Resource Center (CSRC)
+ Communautés : fr.cryptography, r/crypto, signal-hackers (recherche Signal)
+ Standards : IETF (RFC), ISO/IEC SC 27, ETSI TC CYBER
+ Métiers : cryptanalyste, RSSI, architecte sécurité, consultant ANSSI
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   53
+
+
+
+
+Questions / discussion
+
+
+
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   54

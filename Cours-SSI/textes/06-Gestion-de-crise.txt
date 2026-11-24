@@ -1,0 +1,562 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+<PARSED TEXT FOR PAGE: 1 / 20>
+                                                                                               19/10/2026
+
+
+
+
+Gestion de crise en
+cybersécurité
+Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA
+
+
+
+
+Programme de la formation
+
+ 1 – Fondamentaux & typologie des crises cyber
+ 2 – Préparation & résilience
+ 3 – Gouvernance, cellule de crise & RACI
+ 4 – Détection, qualification & escalade
+ 5 – Réponse à incident
+ 6 – Continuité d’activité & reprise (PCA/PRA)
+ 7 – Communication de crise & aspects juridiques
+ 8 – GRC, normes & référentiels
+ 9 – Retour d’expérience & amélioration continue
+
+          Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   2
+<PARSED TEXT FOR PAGE: 2 / 20>
+                                                                                             19/10/2026
+
+
+
+
+Objectifs pédagogiques & méthodes
+
+
+ Comprendre les mécanismes d’une crise cyber
+ Construire un dispositif de préparation efficace
+ Mobiliser la gouvernance adaptée à la crise
+ Coordonner la réponse technique et métier
+ Maîtriser la communication et les obligations juridiques
+ Méthodes : apports, cas concrets, tabletop, QCM
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   3
+
+
+
+
+                     Module 1 – Fondamentaux &
+                                      typologie
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   4
+<PARSED TEXT FOR PAGE: 3 / 20>
+                                                                                             19/10/2026
+
+
+
+
+Qu’est-ce qu’une crise cyber ?
+
+
+ Événement de sécurité perturbant fortement le SI ou l’activité
+ Dépasse les capacités de traitement en régime nominal
+ Impose une coordination décisionnelle de niveau direction
+ Impacts : opérationnel, financier, juridique, réputationnel
+ Se distingue d’un incident ordinaire par sa gravité et son
+  urgence
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   5
+
+
+
+
+Critères & typologie des crises
+
+ Critères : interruption d’un service critique, fuite de données,
+  attaque non maîtrisée, sécurité des personnes, pression médiatique
+ Rançongiciels (ransomware) et exfiltration de données
+ Attaques de la chaîne d’approvisionnement
+ Déni de service prolongé et compromission de comptes à
+  privilèges
+ Défaillances internes à fort impact
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   6
+<PARSED TEXT FOR PAGE: 4 / 20>
+                                                                                           19/10/2026
+
+
+
+
+Crise technique vs crise organisationnelle
+
+
+Vecteur, IoC, systèmes affectés, confinement
+Décisions, priorisation, mobilisation RH, juridique
+
+
+
+
+      Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   7
+
+
+
+
+                                       Module 2 – Préparation &
+                                                      résilience
+
+
+      Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   8
+<PARSED TEXT FOR PAGE: 5 / 20>
+                                                                                              19/10/2026
+
+
+
+
+Piliers de la préparation
+
+
+ Cartographie des actifs critiques et des dépendances
+ Analyse de risques (EBIOS RM, méthodes équivalentes)
+ Procédures documentées et tenues à jour
+ Astreintes et listes de contact testées
+ Sauvegardes testées et conservées hors-ligne
+ PCA / PRA rédigés, validés et testés
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA    9
+
+
+
+
+Kit de crise & résilience by design
+
+Arbre de décision, critères d’activation, listes de contacts
+Accès aux sauvegardes et journaux centralisés
+Outils de communication de secours (hors SI)
+Architecture segmentée et redondante, sauvegardes 3-2-
+ 1
+Mode dégradé documenté et entraînement des
+ astreintes
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   10
+<PARSED TEXT FOR PAGE: 6 / 20>
+                                                                                              19/10/2026
+
+
+
+
+Module 3 – Gouvernance & cellule
+                       de crise
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   11
+
+
+
+
+Niveaux de crise & composition de la
+cellule
+
+
+ Niveau 1 – incident : équipe SSI / SOC
+ Niveau 2 – incident majeur : RSSI + direction
+ Niveau 3 – crise : cellule activée par la direction générale
+ Directeur de crise, RSSI, IT, métier, communication, juridique / DPO,
+  RH
+ Représentant des prestataires critiques
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   12
+<PARSED TEXT FOR PAGE: 7 / 20>
+                                                                                              19/10/2026
+
+
+
+
+Matrice RACI & règles de fonctionnement
+
+
+ R – Réalise : opérationnel, technique
+ A – Accountable : direction générale (unique)
+ C – Consulté : métiers, juridique, communication
+ I – Informé : parties prenantes externes
+ Salle dédiée ou virtuelle sécurisée, points de situation réguliers
+ Main courante horodatée, journal de bord versionné, quorum défini
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   13
+
+
+
+
+Matrice RACI
+
+
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   14
+<PARSED TEXT FOR PAGE: 8 / 20>
+                                                                                              19/10/2026
+
+
+
+
+   Module 4 – Détection & escalade
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   15
+
+
+
+
+Détection, qualification & escalade
+
+
+ Sources : SOC, IDS/IPS, EDR, signalements utilisateurs, veille externe
+ Qualification : faux positif, périmètre, impact métier, caractère
+  malveillant
+ Escalade : SOC → RSSI → cellule de crise
+ Information systématique de la DPO si données personnelles
+ Alerte externe possible : ANSSI, CNIL, forces de l’ordre
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   16
+<PARSED TEXT FOR PAGE: 9 / 20>
+                                                                                              19/10/2026
+
+
+
+
+         Module 5 – Réponse à incident
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   17
+
+
+
+
+Phases de la réponse (cadres NIST & ISO)
+
+
+ Préparation
+ Identification / Détection
+ Confinement
+ Éradication
+ Récupération
+ Activités post-incident / RETEX
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   18
+<PARSED TEXT FOR PAGE: 10 / 20>
+                                                                                              19/10/2026
+
+
+
+
+Confinement & conservation des preuves
+
+ Isoler les systèmes touchés du reste du SI
+ Préserver les preuves avant toute modification (journaux, mémoire,
+  disques)
+ Désactiver les comptes compromis
+ Documenter chaque action : qui, quand, quoi ; scellés numériques
+  horodatés
+ Coordonner avec les autorités en cas de plainte
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   19
+
+
+
+
+Éradication, récupération & activité
+
+
+Reconstruction à partir de sources sûres et correctifs
+Vérifier l’absence de persistance de l’attaquant
+Surveillance renforcée post-incident et validation avant
+ remise en production
+Activité : sous-groupes – confinement d’un rançongiciel,
+ 12 minutes, restitution en plénière.
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   20
+<PARSED TEXT FOR PAGE: 11 / 20>
+                                                                                            19/10/2026
+
+
+
+
+      Module 6 – Continuité & reprise
+
+
+      Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   21
+
+
+
+
+PCA / PRA : rôles et concepts
+
+PCA : maintien des activités critiques en mode
+ dégradé
+PRA : retour à un fonctionnement nominal après
+ sinistre
+RTO : délai maximal d’interruption admissible
+RPO : perte de données maximale admissible
+      Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   22
+<PARSED TEXT FOR PAGE: 12 / 20>
+                                                                                                                  19/10/2026
+
+
+
+
+ISO/IEC 27031:2011
+
+ Technologies de l'information – Techniques de sécurité – Lignes directrices pour la préparation
+  des technologies de l'information et de la communication pour la continuité d'activité.
+ Objectif : Aider les organisations à préparer leurs TIC (systèmes d'information, réseaux,
+  infrastructures) pour qu'elles puissent soutenir la continuité d'activité en cas de perturbation
+  (panne, sinistre, cyberattaque, etc.).Elle répond à la question : « Nos services informatiques
+  seront-ils disponibles, au bon niveau et dans les délais requis, quand l'activité en aura besoin ? »
+ Principes essentiels
+     Prévenir les incidents affectant les TIC
+     Détecter rapidement les événementsRépondre et reprendre les services TIC selon les objectifs métiers
+Les exigences de reprise (RTO, RPO, MTPD) sont issues du BIA (analyse d'impact sur l'activité), donc
+pilotées par le métier.
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                   23
+
+
+
+
+ISO 22301:2019
+
+
+Sécurité et résilience – Systèmes de management de la
+ continuité d'activité – Exigences.
+Objectif : Permettre à un organisme de se protéger
+ contre les incidents perturbateurs, réduire leur probabilité,
+ s'y préparer, y répondre et s'en rétablir, afin de maintenir
+ ses activités prioritaires à un niveau acceptable.
+
+            Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA                   24
+<PARSED TEXT FOR PAGE: 13 / 20>
+                                                                                              19/10/2026
+
+
+
+
+Stratégies, tests & retour à la normale
+
+ Bascule vers un site de secours : froid, tiède, chaud
+ Redondance des infrastructures critiques et sauvegardes
+  externalisées
+ Procédés manuels de remplacement et sous-traitance en capacité
+ Tests documentaires, techniques et exercices de bascule à blanc
+ Critères de fin de crise : absence de persistance, surveillance
+  active, communication interne, RETEX à J+30
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   25
+
+
+
+
+               Module 7 – Communication &
+                          aspects juridiques
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   26
+<PARSED TEXT FOR PAGE: 14 / 20>
+                                                                                              19/10/2026
+
+
+
+
+Communication de crise : principes &
+publics
+
+Une seule voix autorisée ; messages factuels, datés,
+ hiérarchisés
+Pas de minimisation ni de promesse hasardeuse
+Cohérence entre communication interne et externe
+Publics : direction, personnels, clients, fournisseurs,
+ autorités, médias
+Mise à jour régulière même sans nouveauté
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   27
+
+
+
+
+Aspects juridiques & coordination
+
+ Notification des violations de données personnelles (RGPD)
+ Obligations sectorielles si applicable
+ Dépôt de plainte et coopération judiciaire
+ Conservation des preuves pour les besoins juridiques
+ Déclaration aux assurances cyber
+ Coordonner communication et technique : brief continu, FAQ,
+  éléments de langage, porte-parole identifié
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   28
+<PARSED TEXT FOR PAGE: 15 / 20>
+                                                                                              19/10/2026
+
+
+
+
+                                Module 8 – GRC, normes &
+                                              référentiels
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   29
+
+
+
+
+Panorama des référentiels
+
+
+ ISO/IEC 27001 – système de management de la sécurité
+ ISO/IEC 27035 – gestion des incidents
+ NIST CSF – fonctions de sécurité
+ NIST SP 800-61 – réponse à incident
+ EBIOS RM – analyse de risques (ANSSI)
+ Guides ANSSI : gestion de crise, PCA, PRA
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   30
+<PARSED TEXT FOR PAGE: 16 / 20>
+                                                                                              19/10/2026
+
+
+
+
+NIST CSF : cinq fonctions
+
+
+Identify – identifier les actifs et les risques
+Protect – mettre en place les protections
+Detect – détecter les événements
+Respond – répondre aux incidents
+Recover – restaurer les capacités
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   31
+
+
+
+
+ISO 27001/27035, EBIOS RM
+& articulation GRC
+
+
+ISO 27001 : système de management (PDCA)
+ISO 27035 : cycle de vie des incidents
+EBIOS RM : méthode d’évaluation des risques (ANSSI)
+Référentiels sectoriels : santé, OIV, etc.
+GRC : gouvernance, risques, conformité articulées
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   32
+<PARSED TEXT FOR PAGE: 17 / 20>
+                                                                                              19/10/2026
+
+
+
+
+Typologie & conception de scénarios
+
+ Walkthrough : relecture des procédures
+ Tabletop : discussion autour d’un scénario
+ Exercice technique : simulation en environnement isolé
+ Exercice de communication : médias simulés
+ Exercice grandeur nature : mobilisation complète
+ Conception : menace réelle, effets en cascade, critères de
+  réussite, injects
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   33
+
+
+
+
+   Module 10 – RETEX & amélioration
+                         continue
+
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   34
+<PARSED TEXT FOR PAGE: 18 / 20>
+                                                                                              19/10/2026
+
+
+
+
+Objectifs & méthode du RETEX
+
+ Comprendre le déroulé réel et identifier décisions efficaces /
+  manquements
+ Capitaliser les apprentissages et mettre à jour procédures, plans,
+  formations
+ Collecte des faits : journaux, main courante, interviews
+ Chronologie neutre, factuelle ; analyse forces / faiblesses / écarts
+ Plan d’action priorisé, daté, responsabilisé, suivi dans le temps
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   35
+
+
+
+
+Indicateurs & amélioration continue
+
+
+Délai moyen de détection et d’escalade
+Couverture des procédures par des exercices
+Taux de tests PCA/PRA effectivement réalisés
+Nombre d’actions RETEX clôturées
+Satisfaction des parties prenantes post-crise
+
+        Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   36
+<PARSED TEXT FOR PAGE: 19 / 20>
+                                                                                                 19/10/2026
+
+
+
+
+Messages clés à retenir
+
+
+ La crise se prépare avant de se gérer
+ Distinguer réponse technique, gestion de crise et communication
+ Une gouvernance claire évite l’improvisation
+ La communication est un acte de gestion à part entière
+ Le RETEX est la phase la plus formatrice
+ Les normes cadrent ; le jugement arbitre en dernier ressort
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   37
+
+
+
+
+Annexe – Références bibliographiques
+indicatives
+
+ ANSSI – guides de gestion de crise cyber (à vérifier)
+ ISO/IEC 27001 – système de management de la sécurité (référence générale)
+ ISO/IEC 27035 – gestion des incidents de sécurité
+ NIST SP 800-61 – Computer Security Incident Handling Guide
+ NIST Cybersecurity Framework (CSF)
+ EBIOS RM – méthode ANSSI de gestion des risques
+ ENISA – ressources sur la gestion de crise
+ CNIL – guide violation de données personnelles
+
+
+           Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   38
+<PARSED TEXT FOR PAGE: 20 / 20>
+                                                                                           19/10/2026
+
+
+
+
+Questions ?
+
+
+
+
+C’est fini pour aujourd’hui !
+
+
+
+     Eric Disson·- Audit et gestion de la sécurité des systèmes d'information - SIA   39

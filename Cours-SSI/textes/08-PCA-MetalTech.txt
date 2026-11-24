@@ -1,0 +1,511 @@
+Transcription textuelle — consulter le support original pour les illustrations et la mise en page.
+
+<PARSED TEXT FOR PAGE: 1 / 9>
+                 PLAN DE CONTINUITÉ D'ACTIVITÉ (PCA)
+                                            MétalTech Solutions SAS
+         Sous-traitant automobile et aérospatial — PME industrielle (127 salariés, CA 2025 : 18,4 M€)
+
+
+
+     Cadre de structuration : ISO 22301:2019 — Sécurité et résilience — Systèmes de management de la continuité
+                                                      d'activité
+
+
+
+ Avertissement : ce document utilise ISO 22301 uniquement comme cadre de structuration. Il ne reproduit aucun contenu normatif
+ protégé et ne constitue ni une démarche de certification, ni un engagement auditable. Il s'appuie exclusivement sur les faits du cas
+                                            pédagogique « MétalTech Solutions SAS ».
+
+
+
+
+Contrôle du document
+Champ                                      Valeur
+Référence                                  PCA-MTL-001
+Version                                    1.0
+Date                                       21 septembre 2026
+Classification                             Usage interne — Diffusion restreinte
+Rédacteur                                  Eric Roland [— RSSI]
+Vérificateur                               [Vidal Patricia— Resp. Qualité]
+Approbateur                                [Denis Franck – DSI, Pierre Delacroix, PDG]
+Prochaine revue                            [À compléter — 12 mois]
+Cadre de référence                         ISO 22301:2019 (structuration)
+
+
+
+Table des matières
+1. 1. Contexte, objet et domaine d'application
+2. 2. Périmètre du PCA et activités critiques
+3. 3. Analyse d'impact sur les activités (BIA)
+4. 4. Exigences de continuité et niveaux de service (RTO/RPO)
+5. 5. Stratégies de continuité
+6. 6. Gouvernance, rôles et responsabilités
+7. 7. Procédures de réponse et de reprise
+8. 8. Programme de tests et d'exercices
+9. 9. Amélioration continue et revue de direction
+10. Annexes — Fiches réflexes, check-lists, indicateurs
+<PARSED TEXT FOR PAGE: 2 / 9>
+1. Contexte, objet et domaine d'application
+
+1.1 Présentation de l'organisation
+MétalTech Solutions SAS est une PME industrielle française (siège à Louhans, Saône-et-Loire) créée en 2005. Elle est
+spécialisée dans l'usinage de précision de pièces métalliques pour les secteurs automobile (73 clients) et aérospatial
+(12 clients, dont un constructeur aéronautique). L'effectif total est de 127 salariés en 2025 pour un chiffre d'affaires
+de 18,4 M€ (résultat net 1,12 M€, EBE 15% du CA).
+
+L'entreprise est certifiée ISO 9001 depuis 2012 (recertification prévue décembre 2027), EN 9100 depuis 2018 (audit
+juin 2026) et IATF 16949 depuis 2020 (audit septembre 2026). Elle détient également une accréditation NADCAP pour
+les traitements thermiques (renouvellement décembre 2026).
+
+1.2 Contexte du système d'information
+Le SI s'articule autour d'un ERP SAP Business One (v10.0, fin de support prévue fin 2027), d'un MES Siemens Opcenter,
+d'un PLM PTC Windchill (2 800 articles, 450 dossiers de définition, 120 Go de données CAO), d'un CRM Microsoft
+Dynamics 365 Sales et d'une plateforme Power BI. La stratégie cloud est hybride : 70% des charges en on-premise,
+30% en cloud Azure (PRA, dev/test, sauvegardes). Le budget SI s'élève à environ 462 k€/an (~3,5% du CA).
+
+L'équipe SI est restreinte : un Responsable SI (Kevin Morel), une Administratrice SI (Sarah Benali) et un poste de
+développeur interne vacant. L'infogérance partielle est assurée par des prestataires externes (intégrateur SAP,
+Siemens, support hardware HP).
+
+1.3 Objet du PCA
+Le présent PCA définit les dispositions organisationnelles et techniques permettant à MétalTech Solutions SAS de
+maintenir, dans un délai défini, ses activités critiques suite à un incident perturbateur (cyberattaque, défaillance SI,
+sinistre bâtiment, rupture d'approvisionnement, pandémie, perte de personnel clé).
+
+Il vise à :
+
+    Identifier les activités critiques et leur interdépendance (BIA) ;
+    Définir les niveaux de service cibles (RTO/RPO) ;
+    Documenter les stratégies de continuité ;
+    Structurer la réponse opérationnelle (cellule de crise, communication, escalade) ;
+    Garantir la tenue de tests réguliers et l'amélioration continue.
+
+1.4 Cadre normatif cité
+Le présent document s'appuie sur ISO 22301:2019 (Sécurité et résilience — Systèmes de management de la continuité
+d'activité) comme cadre de structuration des chapitres. Les bonnes pratiques citées incluent également ISO/IEC
+27001:2022 (SMSI), ISO/IEC 27031:2011 (continuité TIC), NIS2 (directive (UE) 2022/2555) et RGPD (règlement (UE)
+2016/679). Aucune exigence normative n'est reproduite ; les références servent uniquement d'ossature
+méthodologique.
+
+
+
+2. Périmètre du PCA et activités critiques
+
+2.1 Périmètre organisationnel
+Critère                  Périmètre retenu                                   Hors périmètre
+                         MétalTech Solutions SAS — site de Louhans          Filiales, sous-traitants (sauf dépendances
+Entités
+                         uniquement                                         critiques identifiées)
+                         Production, Commercial, Supply Chain, Qualité,     Marketing digital, projets greenIT/IA en
+Processus
+                         Finance, RH, SI                                    pilote
+                         ERP SAP B1, MES Opcenter, PLM Windchill, CRM
+Systèmes                                                                    Outils R&D non connectés (CAO locale)
+                         D365, Power BI, infrastructure Azure
+<PARSED TEXT FOR PAGE: 3 / 9>
+                           Données transactionnelles, techniques (CAO),
+Données                                                                           Données personnelles hors RGPD critique
+                           commerciales, financières, RH
+
+2.2 Cartographie des processus critiques
+Sur la base du cas pédagogique, les processus jugés critiques pour la continuité d'activité sont hiérarchisés comme suit
+(cf. §3 BIA pour le détail des temps d'interruption admissibles).
+
+Niveau                  Processus                                  Justification
+                        Production (usinage CN, contrôle,          Engagement de livraison client, pénalités contractuelles
+P1 — Vital
+                        traitements thermiques)                    (aérospatial, automobile JIS)
+P1 — Vital              Qualité et traçabilité pièces              Exigences EN 9100 / IATF 16949 / NADCAP, audits clients
+P1 — Vital              Commercial et ADV                          Réponse AO, encaissement des commandes (DSO 45 j)
+                                                                   Dépendances fournisseurs uniques (single-source), taux de
+P2 — Essentiel          Supply chain / Approvisionnements
+                                                                   rupture actuel
+P2 — Essentiel          Finance et comptabilité                    Paie, déclarations fiscales, reporting DAF
+P2 — Essentiel          SI et infrastructure                       Soutien des processus P1 et P2
+P3 — Important          RH et paie                                 Maintien des effectifs, formation, contrats
+P3 — Important          BE / méthodes / industrialisation          Préparation des nouveaux dossiers de fabrication
+
+
+
+3. Analyse d'impact sur les activités (BIA)
+
+3.1 Méthodologie
+Le BIA identifie les activités critiques, leurs dépendances (SI, fournisseurs, personnes, infrastructures) et quantifie
+l'impact d'une interruption selon quatre dimensions : financier, image, réglementaire et opérationnel. Les temps
+d'indisponibilité sont exprimés en heures cumulées depuis le début de l'incident.
+
+3.2 Hypothèses retenues et données manquantes
+Hypothèse : les valeurs de RTO/RPO et les niveaux d'impact ci-dessous sont estimés sur la base des éléments factuels
+du cas (délai fournisseur 10 j, DSO 45 j, SLA Azure 99,9%, effectif 127, marge brute 40%). En l'absence de
+quantification officielle dans le cas, ils sont marqués comme « [Hypothèse — à valider en atelier BIA] ». La
+consolidation des valeurs nécessite un atelier avec le CODIR (recommandé en phase de déploiement).
+
+3.3 Matrice d'impact — Synthèse
+                                                                          Impact
+Processus                  Impact financier / h        Impact image                          Cible RTO    Cible RPO
+                                                                          réglementaire
+                                                       Élevé (rupture
+Production CN (12          Élevé (CA horaire,          de livraison       Élevé (EN 9100,
+                                                                                             ≤4h          ≤1h
+machines + 3 CMM)          pénalités clients)          automobile/aér     IATF)
+                                                       o)
+                                                       Élevé (perte
+                           Moyen (coût non-                               Critique (EN
+Qualité / Traçabilité                                  confiance                             ≤8h          ≤4h
+                           conformité)                                    9100 / NADCAP)
+                                                       client)
+Commercial / ADV           Moyen (perte d'AO)          Moyen              Faible             ≤ 24 h       ≤8h
+Supply chain / Appro.      Moyen (rupture stock)       Moyen              Faible             ≤ 24 h       ≤ 24 h
+                                                                          Élevé (fiscal,
+Finance / Paie             Moyen (liquidités, paie)    Moyen                                 ≤ 24 h       ≤8h
+                                                                          social)
+                                                                          Élevé (NIS2,
+SI / Infrastructure        Indirect (soutien)          Élevé si global                       ≤4h          ≤1h
+                                                                          RGPD)
+RH / Paie                  Faible                      Faible             Élevé (social)     ≤ 48 h       ≤ 24 h
+BE / Méthodes              Faible                      Faible             Faible             ≤ 72 h       ≤ 72 h
+Note de cohérence avec le PAR : les valeurs de RTO ≤ 4 h et RPO ≤ 1 h pour la production et le SI s'alignent sur le RTO
+de 4 h et le RPO de 1 h déjà documentés dans le cas (résultat du dernier test PRA : mars 2026).
+
+3.4 Dépendances critiques
+Type                    Dépendance                     Risque associé                 Mitigation PCA
+<PARSED TEXT FOR PAGE: 4 / 9>
+                          ERP SAP B1 (base SAP             Indisponibilité = arrêt      Réplica Azure, sauvegardes Veeam 4h,
+SI / données
+                          HANA locale)                     production                   test PRA annuel
+                          MES Siemens Opcenter             Indisponibilité = perte      Mode dégradé manuel + rattrapage
+SI / données
+                          (SaaS)                           traçabilité temps réel       post-reprise
+                                                           Perte IP, impossibilité
+                          PLM Windchill (120 Go                                         Sauvegarde séparée, accès restreint,
+SI / données                                               usinage nouvelles
+                          CAO, données A320)                                            DLP
+                                                           références
+Sous-traitance /          Fournisseurs single-source       Rupture                      Cartographie double-source (action
+fournisseurs              (aerospatial)                    d'approvisionnement          PCA-PAP-04)
+Sous-traitance /          Prestataires SAP, Siemens,       Indisponibilité support
+                                                                                        Contrats Emerald / SaaS inclus
+fournisseurs              HP                               expert
+                          Kevin Morel (Responsable
+Personnes clés                                             Perte expertise SI           Binôme avec Sarah Benali + prestataire
+                          SI)
+                          Pierre Delacroix (PDG),
+                                                           Décision de crise            Délégation de pouvoir formalisée
+Personnes clés            Marie Lefebvre (Dir.
+                                                           indisponible                 (action PCA-GOV-02)
+                          Production)
+Infrastructures                                            Sinistre bâtiment,           Site de secours à étudier (action PCA-
+                          Site unique de Louhans
+physiques                                                  inondation, incendie         STR-08)
+                          2 liens fibre (500 Mbps +                                     Bascule automatique, tolérance panne
+Réseaux                                                    Coupure opérateur
+                          100 Mbps)                                                     1 lien
+                          Alimentation électrique                                       Onduleurs existants à vérifier (action
+Énergie                                                    Coupure prolongée
+                          atelier CN                                                    PCA-STR-09)
+
+
+
+4. Exigences de continuité et niveaux de service
+
+4.1 Synthèse des exigences RTO/RPO / Priorité métier
+Code
+               Activité                               Priorité   RTO            RPO    Mode dégradé
+activité
+               Production — usinage CN +                                               Production manuelle OF papier + relevés
+ACT-01                                                P1         4h             1h
+               contrôle                                                                métré
+               Qualité — contrôles +
+ACT-02                                                P1         8h             4h     Check-lists papier + PolyWorks local
+               traçabilité
+               Commercial — devis +
+ACT-03                                                P1         24 h           8h     Devis Excel + standard téléphonique
+               commandes
+               Supply chain — réceptions +                                             Bons de réception papier, EDI
+ACT-04                                                P2         24 h           24 h
+               expéditions                                                             fournisseurs critiques
+                                                                                       Reporting DAF sur Excel, paie
+ACT-05         Finance — comptabilité + paie          P2         24 h           8h     externalisée (sil'on-premise indisponible,
+                                                                                       ESN)
+               SI — infrastructure +
+ACT-06                                                P1         4h             1h     Cellule de crise SI + PRA Azure
+               applications
+ACT-07         RH — paie + contrats                   P3         48 h           24 h   Paie externalisée
+                                                                                       Travail sur postes locaux, plans sur
+ACT-08         BE / méthodes                          P3         72 h           72 h
+                                                                                       papier
+Cohérence inter-documents : ces valeurs sont identiques à celles retenues dans le Plan d'Assurance des Reprises (PAR)
+pour les composantes TIC correspondantes (cf. PAR §4 et §5). Toute modification d'un RTO/RPO doit être tracée et
+propagée dans les deux documents.
+
+4.2 Hypothèses sur les scénarios d'interruption
+    S1 — Panne SI localisée (serveur SAP HANA, MES, Windchill) — probabilité moyenne, impact élevé
+    S2 — Cyberattaque (ransomware, spear-phishing) — probabilité croissante, impact critique (cf. §9.2.4 du cas)
+    S3 — Sinistre bâtiment (incendie, inondation, dégât des eaux) — probabilité faible, impact critique
+    S4 — Rupture d'approvisionnement matières premières critiques — probabilité moyenne
+    S5 — Pandémie / absence massive de personnel — probabilité moyenne
+    S6 — Défaillance opérateur télécom (coupure fibre) — probabilité faible
+    S7 — Perte de personnel clé (PDG, Resp. SI, Resp. Production)
+<PARSED TEXT FOR PAGE: 5 / 9>
+5. Stratégies de continuité
+Activité / Système        Stratégie retenue                                   Justification (cas)
+                          Reprise rapide sur site (PRA Azure + mode           12 machines CN, atelier unique, délai client 8
+ACT-01 Production
+                          dégradé manuel H+0 à H+4)                           sem. Tolérance d'arrêt court.
+                          Procédures papier + relevés manuels                 EN 9100 / NADCAP exigent traçabilité — ne
+ACT-02 Qualité
+                          PolyWorks ; bascule Power BI qualité                jamais suspendre les contrôles.
+                          Contacts clients et pipelineDynamics365 ;           DSO 45 j ; pas d'impact immédiat sur
+ACT-03 Commercial
+                          bascule devis Excel/téléphone                       production, AO en cours à protéger.
+                          Stock de sécurité matières critiques (carnet        Délai fournisseur 10 j, taux de rupture actuel <
+ACT-04 Supply chain
+                          fournisseurs double-source)                         1% à maintenir.
+                                                                              Paie externalisée : mode dégradé possible ;
+ACT-05 Finance            Sauvegarde quotidienne + reporting manuel
+                                                                              comptabilité reconstituable.
+                          PRA Azure existant (RTO 4 h / RPO 1 h) +            Test PRA mars 2026 conclu positivement ; SLA
+ACT-06 SI
+                          Veeam + Redondance fibre                            Azure 99,9%.
+ACT-07 RH                 Paie externalisée + dossiers RH sauvegardés         Tolérance 48 h acceptable socialement.
+                          Reprise progressive après stabilisation SI ;        Tolérance 72 h acceptable ; aucun engagement
+ACT-08 BE / Méthodes
+                          travail local sur plans papier                      client direct.
+Stratégies de continuité d'urgence (à compléter par la direction) :
+
+      [À compléter] Plan de continuité site de secours (prêt chez un partenaire / chambre consulaire) — action PCA-
+       STR-08.
+      [À compléter] Vérification / dimensionnement des onduleurs et groupes électrogènes pour les machines CN
+       critiques — action PCA-STR-09.
+      [À compléter] Convention de double-source pour les matières premières critiques single-source — action PCA-
+       PAP-04.
+      [À compléter] Convention d'assistance mutuelle avec un sous-traitant industriel local pour délestage temporaire
+       — action PCA-STR-10.
+
+
+
+6. Gouvernance, rôles et responsabilités
+
+6.1 Structure de gestion de crise
+Rôle                      Personne / fonction                         Responsabilités PCA
+                          Pierre Delacroix, PDG (titulaire) / Marie   Décision stratégique, communication externe,
+Directeur de crise
+                          Lefebvre, Dir. Production (suppléant)       autorisation moyens exceptionnels
+                          [À compléter — Responsable SI ou
+Coordonnateur PCA                                                     Activation du PCA, suivi des actions, journal de crise
+                          Qualité]
+                          Kevin Morel + Sarah Benali +                Décisions techniques, restauration PRA,
+Cellule SI / IT
+                          prestataires                                communication avec éditeurs
+                          Marie Lefebvre (Dir. Prod) + Chefs
+Cellule Production                                                    Bascule mode dégradé atelier, sécurité opérateurs
+                          d'atelier (Roche, Morel)
+Cellule Commercial /
+                          Catherine Roux (Dir. Commerciale)           Communication clients, recalage délais, AO en cours
+ADV
+                                                                      Maintien contrôles, dérogations, reporting
+Cellule Qualité           Patricia Vidal + Ana Garcia
+                                                                      client/auditeur
+Cellule Finance / RH      Isabelle Mercier + Julie Martin             Paie, trésorerie, contrats, déclarations
+                          [À compléter — Dir. Commerciale +
+Cellule Communication                                                 Communication interne/externe, médias sociaux
+                          agence externe]
+DPO / Juridique           DPO externe (cabinet Legaltech)             Notifications RGPD (72 h), NIS2 (24 h), assurances
+
+6.2 Permanence et astreintes
+Les rôles de Directeur de crise, Coordonnateur PCA et Cellule SI sont placés en astreinte H24/7. Une procédure de
+rappel (call tree) est annexée (Annexe C). Les autres cellules sont activées en heures ouvrées.
+
+6.3 Fréquence de revue
+Le PCA est revu au minimum une fois par an, lors de la revue de direction SI/Qualité. Toute modification substantielle
+(évolution SI, changement d'effectif, nouvel incident) déclenche une revue anticipée.
+<PARSED TEXT FOR PAGE: 6 / 9>
+7. Procédures de réponse et de reprise
+
+7.1 Procédure d'activation (déclenchement du PCA)
+11. 1. Détection de l'incident (utilisateur, monitoring, ou cellule de crise).
+12. 2. Qualification par la Cellule SI (incident SI) ou le responsable métier (incident non SI) — niveau 1/2/3.
+13. 3. Décision d'activation du PCA par le Directeur de crise (ou suppléant) sur avis du Coordonnateur PCA.
+14. 4. Ouverture de la cellule de crise (physique ou virtuelle — Teams), nomination d'un scribe.
+15. 5. Activation des fiches réflexes (Annexe A) selon le scénario.
+16. 6. Communications planifiées (interne toutes les 2 h, externe selon matrice de communication — Annexe D).
+17. 7. Activation du PAR (Plan d'Assurance des Reprises) si incident TIC.
+18. 8. Suivi de la reprise, journal de crise horodaté, captures de décisions.
+19. 9. Stand-down officiel lorsque les activités critiques sont rétablies aux niveaux cibles.
+20. 10. Retour d'expérience (REX) sous 10 jours, plan d'amélioration continue.
+
+7.2 Fiches réflexes (synthèse)
+Code           Scénario                      Action immédiate
+FR-01          Panne SAP B1                  Vérifier serveur HANA local ; bascule PRA Azure (cf. PAR §5)
+FR-02          Panne MES Opcenter            Mode manuel OF papier ; relevés machines via capteurs IoT
+               Ransomware / chiffrement      Isolation VLAN, déconnexion Azure, restauration Veeam (RPO 1 h), notification
+FR-03
+               fichiers                      DPO/assureur
+FR-04          Panne PLM Windchill           Utilisation cache local CAO ; suspension nouveaux OF
+FR-05          Coupure fibre Internet        Bascule lien backup 100 Mbps ; suspendre Azure
+FR-06          Sinistre bâtiment             Évacuation, sécurité, relocation activité critique site de secours
+FR-07          Rupture matière critique      Activation stock de sécurité ; double-source ; communication client
+               Pandémie / absentéisme >
+FR-08                                        Plan de continuité pandémie : bascule tâches critiques, télétravail maximal
+               30%
+FR-09          Perte Responsable SI          Binôme Sarah Benali + prestataire ; escalade DG
+               Fuite de données /
+FR-10                                        Notification CSIRT 24 h, DPO 72 h, direction
+               signalement NIS2
+
+7.3 Communication de crise
+La communication suit la matrice ci-dessous (extrait — voir Annexe D pour la version complète).
+
+Acteur                 Cible                          Délai                  Canal                       Responsable
+                                                      ≤ 30 min après         Réunion
+Interne — Direction    Comité de direction                                                               Directeur de crise
+                                                      activation             physique/Teams
+Interne —                                                                    Email + affichage atelier   Cellule
+                       Collaborateurs                 ≤2h
+Personnel                                                                    + SMS                       communication
+                                                                             Email + appel
+                       12 clients aéro + top 20       ≤ 4 h (incident les    téléphonique
+Clients clés                                                                                             Dir. Commerciale
+                       automobile                     impactant)             responsable
+                                                                             commercial
+Fournisseurs
+                       Single-source identifiés       ≤4h                    Email + téléphone           Achats
+critiques
+                                                      ≤ 24 h (alerte) + ≤
+Régulateurs (NIS2)     ANSSI / CSIRT                                         Portail ANSSI               DPO + Resp. SI
+                                                      72 h (notification)
+                       CNIL + personnes
+RGPD                                                  ≤ 72 h                 Portail CNIL                DPO externe
+                       concernées si nécessaire
+                                                                             Email + téléphone
+Assureur cyber         AXA Cyber Secure               ≤ 24 h                                             Resp. SI + DAF
+                                                                             déclaratif
+                                                                                                         Dir. Commerciale +
+Médias                 Presse locale/nationale        Au cas par cas         Communiqué officiel
+                                                                                                         agence
+<PARSED TEXT FOR PAGE: 7 / 9>
+8. Programme de tests et d'exercices
+
+8.1 Typologie et fréquence
+Type d'exercice                 Périmètre                                Fréquence                     Responsable
+Test technique PRA
+                                SI de production (SAP, MES, PLM)         Semestriel (2x/an)            Responsable SI
+(basculage Azure)
+Test restauration Veeam         Sauvegardes fichiers et bases            Trimestriel                   Administrateur SI
+Exercice de table
+                                Cellule de crise complète                Annuel                        Coordonnateur PCA
+(tabletop)
+Simulation cyberattaque
+                                Tous les utilisateurs + cellule SI       Annuel                        Resp. SI + DPO
+(phishing/ransomware)
+Test coupure fibre /
+                                Réseau et accès cloud                    Annuel                        Admin SI + opérateur
+bascule WAN
+                                Tous les membres de la cellule de
+Astreinte / call tree                                                    Semestriel                    Coordonnateur PCA
+                                crise
+Audit externe PCA                                                        Annuel (à partir de l'an      Auditeur externe
+                                Conformité ISO 22301 (cadre)
+(recommandé)                                                             2)                            indépendant
+Hypothèse : les tests sont dimensionnés à la taille PME (équipe SI de 3 personnes). Les exercices de grande ampleur
+sont externalisés ou réalisés en s'appuyant sur les prestataires SI existants (intégrateur SAP, Siemens, HP).
+
+8.2 Indicateurs de performance du PCA
+Indicateur                                                    Cible                    Mesure
+% d'activités critiques avec RTO respecté en test             100%                     Bilan post-test
+Délai moyen d'activation de la cellule de crise               ≤ 30 min                 Exercice call tree
+% de tests réalisés dans l'année                              100%                     Suivi plan de tests
+# d'actions correctives closes dans les 90 j                  ≥ 90%                    Suivi REX
+% de personnel formé PCA sur 2 ans                            ≥ 80%                    Suivi formation
+
+
+
+9. Amélioration continue et revue de direction
+
+9.1 Cycle d'amélioration
+Le PCA suit le cycle PDCA :
+
+    Plan : mise à jour annuelle, ateliers BIA, validation CODIR.
+    Do : diffusion, formation, exercices, gestion des incidents.
+    Check : indicateurs, audits internes, REX d'incidents.
+    Act : plan d'actions correctives, mise à jour des documents.
+
+9.2 Revue de direction
+Une revue annuelle du PCA est intégrée à la revue de direction SI/Qualité. Elle couvre a minima : bilan des incidents de
+l'année, résultats des tests, indicateurs PCA, mises à jour de contexte (réglementaires, SI, organisation), budget PCA,
+plan d'actions priorisé.
+
+9.3 Plan d'actions priorisé (PCA — J+90)
+Réf.            Action                                                                 Responsable                Échéance    Priorité
+PCA-GOV-
+                Nommer officiellement le Coordonnateur PCA                             PDG                        M+1         Haute
+01
+PCA-GOV-
+                Formaliser la délégation de pouvoir (crise)                            PDG + Dir. Admin           M+1         Haute
+02
+                Tenir un atelier BIA avec le CODIR pour valider les hypothèses
+PCA-BIA-01                                                                             Coordonnateur PCA          M+2         Haute
+                RTO/RPO
+                                                                                                                              Moyenn
+PCA-STR-08      Étudier un site de secours (partenariat ou chambre consulaire)         Dir. Admin                 M+3
+                                                                                                                              e
+PCA-STR-09      Auditer onduleurs / groupes électrogènes atelier CN                    Maintenance + Resp. SI     M+2         Haute
+PCA-PAP-04      Cartographier les fournisseurs single-source et initier le             Achats                     M+3         Moyenn
+<PARSED TEXT FOR PAGE: 8 / 9>
+             double-source                                                                             e
+PCA-TST-01   Programmer les tests PRA, Veeam, call tree sur 12 mois          Resp. SI            M+1   Haute
+PCA-FRM-                                                                                               Moyenn
+             Former les cadres et la cellule de crise au PCA                 RH + Resp. SI       M+3
+01                                                                                                     e
+PCA-DOC-
+             Diffuser les fiches réflexes et la liste de contacts de crise   Coordonnateur PCA   M+1   Haute
+01
+<PARSED TEXT FOR PAGE: 9 / 9>
+Annexes opérationnelles
+
+Annexe A — Fiches réflexes détaillées (synthèse)
+Chaque fiche réflexe détaille : conditions de déclenchement, actions H+0 à H+24, contacts clés, escalade, critères de
+sortie. Les fiches sont stockées sur le Wiki interne (Confluence) et imprimées en exemplaires papier au poste de garde
+atelier.
+
+Annexe B — Liste de contacts de crise (à compléter)
+Rôle                     Nom                         Téléphone                    Email
+PDG                      Pierre Delacroix            [À compléter]                [À compléter]
+Dir. Production          Marie Lefebvre              [À compléter]                [À compléter]
+Resp. SI                 Kevin Morel                 [À compléter]                [À compléter]
+Admin SI                 Sarah Benali                [À compléter]                [À compléter]
+Dir. Commerciale         Catherine Roux              [À compléter]                [À compléter]
+Dir. Admin               Isabelle Mercier            [À compléter]                [À compléter]
+Resp. Qualité            Patricia Vidal              [À compléter]                [À compléter]
+DPO externe              Cabinet Legaltech           [À compléter]                [À compléter]
+Assureur cyber           AXA Cyber Secure            N° contrat : [À compléter]   [À compléter]
+Intégrateur SAP          [À compléter]               [À compléter]                [À compléter]
+Support Siemens          Inclus SaaS                 [À compléter]                [À compléter]
+Support HP               CarePack onsite J+1         [À compléter]                [À compléter]
+
+Annexe C — Call tree (à matérialiser visuellement)
+Le call tree est diffusé sous forme de carte pliée et d'arbre d'appels hiérarchique. La procédure de rappel prévoit 3
+essais par contact, escalade vers le suppléant en cas de non-réponse, journalisation horodatée.
+
+Annexe D — Matrice de communication externe (templates)
+Templates disponibles : communication client (français/anglais), communication fournisseur, communiqué interne,
+déclaration NIS2, déclaration RGPD, déclaration presse. Stockés sur le Wiki interne (Confluence).
+
+Annexe E — Glossaire et hypothèses
+   RTO (Recovery Time Objective) : durée d'interruption admissible avant reprise.
+   RPO (Recovery Point Objective) : perte de données admissible.
+   BIA : Business Impact Analysis.
+   PRA : Plan de Reprise d'Activité (terme français) — équivalent du Disaster Recovery Plan (DRP) côté TIC.
+   PCA : Plan de Continuité d'Activité — couvre l'organisation au-delà du seul SI.
+   NIS2 : directive (UE) 2022/2555 — cybersécurité des entités essentielles et importantes.
+   Hypothèses clés : tous les chiffrages RTO/RPO sont des hypothèses à valider en atelier BIA avec le CODIR.
+
+Annexe F — Références documentaires
+   Cas pédagogique « MétalTech Solutions SAS » — version 1, juin 2026 (fait déclencheur du présent PCA).
+   ISO 22301:2019 — Sécurité et résilience — Systèmes de management de la continuité d'activité (cadre).
+   ISO/IEC 27001:2022 — SMSI (cadre).
+   ISO/IEC 27031:2011 — Lignes directrices pour la continuité des TIC (cadre du PAR associé).
+   Directive (UE) 2022/2555 (NIS2).
+   Règlement (UE) 2016/679 (RGPD).
+   EN 9100:2018 — QMS Aéronautique.
+   IATF 16949:2016 — QMS Automobile.
