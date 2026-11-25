@@ -174,7 +174,7 @@ Qualité & ISO 9001, EN 9100, IATF 16949 et accréditation NADCAP pour les trait
 Le dossier contient plusieurs contradictions entre ses chapitres. Nous ne les cachons pas. Pour chacune, nous choisissons une hypothèse de travail et nous la signalons. La liste complète, avec les pages, se trouve dans l'annexe A. Voici nos choix principaux.
 \begin{itemize}
 \item \textbf{Logiciels.} Nous retenons la description détaillée du chapitre 7 (p.~17--22) : SAP Business One 10.0, Dynamics 365 et Windchill. D'autres pages citent SAP S/4HANA, Salesforce et Siemens NX (p.~6, 7, 12, 40). Ce point reste à clarifier avec l'entreprise.
-\item \textbf{Chiffre d'affaires.} Nous retenons 18,4~M€ (p.~4, 11, 36). Le budget SI représente donc environ 2,5~\% du CA : 462~k€ / 18,4~M€ = 2,51~\%. La page 32 indique 3,5~\% avec un CA de 13,2~M€, ce qui est incohérent.
+\item \textbf{Chiffre d'affaires.} Nous retenons 18,4~M€ (p.~4, 11, 36). Le budget SI représente donc environ 2,5~\% du CA : 462~k€ / 18,4~M€ = 2,51~\%. La page 32 calcule 3,5~\% avec un CA de 13,2~M€. C'est le montant du CA qui diffère entre les deux passages.
 \item \textbf{Questions de cybersécurité.} Les hypothèses de l'énoncé de chaque question sont prioritaires. Exemples : Windows 10, équipe SI de 3 personnes, entité importante au sens de NIS2.
 \item \textbf{Chiffres proposés.} Nos cibles, délais et coûts ne sont pas des résultats mesurés. Les exemples chiffrés sont signalés comme illustratifs.
 \end{itemize}
@@ -397,9 +397,9 @@ Le cas décrit huit étapes, de la prospection à l'analyse des revenus [1, p.~7
 \subsection*{Analyse : ce que montrent les données}
 \begin{itemize}
 \item \textbf{Devis préparés avec SAP et Excel} (p.~7). Les coûts et les marges sont calculés dans Excel (p.~7). Cela crée des doubles saisies, plusieurs versions d'un même devis et un risque d'erreur de calcul.
-\item \textbf{Le devis d'exemple est ambigu} (p.~8). Le projet porte sur un lot de 500 pièces, mais les lignes n'indiquent pas de quantité. Le total HT (281,70~€) correspond à la somme des trois prix affichés (125,00 + 89,50 + 67,20~€). On ne sait donc pas si les prix sont unitaires ou par lot, ni ce que couvre exactement le devis. Ce n'est pas la preuve d'une erreur de facturation. C'est un risque d'erreur à clarifier. Un modèle de devis généré depuis l'ERP évite ce type d'ambiguïté.
+\item \textbf{Le devis d'exemple est ambigu} (p.~8). Le projet porte sur un lot de 500 pièces, mais les lignes n'indiquent pas de quantité. Le total HT (281,70~€) correspond à la somme des trois prix affichés (125,00 + 89,50 + 67,20~€). Les prix sont indiqués comme unitaires, mais les quantités par ligne ne sont pas précisées. Le montant total du lot ne peut donc pas être vérifié. Un modèle de devis généré depuis l'ERP permet de réduire ce risque.
 \item \textbf{Le taux d'environ 35~\%} est celui du pipeline d'opportunités du CRM (p.~22). Ce n'est pas le taux réel de conversion des devis, ni en nombre ni en valeur. Le pipeline moyen de 1,2~M€ est le montant des opportunités ouvertes, pas un CA annuel.
-\item \textbf{Le CRM suit déjà} le délai moyen de réponse et le taux de réponse aux appels d'offres (p.~22). Il ne suit pas les motifs de perte ni la marge prévue par devis.
+\item \textbf{Le CRM suit déjà} le délai moyen de réponse et le taux de réponse aux appels d'offres (p.~22). Le cas ne précise pas le suivi des motifs de perte ni de la marge prévue par devis.
 \end{itemize}
 
 \subsection*{Définir le taux de conversion des devis}
@@ -425,7 +425,7 @@ Pilotage & Créer un tableau Power BI : taux en nombre et en valeur, par secteur
 Ces actions s'appuient sur les outils déjà en place (CRM, ERP, Power BI). Il faut toutefois vérifier les licences et le paramétrage disponibles avant de les lancer. Un pilote de trois mois avec l'équipe commerciale (2 ingénieurs commerciaux et 4 assistantes, p.~13) suffit pour juger l'effet.
 
 \subsection*{Effet attendu (scénario illustratif)}
-\textit{Scénario illustratif, pas une prévision.} Supposons un pipeline identique de 1,2~M€ et un taux de conversion en valeur qui passe de 35~\% à 40~\%. Le montant attendu passerait de 420~k€ à 480~k€, soit 60~k€ de commandes en plus. Rien ne garantit que ces commandes seront gagnées. De plus, ce montant est du chiffre d'affaires, pas un bénéfice : il faut retirer les coûts et vérifier la marge. L'objectif n'est pas de gagner des devis en baissant les prix.
+\textit{Scénario illustratif, pas une prévision.} Supposons un pipeline identique de 1,2~M€ et un taux de conversion en valeur qui passe de 35~\% à 40~\%. Le montant attendu passerait de 420~k€ à 480~k€, soit 60~k€ de commandes en plus. Rien ne garantit que ces commandes seront gagnées. De plus, ce montant est un CA potentiel, pas un bénéfice : il faut retirer les coûts et vérifier la marge. L'objectif n'est pas de gagner des devis en baissant les prix.
 \source{[1], p.~7--8, 13, 17--24.}
 % ---------------------------------------------------------------------
 \question{9.1.4}{Résilience de la supply chain}{Évaluez la supply chain et proposez des actions pour renforcer la résilience face aux ruptures d'approvisionnement.}
@@ -787,7 +787,7 @@ Nous fixons M0 à décembre 2026. M12 correspond donc à décembre 2027, échéa
 Renouvellement du matériel (postes, réseau) & 25~k€ par an & Budget prévu dans le cas \tagF{} [1, p.~33]\\
 Projet ERP & 350 à 500~k€ sur 3 ans & Estimation du cas, étude en cours \tagF{} [1, p.~33]\\
 SOC externalisé & environ 15~k€ par an & Projet 2026, pas encore en place \tagF{} [1, p.~33]\\
-ESU Windows 10, pour les exceptions seulement & 61~USD par poste la 1\textsuperscript{re} année & Tarif publié par Microsoft. Trois ans au maximum pour les organisations [16]\\
+ESU Windows 10, pour les exceptions seulement & 61 / 122 / 244~USD par poste (ans 1 à 3) & Tarif Microsoft [16]. Achat annuel, années antérieures dues si retard.\\
 Remplacement du pare-feu et des commutateurs & à chiffrer & Devis d'intégrateur. Renouvellement déjà prévu en 2026 [1, p.~33]\\
 \end{xltabular}
 
@@ -818,7 +818,7 @@ Confidentiel client & Plans et spécifications A320, données fournies par les c
 \begin{itemize}
 \item \textbf{AES} est un algorithme de chiffrement symétrique : la même clé chiffre et déchiffre [3, diap.~15]. On l'utilise pour les données stockées.
 \item \textbf{TLS} est le protocole qui chiffre les échanges sur le réseau, par exemple entre le portail et un client [3, diap.~25].
-\item Une \textbf{empreinte} (hachage) détecte la modification d'un fichier [3, diap.~21]. Mais si un attaquant peut remplacer à la fois le fichier et son empreinte, le contrôle ne sert à rien. Pour les programmes CN et les plans sensibles, il faut donc une \textbf{signature numérique}, ou une empreinte transmise par un canal de confiance. Le chiffrement protège la confidentialité. Il ne prouve ni l'intégrité ni l'origine d'un fichier.
+\item Une \textbf{empreinte} (hachage) détecte la modification d'un fichier [3, diap.~21]. Mais si un attaquant peut remplacer à la fois le fichier et son empreinte, le contrôle ne sert à rien. Pour les programmes CN et les plans sensibles, il faut donc une \textbf{signature numérique}, ou une empreinte transmise par un canal de confiance. Le chiffrement protège la confidentialité. Un mode authentifié, comme AES-GCM, protège aussi l'intégrité des données [19].
 \item Le \textbf{DLP} (prévention des fuites de données) est un outil qui repère et bloque l'envoi de fichiers sensibles hors de l'entreprise.
 \item Le \textbf{RBAC} (contrôle d'accès par rôle) donne les droits selon le rôle de la personne et le projet, pas au cas par cas [6, diap.~30].
 \end{itemize}
@@ -895,7 +895,7 @@ Plusieurs moyens sont déjà en place [1, p.~26--27, 31]. L'antivirus Sophos Int
 \end{tikzpicture}
 \caption{Chronologie indicative de la réponse au rançongiciel.}
 \label{fig:crise}
-\figsource{Proposition du groupe. Axe non proportionnel. Les durées sont indicatives et non testées. Seul un exercice permettra de les confirmer. Une restauration en plusieurs jours dépasse le RTO de 4~h : l'activité repose alors sur le mode dégradé du PCA. Délais de notification : voir 9.2.5.}
+\figsource{Proposition du groupe. Axe non proportionnel. Délais indicatifs et non testés. La restauration est prévue jusqu'à J+5, la validation peut se poursuivre jusqu'à J+10. Le RTO de 4~h est alors dépassé : recours au mode dégradé du PCA. Délais de notification : voir 9.2.5.}
 \end{figure}
 
 \subsection*{Plan de réponse opérationnel}
@@ -997,8 +997,8 @@ Il faut distinguer quatre sources.
 \toprule \thd{Thème} & \thd{NIS2 (directive, art.~20, 21, 23, 34)} & \thd{RGPD (art.~32 à 34, 83)}\\\midrule\endhead
 \bottomrule\endfoot
 Gouvernance & La direction approuve les mesures de gestion des risques et supervise leur mise en œuvre. Elle peut être tenue responsable. Ses membres suivent une formation (art.~20) & Le responsable du traitement prouve sa conformité : registre des traitements, DPO (externe chez MétalTech, p.~27), contrats avec les sous-traitants\\
-Mesures minimales & Mesures adaptées au risque et proportionnées, selon une approche \og tous risques\fg{}. Au minimum : analyse des risques, gestion des incidents, continuité et sauvegardes, sécurité de la chaîne d'approvisionnement, sécurité des achats et de la maintenance, évaluation de l'efficacité, hygiène informatique et formation, cryptographie, contrôle d'accès et gestion des actifs, MFA (art.~21) & Mesures adaptées au risque : pseudonymisation et chiffrement, confidentialité, intégrité, disponibilité et résilience, capacité à rétablir les données, tests réguliers (art.~32)\\
-Notification & Incident important : alerte précoce dans les 24~h et notification dans les 72~h après la prise de connaissance. Rapport intermédiaire sur demande. Rapport final au plus tard un mois après la notification. Si l'incident dure encore, rapport d'avancement puis rapport final dans le mois qui suit son traitement (art.~23) & Violation de données personnelles : notification à la CNIL dans les meilleurs délais et, si possible, dans les 72~h après la prise de connaissance, sauf si la violation est peu susceptible de créer un risque. Tout retard doit être justifié. Information des personnes dans les meilleurs délais si le risque est élevé, sauf exceptions (art.~33--34)\\
+Mesures minimales & Mesures adaptées au risque et proportionnées, selon une approche \og tous risques\fg{}. Au minimum : analyse des risques, gestion des incidents, continuité et sauvegardes, sécurité de la chaîne d'approvisionnement, sécurité des achats et de la maintenance, évaluation de l'efficacité, hygiène informatique et formation, cryptographie, contrôle d'accès et gestion des actifs, MFA s'il y a lieu (art.~21) & Mesures adaptées au risque : pseudonymisation et chiffrement, confidentialité, intégrité, disponibilité et résilience, capacité à rétablir les données, tests réguliers (art.~32)\\
+Notification & Incident important : perturbation grave des services, pertes financières ou dommages considérables à autrui, réels ou possibles. Alerte sous 24~h, notification sous 72~h dès connaissance, sans retard injustifié. Rapport intermédiaire sur demande, final un mois après notification (ou avancement puis final un mois après traitement). (art.~23) & Violation de données personnelles : notification à la CNIL dans les meilleurs délais et, si possible, dans les 72~h après la prise de connaissance, sauf si la violation est peu susceptible de créer un risque. Tout retard doit être justifié. Information des personnes dans les meilleurs délais si le risque est élevé, sauf exceptions (art.~33--34)\\
 Preuves & Politiques, analyse des risques, tests, journal des incidents & Registre de toutes les violations, même non notifiées (art.~33.5)\\
 Sanctions & Pour une entité importante qui viole l'art.~21 ou 23, chaque État doit prévoir un plafond d'amende au moins égal au plus élevé de ces deux montants : 7~M€ ou 1,4~\% du CA mondial de l'exercice précédent (art.~34.5). Ce n'est ni une amende automatique ni une règle déjà applicable en France & Deux niveaux (art.~83) : jusqu'à 10~M€ ou 2~\% du CA mondial, notamment pour la sécurité et la notification (art.~32 à 34). Jusqu'à 20~M€ ou 4~\% pour d'autres manquements, comme les principes ou les droits des personnes. Le montant le plus élevé est retenu\\
 \end{xltabular}
@@ -1115,7 +1115,7 @@ Un VPN protège le tunnel. Il ne prouve pas que l'utilisateur est légitime ni q
 \figsource{Proposition du groupe, d'après [4, diap.~50, 54--57] et [6, diap.~30--37]. ZTNA : accès réseau Zero Trust, application par application.}
 \end{figure}
 
-\textbf{VPN ou Zero Trust ?} Avec un VPN classique, l'utilisateur connecté reçoit souvent un accès large. L'étendue réelle de cet accès dépend du filtrage et des droits configurés. Le modèle Zero Trust ne fait jamais confiance par défaut. Il vérifie l'identité, le poste et le contexte à chaque accès, et n'ouvre qu'une application à la fois [4, diap.~55--56] [2, diap.~13]. Le ZTNA (accès réseau Zero Trust) applique ce principe application par application. Pour une PME, nous proposons une transition. On renforce d'abord le VPN existant, puis on teste un accès ZTNA sur une application.
+\textbf{VPN ou Zero Trust ?} Avec un VPN classique, l'utilisateur connecté reçoit souvent un accès large. L'étendue réelle de cet accès dépend du filtrage et des droits configurés. Le modèle Zero Trust ne fait jamais confiance par défaut. Il vérifie l'identité, le poste et le contexte à chaque accès. Les droits sont limités aux ressources nécessaires [4, diap.~55--56] [2, diap.~13]. Le ZTNA applique ce principe par application. Pour une PME, nous proposons une transition : renforcer le VPN existant, puis tester le ZTNA sur une application.
 
 \textbf{Prérequis à vérifier.} L'accès conditionnel d'Entra ID demande des licences adaptées. Le contrôle de l'état des postes demande un outil de gestion des appareils (MDM). L'intégration du VPN Fortinet avec Entra ID, par exemple par SAML, doit être testée. Le cas ne dit pas si ces licences et ces outils sont déjà disponibles. Nous ne les considérons donc pas comme acquis.
 
@@ -1193,7 +1193,7 @@ Le cas demande une cohérence entre investissement, financement et rentabilité 
 \bottomrule\endfoot
 P1 & SOC externalisé & environ 15~k€ par an & Coût donné par le cas, projet [1, p.~33]\\
 P1 & Renouvellement du matériel (postes, réseau) & 25~k€ par an & Budget du cas [1, p.~33]\\
-P1 & ESU Windows 10, pour les exceptions & 61~USD par poste la 1\textsuperscript{re} année & Tarif Microsoft [16]\\
+P1 & ESU Windows 10, pour les exceptions & 61 / 122 / 244~USD par poste (ans 1 à 3) & Microsoft [16]. Années antérieures dues si retard.\\
 P1 & Pare-feu OT, bastion, clés FIDO2 & à chiffrer & Devis à obtenir\\
 P1 & Assistance à la réponse à incident & à vérifier & Contrat AXA, sinon devis\\
 P1 & Projet ERP & 350 à 500~k€ sur 3 ans & Estimation du cas [1, p.~33]\\
@@ -1219,14 +1219,14 @@ Le cas recommande de faire des hypothèses explicites quand des informations man
 \thd{Sujet} & \thd{Version A} & \thd{Version B} & \thd{Hypothèse retenue}\\\midrule\endfirsthead
 \toprule\thd{Sujet} & \thd{Version A} & \thd{Version B} & \thd{Hypothèse retenue}\\\midrule\endhead
 \bottomrule\endfoot
-ERP & SAP Business One 10.0, déployé en 2019 (p.~17--19, 30, 33) & SAP S/4HANA (p.~6, 7, 12, 40). Nouvel ERP en 2020 (p.~4) & SAP Business One 10.0. S/4HANA est la cible de migration (p.~33)\\
+ERP & SAP Business One en 2019 (p.~19). Version 10.0 sortie en avril 2020 [17]. & SAP S/4HANA (p.~6, 7, 12, 40). Nouvel ERP en 2020 (p.~4) & SAP Business One 10.0. S/4HANA est la cible de migration (p.~33)\\
 CRM & Dynamics 365 Sales (p.~17, 22) & Salesforce (p.~7, 35, 40) & Dynamics 365\\
 CAO et PLM & Windchill et Creo (p.~17, 21) & Siemens NX (p.~6, 40) & Windchill pour le PLM\\
 WMS & SAP WM et Easy WMS (p.~10) & \og WMS (sage)\fg{} (p.~17). Sage X3 [9, §2.1] & Non tranché, sans effet sur nos réponses\\
 MES & Logiciel en ligne, SaaS (p.~20, 30 et [9, §2.1]) & Sur site (p.~28) & Hébergement à confirmer. Connecteurs locaux dans tous les cas\\
 CA 2025 & 18,4~M€ (p.~4, 11, 36) & 13,2~M€ (p.~32) & 18,4~M€. Budget SI = 2,51~\% du CA\\
 Bilan 2025 & Total de l'actif : 13\,300~k€ (p.~11) & Somme des lignes du passif : 11\,300~k€ (p.~11) & Bilan déséquilibré. Pas de calcul financier fin sans vérification\\
-Marge brute & 7,36~M€, soit 40~\% (p.~11, 36) & Achats de 7,2~M€ pour 18,4~M€ de CA, soit 11,2~M€. Budget 2026 à 57,5~\% (p.~36) & 40~\% cité comme valeur annoncée, avec réserve\\
+Marge brute & 7,36~M€, soit 40~\% (p.~11, 36) & CA : 18,4~M€. Achats : 7,2~M€ (p.~11). Budget 2026 : marge brute de 57,5~\% (p.~36). & 40~\% : valeur annoncée. Écart à expliquer selon les stocks et les coûts retenus.\\
 Compte de résultat & Total des charges : 18\,050~k€ (p.~12) & Total des produits : 18\,605~k€ (p.~12) & Écart de 555~k€ non expliqué\\
 Équipe SI & DSI, 3 administrateurs et RSSI externe à mi-temps (p.~13) & Responsable SI, administrateur SI, poste vacant (p.~30). \og 3 personnes\fg{} (p.~31) & Scénario du sujet : 3 personnes, sans SOC\\
 Postes de travail & 45 postes Windows 11 Pro et 15 portables (p.~28, 30) & Windows 10 (p.~33 et énoncé 9.2.2) & Inventaire préalable. Hypothèse du sujet pour 9.2.2\\
@@ -1267,5 +1267,6 @@ Transposition de NIS2 & \og Loi n°~2025-379\fg{} [2, diap.~28, 30] & Loi sur la
 \item Microsoft Learn. \textit{Programme de mises à jour de sécurité étendues (ESU) pour Windows 10}, mis à jour le 12/11/2026 : \url{https://learn.microsoft.com/fr-fr/windows/whats-new/extended-security-updates}
 \item SAP Support. \textit{Maintenance \& Release Family -- SAP Business One} : \url{https://support.sap.com/en/offerings-programs/support-small-medium-enterprises/business-one/maintenance.html}
 \item Microsoft Learn. \textit{Informations sur les versions de Windows 10} (versions 22H2 et LTSC), mis à jour le 19/11/2026 : \url{https://learn.microsoft.com/fr-fr/windows/release-health/release-information}
+\item NIST. \textit{SP 800-38D : chiffrement authentifié GCM} (2007). \url{https://csrc.nist.gov/pubs/sp/800/38/d/final}
 \end{enumerate}
 \end{document}
