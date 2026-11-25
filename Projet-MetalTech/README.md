@@ -9,7 +9,7 @@ Auteurs : Saleh BA-ZIGHIFAN, Abdulrahman BA GUBAIR, Abdulaziz AL-KHULAQI, Mouham
 | Fichier | Rôle |
 |---|---|
 | `Projet_MetalTech.tex` | Source LaTeX complète (un seul fichier, figures en TikZ, aucune image externe) |
-| `Projet_MetalTech.pdf` | PDF V3 (A4, 38 pages) : à régénérer depuis le source V5 avant remise |
+| `Projet_MetalTech.pdf` | PDF final compilé à partir du source V5 (A4, 39 pages) |
 | `Revue_qualite.md` | Journal de travail interne : corrections, preuves, hypothèses ouvertes, contrôles réalisés |
 
 Il n'y a pas de dossier `figures/` : les 12 figures sont dessinées en TikZ dans le `.tex`.
@@ -45,4 +45,6 @@ Le fond reste à valider par le groupe avant l'envoi à l'enseignant.
 
 Le LaTeX V5 intègre les corrections factuelles V4 et une relecture de la langue (40 modifications), notamment les définitions des sigles, les hypothèses et les limites des outils existants. Les dix questions, les douze figures TikZ et les cinq auteurs sont conservés.
 
-**Attention : le PDF versionné n'est pas encore synchronisé avec le source V5.** Avant toute remise, exécuter `latexmk -pdf Projet_MetalTech.tex` dans ce dossier, contrôler les erreurs, le sommaire, les renvois, les tableaux et chaque page, puis versionner le PDF régénéré. Ne pas remettre le PDF V3. Revérifier l'état de la transposition NIS2 à la date effective d'envoi. La validation collective reste nécessaire.
+**Finalisation V5 (25/11/2026).** Le PDF du dépôt a été recompilé depuis zéro à partir du source V5 final, avec `latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error Projet_MetalTech.tex`. Résultat lu dans le journal de compilation : 0 erreur, 0 référence indéfinie, 0 dépassement (`Overfull`), 39 pages A4. Les 39 pages ont été inspectées une par une. Les messages « ignored error: Infinite glue shrinkage » du journal viennent du noyau LaTeX, qui ignore volontairement cette erreur autour des tableaux longs, et n'ont pas d'effet sur le PDF. Détails, corrections et points ouverts dans `Revue_qualite.md`, section 12.
+
+Avant l'envoi : revérifier l'état de la transposition NIS2 à la date effective de remise. La validation collective reste nécessaire.

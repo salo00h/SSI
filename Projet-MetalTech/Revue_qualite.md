@@ -186,3 +186,63 @@ Point de départ : commit `5386a4b` de la branche, à jour avec `origin` (aucune
 ## 11. Relecture V5 — 25/11/2026
 
 40 modifications du source LaTeX : phrases simplifiées, définitions CAO, RFID, DSO, TRS, HTTPS, SFTP, MQTT, SAML et firmware ; clarification du BFR, du risque résiduel et du RPO. Vérification du cas, notamment p. 5, 7–9, 11–12, 18–20, 22, 24, 26–28, 30, 33 et 38–42. Le taux de conversion des devis n'est pas fourni, la marge par affaire est déjà suivie, les fonctions EDR restent à confirmer selon la licence, et la date de mise à niveau SAP Business One 10.0 est inconnue. Contrôle statique : dix questions dans l'ordre, douze blocs TikZ, cinq auteurs conservés. Les consignes imposent un groupe de 4–5 et un PDF pour le 29/11, sans nombre de pages prescrit. Pas de nouvelle compilation ni de contrôle visuel V5 réalisés à ce stade. Le PDF versionné reste V3 et doit être régénéré depuis le LaTeX V5. Aucun envoi à l'enseignant ni fusion.
+
+
+## 12. Finalisation V5 : contrôles ciblés, compilation et PDF final — 25/11/2026
+
+Point de départ : commit `4ee6935` de la branche `revision-metaltech-v2`, récupéré par `git fetch` puis `git pull --ff-only` (avance rapide depuis `65485de`, aucune modification locale, aucun conflit). Les corrections V4 et V5 de Saleh sont conservées. Seuls les écarts réellement constatés ont été corrigés.
+
+### 12.1 Corrections apportées au source
+
+| Question | Écart constaté | Correction |
+|---|---|---|
+| Introduction | Le cas conseille les outils d'analyse stratégique (p. 42), aucun n'était utilisé | Synthèse SWOT courte (quatre cases), uniquement avec des éléments du cas (p. 4, 7, 9, 16, 18–22, 25, 27, 29, 30, 33–35). Pas de donnée financière, car les tableaux du cas sont incohérents |
+| 9.1.3 | La figure 3 présentait comme des faits deux points que le cas ne permet pas d'établir (critères de qualification « non formalisés », motif de perte « non enregistré ») | Ils sont présentés comme des risques à vérifier dans la figure, la légende et le tableau des axes (colonne « Problème ou risque »). Le texte disait déjà que le cas ne précise pas ce suivi |
+| 9.1.4 | Origine des 48 % et 46 % non dite. Faute « dépend du probabilité ». 95 % pouvait être lu comme un taux de service | Précision « en additionnant les parts arrondies ». Faute corrigée. Ajout : ce n'est pas forcément le taux de service en volume |
+| 9.2.2 | « Les trois risques critiques ou élevés (R1, R2, R3) » alors que 16 et 12 sont critiques selon les seuils | « Selon les seuils de la matrice, R1 (16), R2 et R3 (12) sont des risques critiques » |
+| 9.2.2 et conclusion | ESU : 122 et 244 USD présentés comme publiés. La page Microsoft donne 61 USD la 1re année et le doublement annuel | « 61 USD la 1re année, prix doublé chaque année (122 puis 244 USD) ». Achat par année, 3 ans au plus, programme cumulatif (phrase de la page Microsoft) |
+| 9.2.3 | Confidentialité, intégrité et authenticité pas clairement distinguées. Rôle de la signature pour l'origine absent | Nouveau point : chiffrement = confidentialité, hachage = intégrité, AES-GCM = chiffrement authentifié [19], signature vérifiée avec une clé de confiance = authenticité. [19] ajouté aux sources de la question |
+| 9.2.4 | Figure 10 : restauration jusqu'à J+10 et validation « jusqu'à J+10 », alors que le tableau donne restauration J+1–J+5 et validation J+5–J+30. Rapport final NIS2 placé à J+30 | Barres et légende alignées sur le tableau. Rapport final placé après J+30 (« 1 mois après la notification », vers J+33 si notification à H+72). H0 défini comme la prise de connaissance |
+| 9.2.4 | Vérification de l'intégrité des plans avant une série non explicite | Ordre de reprise, étape 6 : versions validées, signatures ou empreintes vérifiées avant toute série qui dépend de ces plans |
+| 9.2.5 | Rôle du DPO ambigu (registre « tenu par le DPO ») | Le DPO conseille et contrôle, l'entreprise reste responsable. Registre tenu par l'entreprise avec l'aide du DPO. État de la loi précisé (texte modifié par l'Assemblée, procédure accélérée, aucune étape après le 17/11) |
+| 9.2.6 | FIDO2 recommandé sans condition de compatibilité | « si le VPN et les applications sont compatibles » |
+| Sources | Titre NIST approximatif | Titre exact de SP 800-38D, date (novembre 2007) et révision annoncée en 2024 |
+| Mise en page | Bloc SWOT coupé entre deux pages. Figure 5 débordant sur le pied de la page 13 (figure 4 reportée en haut de page, mal prise en compte par les tableaux longs) | Bloc SWOT gardé d'un seul tenant. Figure 4 placée dans le texte et figure 5 sans placement « ici ». Renvoi à la figure 2 ajouté dans le texte |
+
+Points vérifiés sans correction : 9.1.1 (huit étapes, 4,31–11,75 jours avec journées de 8 h et une seule opération 2+, boucle NC avec retouche validée), 9.1.2 (TRS, 110,4 h et 8 832 € de capacité théorique), devis p. 8 (prix unitaires, quantités absentes, 281,70 € = somme affichée), pipeline p. 22, 6 630 k€ distinct des 7 200 k€ d'achats, 9.2.1 (trois mesures, existant et cible séparés, OPC-UA client/serveur et PubSub, MQTT avec TLS, NTP/DNS/journaux/sauvegardes à inventorier, aucun flux direct IT vers machines, hébergement MES en hypothèse), valeurs RTO/RPO du PCA et du PAR, test de bascule distinct d'une reprise après rançongiciel, snapshots de 4 h et RPO de 1 h, pas de reconnexion Azure automatique, RACI (un seul A et au moins un R sur chacune des 11 lignes), NIS2 art. 20, 21, 23 et 34.5, RGPD art. 32–34 et 83, scénarios ISO 27001, Zero Trust distinct du ZTNA, budget (2,51 %, contradiction 13,2 M€ p. 32, pas d'addition de dépenses de nature différente, pas de ROI).
+
+### 12.2 Références contrôlées
+
+- **Cours** : les 47 citations « [k, diap. n] » du texte ont été rapprochées automatiquement du texte des supports (titre de la diapositive citée). Pour le support Réseaux, les numéros ont été vérifiés dans le PowerPoint original (ordre de présentation et numéro imprimé) : 26 VLAN, 43–45 segmentation et DMZ, 46 pare-feu, 50 VPN, 54–57 authentification et Zero Trust. Aucun numéro faux trouvé. La règle 3-2-1 figure bien sur la diapositive 10 du support Gestion de crise.
+- **Sources officielles revues le 25/11/2026** :
+  - Vie publique (page lue dans un navigateur, car elle s'affiche en JavaScript) : texte adopté par le Sénat le 12/03/2025, modifié en 1re lecture par l'Assemblée nationale le 17/11/2026, procédure accélérée, dossier modifié le 18/11/2026. Pas de commission mixte paritaire ni de promulgation.
+  - Assemblée nationale : adoption en 1re lecture le 17/11/2026.
+  - MesServicesCyber : « transposition en cours », pré-enregistrement et ReCyF (version de travail).
+  - Microsoft ESU (page mise à jour le 12/11/2026) : 61 USD la 1re année, doublement annuel, programme cumulatif, achat par année.
+  - Microsoft, informations de version (19/11/2026) : fin de Windows 10 22H2 le 14/10/2025, LTSC 2021 jusqu'au 12/01/2027.
+  - NIST SP 800-38D : GCM est un chiffrement authentifié (« authenticated encryption with associated data »), novembre 2007, révision annoncée.
+- **Non revérifié ce jour** : page SAP (maintenance de SAP Business One 10.0), lue le 24/11. Cycle de vie du FortiGate 200E : toujours aucune source officielle publique.
+
+### 12.3 Compilation et contrôles du PDF
+
+Commandes exécutées dans un dossier de compilation vide, avec le `.tex` final (empreinte identique à celle du dépôt) :
+
+```sh
+latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error Projet_MetalTech.tex
+pdfinfo Projet_MetalTech.pdf
+pdftotext -enc UTF-8 -layout Projet_MetalTech.pdf metaltech-final.txt
+```
+
+- Journal lu : `latexmk` termine avec le code 0, après deux passes de pdfLaTeX. 0 erreur, 0 référence indéfinie, 0 `Overfull`, 1 `Underfull` sans effet visible (cellule « Rapport des connexions refusées », 9.2.6).
+- 9 messages « ignored error: Infinite glue shrinkage found in box being split » : ils sont émis par le noyau LaTeX lui-même, qui ignore volontairement cette erreur primitive (`\ignoreprimitiveerror`, `latex.ltx`) pour extraire les marques de page autour des tableaux longs. Ils existaient déjà en V3 (7 messages) et n'ont aucun effet sur le PDF.
+- `pdfinfo` : 39 pages A4 (595,276 × 841,89 pt). Titre et cinq auteurs présents dans les métadonnées.
+- Texte extrait : 10 énoncés dans l'ordre 9.1.1 à 9.2.6, 12 figures numérotées de 1 à 12, 5 auteurs, date de remise, aucun texte provisoire, 11 liens externes, 16 signets.
+- Contrôle visuel : 39 pages rendues en image et inspectées une par une. Gros plans sur les figures 3 et 10 (modifiées). Après chaque correction de mise en page, recompilation complète et nouvelle inspection des pages concernées. Pages en partie vides restantes : fin de l'introduction (p. 4), fin de la partie 1 (p. 14), fin des pages 7 et 18. Elles viennent des règles qui gardent ensemble un titre de partie ou de question avec son début.
+
+### 12.4 Points encore ouverts
+
+1. Revérifier l'état de la loi NIS2 le jour de la remise (une commission mixte paritaire peut intervenir).
+2. Hébergement réel du MES et présence de serveurs OPC-UA sur les machines : hypothèses.
+3. Licence Sophos (fonctions EDR), licences Entra ID et MDM, compatibilité FIDO2 du VPN : à confirmer.
+4. Cycle de vie du FortiGate 200E : non vérifiable sur une source officielle publique.
+5. Validation du fond par les cinq membres. Aucun envoi à l'enseignant, PR non fusionnée.
