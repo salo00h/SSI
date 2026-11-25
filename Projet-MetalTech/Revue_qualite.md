@@ -118,5 +118,55 @@ Statut : **OK** (vérifié, conforme), **Corrigé** (erreur de la version de dé
 
 - Branche : `revision-metaltech-v2` (créée depuis `main` ; `main` non modifiée).
 - Commit 1 : supports originaux + rapport de départ (traçabilité des changements).
-- Commit 2 : rapport révisé, PDF compilé, README, ce journal, inventaire des supports mis à jour.
+- Commit 2 : rapport révisé V2, PDF compilé, README, ce journal, inventaire des supports mis à jour.
+- Commit 3 : révision V3 (section 9 ci-dessous).
 - Aucun secret, aucun fichier temporaire de compilation dans Git.
+
+## 9. Révision V3 (25 novembre 2026)
+
+Point de départ : commit `5386a4b` de la branche, à jour avec `origin` (aucune modification du groupe entre-temps). Le texte des dix réponses, de l'introduction, de la conclusion et de l'annexe a été réécrit en français plus simple. Les 12 figures ont été conservées et retouchées quand le fond l'exigeait.
+
+### 9.1 Auteurs
+
+- Cinquième membre ajouté sur la couverture et dans les métadonnées du PDF : **Adel ELDARAWY**. Orthographe confirmée par Abdulrahman BA GUBAIR le 25/11/2026, ainsi que celle des quatre autres noms.
+
+### 9.2 Corrections de fond par question
+
+| Question | Correction V3 |
+|---|---|
+| 9.1.1 | « 4 à 12 jours ouvrés de travail effectif » remplacé par un total indicatif de **4,31 à 11,75 jours** de durées cumulées (étapes successives, 8 h/j, une seule opération 2+). Comparaison avec les 8 semaines présentée comme un indice à vérifier sur des commandes comparables. Boucle NC : « retouche validée : reprise » et « sinon : rebut enregistré, OF relancé si besoin ». Figure 1 placée juste avant le tableau des points critiques, sur la page qui suit son appel. |
+| 9.1.2 | SMED défini en une phrase. Calcul détaillé : 8 × 90 min = 12 h/semaine, 20 % = 2,4 h, 46 semaines = 110,4 h, à 80 €/h = 8 832 € de capacité théorique. Ce n'est ni une économie de trésorerie ni un bénéfice. Coût du pilote « à estimer » (plus de « coût faible »). |
+| 9.1.3 | Devis p. 8 : ambiguïté et risque d'erreur à clarifier, pas une preuve d'erreur de facturation (texte, figure 3 et annexe A). 35 % = taux du pipeline CRM. Scénario 420 → 480 k€ explicitement illustratif. Licences et paramétrage des outils à vérifier. |
+| 9.1.4 | « Dans le tableau des fournisseurs du cas » précisé. 6 630 k€ = total du tableau, différent des 7 200 k€ d'achats du compte de résultat. Hypothèses de la formule du stock de sécurité (délai fixe, demande indépendante, loi à peu près normale). Exemple du titane présenté comme ordre de grandeur, pas comme commande. |
+| 9.2.1 | Tableau des flux refait : colonne « connexion (client → serveur) » distincte des « données échangées ». OPC-UA : le connecteur MES (client) ouvre la connexion vers le serveur de la machine ; PubSub signalé comme exception. MQTT : publication, broker, abonnement. Flux ajoutés : administration et prestataires vers le bastion, bastion vers OT, mises à jour. Flux restant à inventorier listés (NTP, DNS, journaux, sauvegarde de la DMZ). Numéros de la figure 7 mis à jour. Continuité en mode local nuancée. Sécurité des personnes rappelée. |
+| 9.2.2 | Seuils de risque définis et couleurs vérifiées. Résiduel « estimé, pas constaté ». Windows 10 22H2 : fin du support standard le 14/10/2025 ; éditions LTSC différentes (LTSC 2021 Entreprise : 12/01/2027). Paragraphe « Faisabilité avec trois personnes ». Le CA de 84 k€ par jour n'est plus présenté comme une perte certaine. |
+| 9.2.3 | Notions simples : AES, TLS, empreinte, DLP, RBAC. Une empreinte seule ne prouve pas l'origine : signature numérique ou empreinte transmise par un canal de confiance. Limites de BitLocker. Ligne « Conservation des journaux » ajoutée. DLP : fonctions des licences existantes d'abord. |
+| 9.2.4 | Plus aucune phrase liant un arrêt d'urgence à l'accord du chef d'atelier : ligne « Sécurité des personnes » (la mise en sécurité prime). Isolement IT/OT avec le FortiGate et les VLAN existants (pare-feu OT = cible). Identité : assainir ou reconstruire l'annuaire, révoquer sessions et jetons, renouveler secrets et comptes à privilèges. Azure jamais reconnecté automatiquement. Ordre de reprise complété (PLM et traçabilité avant toute nouvelle série) et conditions du mode dégradé. Écart entre restauration en jours et RTO de 4 h expliqué. RACI : R/A/C/I expliqués, colonne « Dir. com. » ajoutée, chaque ligne a un seul A et au moins un R. |
+| 9.2.5 | Quatre sources distinguées (directive, loi française, RGPD, recommandations ANSSI). État au 25/11/2026 : adoption en première lecture par l'Assemblée le 17/11/2026, non promulgué. Pré-enregistrement ANSSI présenté comme démarche préparatoire. Art. 34.5 NIS2 : plafond minimal à prévoir par chaque État, pas une amende automatique. RGPD art. 83 : deux niveaux (10 M€/2 % pour la sécurité et la notification, 20 M€/4 % pour d'autres manquements). ISO 27001 : scénarios A et B, tableau avec preuves et échéances (scénario B : certification conditionnelle au T4 2027, horizon 2028 au plus tard). |
+| 9.2.6 | IAM, VPN, MFA, PAM et ZTNA définis. Le VPN n'ouvre pas forcément tout le réseau : cela dépend du filtrage. Azure AD = Microsoft Entra ID. Prérequis à vérifier (licences d'accès conditionnel, MDM, intégration Fortinet). Tests par profil (salarié, administrateur, prestataire, invité). |
+| Conclusion | Comparaison « un jour d'arrêt = plus de cinq ans de SOC » supprimée. Nouveau tableau « Budget par priorité » : coûts connus, estimations, devis à obtenir. |
+
+### 9.3 Sources recontrôlées le 25/11/2026
+
+| Source | Résultat |
+|---|---|
+| Assemblée nationale, actualité du 17/11/2026 | Adoption en première lecture du projet de loi « résilience » confirmée. Ajoutée en [14]. |
+| Légifrance, loi n° 2025-379 | Lien direct vérifié : `https://www.legifrance.gouv.fr/loda/id/JORFTEXT000051528207` (sûreté dans les transports). |
+| EUR-Lex, RGPD art. 83.4 et 83.5 | Deux niveaux d'amendes vérifiés. Les art. 25 à 39 (dont 32 à 34) relèvent du niveau 10 M€/2 %. |
+| EUR-Lex, NIS2 (lien « ALL » des consignes) | Page fonctionnelle. Articles déjà lus le 24/11. |
+| Microsoft Learn, informations sur les versions de Windows 10 (mise à jour 19/11/2026) | 22H2 : fin des mises à jour standard. LTSC 2021 : fin du support standard le 12/01/2027. LTSC 2019 : support étendu jusqu'au 09/01/2029. Ajoutée en [18]. |
+| MesServicesCyber | Transposition en cours. Service de pré-enregistrement en ligne disponible. |
+
+### 9.4 Contrôles réalisés (V3)
+
+- `latexmk -pdf` (MiKTeX) : 0 erreur, 0 référence indéfinie, 0 `Overfull`.
+- 38 pages rendues en image et inspectées une par une. Figures 7, 10 et 12 vérifiées en gros plan. Chevauchements corrigés (étiquette du rebut dans la figure 1, cercle « 9 » en pointillés dans la figure 7, étiquette « interdit » dans la figure 12).
+- Texte extrait du PDF : 10 questions dans l'ordre (p. 4, 7, 9, 11, 14, 18, 21, 23, 28, 31), 5 auteurs, métadonnées avec les 5 auteurs, année, enseignant, date de remise, aucune marque provisoire, aucun point-virgule dans le texte, 10 liens externes et 18 liens internes.
+- Guillemets français rendus insécables (`\og` / `\fg`) pour éviter « en fin de ligne.
+
+### 9.5 Points encore ouverts
+
+1. État de la loi de transposition NIS2 : à recontrôler juste avant l'envoi du 29/11.
+2. Hébergement réel du MES (SaaS ou sur site) et existence de serveurs OPC-UA sur chaque machine : hypothèses à confirmer.
+3. Cycle de vie du FortiGate 200E : non vérifiable sur une source publique officielle.
+4. Validation du fond par les cinq membres avant l'envoi à l'enseignant.
