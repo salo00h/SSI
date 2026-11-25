@@ -9,7 +9,7 @@ Auteurs : Saleh BA-ZIGHIFAN, Abdulrahman BA GUBAIR, Abdulaziz AL-KHULAQI, Mouham
 | Fichier | Rôle |
 |---|---|
 | `Projet_MetalTech.tex` | Source LaTeX complète (un seul fichier, figures en TikZ, aucune image externe) |
-| `Projet_MetalTech.pdf` | PDF compilé à partir de ce source (A4, 38 pages) |
+| `Projet_MetalTech.pdf` | PDF V3 (A4, 38 pages) : à régénérer depuis le source V5 avant remise |
 | `Revue_qualite.md` | Journal de travail interne : corrections, preuves, hypothèses ouvertes, contrôles réalisés |
 
 Il n'y a pas de dossier `figures/` : les 12 figures sont dessinées en TikZ dans le `.tex`.
@@ -40,3 +40,9 @@ Les fichiers `.aux`, `.log`, `.toc`, `.out`, `.fls`, `.fdb_latexmk` ne doivent p
 - Version V3 (branche `revision-metaltech-v2`) : corrections de fond des consignes V3, français simplifié (plus de points-virgules, sigles définis à leur première apparition), cinquième auteur, sources recontrôlées le 25 novembre 2026. Compilation contrôlée : 0 erreur, 0 dépassement de ligne (`Overfull`), 38 pages inspectées une par une. Détails dans `Revue_qualite.md`, section 9.
 
 Le fond reste à valider par le groupe avant l'envoi à l'enseignant.
+
+## Version V5 — validation finale du source
+
+Le LaTeX V5 intègre les corrections factuelles V4 et une relecture de la langue (40 modifications), notamment les définitions des sigles, les hypothèses et les limites des outils existants. Les dix questions, les douze figures TikZ et les cinq auteurs sont conservés.
+
+**Attention : le PDF versionné n'est pas encore synchronisé avec le source V5.** Avant toute remise, exécuter `latexmk -pdf Projet_MetalTech.tex` dans ce dossier, contrôler les erreurs, le sommaire, les renvois, les tableaux et chaque page, puis versionner le PDF régénéré. Ne pas remettre le PDF V3. Revérifier l'état de la transposition NIS2 à la date effective d'envoi. La validation collective reste nécessaire.
