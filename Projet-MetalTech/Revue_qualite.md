@@ -181,3 +181,8 @@ Point de départ : commit `5386a4b` de la branche, à jour avec `origin` (aucune
 - Précision des articles 21 et 23 de NIS2, du principe Zero Trust, du calendrier de crise et de la date de sortie de SAP Business One 10.0.
 
 **État du dépôt :** le fichier LaTeX contient les corrections V4. Le PDF du dépôt reste celui de la V3 tant qu'il n'a pas été recompilé à partir du nouveau LaTeX. Une copie PDF corrigée directement a été produite séparément pour le groupe. Recompiler (`latexmk -pdf Projet_MetalTech.tex`), contrôler les pages et remplacer le PDF du dépôt avant la fusion. Aucun envoi à l'enseignant.
+
+
+## 11. Relecture V5 — 25/11/2026
+
+40 modifications du source LaTeX : phrases simplifiées, définitions CAO, RFID, DSO, TRS, HTTPS, SFTP, MQTT, SAML et firmware ; clarification du BFR, du risque résiduel et du RPO. Vérification du cas, notamment p. 5, 7–9, 11–12, 18–20, 22, 24, 26–28, 30, 33 et 38–42. Le taux de conversion des devis n'est pas fourni, la marge par affaire est déjà suivie, les fonctions EDR restent à confirmer selon la licence, et la date de mise à niveau SAP Business One 10.0 est inconnue. Contrôle statique : dix questions dans l'ordre, douze blocs TikZ, cinq auteurs conservés. Les consignes imposent un groupe de 4–5 et un PDF pour le 29/11, sans nombre de pages prescrit. Pas de nouvelle compilation ni de contrôle visuel V5 réalisés à ce stade. Le PDF versionné reste V3 et doit être régénéré depuis le LaTeX V5. Aucun envoi à l'enseignant ni fusion.
