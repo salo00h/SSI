@@ -170,3 +170,14 @@ Point de départ : commit `5386a4b` de la branche, à jour avec `origin` (aucune
 2. Hébergement réel du MES (SaaS ou sur site) et existence de serveurs OPC-UA sur chaque machine : hypothèses à confirmer.
 3. Cycle de vie du FortiGate 200E : non vérifiable sur une source publique officielle.
 4. Validation du fond par les cinq membres avant l'envoi à l'enseignant.
+
+
+## 10. Corrections factuelles V4 — 25/11/2026
+
+- Clarification des prix unitaires du devis et des quantités absentes, des indicateurs CRM non documentés et du CA potentiel.
+- Correction de la formulation de l'écart de chiffre d'affaires et des données de marge brute.
+- Tarifs annuels ESU (61, 122, 244 USD par poste) et caractère cumulatif du programme.
+- Distinction entre chiffrement simple et authentifié (AES-GCM), référence NIST SP 800-38D ajoutée.
+- Précision des articles 21 et 23 de NIS2, du principe Zero Trust, du calendrier de crise et de la date de sortie de SAP Business One 10.0.
+
+**État du dépôt :** le fichier LaTeX contient les corrections V4. Le PDF du dépôt reste celui de la V3 tant qu'il n'a pas été recompilé à partir du nouveau LaTeX. Une copie PDF corrigée directement a été produite séparément pour le groupe. Recompiler (`latexmk -pdf Projet_MetalTech.tex`), contrôler les pages et remplacer le PDF du dépôt avant la fusion. Aucun envoi à l'enseignant.
