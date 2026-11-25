@@ -246,3 +246,61 @@ pdftotext -enc UTF-8 -layout Projet_MetalTech.pdf metaltech-final.txt
 3. Licence Sophos (fonctions EDR), licences Entra ID et MDM, compatibilité FIDO2 du VPN : à confirmer.
 4. Cycle de vie du FortiGate 200E : non vérifiable sur une source officielle publique.
 5. Validation du fond par les cinq membres. Aucun envoi à l'enseignant, PR non fusionnée.
+
+
+## 13. V6 courte — 25/11/2026
+
+Point de départ : V5 de 39 pages, commit `5ebef82` (`git fetch` puis contrôle : branche à jour, aucune modification du groupe depuis). La V5 reste récupérable à ce commit. Les supports originaux ne sont pas modifiés. Résultat : **31 pages A4** au lieu de 39.
+
+### 13.1 Mise en page
+
+- Corps du texte inchangé (11 pt). Tableaux en 10 pt (`\small`), légendes et sources inchangées.
+- Marges de 20 mm (au lieu de 22 à 24 mm), interligne des tableaux 1,18 (au lieu de 1,22), liste des références en 10 pt.
+- Règles des titres assouplies (une question demande 13 lignes libres au lieu de 14, une sous-section 6 au lieu de 9, une partie 28 % de page au lieu de 45 %), pour réduire les grands blancs.
+- Figures 1, 2, 4, 5, 6 et 7 placées dans le texte (`[H]`), pour éviter qu'elles soient reportées loin de leur sous-section ou qu'elles croisent un tableau long. Figure 1 placée après le tableau des points critiques. Figure 1 un peu moins haute (écart entre étapes 1,26 au lieu de 1,36), sans changer la taille du texte.
+
+### 13.2 Correspondance V5 → V6
+
+| Question | Éléments conservés | Changements | Sources et contrôles |
+|---|---|---|---|
+| Introduction | Données clés, SWOT (quatre cases), choix d'hypothèses (logiciels, CA 18,4 M€ et 2,51 %, priorité aux énoncés), étiquettes Fait/Objectif/Hypothèse/Proposition | Phrases raccourcies. Ligne « Qualité » des données clés retirée : les certifications restent dans la SWOT | [1] p. 4, 7, 9, 11, 16–36, 42. 462 / 18 400 = 2,51 % recalculé |
+| 9.1.1 | Figure 1 (8 étapes, acteurs, durées, entrées/sorties, boucle NC), tableau des points critiques, tableau des informations par processus, figure 2, preuves d'audit, 4,31–11,75 jours avec hypothèses, VSM | Textes condensés. Sigles regroupés en une phrase. Preuves d'audit en trois points. Figure 1 après le tableau | [1] p. 5–8, 13–25, 40, [5] diap. 28–29 |
+| 9.1.2 | SMED, 5S, préparation, planification, maintenance, contrôle de la première pièce, TRS, pilote, indicateurs, 110,4 h et 8 832 € de capacité théorique, pas une économie | Tableau du pilote remplacé par une liste de trois lignes. Exemple chiffré en un paragraphe | 8 × 90 min = 12 h ; 20 % = 2,4 h × 46 = 110,4 h ; × 80 € = 8 832 € recalculés |
+| 9.1.3 | Figure 3, devis p. 8 (prix unitaires, quantités absentes, 281,70 € = 125,00 + 89,50 + 67,20), pipeline 35 % et 1,2 M€ distincts du taux des devis, taux en nombre et en valeur, tableau des actions, test de trois mois, CA potentiel 60 k€ | Analyse et définitions condensées. Scénario en un paragraphe | [1] p. 7–8, 13, 19, 22, 24. 35 % et 40 % de 1,2 M€ = 420 et 480 k€ recalculés |
+| 9.1.4 | Figures 4 et 5, tableau des fournisseurs, 6 630 k€ distincts des 7 200 k€ d'achats, 48 % et 46 % (parts arrondies), priorité titane, deuxième source qualifiée, plan d'actions, formule du stock de sécurité et hypothèses, 95 % ≠ taux de service, ordre de grandeur, BFR 78 jours, indicateurs | Textes condensés | [1] p. 9–11, 24–25, 37, [8] §7.2, §9.3. 980 / 220 ≈ 4,5 k€ ; 45 / 2 120 ≈ 2 % recalculés |
+| 9.2.1 | Figures 6 et 7 (existant et cible), tableau des risques, sécurité des personnes, trois mesures, tableau des 10 flux avec sens de connexion, PubSub, NTP/DNS/journaux/sauvegardes, hébergement MES à confirmer, mise en œuvre et tests | Colonnes « Données échangées » et « Rôle » fusionnées. Mesures et mise en œuvre condensées | [1] p. 5, 18, 20, 26–31, [2] diap. 7, [4] diap. 26, 43–46, [9] §2.1, §5.1 |
+| 9.2.2 | Méthode ISO 27005, échelles V et G, seuils, six risques initiaux et résiduels, matrice (figure 8), impact, Gantt sur 18 mois (figure 9), faisabilité à trois, vérifications Windows/LTSC/SAP/FortiGate, indicateurs | Tableau des échelles remplacé par un paragraphe (mêmes définitions). Tableau des coûts supprimé : ses lignes sont reportées dans le budget de la conclusion (ESU détaillées, remplacement du pare-feu ajouté) | [5] diap. 9–12, 21, [9] §4, [16]–[18]. R1 = 16, R2 = R3 = 12 : critiques |
+| 9.2.3 | Windchill 120 Go et A320, classification, AES, TLS, hachage, signature, AES-GCM, DLP, RBAC, MFA, BitLocker et ses limites, journaux et conservation, sauvegardes, facteur humain, agilité cryptographique, EN 9100/NADCAP sans clause inventée, priorités | Notions regroupées en quatre points. Cellules du tableau des mesures raccourcies. Priorités en un paragraphe | [1] p. 16, 21, 25–27, 33, [3] diap. 15, 21, 25, 33, 36, 39, 42, [6], [19] |
+| 9.2.4 | Hypothèses et moyens, trois niveaux de crise, figure 10, plan en huit phases avec délais (J+1–J+5, J+5–J+30), refus de payer, RACI (un A et au moins un R par ligne), RTO/RPO exacts, trois écarts de sauvegarde, règle 3-2-1, ordre de reprise, intégrité des plans, communication, préparation | Tableau des niveaux remplacé par une liste. Paragraphe « Délais et RTO » fondu dans le texte. « Se préparer » fusionné avec la communication | [7] diap. 10, 12–13, 16, 19–20, 22, 25, 27, [8] §4.1, §6.1, §7.1–7.3, §8.1, [9] §4, §5.3, §6, §7.3, §8.1 |
+| 9.2.5 | Hypothèse entité importante, NACE, quatre sources, état de la loi daté, art. 20, 21, 23, 34.5, RGPD 32–34 et 83, rôle du DPO, figure 11, deux scénarios ISO 27001, tableau des étapes | Liste des sources en une phrase. Tableau « Ce que cela demande » remplacé par un paragraphe de renvois (mêmes exigences) | [10]–[15], Vie publique relue le 25/11/2026 (dossier modifié le 18/11/2026, aucune étape après le 17/11) |
+| 9.2.6 | Situation, sept risques, phrase du cours sur le VPN, figure 12, VPN et Zero Trust distingués du ZTNA, prérequis (licences, MDM, SAML), filtrage par rôle, mesures (FIDO2 si compatible, PAM, prestataires temporaires), plan, tests positifs et négatifs | Cellules raccourcies. Plan en un paragraphe. Tests en trois points | [4] diap. 50, 54–57, [6] diap. 2–7, 30–37 |
+| Conclusion | Priorités, budget (statut et source de chaque ligne), financement, rentabilité sans ROI fictif | Phrase ajoutée : montants annuels et pluriannuels non additionnés. Lignes ESU et pare-feu reprises de 9.2.2 | [1] p. 11, 27, 32–35, 42, [16] |
+| Annexe A | 18 sujets d'écart avec version A, version B et hypothèse | WMS, ISO 9001 et effectif regroupés en une ligne « Écarts sans effet sur nos réponses » | Pages du cas inchangées |
+
+### 13.3 Compilation et contrôles
+
+Commandes exécutées dans un dossier de compilation vide :
+
+```sh
+latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error Projet_MetalTech.tex
+pdfinfo Projet_MetalTech.pdf
+pdftotext -enc UTF-8 -layout Projet_MetalTech.pdf metaltech-v6.txt
+```
+
+- Journal lu : code 0, deux passes de pdfLaTeX, 0 erreur, 0 référence indéfinie, 0 `Overfull`, 0 `Underfull`. 8 messages « ignored error: Infinite glue shrinkage », émis volontairement par le noyau LaTeX autour des tableaux longs (voir section 12.3), sans effet sur le PDF.
+- `pdfinfo` : 31 pages A4, titre et cinq auteurs dans les métadonnées.
+- Texte extrait : 10 énoncés dans l'ordre, 12 figures numérotées de 1 à 12, 19 références, 11 liens externes, 16 signets, aucun texte provisoire.
+- Contrôle de contenu automatique : pour chaque question, présence des éléments indispensables de la consigne V6 (chiffres, distinctions, termes clés). Tous sont présents.
+- Contrôle visuel : 31 pages rendues en image et inspectées une par une, après chaque changement de mise en page. Corrections faites pendant ce contrôle : titre « Principaux risques » isolé en bas de page, titre et énoncé de 9.1.4 séparés de la réponse, figures 6 et 7 reportées sur une page à part.
+
+### 13.4 Pourquoi 31 pages et pas 30
+
+La matière restante remplit 31 pages. Les blancs résiduels (14 à 23 % des pages 9, 12, 17, 19 et 21) viennent des règles qui gardent un titre avec son début et des figures placées dans le texte. Descendre à 30 pages demanderait de retirer une figure ou un tableau, de réduire la police du texte ou de serrer davantage les marges, ce que la consigne exclut. Nous gardons donc 31 pages.
+
+### 13.5 Points encore ouverts
+
+1. Revérifier l'état de la loi NIS2 le jour de la remise.
+2. Hébergement réel du MES et présence de serveurs OPC-UA sur les machines : hypothèses.
+3. Licences Sophos (EDR), Entra ID et MDM, compatibilité FIDO2 du VPN : à confirmer.
+4. Cycle de vie du FortiGate 200E : non vérifiable sur une source officielle publique.
+5. Validation du fond par les cinq membres. Aucun envoi à l'enseignant, PR non fusionnée.

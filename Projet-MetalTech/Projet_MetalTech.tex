@@ -5,8 +5,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{lmodern,microtype,amsmath}
-\usepackage[top=24mm,bottom=24mm,left=22mm,right=22mm,headheight=15pt]{geometry}
-\usepackage{xcolor,graphicx,tabularx,array,booktabs,multirow,enumitem,fancyhdr,ragged2e,needspace,float,xltabular}
+\usepackage[top=20mm,bottom=22mm,left=20mm,right=20mm,headheight=15pt]{geometry}
+\usepackage{xcolor,graphicx,tabularx,array,booktabs,multirow,enumitem,fancyhdr,ragged2e,needspace,float,xltabular,etoolbox}
 \usepackage{flafter}   % une figure n'apparaît jamais avant son point d'appel
 \usepackage{placeins}  % \FloatBarrier : les figures restent dans leur question
 \usepackage[font=small,labelfont=bf,justification=RaggedRight,singlelinecheck=false,skip=4pt]{caption}
@@ -44,7 +44,9 @@
 \addto\captionsfrench{\renewcommand{\tablename}{Tableau}\renewcommand{\figurename}{Figure}\renewcommand{\contentsname}{Sommaire}}
 
 \setlength{\parindent}{0pt}\setlength{\parskip}{5pt plus 1pt}
-\renewcommand{\arraystretch}{1.22}
+\renewcommand{\arraystretch}{1.18}
+% Tableaux en 10 pt (corps du texte en 11 pt)
+\AtBeginEnvironment{xltabular}{\small}
 \setlist[itemize]{leftmargin=*,topsep=2pt,itemsep=2pt,parsep=0pt}
 \setlist[enumerate]{leftmargin=*,topsep=2pt,itemsep=2pt,parsep=0pt}
 \widowpenalty=10000 \clubpenalty=10000 \displaywidowpenalty=10000
@@ -69,7 +71,7 @@
 
 % ---------- Titres ----------
 \titleformat{\section}{\needsp{10\baselineskip}\Large\bfseries\color{navy}}{}{0pt}{#1}
-\titleformat{\subsection}{\needsp{9\baselineskip}\large\bfseries\color{teal}}{}{0pt}{#1}
+\titleformat{\subsection}{\needsp{6\baselineskip}\large\bfseries\color{teal}}{}{0pt}{#1}
 \titleformat{\subsubsection}{\normalsize\bfseries\color{navy}}{}{0pt}{#1}
 \titlespacing*{\section}{0pt}{6pt}{6pt}
 \titlespacing*{\subsection}{0pt}{10pt}{3pt}
@@ -83,10 +85,10 @@
 \newcommand{\thd}[1]{\textbf{\textcolor{navy}{#1}}}
 \newcommand{\source}[1]{\par\smallskip{\footnotesize\textcolor{graytext}{\textbf{Sources :} #1}}\par}
 \newcommand{\figsource}[1]{\par\vspace{-2pt}{\RaggedRight\footnotesize\textcolor{graytext}{#1}\par}}
-\newcommand{\partie}[1]{\FloatBarrier\needsp{0.45\textheight}\vspace{4mm}\phantomsection\addcontentsline{toc}{part}{#1}%
-  {\centering\vspace*{2mm}\textcolor{teal}{\rule{\linewidth}{1.2pt}}\par\vspace{2mm}
-   {\Large\bfseries\textcolor{navy}{#1}}\par\vspace{2mm}\textcolor{teal}{\rule{\linewidth}{0.6pt}}\par}\vspace{4mm}}
-\newcommand{\question}[3]{\FloatBarrier\needsp{14\baselineskip}\phantomsection
+\newcommand{\partie}[1]{\FloatBarrier\needsp{0.28\textheight}\vspace{3mm}\phantomsection\addcontentsline{toc}{part}{#1}%
+  {\centering\textcolor{teal}{\rule{\linewidth}{1.2pt}}\par\vspace{1.5mm}
+   {\Large\bfseries\textcolor{navy}{#1}}\par\vspace{1.5mm}\textcolor{teal}{\rule{\linewidth}{0.6pt}}\par}\vspace{2mm}}
+\newcommand{\question}[3]{\FloatBarrier\needsp{13\baselineskip}\phantomsection
   \section*{#1\quad #2}\addcontentsline{toc}{section}{#1 -- #2}
   \noindent\colorbox{lightgray}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\small\textbf{Énoncé.} #3}}\par\smallskip}
 \newcommand{\retenir}[1]{\par\smallskip\noindent\colorbox{pale}{\parbox{\dimexpr\linewidth-2\fboxsep\relax}{\textbf{À retenir.} #1}}\par}
@@ -150,29 +152,28 @@ Adel ELDARAWY
 % =====================================================================
 \section*{Introduction}
 \addcontentsline{toc}{section}{Introduction}
-MétalTech Solutions SAS est une petite et moyenne entreprise (PME) industrielle installée à Louhans (Saône-et-Loire). Elle fabrique des pièces métalliques de précision pour l'automobile et l'aéronautique. Sa production dépend de machines connectées et de plusieurs logiciels. Une panne informatique ou une cyberattaque peut donc arrêter l'atelier. Elle peut aussi retarder les livraisons et empêcher de retrouver l'historique des pièces, comme l'exigent les clients.
+MétalTech Solutions SAS est une petite et moyenne entreprise (PME) industrielle de Louhans (Saône-et-Loire). Elle fabrique des pièces métalliques de précision pour l'automobile et l'aéronautique. Sa production dépend de machines connectées et de plusieurs logiciels. Une panne informatique ou une cyberattaque peut donc arrêter l'atelier, retarder les livraisons et casser la traçabilité des pièces demandée par les clients.
 
-Nous avons d'abord analysé les processus (partie 1). Nous avons ensuite étudié la sécurité du système d'information, ou SI (partie 2). Pour chaque question, nous partons des données du cas, nous expliquons le problème, puis nous proposons des actions réalistes. Ces actions tiennent compte de la taille de l'entreprise (127 salariés) et de sa petite équipe informatique.
+La partie 1 analyse les processus. La partie 2 étudie la sécurité du système d'information (SI). Pour chaque question, nous partons des données du cas, nous expliquons le problème, puis nous proposons des actions adaptées à une entreprise de 127 salariés avec une petite équipe informatique.
 
 \subsection*{Données clés du cas}
 \begin{xltabular}{\linewidth}{@{}P{58mm}Y@{}}\toprule
 \thd{Donnée} & \thd{Valeur dans le cas}\\\midrule\endfirsthead
 \toprule \thd{Donnée} & \thd{Valeur dans le cas}\\\midrule\endhead
 \bottomrule\endfoot
-Effectif et chiffre d'affaires (CA) 2025 & 127 salariés et 18,4~M€ [1, p.~4, 11, 36]\\
-Résultat net et marge brute 2025 & Résultat net de 1,12~M€. Marge brute annoncée de 7,36~M€, soit 40~\% du CA (voir l'annexe A) [1, p.~11]\\
-Clients & 85 clients actifs : 73 en automobile et 12 en aéronautique [1, p.~22]\\
-Budget SI & 462~k€ par an, dont 28~k€ pour la sécurité. Ces 28~k€ sont inclus dans les 462~k€ [1, p.~27, 32]\\
-Production connectée & 12 machines à commande numérique (CN), 3 machines de mesure tridimensionnelle (CMM) et 25 capteurs connectés (IoT, Internet des objets) [1, p.~20]\\
+Effectif, chiffre d'affaires (CA) 2025 & 127 salariés, 18,4~M€ [1, p.~4, 11, 36]\\
+Résultat net, marge brute 2025 & 1,12~M€. Marge brute annoncée : 7,36~M€, soit 40~\% du CA (annexe A) [1, p.~11]\\
+Clients & 85 clients actifs : 73 en automobile, 12 en aéronautique [1, p.~22]\\
+Budget SI & 462~k€ par an, dont 28~k€ pour la sécurité [1, p.~27, 32]\\
+Production connectée & 12 machines à commande numérique (CN), 3 machines de mesure tridimensionnelle (CMM), 25 capteurs connectés (IoT, Internet des objets) [1, p.~20]\\
 Logiciels retenus & ERP SAP Business One 10.0, MES Siemens Opcenter, PLM PTC Windchill, CRM Microsoft Dynamics 365 et Power BI [1, p.~17--23]\\
 Hébergement & 70~\% des traitements sur site et 30~\% dans le cloud Azure [1, p.~28]\\
-Qualité & ISO 9001, EN 9100, IATF 16949 et accréditation NADCAP pour les traitements thermiques [1, p.~16]\\
 \end{xltabular}
 \figsource{ERP : logiciel de gestion intégré (commandes, stocks, achats, finance). MES : logiciel qui pilote et suit la production. PLM : logiciel qui gère les plans et les données techniques des produits. CRM : logiciel de gestion de la relation client.}
 
 \needsp{19\baselineskip}
 \subsection*{Synthèse SWOT}
-Le cas conseille d'utiliser les outils d'analyse stratégique [1, p.~42]. Cette synthèse SWOT (forces, faiblesses, opportunités, menaces) reprend seulement des éléments du cas. Elle explique les priorités des deux parties.
+Le cas conseille les outils d'analyse stratégique [1, p.~42]. Cette synthèse SWOT (forces, faiblesses, opportunités, menaces) reprend seulement des éléments du cas.
 
 \par\noindent{\footnotesize\begin{tabularx}{\linewidth}{@{}YY@{}}\toprule
 \thd{Forces} & \thd{Faiblesses}\\\midrule
@@ -182,15 +183,15 @@ Logiciels en fin de support et réseau de 5 ans (p.~33). Équipe SI réduite, sa
 Stratégie 2025--2028 : croissance de 15~\% par an, aéronautique à 30~\% du CA, usine connectée (p.~35). Certification ISO 27001 prévue (p.~35) &
 Hameçonnage ciblé sur les données techniques (p.~33). Rupture de titane, source unique à J+10 (p.~9). Panne d'Internet qui touche la production (p.~29). Obligations NIS2 et RGPD (p.~27, 34)\\\bottomrule
 \end{tabularx}}
-\figsource{Synthèse du groupe à partir du cas [1]. Les éléments financiers ne figurent pas dans la grille, car plusieurs tableaux du cas sont incohérents (annexe A).}
+\figsource{Synthèse du groupe d'après le cas [1]. Données financières exclues, car plusieurs tableaux du cas sont incohérents (annexe A).}
 
 \subsection*{Méthode et hypothèses de travail}
-Le dossier contient plusieurs contradictions entre ses chapitres. Nous ne les cachons pas. Pour chacune, nous choisissons une hypothèse de travail et nous la signalons. La liste complète, avec les pages, se trouve dans l'annexe A. Voici nos choix principaux.
+Le dossier se contredit parfois d'un chapitre à l'autre. Pour chaque contradiction, nous choisissons une hypothèse et nous la signalons. L'annexe A donne la liste complète avec les pages.
 \begin{itemize}
-\item \textbf{Logiciels.} Nous retenons la description détaillée du chapitre 7 (p.~17--22) : SAP Business One 10.0, Dynamics 365 et Windchill. D'autres pages citent SAP S/4HANA, Salesforce et Siemens NX (p.~6, 7, 12, 40). Ce point reste à clarifier avec l'entreprise.
-\item \textbf{Chiffre d'affaires.} Nous retenons 18,4~M€ (p.~4, 11, 36). Le budget SI représente donc environ 2,5~\% du CA : 462~k€ / 18,4~M€ = 2,51~\%. La page 32 calcule 3,5~\% avec un CA de 13,2~M€. C'est le montant du CA qui diffère entre les deux passages.
-\item \textbf{Questions de cybersécurité.} Les hypothèses de l'énoncé de chaque question sont prioritaires. Exemples : Windows 10, équipe SI de 3 personnes, entité importante au sens de NIS2.
-\item \textbf{Chiffres proposés.} Les objectifs, délais et coûts que nous proposons ne sont pas des résultats mesurés. Nous signalons les exemples chiffrés.
+\item \textbf{Logiciels.} Nous retenons le chapitre 7 (p.~17--22) : SAP Business One 10.0, Dynamics 365 et Windchill. D'autres pages citent SAP S/4HANA, Salesforce et Siemens NX (p.~6, 7, 12, 40).
+\item \textbf{Chiffre d'affaires.} Nous retenons 18,4~M€ (p.~4, 11, 36). Le budget SI vaut donc 462~k€ / 18,4~M€ = 2,51~\% du CA. La page 32 calcule 3,5~\% avec un CA de 13,2~M€ : c'est le CA qui diffère, pas le calcul.
+\item \textbf{Questions de cybersécurité.} Les hypothèses de chaque énoncé sont prioritaires : Windows 10, équipe SI de 3 personnes, entité importante au sens de NIS2.
+\item \textbf{Chiffres proposés.} Nos objectifs, délais et coûts ne sont pas des résultats mesurés. Les exemples chiffrés sont signalés.
 \end{itemize}
 Dans les tableaux, quatre étiquettes distinguent les informations : \tagF{} donnée du cas, \tagO{} objectif donné par le cas, \tagH{} hypothèse du sujet ou du groupe, \tagP{} proposition du groupe.
 \source{[1], p.~3--36, 38--39 et 42.}
@@ -200,12 +201,24 @@ Dans les tableaux, quatre étiquettes distinguent les informations : \tagF{} don
 \question{9.1.1}{Cartographie du processus de fabrication}{Cartographiez le processus de fabrication en identifiant les points critiques et les goulots d'étranglement. Cartographier les types d'information par processus.}
 
 \subsection*{Le processus en huit étapes}
-Le processus commence à la commande du client et se termine à l'expédition [1, p.~5]. L'ERP transmet les ordres de fabrication (OF) au MES. Le PLM fournit les plans et les listes de composants (nomenclatures) validés. La figure~\ref{fig:fab} reprend les huit étapes du cas. Pour chaque étape, elle indique l'acteur, la durée estimée, les entrées et les sorties. Nous ajoutons une décision qualité et une boucle de traitement des non-conformités (NC). Cette boucle est une proposition du groupe. Le cas décrit bien le traitement des NC dans SAP (p.~25), mais il ne le place pas dans le flux.
+Le processus va de la commande du client à l'expédition [1, p.~5]. L'ERP transmet les ordres de fabrication (OF) au MES. Le PLM fournit les plans et les listes de composants (nomenclatures) validés. La figure~\ref{fig:fab} reprend les huit étapes du cas avec l'acteur, la durée estimée, les entrées et les sorties. Nous ajoutons une décision qualité et une boucle de traitement des non-conformités (NC) : le cas décrit ce traitement dans SAP (p.~25), sans le placer dans le flux.
 \subsection*{Points critiques et goulots potentiels}
-Une étape longue n'est pas forcément un goulot. Un goulot d'étranglement est un poste qui limite la production. Si le travail demandé dépasse sa capacité, les pièces s'accumulent. Le cas donne des durées, mais pas les charges ni les temps d'attente. Nous parlons donc de goulots \emph{potentiels}.
+Un goulot d'étranglement est un poste qui limite la production : si le travail demandé dépasse sa capacité, les pièces s'accumulent. Une étape longue n'est donc pas forcément un goulot. Le cas donne des durées, mais pas les charges ni les attentes. Nous parlons donc de goulots \emph{potentiels}.
 
-Si l'on additionne les durées estimées du cas, on obtient un total indicatif de 4,31 à 11,75 jours. Ce calcul suppose des étapes successives, des journées de 8~h et une seule opération 2+. Le nombre réel d'opérations peut varier. Ce total inclut les achats et la livraison. Ce n'est donc pas un temps de travail effectif. Le devis d'exemple annonce un délai de 8 semaines [1, p.~8]. Cet écart est seulement un indice. Une partie du délai vient peut-être des attentes (files, achats, planning). Il faut le vérifier sur des commandes comparables, avec les dates réelles, la taille des lots, les files et les capacités. Une cartographie de la chaîne de valeur (VSM, Value Stream Mapping) sur quelques commandes réelles permet ce contrôle.
+La somme des durées estimées donne un total indicatif de 4,31 à 11,75 jours, avec des étapes successives, des journées de 8~h et une seule opération 2+. Ce total inclut les achats et la livraison : ce n'est pas un temps de travail effectif. Le devis d'exemple annonce 8 semaines [1, p.~8]. L'écart suggère des attentes (files, achats, planning). Une cartographie de la chaîne de valeur (VSM, Value Stream Mapping) sur quelques commandes réelles permet de le vérifier.
 
+
+\begin{xltabular}{\linewidth}{@{}P{30mm}YP{46mm}@{}}\toprule
+\thd{Étape} & \thd{Pourquoi elle peut être critique (données du cas)} & \thd{Mesure à obtenir}\\\midrule\endfirsthead
+\toprule \thd{Étape} & \thd{Pourquoi elle peut être critique (données du cas)} & \thd{Mesure à obtenir}\\\midrule\endhead
+\bottomrule\endfoot
+2. Approvisionnement & 1 à 3 jours. Titane à J+10, fournisseurs uniques, MRP non optimisé (p.~9, 25) & OF bloqués par manque de matière, jours de rupture\\
+3. Programmation & Un programme FAO et un plan validé sont nécessaires avant l'usinage (p.~5, 21) & Temps d'attente des dossiers aux méthodes\\
+4--5. Usinage (opérations 1 et 2+) & Certaines machines existent en un seul exemplaire : rectifieuse, découpe laser, électroérosion (p.~5--6). Changements de série & TRS (rendement de la machine), temps de réglage, file d'attente\\
+6. Contrôle & 3 CMM pour 12 machines (p.~20). Contrôle obligatoire pour l'aéronautique & Attente avant contrôle, taux de rebut\\
+7. Finition & 1 à 3 jours. Procédés spéciaux sous NADCAP (p.~5, 16) & Taille des lots, attente du four ou de la ligne de traitement\\
+\end{xltabular}
+Pour confirmer un goulot, on compare sur 4 à 8 semaines la charge planifiée (heures d'OF) et la capacité (heures d'ouverture moins les arrêts) de chaque poste. Le MES suit aussi les files d'attente. Aucun contrôle qualité n'est supprimé pour gagner du temps.
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
@@ -214,7 +227,7 @@ Si l'on additionne les durées estimées du cas, on obtient un total indicatif d
   ioR/.style={font=\scriptsize,align=left,text width=42mm,text=black},
   gp/.style={draw=cC,fill=cC!15,circle,inner sep=1pt,font=\scriptsize\bfseries,text=cC},
 ]
-\def\dy{1.36}
+\def\dy{1.26}
 \foreach \i/\t/\a in {1/{1. Réception de la commande}/{Planificateur production · 2--4 h},
                       2/{2. Approvisionnement}/{Approvisionneur · 1--3 jours},
                       3/{3. Programmation FAO}/{Technicien méthodes · 4--8 h},
@@ -259,20 +272,8 @@ Si l'on additionne les durées estimées du cas, on obtient un total indicatif d
 \figsource{D'après [1], p.~5--6, 16--21 et 25. \textcolor{cC}{\textbf{G}} : goulot potentiel à confirmer par une mesure de charge et de capacité. La boucle NC est une proposition du groupe. FAO : fabrication assistée par ordinateur.}
 \end{figure}
 
-\begin{xltabular}{\linewidth}{@{}P{30mm}YP{46mm}@{}}\toprule
-\thd{Étape} & \thd{Pourquoi elle peut être critique (données du cas)} & \thd{Mesure à obtenir}\\\midrule\endfirsthead
-\toprule \thd{Étape} & \thd{Pourquoi elle peut être critique (données du cas)} & \thd{Mesure à obtenir}\\\midrule\endhead
-\bottomrule\endfoot
-2. Approvisionnement & 1 à 3 jours. Titane à J+10, fournisseurs uniques, MRP non optimisé (p.~9, 25) & OF bloqués par manque de matière, jours de rupture\\
-3. Programmation & Un programme FAO et un plan validé sont nécessaires avant l'usinage (p.~5, 21) & Temps d'attente des dossiers aux méthodes\\
-4--5. Usinage (opérations 1 et 2+) & Certaines machines existent en un seul exemplaire : rectifieuse, découpe laser, électroérosion (p.~5--6). Changements de série & TRS (rendement de la machine), temps de réglage, file d'attente\\
-6. Contrôle & 3 CMM pour 12 machines (p.~20). Contrôle obligatoire pour l'aéronautique & Attente avant contrôle, taux de rebut\\
-7. Finition & 1 à 3 jours. Procédés spéciaux sous NADCAP (p.~5, 16) & Taille des lots, attente du four ou de la ligne de traitement\\
-\end{xltabular}
-Pour confirmer un goulot, il faut comparer sur 4 à 8 semaines la charge planifiée (heures d'OF) et la capacité disponible (heures d'ouverture moins les arrêts) de chaque poste. Le MES permet aussi de suivre les files d'attente. Nous ne supprimons aucun contrôle qualité pour gagner du temps.
-
 \subsection*{Cartographie des types d'information par processus}
-L'ERP joue le rôle de centre d'échange [1, p.~17]. Les flux passent par un logiciel d'intégration, SAP PI/PO, et par des connecteurs (p.~18). Le tableau suivant présente les informations échangées par huit processus [1, p.~13--25]. Le MRP est le calcul des besoins en matières. La FAO est la fabrication assistée par ordinateur. Une ECN est une demande de modification technique. L'EDI est l'échange électronique de documents avec les fournisseurs. Le WMS est le logiciel de gestion d'entrepôt. La CAO est la conception assistée par ordinateur. Le RFID permet d'identifier des objets par radio.
+L'ERP est le centre d'échange [1, p.~17]. Les flux passent par le logiciel d'intégration SAP PI/PO et par des connecteurs (p.~18). Sigles du tableau : MRP, calcul des besoins en matières. ECN, demande de modification technique. CAO et FAO, conception et fabrication assistées par ordinateur. EDI, échange électronique de documents. WMS, logiciel de gestion d'entrepôt. RFID, identification par radio.
 
 \begin{xltabular}{\linewidth}{@{}P{24mm}YYP{37mm}@{}}\toprule
 \thd{Processus} & \thd{Informations reçues} & \thd{Informations produites} & \thd{Systèmes et fréquence}\\\midrule\endfirsthead
@@ -287,7 +288,7 @@ Qualité & Mesures, spécifications, alertes du MES & Validation, NC, traçabili
 Finance & Coûts réels, factures, paiements & Marge par affaire, budget, reporting & ERP, Power BI. Hebdomadaire, comptabilité la nuit\\
 RH & Compétences, présence, recrutements & Planning d'affectation des opérateurs & SAP HCM, TalentSoft. Hebdomadaire\\
 \end{xltabular}
-La figure~\ref{fig:flux} montre les mêmes échanges entre les applications.
+La figure~\ref{fig:flux} montre ces échanges entre les applications [1, p.~13--25].
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
@@ -320,20 +321,19 @@ La figure~\ref{fig:flux} montre les mêmes échanges entre les applications.
 \end{figure}
 
 \subsection*{Preuves d'audit à rechercher}
-Le cours rappelle qu'un audit s'appuie sur des preuves fiables et traçables : documents, entretiens, observations et tests [5, diap.~28--29]. Pour ce processus, nous proposons de collecter les preuves suivantes.
+Un audit s'appuie sur des preuves fiables et traçables : documents, entretiens, observations et tests [5, diap.~28--29]. Nous proposons de collecter :
 \begin{itemize}
-\item Quelques OF réels suivis de bout en bout, avec leurs dates dans l'ERP et dans le MES. On mesure ainsi les attentes entre les étapes.
-\item Une comparaison des quantités ERP et MES sur un échantillon d'OF, et des versions de plans du PLM avec les programmes utilisés.
-\item Un test de traçabilité sur une pièce aéronautique : lot matière, puis lot de production, puis lot client (procédure PC-QTR-005, p.~40).
-\item Les enregistrements des NC et des actions correctives (procédure PC-QNC-004, p.~40).
+\item quelques OF réels suivis de bout en bout, avec leurs dates dans l'ERP et le MES, pour mesurer les attentes ;
+\item une comparaison des quantités ERP et MES sur un échantillon d'OF, et des versions de plans du PLM avec les programmes utilisés ;
+\item un test de traçabilité d'une pièce aéronautique, du lot matière au lot client (procédure PC-QTR-005, p.~40), et les enregistrements des NC et actions correctives (PC-QNC-004, p.~40).
 \end{itemize}
 \source{[1], p.~5--6, 8, 13--25, 40 · [5], diap.~28--29.}
 % ---------------------------------------------------------------------
 \question{9.1.2}{Optimisation du flux de production}{Proposez des améliorations pour optimiser le flux de production et réduire les temps de changement de série.}
 
-Un changement de série est le passage d'une fabrication à une autre sur la même machine. Il faut changer les outils, régler la machine, charger le programme et valider la première pièce. Le cas ne donne pas la durée réelle de ces changements. Nous proposons donc de la mesurer avant de fixer un objectif. Les cibles du cas sont un TRS de 75~\% et un taux de rebut inférieur à 2~\% \tagO{} [1, p.~20]. Ce sont des objectifs, pas des résultats mesurés.
+Un changement de série est le passage d'une fabrication à une autre sur la même machine : changer les outils, régler, charger le programme et valider la première pièce. Le cas ne donne pas sa durée réelle. Il faut donc la mesurer avant de fixer un objectif. Le cas vise un TRS de 75~\% et moins de 2~\% de rebut \tagO{} [1, p.~20] : ce sont des objectifs, pas des mesures.
 
-Le TRS (taux de rendement synthétique) mesure l'efficacité d'une machine. Il combine trois taux : $\text{TRS} = \text{disponibilité} \times \text{performance} \times \text{qualité}$. Le SMED (Single Minute Exchange of Die) est une méthode qui raccourcit un changement de série en préparant à l'avance, pendant que la machine tourne, tout ce qui peut l'être. Le 5S est une méthode d'organisation du poste en cinq étapes : trier, ranger, nettoyer, standardiser et maintenir.
+Le TRS (taux de rendement synthétique) mesure l'efficacité d'une machine : $\text{TRS} = \text{disponibilité} \times \text{performance} \times \text{qualité}$. Le SMED (Single Minute Exchange of Die) raccourcit un changement de série en préparant à l'avance, machine en marche, tout ce qui peut l'être. Le 5S organise le poste en cinq étapes : trier, ranger, nettoyer, standardiser, maintenir.
 
 \subsection*{Nos propositions}
 \begin{xltabular}{\linewidth}{@{}P{30mm}YP{40mm}@{}}\toprule
@@ -349,33 +349,22 @@ Contrôle de la première pièce & Garder ce contrôle obligatoire, le standardi
 \end{xltabular}
 
 \subsection*{Pilote, mesures et suivi}
-\begin{xltabular}{\linewidth}{@{}P{22mm}YP{40mm}@{}}\toprule
-\thd{Période} & \thd{Travail} & \thd{Responsable}\\\midrule\endfirsthead
-\toprule \thd{Période} & \thd{Travail} & \thd{Responsable}\\\midrule\endhead
-\bottomrule\endfoot
-Mois 1 & Mesurer la situation de départ sur une machine pilote : durée de chaque changement, nombre de changements, TRS, rebuts & Responsable méthodes, chef d'atelier usinage\\
-Mois 2--3 & Appliquer SMED et 5S sur la machine pilote. Former les opérateurs. Rédiger les fiches de réglage & Chef d'atelier, opérateurs\\
-Mois 4 & Mesurer à nouveau dans les mêmes conditions et comparer avant et après & Méthodes, qualité\\
-Mois 4--6 & Étendre aux autres machines si le gain est confirmé. Adapter les règles de planning du MES & Production, SI\\
-\end{xltabular}
-Indicateurs suivis : temps moyen de changement de série, nombre de changements par semaine, TRS de la machine pilote, taux de rebut et taux de première pièce bonne. Le gain se calcule par rapport à la mesure de départ, pas par rapport à un chiffre supposé.
+\begin{itemize}
+\item \textbf{Mois 1} : mesurer la situation de départ sur une machine pilote (durée et nombre de changements, TRS, rebuts). Responsables : méthodes, chef d'atelier usinage.
+\item \textbf{Mois 2--3} : appliquer SMED et 5S, former les opérateurs, rédiger les fiches de réglage (chef d'atelier, opérateurs).
+\item \textbf{Mois 4} : mesurer à nouveau dans les mêmes conditions et comparer (méthodes, qualité). \textbf{Mois 4--6} : étendre aux autres machines si le gain est confirmé et adapter le planning du MES (production, SI).
+\end{itemize}
+Indicateurs : temps moyen de changement, nombre de changements par semaine, TRS de la machine pilote, taux de rebut, taux de première pièce bonne. Le gain se calcule par rapport à la mesure de départ.
 
 \subsection*{Exemple chiffré (illustratif)}
-\textit{Toutes les valeurs de cet exemple sont des hypothèses, pas des données du cas.}
-\begin{itemize}
-\item Hypothèses : une machine pilote, 8 changements par semaine, 90 minutes par changement, 46 semaines de production par an, coût horaire machine de 80~€.
-\item Temps d'arrêt actuel : 8 $\times$ 90~min = 12~h par semaine.
-\item Gain si la durée baisse de 20~\% : 2,4~h par semaine, soit 110,4~h par an.
-\item Valeur théorique : 110,4~h $\times$ 80~€ = 8\,832~€ de capacité par an.
-\end{itemize}
-Ce montant n'est ni une économie de trésorerie ni un bénéfice certain. Il devient un gain réel seulement si les heures libérées servent à produire des pièces vendues. Le coût du pilote (formation, chariot, préréglage, temps des méthodes) reste à estimer avant de décider.
+\textit{Hypothèses du groupe, pas des données du cas} : une machine, 8 changements par semaine de 90~min, 46 semaines par an, 80~€ par heure machine. L'arrêt actuel vaut 8 $\times$ 90~min = 12~h par semaine. Une baisse de 20~\% libère 2,4~h par semaine, soit 110,4~h par an, c'est-à-dire 110,4~h $\times$ 80~€ = 8\,832~€ de capacité théorique. Ce n'est ni une économie de trésorerie ni un bénéfice certain : le gain n'est réel que si ces heures servent à produire des pièces vendues. Le coût du pilote (formation, chariot, préréglage) reste à estimer.
 \retenir{commencer petit, sur une seule machine, mesurer avant et après, puis généraliser seulement si le gain est prouvé. La qualité et les contrôles obligatoires ne sont jamais réduits.}
 \source{[1], p.~5--6, 20, 30, 33. SMED et 5S : méthodes proposées par le groupe.}
 % ---------------------------------------------------------------------
 \question{9.1.3}{Amélioration du processus commercial}{Analysez le processus commercial et suggérez des axes pour améliorer le taux de conversion des devis.}
 
 \subsection*{Le parcours commercial}
-Le cas décrit huit étapes, de la prospection à l'analyse des revenus [1, p.~7]. Le DSO mesure le délai moyen de paiement des clients (45 jours indiqués p.~24). Les outils cités page~7 (Salesforce, SAP SD, SAP FI) ne sont pas ceux du chapitre~7, qui décrit Dynamics 365 et SAP Business One (p.~19, 22). Nous retenons Dynamics 365 et SAP Business One comme hypothèse de travail.
+Le cas décrit huit étapes, de la prospection à l'analyse des revenus [1, p.~7]. La page~7 cite Salesforce, SAP SD et SAP FI, mais le chapitre~7 décrit Dynamics 365 et SAP Business One (p.~19, 22) : nous retenons ces derniers. Le DSO est le délai moyen de paiement des clients (45 jours, p.~24).
 \begin{figure}[htp]
 \centering
 \begin{tikzpicture}[
@@ -411,19 +400,14 @@ Le cas décrit huit étapes, de la prospection à l'analyse des revenus [1, p.~7
 
 \subsection*{Analyse : ce que montrent les données}
 \begin{itemize}
-\item \textbf{Devis préparés avec SAP et Excel} (p.~7). Les coûts et les marges sont calculés dans Excel (p.~7). Cela crée des doubles saisies, plusieurs versions d'un même devis et un risque d'erreur de calcul.
-\item \textbf{Le devis d'exemple est ambigu} (p.~8). Le projet porte sur un lot de 500 pièces, mais les lignes n'indiquent pas de quantité. Le total HT (281,70~€) correspond à la somme des trois prix affichés (125,00 + 89,50 + 67,20~€). Les prix sont indiqués comme unitaires, mais les quantités par ligne ne sont pas précisées. Le montant total du lot ne peut donc pas être vérifié. Un modèle de devis généré depuis l'ERP permet de réduire ce risque.
-\item \textbf{Le taux d'environ 35~\%} est celui du pipeline d'opportunités du CRM (p.~22). Le cas ne précise pas le taux de conversion des devis, ni en nombre ni en valeur. Le pipeline moyen de 1,2~M€ est le montant des opportunités ouvertes, pas un CA annuel.
-\item \textbf{Le CRM suit déjà} le délai moyen de réponse et le taux de réponse aux appels d'offres (p.~22). Le CRM suit aussi la marge par affaire. Le cas ne précise pas si les motifs de perte et la marge prévue pour chaque devis sont suivis.
+\item \textbf{Devis préparés avec SAP et Excel} (p.~7). Coûts et marges sont calculés dans Excel : doubles saisies, plusieurs versions d'un devis, risque d'erreur.
+\item \textbf{Devis d'exemple ambigu} (p.~8). Le projet porte sur un lot de 500 pièces, mais les lignes n'ont pas de quantité. Le total HT (281,70~€) est la somme des trois prix unitaires affichés (125,00 + 89,50 + 67,20~€). Le montant du lot ne peut donc pas être vérifié. Un modèle de devis généré par l'ERP réduit ce risque.
+\item \textbf{Le taux d'environ 35~\%} est celui du pipeline d'opportunités du CRM (p.~22), et le pipeline moyen de 1,2~M€ est le montant des opportunités ouvertes, pas un CA annuel. Le cas ne donne pas le taux de conversion des devis.
+\item \textbf{Le CRM suit déjà} le délai moyen de réponse, le taux de réponse aux appels d'offres et la marge par affaire (p.~22). Le cas ne dit pas si les motifs de perte et la marge prévue de chaque devis sont suivis.
 \end{itemize}
 
 \subsection*{Définir le taux de conversion des devis}
-Nous proposons deux indicateurs. Ils se calculent sur les devis \emph{clos} d'une même période, c'est-à-dire gagnés ou perdus.
-\begin{itemize}
-\item \textbf{En nombre} : devis gagnés / (devis gagnés + devis perdus) $\times$ 100.
-\item \textbf{En valeur} : montant des devis gagnés / montant des devis clos $\times$ 100.
-\end{itemize}
-Les deux taux peuvent être très différents. Gagner beaucoup de petits devis et perdre les gros donne un bon taux en nombre et un mauvais taux en valeur. La première action consiste à calculer ces deux taux sur les 12 derniers mois. On connaît ainsi le vrai point de départ.
+Nous proposons deux indicateurs, calculés sur les devis \emph{clos} (gagnés ou perdus) d'une même période : \textbf{en nombre}, devis gagnés / (gagnés + perdus) $\times$ 100 ; \textbf{en valeur}, montant des devis gagnés / montant des devis clos $\times$ 100. Gagner beaucoup de petits devis et perdre les gros donne un bon taux en nombre et un mauvais taux en valeur. La première action est de calculer ces deux taux sur les 12 derniers mois, pour connaître le vrai point de départ.
 
 \subsection*{Axes d'amélioration}
 \begin{xltabular}{\linewidth}{@{}P{29mm}YP{30mm}P{28mm}@{}}\toprule
@@ -437,16 +421,15 @@ Opportunités oubliées & Programmer des relances automatiques dans Dynamics 365
 Suivi des motifs de perte non décrit & Rendre obligatoire un motif de perte : prix, délai, technique, concurrent & Ingénieurs commerciaux & Part des devis perdus avec motif\\
 Pilotage & Créer un tableau Power BI : taux en nombre et en valeur, par secteur et par client & Direction commerciale & Revue mensuelle\\
 \end{xltabular}
-Ces actions s'appuient sur les outils déjà en place (CRM, ERP, Power BI). Il faut toutefois vérifier les licences et le paramétrage disponibles avant de les lancer. Nous proposons un test de trois mois avec l'équipe commerciale (2 ingénieurs commerciaux et 4 assistantes, p.~13). Nous déciderons ensuite selon les résultats.
+Ces actions utilisent les outils en place (CRM, ERP, Power BI), sous réserve des licences et du paramétrage. Nous proposons un test de trois mois avec l'équipe commerciale (2 ingénieurs commerciaux et 4 assistantes, p.~13), puis une décision selon les résultats.
 
-\subsection*{Effet attendu (scénario illustratif)}
-\textit{Scénario illustratif, pas une prévision.} Supposons un pipeline identique de 1,2~M€ et un taux de conversion en valeur qui passe de 35~\% à 40~\%. Le montant attendu passerait de 420~k€ à 480~k€, soit 60~k€ de commandes en plus. Rien ne garantit ces commandes. Les 60~k€ représentent un CA potentiel, pas un bénéfice. Il faut tenir compte des coûts et de la marge. L'objectif n'est pas de gagner des devis en baissant les prix.
+\textbf{Effet attendu (scénario illustratif, pas une prévision).} Avec le même pipeline de 1,2~M€ et un taux en valeur qui passe de 35~\% à 40~\%, le montant attendu passerait de 420~k€ à 480~k€, soit 60~k€ de commandes en plus. Ces 60~k€ sont un CA potentiel, ni garanti ni égal à un bénéfice : il faut déduire les coûts. Le but n'est pas de gagner des devis en baissant les prix.
 \source{[1], p.~7--8, 13, 17--24.}
 % ---------------------------------------------------------------------
 \question{9.1.4}{Résilience de la supply chain}{Évaluez la supply chain et proposez des actions pour renforcer la résilience face aux ruptures d'approvisionnement.}
 
 \subsection*{Évaluation de la situation}
-La supply chain (chaîne d'approvisionnement) relie les fournisseurs, la réception, le stock, la production et les clients [1, p.~9]. MétalTech a déjà plusieurs pratiques utiles. Elle annonce une politique de double sourcing (deux fournisseurs) pour les matières stratégiques. Elle classe les articles par importance (méthode ABC) et utilise un Kanban électronique, qui signale les besoins de réapprovisionnement. Son stock de sécurité est calculé à partir du délai et de la demande maximale (p.~9). Le cas signale pourtant trois faiblesses (p.~25). Le calcul des besoins (MRP) reste à améliorer. Le seuil de commande repose sur l'expérience, et non sur un calcul fiable. Certains fournisseurs sont uniques. Enfin, il n'y a pas de visibilité en temps réel sur les approvisionnements. Le planning fournisseurs est encore suivi dans Excel (p.~24).
+La supply chain (chaîne d'approvisionnement) relie fournisseurs, réception, stock, production et clients [1, p.~9]. MétalTech annonce un double sourcing (deux fournisseurs) pour les matières stratégiques, classe ses articles par importance (méthode ABC) et utilise un Kanban électronique qui signale les besoins. Son stock de sécurité dépend du délai et de la demande maximale (p.~9). Le cas cite pourtant des faiblesses (p.~25) : calcul des besoins (MRP) à améliorer, seuil de commande fondé sur l'expérience, fournisseurs uniques, pas de visibilité en temps réel. Le planning fournisseurs est suivi dans Excel (p.~24).
 \begin{figure}[H]
 \centering
 \begin{tikzpicture}[
@@ -491,8 +474,8 @@ Autres & Divers & 380 & 6~\% & Variable & --\\\midrule
 \end{xltabular}
 \figsource{Données du cas [1, p.~9] \tagF. Le total de 6\,630~k€ est celui de ce tableau. Ce n'est pas le total des achats de l'entreprise : le compte de résultat indique 7\,200~k€ d'achats (p.~11). La dernière colonne est notre lecture du tableau \tagH. D'autres fournisseurs peuvent exister sans être cités.}
 
-Trois constats ressortent. D'abord, dans le tableau des fournisseurs du cas, seul l'acier a deux sources (48~\% du total du tableau, en additionnant les parts arrondies). Ensuite, l'aluminium, le titane et les alliages (46~\%, même calcul) n'ont chacun qu'un seul fournisseur cité. Enfin, le titane combine source unique, délai le plus long (J+10) et usage aéronautique. C'est le point le plus fragile. La figure~\ref{fig:crit} place les fournisseurs selon leur délai et leur poids dans ce tableau.
-\begin{figure}[tp]
+Dans ce tableau, seul l'acier a deux sources (48~\% du total, somme des parts arrondies). L'aluminium, le titane et les alliages (46~\%) n'ont qu'un fournisseur cité chacun. Le titane cumule source unique, délai le plus long (J+10) et usage aéronautique : c'est le point le plus fragile. La figure~\ref{fig:crit} place les fournisseurs selon leur délai et leur poids.
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[x=0.78cm,y=0.19cm]
 \fill[rFaible!60] (0,0) rectangle (5,12);
@@ -540,11 +523,11 @@ Trois constats ressortent. D'abord, dans le tableau des fournisseurs du cas, seu
 \end{xltabular}
 
 \subsection*{Stock de sécurité, seuil de réapprovisionnement et effet sur le BFR}
-Le point de commande (ou seuil de réapprovisionnement) est égal à la consommation pendant le délai de livraison plus le stock de sécurité : $\text{PC} = \bar{D} \times L + \text{SS}$. Ici, $\bar{D}$ est la consommation moyenne par jour et $L$ le délai en jours. Une formule courante estime le stock de sécurité : $\text{SS} = z \times \sigma_D \times \sqrt{L}$. $\sigma_D$ est l'écart-type de la consommation par jour. $z$ dépend de la probabilité visée de ne pas manquer de stock pendant le délai : environ 1,65 pour 95~\%. Ce n'est pas forcément le taux de service en volume, c'est-à-dire la part de la demande servie. Cette formule suppose un délai fixe, une demande indépendante d'un jour à l'autre et une distribution à peu près normale. Si le délai varie, il faut adapter la méthode aux données réelles. Le cas ne donne pas les consommations. Ces calculs doivent donc être faits avec l'historique SAP.
+Le point de commande (seuil de réapprovisionnement) vaut la consommation pendant le délai plus le stock de sécurité : $\text{PC} = \bar{D} \times L + \text{SS}$, avec $\bar{D}$ la consommation moyenne par jour et $L$ le délai en jours. Une formule courante donne $\text{SS} = z \times \sigma_D \times \sqrt{L}$, où $\sigma_D$ est l'écart-type de la consommation par jour. $z$ dépend de la probabilité visée de ne pas manquer de stock pendant le délai : environ 1,65 pour 95~\%. Ce n'est pas forcément le taux de service en volume (part de la demande servie). La formule suppose un délai fixe et une demande indépendante d'un jour à l'autre, à peu près normale. Le cas ne donne pas les consommations : le calcul se fait avec l'historique SAP.
 
-\textit{Ordre de grandeur (illustratif).} Supposons une consommation de titane régulière et égale aux achats du tableau, soit 980~k€ sur 220 jours ouvrés. Elle vaudrait environ 4,5~k€ par jour. Dix jours de stock en plus immobiliseraient alors environ 45~k€. C'est environ 2~\% du stock du bilan (2\,120~k€, p.~11) et moins d'un jour de CA. Ce n'est ni une commande à passer ni un stock optimal, seulement un ordre de grandeur. Le BFR (besoin en fonds de roulement, soit le financement nécessaire au cycle d'exploitation) est déjà jugé \og un peu élevé\fg{} à 78 jours de CA (p.~37). Il faut donc augmenter le stock seulement pour les matières critiques.
+\textit{Ordre de grandeur (illustratif).} Si la consommation de titane égale les achats du tableau (980~k€ sur 220 jours ouvrés), elle vaut environ 4,5~k€ par jour. Dix jours de stock en plus immobiliseraient environ 45~k€, soit 2~\% du stock du bilan (2\,120~k€, p.~11). Ce n'est pas un stock optimal, seulement un ordre de grandeur. Le BFR (besoin en fonds de roulement, financement du cycle d'exploitation) est déjà jugé \og un peu élevé\fg{} à 78 jours de CA (p.~37) : le stock ne doit augmenter que pour les matières critiques.
 
-Indicateurs suivis : taux de rupture (objectif du cas : moins de 1~\% \tagO), délai moyen fournisseur (objectif : moins de 10 jours \tagO) [1, p.~24], part des matières critiques avec deux sources qualifiées, jours de couverture du stock de titane et valeur du stock.
+Indicateurs : taux de rupture (moins de 1~\% \tagO), délai moyen fournisseur (moins de 10 jours \tagO) [1, p.~24], part des matières critiques avec deux sources qualifiées, jours de couverture et valeur du stock de titane.
 \retenir{la résilience vient surtout d'une deuxième source qualifiée pour le titane et d'un MRP fiable. Le stock de sécurité aide, mais il immobilise de la trésorerie. Il doit donc rester ciblé.}
 \source{[1], p.~9--11, 24--25, 36--37 · [8], §7.2 et §9.3.}
 % =====================================================================
@@ -552,10 +535,10 @@ Indicateurs suivis : taux de rupture (objectif du cas : moins de 1~\% \tagO), d�
 
 \question{9.2.1}{Analyse de la surface d'attaque OT/IT}{MetalTech exploite un MES Siemens communiquant en OPC-UA/MQTT avec 25 capteurs IoT et 12 machines à commande numérique, interconnecté à l'ERP. Identifiez les principaux risques de convergence IT/OT dans cette architecture et proposez trois mesures de segmentation réseau (VLAN, DMZ industrielle, firewall OT) pour limiter la propagation d'une attaque depuis le SI de gestion vers l'atelier de production.}
 
-L'IT (technologies de l'information) désigne le SI de gestion : ERP, bureautique, messagerie. L'OT (technologies opérationnelles) désigne les systèmes qui pilotent ou mesurent l'atelier : machines CN, CMM, capteurs. Chez MétalTech, les deux mondes sont reliés. Le MES échange avec l'ERP par une interface de programmation (API REST). Il échange avec les machines par OPC-UA et MQTT [1, p.~18, 20]. OPC-UA est un protocole standard d'échange de données industrielles. MQTT est un protocole de messages léger, souvent utilisé par les capteurs. Les données de production sont synchronisées en moins de 5 minutes (p.~18). Cette liaison est utile, mais elle ouvre aussi un chemin d'attaque des bureaux vers l'atelier.
+L'IT (technologies de l'information) est le SI de gestion : ERP, bureautique, messagerie. L'OT (technologies opérationnelles) regroupe les systèmes qui pilotent ou mesurent l'atelier : machines CN, CMM, capteurs. Chez MétalTech, le MES échange avec l'ERP par une interface de programmation (API REST) et avec les machines par OPC-UA et MQTT [1, p.~18, 20]. OPC-UA est un protocole standard d'échange de données industrielles. MQTT est un protocole de messages léger, courant pour les capteurs. Les données sont synchronisées en moins de 5 minutes (p.~18). Cette liaison est utile, mais elle ouvre un chemin d'attaque des bureaux vers l'atelier.
 
 \subsection*{L'existant documenté}
-\begin{figure}[htp]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   n/.style={box,fill=white,text width=29mm,minimum height=10mm},
@@ -582,6 +565,7 @@ L'IT (technologies de l'information) désigne le SI de gestion : ERP, bureautiqu
 \figsource{D'après [1], p.~20, 26--30 et [9], §2.1 et §5.1. Aucune adresse ni règle de filtrage n'est inventée.}
 \end{figure}
 
+\needsp{12\baselineskip}
 \subsection*{Principaux risques de la convergence IT/OT}
 \begin{xltabular}{\linewidth}{@{}P{44mm}YP{42mm}@{}}\toprule
 \thd{Risque} & \thd{Pourquoi chez MétalTech (données du cas)} & \thd{Conséquence possible}\\\midrule\endfirsthead
@@ -594,10 +578,10 @@ Capteurs IoT et Wi-Fi partagé & 25 capteurs. Mêmes bornes Wi-Fi pour l'atelier
 Dépendance à Internet et au cloud & MES décrit comme un logiciel en ligne (SaaS). \og Panne internet = impact production\fg{} (p.~29) & Perte du suivi en temps réel, mode dégradé\\
 Transfert des programmes CN & Programmes FAO créés côté bureaux puis envoyés aux machines (p.~5) \tagH & Programme modifié, machine endommagée, risque pour l'opérateur\\
 \end{xltabular}
-Dans l'atelier, la disponibilité et l'intégrité sont généralement prioritaires [2, diap.~7]. Une machine arrêtée ou un programme modifié peut avoir de graves conséquences. La confidentialité des plans clients reste essentielle. Une mauvaise consigne peut aussi mettre un opérateur en danger. Toute mesure de sécurité doit donc être testée avec la production avant sa mise en service. Aucune règle de filtrage ne doit dégrader la sécurité des personnes.
+Dans l'atelier, la disponibilité et l'intégrité sont généralement prioritaires [2, diap.~7], sans oublier la confidentialité des plans clients. Une mauvaise consigne peut aussi mettre un opérateur en danger. Toute mesure est donc testée avec la production avant sa mise en service, et aucune règle de filtrage ne doit dégrader la sécurité des personnes.
 
 \subsection*{Architecture cible : les trois mesures demandées}
-\begin{figure}[htp]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   n/.style={box,fill=white,text width=31mm,minimum height=9mm},
@@ -646,60 +630,50 @@ Dans l'atelier, la disponibilité et l'intégrité sont généralement prioritai
 \figsource{Proposition du groupe, pas l'existant. Les numéros renvoient au tableau des flux, qui précise le sens de chaque connexion. Les flux 3 et 4 restent dans l'atelier, entre deux VLAN, et passent aussi par le pare-feu OT. Toute connexion entre IT et OT se termine dans la DMZ industrielle. Le pare-feu OT peut être un équipement dédié ou, en solution transitoire, des zones séparées sur un pare-feu existant.}
 \end{figure}
 
-\textbf{Mesure 1 -- VLAN.} Un VLAN (réseau local virtuel) sépare logiquement des équipements branchés sur les mêmes commutateurs [4, diap.~26, 43]. MétalTech a déjà quatre VLAN : bureau, production, invités et IoT. Nous proposons de les compléter. Côté gestion, nous ajoutons un VLAN serveurs et un VLAN d'administration. Côté atelier, nous séparons le MES local, les machines CN, la métrologie et les capteurs. Le passage d'un VLAN à l'autre se fait seulement par un pare-feu. Chaque réseau Wi-Fi doit être relié à son VLAN. Le Wi-Fi invités ne doit atteindre aucun VLAN interne.
+\textbf{Mesure 1 -- VLAN.} Un VLAN (réseau local virtuel) sépare logiquement des équipements branchés sur les mêmes commutateurs [4, diap.~26, 43]. MétalTech a déjà quatre VLAN : bureau, production, invités et IoT. Nous ajoutons un VLAN serveurs et un VLAN d'administration côté gestion, et nous séparons côté atelier le MES local, les machines CN, la métrologie et les capteurs. Le passage d'un VLAN à l'autre se fait seulement par un pare-feu. Chaque réseau Wi-Fi est relié à son VLAN, et le Wi-Fi invités n'atteint aucun VLAN interne.
 
-\textbf{Mesure 2 -- DMZ industrielle.} La DMZ (zone démilitarisée) industrielle est une zone tampon entre l'IT et l'OT [4, diap.~43--45]. Aucun poste de bureau ne se connecte directement à une machine. L'ERP dépose ou lit des données sur un relais placé dans la DMZ. Le connecteur MES de l'atelier fait de même de son côté. La DMZ accueille aussi le dépôt des programmes CN, le bastion et les relais de mises à jour. Le bastion est un serveur sécurisé qui contrôle les accès d'administration. Si la DMZ est compromise, on peut l'isoler. L'atelier peut alors continuer en mode local, mais seulement si les programmes, les fonctions de sécurité et les autres dépendances sont disponibles sur place. Ce point doit être vérifié machine par machine. Nous ne pouvons pas le garantir.
+\textbf{Mesure 2 -- DMZ industrielle.} La DMZ (zone démilitarisée) industrielle est une zone tampon entre l'IT et l'OT [4, diap.~43--45]. Aucun poste de bureau ne se connecte directement à une machine : l'ERP et le connecteur MES de l'atelier déposent ou lisent leurs données sur un relais placé dans la DMZ. La DMZ accueille aussi le dépôt des programmes CN, le bastion (serveur sécurisé qui contrôle les accès d'administration) et les relais de mises à jour. Si la DMZ est compromise, on l'isole. L'atelier ne continue en mode local que si les programmes, les fonctions de sécurité et les autres dépendances sont sur place : c'est à vérifier machine par machine.
 
-\textbf{Mesure 3 -- Pare-feu OT.} Il filtre tous les échanges entre IT, DMZ et OT, ainsi qu'entre les VLAN de l'atelier. La règle de base est le refus par défaut : seuls les flux listés ci-dessous sont autorisés [4, diap.~46]. Les refus sont enregistrés dans des journaux puis analysés. Pour une PME, un pare-feu à trois interfaces (IT, DMZ, OT) est une solution acceptable. Elle doit être validée par un intégrateur.
+\textbf{Mesure 3 -- Pare-feu OT.} Il filtre tous les échanges entre IT, DMZ et OT, et entre les VLAN de l'atelier. La règle de base est le refus par défaut : seuls les flux du tableau ci-dessous sont autorisés [4, diap.~46]. Les refus sont journalisés puis analysés. Pour une PME, un pare-feu à trois interfaces (IT, DMZ, OT) suffit, après validation par un intégrateur.
 
 \subsection*{Flux autorisés (liste fermée)}
-Le tableau distingue qui ouvre la connexion et comment les données circulent. HTTPS sécurise les échanges web, SFTP les transferts de fichiers. Le broker MQTT reçoit et distribue les messages.
+Le tableau indique qui ouvre la connexion et comment circulent les données. HTTPS sécurise les échanges web, SFTP les transferts de fichiers. Le broker MQTT reçoit et distribue les messages.
 
-\begin{xltabular}{\linewidth}{@{}C{6mm}P{43mm}P{29mm}YP{30mm}@{}}\toprule
-\thd{N°} & \thd{Connexion (client $\rightarrow$ serveur)} & \thd{Protocole (port usuel)} & \thd{Données échangées} & \thd{Rôle}\\\midrule\endfirsthead
-\toprule \thd{N°} & \thd{Connexion (client $\rightarrow$ serveur)} & \thd{Protocole (port usuel)} & \thd{Données échangées} & \thd{Rôle}\\\midrule\endhead
+\begin{xltabular}{\linewidth}{@{}C{6mm}P{52mm}P{32mm}Y@{}}\toprule
+\thd{N°} & \thd{Connexion (client $\rightarrow$ serveur)} & \thd{Protocole (port usuel)} & \thd{Données et rôle}\\\midrule\endfirsthead
+\toprule \thd{N°} & \thd{Connexion (client $\rightarrow$ serveur)} & \thd{Protocole (port usuel)} & \thd{Données et rôle}\\\midrule\endhead
 \bottomrule\endfoot
-1 & ERP (IT) $\rightarrow$ relais d'échange (DMZ) & HTTPS, API REST (443) & OF et gammes vers le relais, avancement en retour & Échange ERP--MES sans lien direct\\
-2 & Connecteur MES (OT) $\rightarrow$ relais d'échange (DMZ) & HTTPS (443) & OF vers l'atelier, avancement et mesures vers le relais & Même échange, côté atelier\\
-3 & Connecteur MES (OT) $\rightarrow$ serveur OPC-UA de la machine ou de la CMM & OPC-UA (4840 usuel, à vérifier) & Mesures, compteurs et temps remontent dans la session & Collecte des données machines\\
-4 & Capteur $\rightarrow$ broker MQTT (OT), puis connecteur MES $\rightarrow$ broker & MQTT avec TLS (8883 usuel) & Le capteur publie ses mesures. Le connecteur MES s'y abonne & Remontée des mesures d'ambiance\\
-5 & Poste FAO (IT) $\rightarrow$ dépôt des programmes (DMZ) & SFTP ou HTTPS & Programme validé et signé & Dépôt d'un programme\\
-6 & Poste de la cellule CN (OT) $\rightarrow$ dépôt des programmes (DMZ) & SFTP ou HTTPS & Programme récupéré après contrôle de la signature & Chargement contrôlé\\
-7 & Poste d'administration (IT) ou prestataire par VPN $\rightarrow$ bastion (DMZ) & HTTPS ou bureau à distance, avec MFA & Session d'administration & Entrée unique pour la maintenance\\
-8 & Bastion (DMZ) $\rightarrow$ équipement OT & Bureau à distance ou SSH, session enregistrée & Commandes de maintenance & Ouvert sur demande, durée limitée\\
-9 & Relais (DMZ) $\rightarrow$ MES SaaS (Internet) & HTTPS sortant (443) & Données de production & Seulement si l'hébergement SaaS est confirmé\\
-10 & Postes de l'atelier (OT) $\rightarrow$ relais de mises à jour (DMZ) & HTTPS & Correctifs et signatures antivirus & Mises à jour sans accès direct à Internet\\
+1 & ERP (IT) $\rightarrow$ relais d'échange (DMZ) & HTTPS, API REST (443) & OF et gammes déposés, avancement en retour. Échange ERP--MES sans lien direct\\
+2 & Connecteur MES (OT) $\rightarrow$ relais d'échange (DMZ) & HTTPS (443) & Même échange, côté atelier : OF reçus, avancement et mesures envoyés\\
+3 & Connecteur MES (OT) $\rightarrow$ serveur OPC-UA de la machine ou de la CMM & OPC-UA (4840 usuel, à vérifier) & Mesures, compteurs et temps remontent dans la session\\
+4 & Capteur $\rightarrow$ broker MQTT (OT), puis connecteur MES $\rightarrow$ broker & MQTT avec TLS (8883 usuel) & Le capteur publie ses mesures d'ambiance, le connecteur MES s'y abonne\\
+5 & Poste FAO (IT) $\rightarrow$ dépôt des programmes (DMZ) & SFTP ou HTTPS & Dépôt d'un programme validé et signé\\
+6 & Poste de la cellule CN (OT) $\rightarrow$ dépôt des programmes (DMZ) & SFTP ou HTTPS & Programme récupéré après contrôle de la signature\\
+7 & Poste d'administration (IT) ou prestataire par VPN $\rightarrow$ bastion (DMZ) & HTTPS ou bureau à distance, avec MFA & Entrée unique pour les sessions d'administration\\
+8 & Bastion (DMZ) $\rightarrow$ équipement OT & Bureau à distance ou SSH, session enregistrée & Maintenance ouverte sur demande, pour une durée limitée\\
+9 & Relais (DMZ) $\rightarrow$ MES SaaS (Internet) & HTTPS sortant (443) & Données de production, seulement si l'hébergement SaaS est confirmé\\
+10 & Postes de l'atelier (OT) $\rightarrow$ relais de mises à jour (DMZ) & HTTPS & Correctifs et signatures antivirus, sans accès direct à Internet\\
 \end{xltabular}
-\figsource{Ports usuels par défaut, à vérifier sur la configuration réelle. MFA : authentification à plusieurs facteurs. Nous ne supposons pas que chaque machine expose un serveur OPC-UA. L'inventaire le dira. Certaines machines peuvent utiliser le mode \og publication-abonnement\fg{} d'OPC-UA (PubSub), où la machine envoie elle-même ses données. Le sens de connexion change alors et la règle doit être adaptée. Restent à inventorier : l'heure réseau (NTP), les noms (DNS), l'envoi des journaux et la sauvegarde des serveurs de la DMZ. Tout autre flux est refusé, en particulier : bureaux ou serveurs vers machines, OT vers Internet en direct, invités vers IT ou OT, bureau à distance entre zones hors bastion.}
+\figsource{Ports usuels par défaut, à vérifier. MFA : authentification à plusieurs facteurs. Nous ne supposons pas que chaque machine expose un serveur OPC-UA : l'inventaire le dira. En mode \og publication-abonnement\fg{} d'OPC-UA (PubSub), la machine envoie elle-même ses données : le sens de connexion change et la règle s'adapte. Restent à inventorier : heure réseau (NTP), noms (DNS), envoi des journaux, sauvegarde des serveurs de la DMZ. Tout autre flux est refusé : bureaux ou serveurs vers machines, OT vers Internet en direct, invités vers IT ou OT, bureau à distance entre zones hors bastion.}
 
 \subsection*{Mise en œuvre sans arrêter l'atelier}
 \begin{enumerate}
 \item Inventorier les équipements et les flux réels pendant deux semaines (journaux du pare-feu, observation) avant d'écrire les règles.
-\item Appliquer les nouvelles règles d'abord en mode \og journalisation seule\fg{}. Bloquer ensuite pendant une fenêtre de changement (vendredi soir ou week-end, déjà prévue p.~30), avec un retour arrière prêt.
-\item Activer l'authentification et le chiffrement OPC-UA et MQTT quand les équipements le permettent. Sinon, compenser par un filtrage plus strict.
-\item Vérifier avec la maintenance que les arrêts d'urgence et les sécurités des machines ne dépendent pas du réseau.
-\item Tester chaque trimestre qu'un flux interdit est bien refusé et enregistré.
+\item Appliquer les règles en mode \og journalisation seule\fg{}, puis bloquer pendant une fenêtre de changement (vendredi soir ou week-end, p.~30), avec un retour arrière prêt.
+\item Activer l'authentification et le chiffrement OPC-UA et MQTT quand les équipements le permettent, sinon filtrer plus strictement.
+\item Vérifier avec la maintenance que les arrêts d'urgence et les sécurités des machines ne dépendent pas du réseau. Tester chaque trimestre qu'un flux interdit est refusé et journalisé.
 \end{enumerate}
 \source{[1], p.~5, 18, 20, 26--31 · [2], diap.~7, 12 · [4], diap.~26, 37, 42--46 · [9], §2.1, §5.1.}
 % ---------------------------------------------------------------------
 \question{9.2.2}{Gestion des vulnérabilités et obsolescence logicielle}{Le parc de MetalTech repose sur Windows 10 (fin de support en octobre 2025) et un ERP dont le support s'arrête fin 2027, sur des équipements réseau vieux de 5 ans. En vous appuyant sur une méthodologie de gestion des risques (ex. EBIOS RM ou ISO 27005), évaluez l'impact de cette dette technique et proposez un plan de remédiation priorisé sur 18 mois.}
 
 \subsection*{Méthode : démarche ISO 27005 simplifiée}
-ISO/IEC 27005 est un guide de gestion des risques de sécurité de l'information. La démarche suit cinq temps : fixer le contexte, identifier les risques, les analyser et les évaluer, les traiter, puis les suivre [5, diap.~21]. Un risque combine un actif, une menace, une vulnérabilité et un impact [5, diap.~9]. Nous notons de 1 à 4 la probabilité du risque (vraisemblance, V) et la gravité de ses conséquences (G). Le niveau de risque vaut $V \times G$. Nous utilisons la matrice 4×4 du cours [5, diap.~11].
+ISO/IEC 27005 guide la gestion des risques de sécurité de l'information en cinq temps : fixer le contexte, identifier, analyser et évaluer, traiter, suivre [5, diap.~21]. Un risque combine un actif, une menace, une vulnérabilité et un impact [5, diap.~9]. Nous notons de 1 à 4 la vraisemblance (V) et la gravité (G). Le niveau vaut $V \times G$, sur la matrice 4×4 du cours [5, diap.~11].
 
-\begin{xltabular}{\linewidth}{@{}C{11mm}YY@{}}\toprule
-\thd{Note} & \thd{Vraisemblance (V)} & \thd{Gravité (G) pour MétalTech}\\\midrule\endfirsthead
-\toprule \thd{Note} & \thd{Vraisemblance (V)} & \thd{Gravité (G) pour MétalTech}\\\midrule\endhead
-\bottomrule\endfoot
-1 & Peu probable sur 18 mois & Gêne limitée, sans effet pour les clients\\
-2 & Possible & Perturbation de quelques heures, rattrapable\\
-3 & Probable & Arrêt partiel ou retard client. Non-conformité d'audit\\
-4 & Très probable sur la période étudiée & Arrêt de production au-delà de la durée de reprise visée de 4~h (RTO), fuite de plans clients ou perte de certification\\
-\end{xltabular}
-\figsource{Seuils : 1 à 3 faible, 4 à 6 modéré, 8 et 9 élevé, 12 à 16 critique. Les notes sont des hypothèses du groupe, à valider avec le RSSI (responsable de la sécurité des SI) et la direction.}
+\textbf{Échelles.} Vraisemblance sur 18 mois : 1 peu probable, 2 possible, 3 probable, 4 très probable. Gravité pour MétalTech : 1 gêne limitée sans effet client, 2 perturbation de quelques heures rattrapable, 3 arrêt partiel, retard client ou non-conformité d'audit, 4 arrêt au-delà de la durée de reprise visée de 4~h (RTO), fuite de plans clients ou perte de certification. Seuils : 1 à 3 faible, 4 à 6 modéré, 8 et 9 élevé, 12 à 16 critique. Les notes sont des hypothèses du groupe, à valider avec le RSSI (responsable de la sécurité des SI) et la direction.
 
 \subsection*{Appréciation des risques}
-Le sujet indique que le parc repose sur Windows 10. Le cas cite pourtant 45 postes sous Windows 11 Pro (p.~28) et une migration prévue au premier trimestre 2026 (p.~33). Nous ne supposons donc pas que tous les postes sont sous Windows 10. La première action est un inventaire des postes et de leurs éditions. De même, l'âge d'un équipement n'est pas une vulnérabilité en soi. C'est l'absence de correctifs ou de support qui crée la vulnérabilité.
+Le sujet parle d'un parc sous Windows 10, mais le cas cite 45 postes sous Windows 11 Pro (p.~28) et une migration prévue au premier trimestre 2026 (p.~33). La première action est donc un inventaire des postes et de leurs éditions. L'âge d'un équipement n'est pas une vulnérabilité en soi : c'est l'absence de correctifs ou de support qui en crée une.
 
 \begin{xltabular}{\linewidth}{@{}C{7mm}P{28mm}YC{15mm}YC{16mm}@{}}\toprule
 \thd{Id} & \thd{Actif et menace} & \thd{Vulnérabilité (donnée du cas)} & \thd{Initial V×G} & \thd{Mesures principales} & \thd{Résiduel estimé}\\\midrule\endfirsthead
@@ -750,7 +724,7 @@ R6 & Équipe SI réduite. Correctifs en retard & 2 personnes en poste et 1 poste
 \end{figure}
 
 \subsection*{Impact de la dette technique}
-Selon les seuils de la matrice, R1 (16), R2 et R3 (12) sont des risques critiques. Ils touchent des actifs vitaux. L'ERP, le réseau local et le pare-feu sont classés P1, avec un RTO de 4~h [9, §4]. Le RTO est la durée maximale visée avant la reprise d'un service. Un rançongiciel entré par un poste non maintenu ou par le VPN peut arrêter la gestion et l'atelier. Pour donner un ordre de grandeur, MétalTech réalise environ 84~k€ de CA par jour ouvré (18,4~M€ / 220 jours, hypothèse). Ce chiffre n'est pas une perte certaine, car une partie de la production peut être rattrapée. Le coût réel d'un arrêt dépend de la marge, des pénalités et des heures de rattrapage. La dette technique freine aussi la certification ISO 27001 visée, car un auditeur attend une gestion maîtrisée des vulnérabilités.
+Selon les seuils de la matrice, R1 (16), R2 et R3 (12) sont des risques critiques sur des actifs vitaux. L'ERP, le réseau local et le pare-feu sont classés P1, avec un RTO (durée maximale visée avant la reprise) de 4~h [9, §4]. Un rançongiciel entré par un poste non maintenu ou par le VPN peut arrêter la gestion et l'atelier. En ordre de grandeur, MétalTech réalise environ 84~k€ de CA par jour ouvré (18,4~M€ / 220 jours, hypothèse). Ce n'est pas une perte certaine : le coût réel d'un arrêt dépend de la marge, des pénalités et du rattrapage possible. La dette technique freine aussi l'ISO 27001, car un auditeur attend une gestion maîtrisée des vulnérabilités.
 
 \subsection*{Plan de remédiation priorisé sur 18 mois}
 Nous fixons M0 à décembre 2026. M12 correspond donc à décembre 2027, échéance du support de l'ERP selon le sujet. M18 correspond à juin 2028.
@@ -795,27 +769,18 @@ Nous fixons M0 à décembre 2026. M12 correspond donc à décembre 2027, échéa
 \figsource{Proposition du groupe. Couleurs : bleu pour les postes, vert-bleu pour le réseau, orange pour l'ERP, violet pour le pilotage. Le libellé de chaque tâche permet aussi la lecture en niveaux de gris. Flèches : dépendances principales. Losanges : jalons.}
 \end{figure}
 
-\begin{xltabular}{\linewidth}{@{}P{48mm}P{40mm}Y@{}}\toprule
-\thd{Poste de coût} & \thd{Montant} & \thd{Statut et source}\\\midrule\endfirsthead
-\toprule \thd{Poste de coût} & \thd{Montant} & \thd{Statut et source}\\\midrule\endhead
-\bottomrule\endfoot
-Renouvellement du matériel (postes, réseau) & 25~k€ par an & Budget prévu dans le cas \tagF{} [1, p.~33]\\
-Projet ERP & 350 à 500~k€ sur 3 ans & Estimation du cas, étude en cours \tagF{} [1, p.~33]\\
-SOC externalisé & environ 15~k€ par an & Projet 2026, pas encore en place \tagF{} [1, p.~33]\\
-ESU Windows 10, pour les exceptions seulement & 61~USD par poste la 1\textsuperscript{re} année. Prix doublé chaque année (122 puis 244~USD) & Tarif Microsoft [16]. Achat par année, 3 ans au plus. Programme cumulatif : une entrée tardive fait payer les années précédentes\\
-Remplacement du pare-feu et des commutateurs & à chiffrer & Devis d'intégrateur. Renouvellement déjà prévu en 2026 [1, p.~33]\\
-\end{xltabular}
+Les coûts du plan (matériel, ERP, SOC, ESU, pare-feu) sont regroupés une seule fois dans le budget de la conclusion, avec leur statut et leur source.
 
-\textbf{Faisabilité avec trois personnes.} Ce plan est chargé pour une équipe de deux personnes en poste et un poste vacant. Nous proposons trois règles. D'abord, ne pas mener la migration Windows et le pilote ERP sur les mêmes semaines. Ensuite, confier l'ERP et le pare-feu à des intégrateurs, l'équipe SI pilotant et validant leur travail. Enfin, pourvoir le poste vacant avant le pilote ERP (M4). Les montants à chiffrer doivent être validés par la direction avant tout engagement.
+\textbf{Faisabilité avec trois personnes.} Le plan est chargé pour deux personnes en poste et un poste vacant. Trois règles : ne pas mener la migration Windows et le pilote ERP sur les mêmes semaines ; confier l'ERP et le pare-feu à des intégrateurs, l'équipe SI pilotant et validant ; pourvoir le poste vacant avant le pilote ERP (M4).
 
-\textbf{Vérifications externes (24 et 25/11/2026).} Microsoft confirme la fin du support standard de Windows 10 version 22H2 le 14 octobre 2025 [18]. Certaines éditions LTSC (versions à support long) suivent un autre calendrier. Par exemple, l'édition Entreprise LTSC 2021 reste supportée jusqu'au 12 janvier 2027 [18]. L'inventaire doit donc relever l'édition de chaque poste. Des ESU payantes existent pour une transition [16]. Pour SAP Business One 10.0, la page officielle de SAP indique une maintenance principale jusqu'au 31 décembre 2028, date \og susceptible de changer\fg{} [17]. Nous gardons l'échéance de fin 2027 donnée par le sujet. Le contrat réel doit être confirmé avec l'intégrateur. Le cycle de vie du FortiGate 200E et sa version de logiciel interne (firmware) n'ont pas pu être vérifiés sur une source officielle publique. Ils sont à contrôler sur le portail Fortinet. Nous ne citons aucune faille précise sans preuve.
+\textbf{Vérifications externes (24 et 25/11/2026).} Le support standard de Windows 10 version 22H2 a pris fin le 14 octobre 2025. Certaines éditions LTSC (support long) suivent un autre calendrier, par exemple Entreprise LTSC 2021 jusqu'au 12 janvier 2027 [18] : l'inventaire relève donc l'édition de chaque poste. Des ESU payantes permettent une transition [16]. Pour SAP Business One 10.0, SAP indique une maintenance principale jusqu'au 31 décembre 2028, date \og susceptible de changer\fg{} [17]. Nous gardons l'échéance de fin 2027 du sujet, à confirmer avec l'intégrateur. Le cycle de vie du FortiGate 200E et sa version de logiciel interne (firmware) n'ont pas pu être vérifiés sur une source officielle publique : ils sont à contrôler sur le portail Fortinet. Nous ne citons aucune faille sans preuve.
 
-Indicateurs suivis chaque mois par le comité SI : part des postes sous un système supporté (cible 100~\%), délai de correction des failles critiques, nombre d'exceptions approuvées avec une date de fin, avancement des tests de migration de l'ERP.
+Indicateurs mensuels du comité SI : part des postes sous un système supporté (cible 100~\%), délai de correction des failles critiques, exceptions approuvées avec date de fin, avancement des tests de migration de l'ERP.
 \source{[1], p.~18--19, 26--33 · [5], diap.~9--12, 21 · [9], §2.1, §4 · [16] · [17] · [18].}
 % ---------------------------------------------------------------------
 \question{9.2.3}{Protection de la propriété intellectuelle sensible (PLM/CAO)}{Le PLM Windchill héberge 120 Go de données CAO incluant des spécifications liées à l'aéronautique (A320). Quelles mesures techniques et organisationnelles (chiffrement, DLP, gestion des accès, traçabilité) recommanderiez-vous pour protéger ces données contre l'espionnage industriel, en tenant compte des exigences EN 9100/NADCAP ?}
 
-Le PLM PTC Windchill contient 120~Go de données de CAO (conception assistée par ordinateur), 2\,800 articles et 450 dossiers de définition [1, p.~21]. Les clients consultent et échangent des plans par un portail Windchill (formats STEP, IGES, PDF 3D). Le cas cite des attaques par hameçonnage ciblé visant les données techniques (p.~33). Les plans de pièces A320 doivent rester confidentiels. Ils doivent aussi rester intègres : une cote modifiée peut produire une pièce non conforme.
+Le PLM PTC Windchill contient 120~Go de données de CAO, 2\,800 articles et 450 dossiers de définition [1, p.~21]. Les clients échangent des plans par un portail Windchill (STEP, IGES, PDF 3D). Le cas cite des attaques par hameçonnage ciblé sur les données techniques (p.~33). Les plans A320 doivent rester confidentiels et intègres : une cote modifiée peut produire une pièce non conforme.
 
 \subsection*{Classer les données avant de les protéger}
 \begin{xltabular}{\linewidth}{@{}P{30mm}YY@{}}\toprule
@@ -831,12 +796,10 @@ Confidentiel client & Plans et spécifications A320, données fournies par les c
 
 \subsection*{Quelques notions simples}
 \begin{itemize}
-\item \textbf{AES} est un algorithme de chiffrement symétrique : la même clé chiffre et déchiffre [3, diap.~15]. On l'utilise pour les données stockées.
-\item \textbf{TLS} est le protocole qui chiffre les échanges sur le réseau, par exemple entre le portail et un client [3, diap.~25].
-\item Une \textbf{empreinte} (hachage) détecte la modification d'un fichier [3, diap.~21]. Mais si un attaquant peut remplacer à la fois le fichier et son empreinte, le contrôle ne sert à rien. Pour les programmes CN et les plans sensibles, il faut donc une \textbf{signature numérique}, ou une empreinte transmise par un canal de confiance.
-\item Chaque outil a son rôle. Le chiffrement protège la \emph{confidentialité}. Le hachage aide à contrôler l'\emph{intégrité}. AES-GCM est un mode de chiffrement authentifié : il protège à la fois la confidentialité et l'intégrité des données [19]. Une signature vérifiée avec une clé de confiance prouve aussi l'origine du fichier, c'est-à-dire son \emph{authenticité}.
-\item Le \textbf{DLP} (prévention des fuites de données) peut détecter, signaler ou bloquer les transferts de données sensibles non autorisés.
-\item Le \textbf{RBAC} (contrôle d'accès par rôle) donne les droits selon le rôle de la personne et le projet, pas au cas par cas [6, diap.~30].
+\item \textbf{AES} est un chiffrement symétrique (la même clé chiffre et déchiffre), utilisé pour les données stockées [3, diap.~15]. \textbf{TLS} chiffre les échanges sur le réseau, par exemple entre le portail et un client [3, diap.~25].
+\item Une \textbf{empreinte} (hachage) détecte la modification d'un fichier [3, diap.~21]. Si un attaquant peut remplacer le fichier et son empreinte, le contrôle ne sert à rien : les programmes CN et les plans sensibles demandent une \textbf{signature numérique}, ou une empreinte transmise par un canal de confiance.
+\item En résumé : le chiffrement protège la \emph{confidentialité}, le hachage contrôle l'\emph{intégrité}, AES-GCM (chiffrement authentifié) protège les deux [19], et une signature vérifiée avec une clé de confiance prouve l'origine du fichier, son \emph{authenticité}.
+\item Le \textbf{DLP} (prévention des fuites de données) détecte, signale ou bloque les transferts non autorisés de données sensibles. Le \textbf{RBAC} (contrôle d'accès par rôle) donne les droits selon le rôle et le projet [6, diap.~30].
 \end{itemize}
 
 \subsection*{Mesures techniques et organisationnelles}
@@ -844,48 +807,40 @@ Confidentiel client & Plans et spécifications A320, données fournies par les c
 \thd{Mesure} & \thd{Application à MétalTech} & \thd{Preuve ou contrôle}\\\midrule\endfirsthead
 \toprule \thd{Mesure} & \thd{Application à MétalTech} & \thd{Preuve ou contrôle}\\\midrule\endhead
 \bottomrule\endfoot
-Chiffrement au repos & BitLocker est déjà en place sur les postes et les serveurs (p.~26). Il protège contre le vol d'un disque ou d'un ordinateur. Il ne protège pas contre un utilisateur autorisé, ni contre un rançongiciel qui agit dans une session ouverte. Ajouter, si Windchill le permet, le chiffrement du coffre de fichiers et de la base (AES-256) [3, diap.~15, 39] & Configuration documentée, test de protection des données et des clés\\
-Chiffrement en transit & TLS 1.2 au minimum, TLS 1.3 de préférence, pour le portail et les échanges [3, diap.~25] & Test de configuration TLS\\
-Gestion des clés & Clés stockées séparément des données. Accès réservé à deux administrateurs. Journal des accès aux clés [3, diap.~39, 42] & Inventaire des clés, revue annuelle\\
-DLP & Alerter puis bloquer la copie de fichiers CAO vers une clé USB, une messagerie personnelle ou un cloud non autorisé. Utiliser d'abord les fonctions déjà incluses dans les licences existantes. Un outil payant ne se justifie qu'après ce premier essai & Journaux d'alertes, exceptions validées\\
-Gestion des accès & Comptes nominatifs, droits par rôle et par projet (RBAC), MFA pour tout accès distant et pour le portail, revue trimestrielle [6, diap.~6, 30, 32] & Matrice des accès, compte rendu de revue\\
-Partenaires & Accès au portail limité au projet et dans le temps. Accord de confidentialité. Filigrane sur les PDF exportés & Liste à jour des comptes externes\\
-Traçabilité & Journaux Windchill : consultations, téléchargements, modifications. Alerte sur les téléchargements massifs & Revue des alertes\\
-Conservation des journaux & Durée de conservation fixée avec la qualité et le DPO (délégué à la protection des données). Journaux copiés hors du serveur et protégés contre la modification. Lecture réservée au RSSI et à l'équipe SI & Procédure écrite, contrôle des accès aux journaux\\
-Intégrité et versions & Validation et gestion des versions dans Windchill (p.~21). Signature numérique, ou empreinte transmise par un canal de confiance, pour les programmes et les plans envoyés aux machines et aux clients [3, diap.~21] & Contrôle de signature, historique des versions\\
-Sauvegardes & Sauvegarde séparée du PLM [8, §3.4], copie hors ligne ou immuable, test de restauration avec la bonne version & Rapport de test de restauration\\
-Facteur humain & Sensibilisation à l'hameçonnage ciblé, d'abord pour le bureau d'études et les commerciaux [2, diap.~25]. Révocation des accès le jour du départ [6, diap.~35] & Taux de clic aux exercices, délai de révocation\\
+Chiffrement au repos & BitLocker, déjà en place (p.~26), protège contre le vol d'un disque ou d'un ordinateur, mais pas contre un utilisateur autorisé ni un rançongiciel actif dans une session ouverte. Ajouter, si Windchill le permet, le chiffrement du coffre de fichiers et de la base (AES-256) [3, diap.~15, 39] & Configuration documentée, test de protection des données et des clés\\
+Chiffrement en transit & TLS 1.2 au minimum, 1.3 de préférence, pour le portail et les échanges [3, diap.~25] & Test de configuration TLS\\
+Gestion des clés & Clés séparées des données, accès réservé à deux administrateurs, journal des accès [3, diap.~39, 42] & Inventaire des clés, revue annuelle\\
+DLP & Alerter puis bloquer la copie de fichiers CAO vers une clé USB, une messagerie personnelle ou un cloud non autorisé, d'abord avec les licences existantes & Journaux d'alertes, exceptions validées\\
+Gestion des accès & Comptes nominatifs, droits par rôle et par projet (RBAC), MFA pour l'accès distant et le portail, revue trimestrielle [6, diap.~6, 30, 32] & Matrice des accès, compte rendu de revue\\
+Partenaires & Accès au portail limité au projet et dans le temps, accord de confidentialité, filigrane sur les PDF exportés & Liste à jour des comptes externes\\
+Traçabilité & Journaux Windchill (consultations, téléchargements, modifications), alerte sur les téléchargements massifs & Revue des alertes\\
+Conservation des journaux & Durée fixée avec la qualité et le DPO (délégué à la protection des données). Copie hors du serveur, protégée contre la modification, lisible par le RSSI et l'équipe SI & Procédure écrite, contrôle des accès\\
+Intégrité et versions & Validation et versions dans Windchill (p.~21). Signature numérique, ou empreinte transmise par un canal de confiance, des programmes et plans envoyés aux machines et aux clients [3, diap.~21] & Contrôle de signature, historique des versions\\
+Sauvegardes & Sauvegarde séparée du PLM [8, §3.4], copie hors ligne ou immuable, test de restauration de la bonne version & Rapport de test\\
+Facteur humain & Sensibilisation à l'hameçonnage ciblé, d'abord au bureau d'études et chez les commerciaux [2, diap.~25]. Révocation des accès le jour du départ [6, diap.~35] & Taux de clic, délai de révocation\\
 \end{xltabular}
-Certaines données doivent rester secrètes longtemps. Le cours signale pour elles le risque \og stocker maintenant, déchiffrer plus tard\fg{} [3, diap.~33]. Il faut donc pouvoir changer d'algorithme plus tard, ce que l'on appelle l'agilité cryptographique [3, diap.~36].
+Pour les données qui doivent rester secrètes longtemps, le cours signale le risque \og stocker maintenant, déchiffrer plus tard\fg{} [3, diap.~33] : il faut pouvoir changer d'algorithme plus tard (agilité cryptographique) [3, diap.~36].
 
 \subsection*{Lien avec EN 9100 et NADCAP}
-EN 9100 est un référentiel de management de la qualité pour l'aéronautique. NADCAP est une accréditation des procédés spéciaux, ici les traitements thermiques [1, p.~16, 25]. Ces référentiels demandent surtout des documents maîtrisés, des versions à jour, la traçabilité des produits et des enregistrements fiables. Nos mesures les soutiennent : versions et validations dans Windchill, signature des fichiers, sauvegardes testées, traçabilité des accès. En revanche, nous n'affirmons pas qu'EN 9100 ou NADCAP imposent un algorithme de chiffrement ou un outil DLP précis. Les exigences de confidentialité viennent plutôt des contrats clients. Elles sont à vérifier.
+EN 9100 est un référentiel qualité pour l'aéronautique. NADCAP accrédite les procédés spéciaux, ici les traitements thermiques [1, p.~16, 25]. Ils demandent surtout des documents maîtrisés, des versions à jour, la traçabilité des produits et des enregistrements fiables. Nos mesures les soutiennent : versions et validations dans Windchill, signature des fichiers, sauvegardes testées, traçabilité des accès. Nous n'affirmons pas qu'EN 9100 ou NADCAP imposent un algorithme ou un outil DLP précis : les exigences de confidentialité viennent plutôt des contrats clients, à vérifier.
 
-\subsection*{Priorités}
-\begin{itemize}
-\item \textbf{M0--M1} : classer les dossiers A320, nommer les propriétaires, revoir tous les comptes du portail et supprimer les accès inutiles (responsable du bureau d'études, RSSI).
-\item \textbf{M1--M3} : MFA pour le portail et les accès distants, TLS vérifié, sauvegarde séparée testée (SI).
-\item \textbf{M3--M6} : DLP en mode alerte puis en blocage, journaux centralisés, première revue trimestrielle des accès (SI, qualité).
-\end{itemize}
+\textbf{Priorités.} M0--M1 : classer les dossiers A320, nommer les propriétaires, revoir les comptes du portail (bureau d'études, RSSI). M1--M3 : MFA pour le portail et les accès distants, TLS vérifié, sauvegarde séparée testée (SI). M3--M6 : DLP en alerte puis en blocage, journaux centralisés, première revue trimestrielle des accès (SI, qualité).
 \source{[1], p.~16, 21, 25--27, 33 · [2], diap.~25 · [3], diap.~15, 21, 25, 33, 36, 39, 42 · [6], diap.~6, 30, 32, 35 · [8], §3.4 · [19].}
 % ---------------------------------------------------------------------
 \question{9.2.4}{Réponse à incident : scénario ransomware}{En supposant un scénario de ransomware ciblant l'ERP et les serveurs de fichiers de MetalTech (PME industrielle, équipe SI de 3 personnes, absence de SOC), rédigez un plan de réponse à incident simplifié (détection, confinement, éradication, restauration via Veeam/Azure, communication) adapté aux ressources limitées de l'entreprise.}
 
 \subsection*{Hypothèses et moyens disponibles}
-Nous suivons le scénario du sujet. Un rançongiciel (logiciel qui chiffre les données et demande une rançon) touche l'ERP et les serveurs de fichiers. L'équipe SI compte 3 personnes et il n'y a pas de SOC. Dans le cas, l'équipe réelle comprend un responsable SI, un administrateur SI et un poste de développeur vacant (p.~30). Un RSSI externe à mi-temps est cité page~13. Le SOC externalisé (environ 15~k€ par an) est seulement un projet (p.~33).
+Selon le sujet, un rançongiciel (logiciel qui chiffre les données et demande une rançon) touche l'ERP et les serveurs de fichiers, avec une équipe SI de 3 personnes et sans SOC. Dans le cas, l'équipe compte un responsable SI, un administrateur SI et un poste vacant (p.~30), plus un RSSI externe à mi-temps (p.~13). Le SOC externalisé (environ 15~k€ par an) n'est qu'un projet (p.~33).
 
-Plusieurs moyens sont déjà en place [1, p.~26--27, 31]. Sophos Intercept X protège les postes et les serveurs. Il faut vérifier si la licence comprend l'EDR (détection et réponse aux menaces sur les postes). S'y ajoutent le pare-feu FortiGate, les sauvegardes Veeam (instantanés toutes les 4~h, conservés 30 jours), une réplique des serveurs sur Azure et des archives Azure Blob. L'entreprise dispose aussi de l'outil de tickets Jira, d'une cyberassurance AXA (couverture de 2~M€) et d'un DPO externe. Le PAR précise que la réplication vers Azure est asynchrone, environ toutes les 15 minutes [9, annexe B]. Attention : une réplique n'est pas une sauvegarde immuable. Si la copie Azure reste connectée, le rançongiciel peut aussi l'atteindre.
+Moyens en place [1, p.~26--27, 31] : Sophos Intercept X sur les postes et les serveurs (fonctions EDR, détection et réponse sur les postes, à vérifier dans la licence), pare-feu FortiGate, sauvegardes Veeam (instantanés toutes les 4~h, gardés 30 jours), réplique des serveurs sur Azure, archives Azure Blob, outil de tickets Jira, cyberassurance AXA (2~M€) et DPO externe. La réplication vers Azure est asynchrone, environ toutes les 15 minutes [9, annexe B]. Une réplique n'est pas une sauvegarde immuable : si elle reste connectée, le rançongiciel peut l'atteindre.
 
 \subsection*{Déclenchement : qui décide et quand}
-\begin{xltabular}{\linewidth}{@{}P{30mm}YP{44mm}@{}}\toprule
-\thd{Niveau} & \thd{Signes observés} & \thd{Décision}\\\midrule\endfirsthead
-\toprule \thd{Niveau} & \thd{Signes observés} & \thd{Décision}\\\midrule\endhead
-\bottomrule\endfoot
-1 -- Incident & Alerte EDR isolée sur un poste, fichier suspect & L'équipe SI traite et documente dans Jira\\
-2 -- Incident majeur & Plusieurs alertes, fichiers renommés ou chiffrés sur un partage, compte à privilèges suspect & Le responsable SI et le RSSI pilotent. La direction est informée\\
-3 -- Crise & ERP ou serveurs de fichiers chiffrés, note de rançon, production touchée ou vol de données probable & Le PDG active la cellule de crise, le PCA et le PAR\\
-\end{xltabular}
-\figsource{Niveaux repris du cours [7, diap.~12, 16] et adaptés à MétalTech. Dans notre scénario, le niveau 3 est atteint dès que l'ERP est chiffré. PCA : plan de continuité d'activité. PAR : plan d'assurance des reprises, la partie technique du PCA, appelée PRA dans le nom du fichier.}
+Nous reprenons les niveaux du cours [7, diap.~12, 16] :
+\begin{itemize}
+\item \textbf{Niveau 1, incident} : alerte isolée sur un poste. L'équipe SI traite et documente dans Jira.
+\item \textbf{Niveau 2, incident majeur} : plusieurs alertes, fichiers renommés ou chiffrés sur un partage, compte à privilèges suspect. Le responsable SI et le RSSI pilotent, la direction est informée.
+\item \textbf{Niveau 3, crise} : ERP ou serveurs de fichiers chiffrés, note de rançon, production touchée ou vol de données probable. Le PDG active la cellule de crise, le PCA (plan de continuité d'activité) et le PAR (plan d'assurance des reprises, partie technique du PCA, appelée PRA dans le nom du fichier). Dans notre scénario, ce niveau est atteint dès que l'ERP est chiffré.
+\end{itemize}
 \begin{figure}[htp]
 \centering
 \begin{tikzpicture}[x=0.8cm,y=0.62cm]
@@ -919,21 +874,19 @@ Plusieurs moyens sont déjà en place [1, p.~26--27, 31]. Sophos Intercept X pro
 \thd{Phase} & \thd{Actions concrètes} & \thd{Délai indicatif}\\\midrule\endfirsthead
 \toprule \thd{Phase} & \thd{Actions concrètes} & \thd{Délai indicatif}\\\midrule\endhead
 \bottomrule\endfoot
-Détection et qualification & Repérer les alertes de Sophos, les fichiers renommés ou l'ERP indisponible. Noter l'heure, les systèmes touchés et les premiers indices. Ouvrir un journal de crise sur papier ou hors du SI. Prévenir le responsable SI, le RSSI et le PDG & H0 à H+1\\
-Sécurité des personnes & En cas de danger immédiat pour une personne, la mise en sécurité passe avant tout le reste. Hors urgence, l'arrêt contrôlé des machines est décidé avec le chef d'atelier et la production & Dès H0\\
-Confinement sûr & Isoler les postes et serveurs touchés depuis la console EDR si disponible, ou en débranchant le réseau, sans les éteindre, car la mémoire contient des preuves [7, diap.~19]. Couper la liaison avec Azure, comme le prévoit le PAR [9, §7.3]. Séparer l'IT de l'OT avec les moyens actuels : règles du FortiGate et VLAN existants, avec l'équipe de l'atelier. Le pare-feu OT de 9.2.1 est une cible, pas encore un équipement en place. Désactiver les comptes suspects. Isoler le serveur Veeam & Dès H0, sans attendre le diagnostic complet\\
-Preuves & Garder les journaux FortiGate, Sophos, Active Directory et Azure. Photographier la note de rançon. Ne rien effacer, tant que cela reste compatible avec la sécurité et le confinement. Prévenir l'assureur, qui peut fournir un prestataire de réponse à incident (à vérifier dans le contrat). Préparer le dépôt de plainte & H0 à H+24\\
-Éradication & Trouver la porte d'entrée (hameçonnage, VPN, poste non à jour) et la date réelle de l'intrusion. Changer les mots de passe ne suffit pas. Il faut assainir ou reconstruire l'annuaire si nécessaire, révoquer les sessions et les jetons de connexion, et renouveler les secrets et les comptes à privilèges. Corriger la faille. Reconstruire les serveurs à partir de sources sûres [7, diap.~20] & H+4 à J+5\\
-Restauration propre & Restaurer dans une zone isolée (VLAN dédié, PAR §8.1), à partir d'une sauvegarde antérieure à l'intrusion et pas seulement au chiffrement. Analyser la sauvegarde avant la remise en service. Ne pas reconnecter Azure automatiquement, car la réplique peut contenir des données chiffrées ou des traces de l'intrusion & J+1 à J+5\\
-Validation et retour & Chaque service est validé par le métier (production, qualité, ADV) avant sa réouverture. Aucune reprise de production sans cette validation. Ressaisir les données du mode dégradé et contrôler les doublons. Surveillance renforcée pendant au moins 48~h [9, §5.3] & J+5 à J+30\\
-Communication et RETEX & Points de situation réguliers sur un canal hors SI. Notifications légales (voir 9.2.5). Retour d'expérience (RETEX) sous 10 jours [8, §7.1], puis bilan à J+30 [7, diap.~25]. Mise à jour du PCA et du PAR & Pendant toute la crise\\
+Détection et qualification & Repérer les alertes Sophos, les fichiers renommés ou l'ERP indisponible. Noter l'heure, les systèmes touchés et les indices dans un journal de crise tenu hors du SI. Prévenir le responsable SI, le RSSI et le PDG & H0 à H+1\\
+Sécurité des personnes & En cas de danger immédiat, la mise en sécurité des personnes passe avant tout. Sinon, l'arrêt contrôlé des machines est décidé avec le chef d'atelier & Dès H0\\
+Confinement sûr & Isoler les machines touchées depuis la console EDR si disponible, ou en débranchant le réseau, sans les éteindre : la mémoire contient des preuves [7, diap.~19]. Couper la liaison Azure [9, §7.3]. Séparer IT et OT avec les règles FortiGate et les VLAN existants (le pare-feu OT de 9.2.1 n'est pas encore en place). Désactiver les comptes suspects, isoler le serveur Veeam & Dès H0, sans attendre le diagnostic\\
+Preuves & Garder les journaux FortiGate, Sophos, Active Directory et Azure, photographier la note de rançon, ne rien effacer tant que la sécurité le permet. Prévenir l'assureur, qui peut fournir un prestataire (à vérifier dans le contrat). Préparer la plainte & H0 à H+24\\
+Éradication & Trouver la porte d'entrée (hameçonnage, VPN, poste non à jour) et la date réelle de l'intrusion. Changer les mots de passe ne suffit pas : assainir ou reconstruire l'annuaire, révoquer sessions et jetons, renouveler secrets et comptes à privilèges, corriger la faille, reconstruire depuis des sources sûres [7, diap.~20] & H+4 à J+5\\
+Restauration propre & Restaurer dans une zone isolée (VLAN dédié, PAR §8.1) depuis une sauvegarde antérieure à l'intrusion, pas seulement au chiffrement. L'analyser avant la remise en service. Ne pas reconnecter Azure automatiquement : la réplique peut contenir des données chiffrées ou des traces de l'intrusion & J+1 à J+5\\
+Validation et retour & Chaque service est validé par le métier (production, qualité, ADV) avant sa réouverture. Ressaisir les données du mode dégradé, contrôler les doublons. Surveillance renforcée au moins 48~h [9, §5.3] & J+5 à J+30\\
+Communication et RETEX & Points de situation sur un canal hors SI. Notifications légales (9.2.5). Retour d'expérience (RETEX) sous 10 jours [8, §7.1], bilan à J+30 [7, diap.~25], mise à jour du PCA et du PAR & Toute la crise\\
 \end{xltabular}
-Nous ne recommandons pas de payer la rançon. Le paiement ne garantit ni le déchiffrement ni la suppression des données volées.
-
-\textbf{Délais et RTO.} Les délais du tableau sont indicatifs et non testés. Une restauration propre peut prendre plusieurs jours. Elle dépasse alors le RTO de 4~h visé pour l'ERP et la production. Pendant ce temps, l'activité repose sur le mode dégradé du PCA. La direction doit faire des choix : quelles commandes servir en priorité, quels clients prévenir, faut-il sous-traiter une partie de la production.
+Nous ne recommandons pas de payer la rançon : le paiement ne garantit ni le déchiffrement ni la suppression des données volées. Une restauration propre peut durer plusieurs jours et dépasser le RTO de 4~h. L'activité repose alors sur le mode dégradé du PCA, et la direction choisit les commandes prioritaires, les clients à prévenir et la part éventuelle de sous-traitance.
 
 \subsection*{Responsabilités (RACI)}
-Une matrice RACI indique qui fait quoi [7, diap.~13]. R (réalise) désigne la personne qui fait l'action. A (approuve) désigne le seul responsable final de l'action. C (consulté) désigne une personne dont on demande l'avis. I (informé) désigne une personne tenue au courant. Chaque ligne a un seul A et au moins un R.
+La matrice RACI indique qui fait quoi [7, diap.~13] : R réalise, A approuve (seul responsable final), C est consulté, I est informé. Chaque ligne a un seul A et au moins un R.
 
 \par\noindent{\footnotesize\begin{tabularx}{\linewidth}{@{}YC{8.5mm}C{10mm}C{10.8mm}C{10mm}C{10.5mm}C{12mm}C{10mm}C{10mm}C{11.5mm}@{}}\toprule
 \thd{Action} & \thd{PDG} & \thd{Resp. SI} & \thd{Admin SI} & \thd{RSSI ext.} & \thd{Dir. prod.} & \thd{Qualité} & \thd{Dir. com.} & \thd{DPO ext.} & \thd{Presta\-taire}\\\midrule
@@ -952,7 +905,7 @@ RETEX et plan d'actions & A & R & C & R & C & C & C & C & C\\\bottomrule
 \figsource{Le directeur de crise est le PDG, avec la direction de production comme suppléance [8, §6.1]. La directrice commerciale porte la communication, comme le prévoit le PCA [8, §6.1, §7.3]. Prestataire : intégrateur ou spécialiste de la réponse à incident.}
 
 \subsection*{Continuité, reprise et écarts à traiter}
-Le PCA maintient les activités essentielles en mode dégradé. Le PAR organise la reprise technique du SI. Le RTO est la durée maximale visée avant la reprise. Le RPO est la durée maximale de données que l'on accepte de perdre [7, diap.~22].
+Le PCA maintient les activités essentielles en mode dégradé, le PAR organise la reprise technique du SI. Le RTO est la durée maximale visée avant la reprise, le RPO la durée maximale de données que l'on accepte de perdre [7, diap.~22].
 
 \begin{xltabular}{\linewidth}{@{}P{40mm}C{11mm}C{11mm}YP{33mm}@{}}\toprule
 \thd{Activité ou service} & \thd{RTO} & \thd{RPO} & \thd{Mode dégradé prévu} & \thd{Écart ou point à vérifier}\\\midrule\endfirsthead
@@ -966,46 +919,34 @@ Qualité (PCA, ACT-02) & 8 h & 4 h & Check-lists papier, PolyWorks local & Traç
 \end{xltabular}
 \figsource{Valeurs vérifiées dans les originaux [8, §4.1] et [9, §4]. Ce sont des objectifs, pas des garanties. Les documents présentent eux-mêmes plusieurs valeurs comme des estimations à valider en atelier BIA (analyse d'impact sur l'activité).}
 
-Trois points sont essentiels. D'abord, le test de mars 2026 (RTO 4~h, RPO 1~h) [1, p.~27] portait sur une bascule de secours. Il ne garantit pas ces délais après un rançongiciel. Ensuite, des instantanés toutes les 4~h ne suffisent pas, à eux seuls, à atteindre un RPO de 1~h. Il faut vérifier les journaux de transactions de la base et les sauvegardes propres à chaque application. Enfin, si la copie Azure reste connectée, le rançongiciel peut aussi l'atteindre. Nous proposons donc la règle 3-2-1 : trois copies, sur deux supports différents, dont une hors site [7, diap.~10]. L'une de ces copies doit être immuable ou hors ligne. Le PAR prévoit déjà un test de restauration par trimestre [9, §6.3].
+Trois écarts sont essentiels. Le test de mars 2026 (RTO 4~h, RPO 1~h) [1, p.~27] portait sur une bascule de secours : il ne garantit pas ces délais après un rançongiciel. Des instantanés toutes les 4~h ne suffisent pas, seuls, pour un RPO de 1~h : il faut vérifier les journaux de transactions de la base et les sauvegardes de chaque application. Enfin, une copie Azure connectée peut être atteinte. Nous proposons la règle 3-2-1 : trois copies, sur deux supports, dont une hors site [7, diap.~10], et l'une immuable ou hors ligne. Le PAR prévoit déjà un test de restauration par trimestre [9, §6.3].
 
 \subsection*{Ordre de reprise proposé}
 \begin{enumerate}
-\item Préparer une zone propre et isolée. Vérifier le serveur de sauvegarde et choisir un point de restauration sain.
-\item Rétablir les fondations : réseau et pare-feu, puis annuaire (Active Directory et Entra ID, ancien Azure AD). L'annuaire est assaini ou reconstruit, les sessions sont révoquées et les comptes à privilèges sont renouvelés.
-\item Restaurer la base HANA, l'ERP et la plateforme d'intégration (services P1 : 4~h et 1~h). L'ADV et la production valident.
-\item Restaurer les fichiers critiques, en commençant par les dossiers de la production et de la qualité.
-\item Reconnecter le MES, puis l'atelier, après contrôle de la cohérence des OF et des lots par la qualité.
-\item Restaurer et valider le PLM, ou un cache de plans autorisé, ainsi que la traçabilité qualité. Vérifier l'intégrité des plans (versions validées, signatures ou empreintes). Aucune nouvelle série qui dépend de ces plans n'est lancée avant cette vérification.
-\item Rétablir ensuite les services de priorité P2 et P3.
+\item Préparer une zone propre et isolée, vérifier le serveur de sauvegarde, choisir un point de restauration sain.
+\item Rétablir réseau et pare-feu, puis l'annuaire (Active Directory et Entra ID, ancien Azure AD) : assaini ou reconstruit, sessions révoquées, comptes à privilèges renouvelés.
+\item Restaurer la base HANA, l'ERP et la plateforme d'intégration (services P1 : 4~h et 1~h), validés par l'ADV et la production.
+\item Restaurer les fichiers critiques, d'abord ceux de la production et de la qualité.
+\item Reconnecter le MES, puis l'atelier, après contrôle des OF et des lots par la qualité.
+\item Restaurer et valider le PLM (ou un cache de plans autorisé) et la traçabilité qualité. Vérifier l'intégrité des plans (versions validées, signatures ou empreintes) avant toute nouvelle série qui en dépend.
+\item Rétablir ensuite les services P2 et P3.
 \end{enumerate}
-Pour les séries déjà lancées, un mode dégradé reste possible à trois conditions. Le programme et le plan sont validés et disponibles sur place. Les contrôles qualité peuvent être faits et enregistrés. Les fonctions de sécurité des machines restent opérationnelles.
+Pour les séries déjà lancées, le mode dégradé reste possible si le programme et le plan validés sont sur place, si les contrôles qualité peuvent être faits et enregistrés, et si les fonctions de sécurité des machines restent opérationnelles.
 
-\subsection*{Communication et canal hors SI}
-Le PCA prévoit un canal Teams pour la cellule de crise [8, §7.1]. Or Teams dépend des comptes de l'entreprise, qui peuvent être compromis. Nous proposons un canal de secours préparé à l'avance : liste papier des contacts (annexe B du PCA), téléphones mobiles et messagerie externe [7, diap.~10]. Une seule personne parle à l'extérieur. Les messages sont factuels et datés [7, diap.~27]. La matrice de communication du PCA prévoit de prévenir les clients clés dans les 4~h si l'incident les touche (12 clients aéronautiques et 20 principaux clients automobiles), et l'assureur dans les 24~h [8, §7.3]. Ce sont des délais internes au PCA, pas des délais légaux.
+\subsection*{Communication et préparation}
+Le PCA prévoit un canal Teams pour la cellule de crise [8, §7.1], mais Teams dépend de comptes qui peuvent être compromis. Nous proposons un canal de secours préparé : liste papier des contacts (annexe B du PCA), téléphones mobiles, messagerie externe [7, diap.~10]. Une seule personne parle à l'extérieur, avec des messages factuels et datés [7, diap.~27]. Le PCA prévoit de prévenir les clients clés touchés dans les 4~h (12 clients aéronautiques et 20 principaux clients automobiles) et l'assureur dans les 24~h [8, §7.3] : ce sont des délais internes, pas des délais légaux.
 
-\subsection*{Se préparer dès maintenant, avec peu de moyens}
-\begin{itemize}
-\item Imprimer la fiche réflexe rançongiciel (FR-03 du PCA) et la liste des contacts, puis les ranger au poste de garde.
-\item Créer et tester des comptes d'urgence et une copie de sauvegarde hors ligne.
-\item Vérifier dans le contrat AXA l'assistance à la réponse à incident. Prévoir un prestataire de secours.
-\item Faire un exercice de crise sur table par an et un test de restauration par trimestre [8, §8.1].
-\item Lancer le SOC externalisé (environ 15~k€ par an) pour surveiller les alertes la nuit et le week-end.
-\end{itemize}
+À faire dès maintenant, avec peu de moyens : imprimer la fiche réflexe rançongiciel (FR-03 du PCA) et la liste des contacts, créer et tester des comptes d'urgence et une copie hors ligne, vérifier l'assistance prévue par le contrat AXA, faire un exercice de crise par an et un test de restauration par trimestre [8, §8.1]. Le SOC externalisé surveillerait les alertes la nuit et le week-end (budget en conclusion).
 \source{[1], p.~13, 26--27, 30--33 · [7], diap.~10, 12--13, 16, 18--20, 22, 25, 27 · [8], §4.1, §6.1, §7.1--7.3, §8.1 · [9], §4, §5.3, §6, §7.3, §8.1, annexe B.}
 % ---------------------------------------------------------------------
 \question{9.2.5}{Conformité réglementaire (RGPD / NIS2)}{MetalTech est qualifiée d'\og entité importante\fg{} au sens de la directive NIS2 et traite des données personnelles soumises au RGPD. Quelles obligations concrètes (notification d'incident, mesures de sécurité minimales, gouvernance) découlent de ce double cadre réglementaire, et quelles actions prioritaires proposeriez-vous pour atteindre la certification ISO 27001 visée au T4 2026 ?}
 
 \subsection*{Cadre retenu et état de la transposition}
-Nous suivons l'hypothèse du sujet : MétalTech est une \og entité importante\fg{} au sens de la directive NIS2. Dans le cas, ce statut est seulement \og en cours d'évaluation\fg{} (p.~27) ou \og probable\fg{} (p.~34). En réalité, il dépend du secteur d'activité (code NACE) et de la taille de l'entreprise. L'annexe II de la directive vise par exemple la construction automobile et les autres matériels de transport, c'est-à-dire les divisions 29 et 30 de la NACE [10]. Une pièce métallique peut relever d'une autre division. Ce point est à vérifier.
+Nous suivons l'hypothèse du sujet : MétalTech est une \og entité importante\fg{} au sens de NIS2. Le cas dit ce statut \og en cours d'évaluation\fg{} (p.~27) ou \og probable\fg{} (p.~34). Il dépend en réalité du secteur (code NACE) et de la taille : l'annexe II de la directive vise par exemple la construction automobile et les autres matériels de transport (divisions 29 et 30 de la NACE) [10]. Une pièce métallique peut relever d'une autre division : à vérifier.
 
-Il faut distinguer quatre sources.
-\begin{itemize}
-\item La \textbf{directive NIS2} (UE) 2022/2555 fixe des exigences minimales aux États [10].
-\item La \textbf{loi française de transposition} fixera les obligations réellement applicables en France.
-\item Le \textbf{RGPD} (UE) 2016/679 protège les données personnelles. Il s'applique directement [11].
-\item Les \textbf{recommandations de l'ANSSI} (Agence nationale de la sécurité des systèmes d'information) sont utiles, mais ce ne sont pas des obligations légales [13].
-\end{itemize}
-\textbf{Vérification au 25 novembre 2026.} L'Assemblée nationale a adopté en première lecture, le 17 novembre 2026, le projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité [14]. Elle a modifié le texte adopté par le Sénat le 12 mars 2025. La procédure accélérée est engagée et le dossier législatif ne mentionne aucune étape après le 17 novembre (dernière mise à jour le 18/11/2026) [14]. Le texte n'est donc pas encore promulgué. Le site MesServicesCyber de l'ANSSI indique que la transposition est en cours. Il propose déjà un service de pré-enregistrement des entités et le référentiel ReCyF [13]. Pour MétalTech, le pré-enregistrement est une démarche préparatoire utile, pas encore une obligation légale. Le support de cours présente la \og loi n°~2025-379\fg{} comme loi de transposition [2, diap.~28, 30]. Selon Légifrance, cette loi du 28 avril 2025 porte sur la sûreté dans les transports [15]. Nous ne la retenons donc pas. L'état de la loi est à recontrôler juste avant la remise.
+Quatre sources sont à distinguer : la \textbf{directive NIS2} (UE) 2022/2555, qui fixe des exigences minimales aux États [10] ; la \textbf{loi française de transposition}, qui fixera les obligations applicables en France ; le \textbf{RGPD} (UE) 2016/679, d'application directe [11] ; les \textbf{recommandations de l'ANSSI} (Agence nationale de la sécurité des systèmes d'information), utiles mais non obligatoires [13].
+
+\textbf{Vérification au 25 novembre 2026.} L'Assemblée nationale a adopté en première lecture, le 17 novembre 2026, le projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité, en modifiant le texte voté par le Sénat le 12 mars 2025. La procédure accélérée est engagée et le dossier ne mentionne aucune étape après le 17 novembre (mise à jour du 18/11/2026) [14] : le texte n'est pas promulgué. MesServicesCyber (ANSSI) indique une transposition en cours, avec un pré-enregistrement des entités et le référentiel ReCyF [13] : une démarche utile, pas encore obligatoire. Le cours présente la \og loi n°~2025-379\fg{} comme loi de transposition [2, diap.~28, 30], mais selon Légifrance, cette loi du 28 avril 2025 porte sur la sûreté dans les transports [15]. L'état de la loi est à recontrôler le jour de la remise.
 
 \subsection*{Obligations concrètes : NIS2 et RGPD}
 \begin{xltabular}{\linewidth}{@{}P{22mm}YY@{}}\toprule
@@ -1040,27 +981,15 @@ Sanctions & Pour une entité importante qui viole l'art.~21 ou 23, chaque État 
 \end{figure}
 
 \subsection*{Ce que cela demande à MétalTech}
-\begin{xltabular}{\linewidth}{@{}P{55mm}Y@{}}\toprule
-\thd{Exigence (NIS2 art.~21 ou RGPD)} & \thd{Réponse déjà proposée dans ce rapport}\\\midrule\endfirsthead
-\toprule \thd{Exigence (NIS2 art.~21 ou RGPD)} & \thd{Réponse déjà proposée dans ce rapport}\\\midrule\endhead
-\bottomrule\endfoot
-Analyse des risques, efficacité des mesures & Appréciation ISO 27005 et revues du risque résiduel (9.2.2)\\
-Gestion des incidents, continuité, sauvegardes & Plan contre le rançongiciel, ordre de reprise, règle 3-2-1 et tests (9.2.4)\\
-Chaîne d'approvisionnement & Accès des prestataires par le bastion, clauses de sécurité dans les contrats (9.2.1, 9.2.6)\\
-Maintenance et vulnérabilités & Plan de remédiation sur 18 mois (9.2.2)\\
-Cryptographie, contrôle d'accès, actifs & Classification, chiffrement, signature, droits par rôle (9.2.3)\\
-MFA et communications de secours & MFA pour les accès distants (9.2.6), canal hors SI (9.2.4)\\
-Formation de la direction et des salariés & Formation des dirigeants (art.~20). Exercices d'hameçonnage, avec la cible du cours de moins de 5~\% de clics [2, diap.~25]\\
-Notification RGPD et registre & Procédure commune DPO--RSSI. Registre des violations tenu par l'entreprise, avec l'aide du DPO\\
-\end{xltabular}
+Les mesures de l'article~21 sont déjà traitées dans ce rapport : analyse des risques et efficacité des mesures (9.2.2), incidents, continuité et sauvegardes (9.2.4), chaîne d'approvisionnement avec l'accès des prestataires par le bastion et des clauses de sécurité dans les contrats (9.2.1, 9.2.6), vulnérabilités (plan sur 18 mois, 9.2.2), cryptographie, accès et actifs (9.2.3), MFA et communications de secours (9.2.6, 9.2.4). Il reste à ajouter la formation des dirigeants (art.~20), des exercices d'hameçonnage avec la cible du cours de moins de 5~\% de clics [2, diap.~25], et une procédure commune DPO--RSSI de notification. Le registre des violations est tenu par l'entreprise, avec l'aide du DPO.
 
 \subsection*{Actions prioritaires vers la certification ISO 27001}
-ISO/IEC 27001{:}2022 fixe les exigences d'un SMSI (système de management de la sécurité de l'information). ISO 27002 détaille 93 mesures en 4 thèmes [5, diap.~20]. La certification ne prouve pas à elle seule la conformité au RGPD ou à NIS2. Elle fournit cependant une grande partie des preuves attendues.
+ISO/IEC 27001{:}2022 fixe les exigences d'un SMSI (système de management de la sécurité de l'information). ISO 27002 détaille 93 mesures en 4 thèmes [5, diap.~20]. La certification ne prouve pas seule la conformité au RGPD ou à NIS2, mais elle fournit une grande partie des preuves.
 
-Le sujet fixe l'objectif d'une certification au T4 2026. Le cas parle aussi d'un audit prévu à cette date (p.~27), mais sa feuille de route vise la certification en 2028 (p.~35). Un auditeur attend un SMSI qui fonctionne déjà, avec au moins un audit interne et une revue de direction. Nous proposons donc deux scénarios.
+Le sujet vise une certification au T4 2026. Le cas cite un audit à cette date (p.~27), mais sa feuille de route vise 2028 (p.~35). Un auditeur attend un SMSI qui fonctionne déjà, avec au moins un audit interne et une revue de direction. D'où deux scénarios :
 \begin{itemize}
-\item \textbf{Scénario A, SMSI déjà mature.} Si les preuves des étapes 1 à 7 du tableau existent fin 2026, l'audit de certification du T4 2026 reste possible.
-\item \textbf{Scénario B, maturité insuffisante.} La fin 2026 sert à un pré-audit, c'est-à-dire un diagnostic des écarts par un regard extérieur. La certification suit ensuite le calendrier conditionnel ci-dessous, et au plus tard l'horizon 2028 de la feuille de route.
+\item \textbf{Scénario A, SMSI déjà mature} : si les preuves des étapes 1 à 7 du tableau existent fin 2026, l'audit du T4 2026 reste possible.
+\item \textbf{Scénario B, maturité insuffisante} : fin 2026 sert à un pré-audit (diagnostic des écarts par un regard extérieur), puis la certification suit le calendrier ci-dessous, au plus tard à l'horizon 2028.
 \end{itemize}
 
 \begin{xltabular}{\linewidth}{@{}C{12.5mm}YP{30mm}P{27mm}@{}}\toprule
@@ -1082,21 +1011,21 @@ Nous ne promettons pas la certification : elle dépend des preuves réunies. Le 
 \question{9.2.6}{Sécurisation des accès distants et VPN}{L'entreprise utilise un VPN SSL Fortinet et dispose d'un VLAN invités, dans un contexte hybride avec le cloud Azure. Décrivez les risques associés à cette architecture d'accès distant (phishing, vol de credentials, mouvement latéral) et proposez une stratégie d'authentification renforcée (MFA, Zero Trust, filtrage par rôle) pour sécuriser les connexions des collaborateurs et prestataires externes.}
 
 \subsection*{Situation et risques}
-MétalTech utilise un VPN SSL Fortinet pour 3 utilisateurs réguliers [1, p.~26]. Un VPN (réseau privé virtuel) crée un tunnel chiffré entre un poste distant et le réseau de l'entreprise. L'entreprise a aussi un VLAN invités et un environnement hybride : Active Directory sur site et Azure AD dans le cloud (p.~26, 28). Azure AD s'appelle aujourd'hui Microsoft Entra ID. Le MFA n'est cité que pour les \og accès sensibles\fg{} (p.~26). Les prestataires SAP et MES assurent le support de niveau 2 (p.~31). Ils ont donc besoin d'accès à distance. La gestion de tous ces accès relève de l'IAM, la gestion des identités et des accès [6, diap.~2--4].
+MétalTech utilise un VPN SSL Fortinet pour 3 utilisateurs réguliers [1, p.~26]. Un VPN (réseau privé virtuel) crée un tunnel chiffré entre un poste distant et le réseau de l'entreprise. L'entreprise a aussi un VLAN invités et un annuaire hybride : Active Directory sur site et Azure AD, aujourd'hui Microsoft Entra ID, dans le cloud (p.~26, 28). Le MFA n'est cité que pour les \og accès sensibles\fg{} (p.~26). Les prestataires SAP et MES assurent le support de niveau 2 (p.~31) et ont besoin d'accès à distance. Tous ces accès relèvent de l'IAM, la gestion des identités et des accès [6, diap.~2--4].
 
 \begin{xltabular}{\linewidth}{@{}P{32mm}YP{40mm}@{}}\toprule
 \thd{Risque} & \thd{Scénario chez MétalTech} & \thd{Effet}\\\midrule\endfirsthead
 \toprule \thd{Risque} & \thd{Scénario chez MétalTech} & \thd{Effet}\\\midrule\endhead
 \bottomrule\endfoot
-Hameçonnage & Un faux portail VPN ou Microsoft récupère l'identifiant d'un commercial ou d'un prestataire & Accès au réseau avec un compte valide\\
-Vol d'identifiants & Mot de passe réutilisé ou volé, sans MFA sur le VPN & Connexion d'un attaquant, invisible au départ\\
-Mouvement latéral & Si le VPN ouvre un segment entier au lieu d'une application, un compte volé peut aller plus loin. Le risque dépend du filtrage et des droits [4, diap.~56] & Propagation vers les serveurs, puis vers l'atelier\\
-Faille du VPN & Boîtier non mis à jour et exposé à Internet (voir 9.2.2) & Contournement de l'authentification\\
-Comptes de prestataires permanents & Comptes partagés ou jamais supprimés & Accès après la fin de la mission\\
-Annuaire hybride & Une compromission de l'annuaire local peut se propager au cloud, ou l'inverse & Perte de contrôle des identités\\
-VLAN invités & Mauvaise isolation entre invités ou vers le réseau interne & Point d'entrée pour un visiteur malveillant\\
+Hameçonnage & Un faux portail VPN ou Microsoft vole l'identifiant d'un commercial ou d'un prestataire & Accès avec un compte valide\\
+Vol d'identifiants & Mot de passe réutilisé ou volé, sans MFA sur le VPN & Connexion invisible au départ\\
+Mouvement latéral & Si le VPN ouvre un segment entier, un compte volé va plus loin, selon le filtrage et les droits [4, diap.~56] & Propagation vers les serveurs, puis l'atelier\\
+Faille du VPN & Boîtier non mis à jour et exposé à Internet (9.2.2) & Authentification contournée\\
+Comptes de prestataires permanents & Comptes partagés ou jamais supprimés & Accès après la mission\\
+Annuaire hybride & Compromission de l'annuaire local propagée au cloud, ou l'inverse & Perte de contrôle des identités\\
+VLAN invités & Mauvaise isolation entre invités ou vers le réseau interne & Entrée d'un visiteur malveillant\\
 \end{xltabular}
-Un VPN protège le tunnel. Il ne prouve pas que l'utilisateur est légitime ni que son poste est sain. Le cours le résume ainsi : \og le VPN ne sécurise pas un poste compromis\fg{} [4, diap.~50].
+Un VPN protège le tunnel, mais il ne prouve ni que l'utilisateur est légitime ni que son poste est sain : \og le VPN ne sécurise pas un poste compromis\fg{} [4, diap.~50].
 
 \subsection*{Stratégie proposée : vérifier chaque accès}
 \begin{figure}[htp]
@@ -1131,9 +1060,9 @@ Un VPN protège le tunnel. Il ne prouve pas que l'utilisateur est légitime ni q
 \figsource{Proposition du groupe, d'après [4, diap.~50, 54--57] et [6, diap.~30--37]. ZTNA : accès réseau Zero Trust, application par application.}
 \end{figure}
 
-\textbf{VPN ou Zero Trust ?} Avec un VPN classique, l'utilisateur connecté reçoit souvent un accès large. L'étendue réelle de cet accès dépend du filtrage et des droits configurés. Le modèle Zero Trust ne fait jamais confiance par défaut. Il vérifie l'identité, le poste et le contexte à chaque accès. Les droits sont limités aux ressources nécessaires [4, diap.~55--56] [2, diap.~13]. Le ZTNA applique ce principe par application. Pour une PME, nous proposons une transition : renforcer le VPN existant, puis tester le ZTNA sur une application.
+\textbf{VPN ou Zero Trust ?} Avec un VPN classique, l'utilisateur connecté reçoit souvent un accès large, selon le filtrage et les droits configurés. Le modèle Zero Trust ne fait jamais confiance par défaut : il vérifie l'identité, le poste et le contexte à chaque accès, et limite les droits aux ressources nécessaires [4, diap.~55--56] [2, diap.~13]. Le ZTNA applique ce principe application par application. Pour une PME, nous proposons une transition : renforcer le VPN existant, puis tester le ZTNA sur une application.
 
-\textbf{Prérequis à vérifier.} L'accès conditionnel d'Entra ID demande des licences adaptées. Le contrôle de l'état des postes demande un outil de gestion des appareils (MDM). L'intégration du VPN Fortinet avec Entra ID doit être testée. SAML est un protocole qui permet à un service de vérifier une identité auprès d'un autre. Le cas ne dit pas si ces licences et ces outils sont déjà disponibles. Nous ne les considérons donc pas comme acquis.
+\textbf{Prérequis à vérifier.} L'accès conditionnel d'Entra ID demande des licences adaptées, et le contrôle de l'état des postes un outil de gestion des appareils (MDM). L'intégration du VPN Fortinet avec Entra ID doit être testée, par exemple avec SAML, un protocole qui permet à un service de vérifier une identité auprès d'un autre. Le cas ne dit pas si ces licences et outils existent : nous ne les considérons pas comme acquis.
 
 \subsection*{Filtrage par rôle}
 \begin{xltabular}{\linewidth}{@{}P{34mm}YP{42mm}@{}}\toprule
@@ -1155,35 +1084,30 @@ Le PAM (gestion des accès à privilèges) protège les comptes qui ont des droi
 \thd{Mesure} & \thd{Mise en place} & \thd{Vérification}\\\midrule\endfirsthead
 \toprule \thd{Mesure} & \thd{Mise en place} & \thd{Vérification}\\\midrule\endhead
 \bottomrule\endfoot
-MFA pour tous les accès distants & Clés FIDO2 ou clés d'accès (passkeys) de préférence, si le VPN et les applications sont compatibles : ces méthodes résistent à l'hameçonnage. Application d'authentification à défaut. Pas de SMS seul. Procédure de récupération sécurisée [6, diap.~6--7] & 100~\% des comptes distants avec MFA\\
-Accès conditionnel & Règles Entra ID : poste conforme, pays autorisés, blocage des connexions à risque. Sous réserve des licences & Rapport des connexions refusées\\
+MFA pour tous les accès distants & Clés FIDO2 ou clés d'accès (passkeys), qui résistent à l'hameçonnage, si le VPN et les applications sont compatibles. Sinon, application d'authentification. Pas de SMS seul. Récupération sécurisée [6, diap.~6--7] & 100~\% des comptes distants avec MFA\\
+Accès conditionnel & Règles Entra ID : poste conforme, pays autorisés, blocage des connexions à risque, sous réserve des licences & Rapport des connexions refusées\\
 Moindre privilège & Groupes par rôle, refus par défaut, revue trimestrielle [6, diap.~30, 32] & Compte rendu de revue\\
-Comptes de prestataires & Nominatifs et temporaires. Demandés par un responsable métier. Supprimés à la fin de la mission [6, diap.~35] & Aucun compte de prestataire sans date de fin\\
+Comptes de prestataires & Nominatifs, temporaires, demandés par un responsable métier, supprimés en fin de mission [6, diap.~35] & Aucun compte sans date de fin\\
 PAM et bastion & Coffre de mots de passe, accès accordé au moment du besoin, sessions enregistrées [6, diap.~36] & Sessions consultables\\
-VPN à jour & Firmware FortiGate corrigé. Portail VPN exposé seulement si nécessaire & Version vérifiée chaque mois\\
-Révocation & Au départ ou à la fin d'une mission, désactivation le jour même et sessions coupées & Délai de révocation inférieur à 24~h\\
+VPN à jour & Firmware FortiGate corrigé, portail VPN exposé seulement si nécessaire & Version vérifiée chaque mois\\
+Révocation & Désactivation le jour du départ ou de la fin de mission, sessions coupées & Moins de 24~h\\
 \end{xltabular}
 
 \subsection*{Plan et tests}
+\textbf{M0--M1} : MFA sur le VPN pour tous, nettoyage des comptes distants et des comptes de prestataires (SI). \textbf{M1--M3} : accès conditionnel si les licences le permettent, bastion pour les prestataires, journaux centralisés (SI, RSSI). \textbf{M3--M6} : pilote ZTNA sur une application, par exemple l'ERP pour les commerciaux, puis décision (SI, direction).
+
+Les tests vérifient, pour chaque profil, les accès autorisés et les accès refusés :
 \begin{itemize}
-\item \textbf{M0--M1} : MFA sur le VPN pour tous, inventaire et nettoyage des comptes distants et des comptes de prestataires (SI).
-\item \textbf{M1--M3} : accès conditionnel si les licences le permettent, bastion pour les prestataires, journaux centralisés (SI, RSSI).
-\item \textbf{M3--M6} : pilote ZTNA sur une application, par exemple l'ERP pour les commerciaux, puis décision d'extension (SI, direction).
-\end{itemize}
-Les tests portent sur les accès autorisés et sur les accès refusés, pour chaque profil.
-\begin{itemize}
-\item Un salarié atteint ses applications, mais pas les consoles d'administration.
-\item Un administrateur passe obligatoirement par le bastion.
-\item Un prestataire n'atteint que son serveur. Son compte expiré est refusé.
-\item Un poste non conforme est bloqué si le contrôle de l'état des postes est disponible et configuré.
-\item Un invité ne voit aucune adresse interne.
+\item un salarié atteint ses applications, mais pas les consoles d'administration ; un administrateur passe obligatoirement par le bastion ;
+\item un prestataire n'atteint que son serveur, et son compte expiré est refusé ;
+\item un poste non conforme est bloqué, si le contrôle de l'état des postes est disponible ; un invité ne voit aucune adresse interne.
 \end{itemize}
 Chaque refus doit apparaître dans les journaux.
 \source{[1], p.~26--28, 31 · [2], diap.~13 · [4], diap.~50--51, 54--57 · [6], diap.~2--7, 30--37.}
 % =====================================================================
 \section*{Conclusion et synthèse des priorités}
 \addcontentsline{toc}{section}{Conclusion et synthèse des priorités}
-Notre analyse montre que les processus de MétalTech dépendent fortement de son SI. L'ERP, le MES, le PLM et les données qualité servent à fabriquer, à tracer et à livrer. La sécurité ne concerne donc pas seulement l'informatique. Elle concerne aussi l'atelier, les achats, la qualité, le commercial et la direction. Nous proposons un plan progressif. Il faut d'abord réduire ce qui peut arrêter la production ou exposer les plans des clients. Il faut ensuite améliorer la performance.
+Les processus de MétalTech dépendent fortement de son SI : l'ERP, le MES, le PLM et les données qualité servent à fabriquer, à tracer et à livrer. La sécurité concerne donc aussi l'atelier, les achats, la qualité, le commercial et la direction. Notre plan est progressif : réduire d'abord ce qui peut arrêter la production ou exposer les plans des clients, puis améliorer la performance.
 
 \begin{xltabular}{\linewidth}{@{}C{15mm}YP{34mm}P{26mm}@{}}\toprule
 \thd{Priorité} & \thd{Action} & \thd{Pilote} & \thd{Échéance}\\\midrule\endfirsthead
@@ -1201,7 +1125,7 @@ P2 & Deuxième source pour le titane, MRP fiabilisé & Achats, qualité & 3--12 
 \end{xltabular}
 
 \subsection*{Budget par priorité}
-Le cas demande une cohérence entre investissement, financement et rentabilité [1, p.~42]. Nous distinguons donc les coûts connus, les estimations et les devis à obtenir. Nous n'inventons ni gain ni financement.
+Le cas demande une cohérence entre investissement, financement et rentabilité [1, p.~42]. Nous distinguons coûts connus, estimations et devis à obtenir, sans inventer ni gain ni financement. Les montants annuels et pluriannuels ne sont pas additionnés.
 
 \begin{xltabular}{\linewidth}{@{}C{15mm}YP{38mm}P{40mm}@{}}\toprule
 \thd{Priorité} & \thd{Poste} & \thd{Montant} & \thd{Statut}\\\midrule\endfirsthead
@@ -1209,7 +1133,8 @@ Le cas demande une cohérence entre investissement, financement et rentabilité 
 \bottomrule\endfoot
 P1 & SOC externalisé & environ 15~k€ par an & Coût donné par le cas, projet [1, p.~33]\\
 P1 & Renouvellement du matériel (postes, réseau) & 25~k€ par an & Budget du cas [1, p.~33]\\
-P1 & ESU Windows 10, pour les exceptions & 61, puis 122 et 244~USD par poste (ans 1 à 3) & Microsoft [16]. Programme cumulatif\\
+P1 & ESU Windows 10, pour les exceptions seulement & 61~USD par poste la 1\textsuperscript{re} année, prix doublé chaque année (122 puis 244~USD) & Microsoft [16]. Achat par année, 3 ans au plus. Programme cumulatif : une entrée tardive fait payer les années précédentes\\
+P1 & Remplacement du pare-feu et des commutateurs & à chiffrer & Devis d'intégrateur. Renouvellement prévu en 2026 [1, p.~33]\\
 P1 & Pare-feu OT, bastion, clés FIDO2 & à chiffrer & Devis à obtenir\\
 P1 & Assistance à la réponse à incident & à vérifier & Contrat AXA, sinon devis\\
 P1 & Projet ERP & 350 à 500~k€ sur 3 ans & Estimation du cas [1, p.~33]\\
@@ -1219,11 +1144,11 @@ P2 & Qualification d'une deuxième source de titane & à estimer & Audit qualit�
 P2 & DLP, accès conditionnel, ZTNA & à vérifier & Selon les licences existantes\\
 \end{xltabular}
 
-\textbf{Financement.} Le budget de sécurité de 28~k€ par an est déjà inclus dans le budget SI de 462~k€. Nous ne connaissons pas la part encore disponible. Il faut vérifier les dépenses déjà engagées (licences, audits, assurance) avant d'ajouter de nouveaux coûts. Toute nouvelle dépense doit être votée par la direction. Le cas annonce pour 2025 une capacité d'autofinancement de 1,65~M€ et une trésorerie nette de 2,85~M€ [1, p.~11]. Plusieurs tableaux financiers du cas sont toutefois incohérents (annexe A). Il faut les rapprocher avec la direction financière avant tout engagement.
+\textbf{Financement.} Les 28~k€ annuels de sécurité sont inclus dans les 462~k€ du budget SI, et la part encore libre n'est pas connue : il faut vérifier les dépenses engagées (licences, audits, assurance) avant d'en ajouter. Toute nouvelle dépense est votée par la direction. Le cas annonce pour 2025 une capacité d'autofinancement de 1,65~M€ et une trésorerie nette de 2,85~M€ [1, p.~11], mais plusieurs tableaux financiers sont incohérents (annexe A) : ils sont à rapprocher avec la direction financière avant tout engagement.
 
-\textbf{Rentabilité.} Nous ne promettons pas de retour sur investissement chiffré. Ces dépenses réduisent surtout le risque d'un arrêt long. Le coût réel d'un tel arrêt dépend de la marge perdue, des pénalités et des heures de rattrapage. La cyberassurance (2~M€) ne remplace pas la prévention.
+\textbf{Rentabilité.} Nous ne promettons pas de retour sur investissement chiffré. Ces dépenses réduisent surtout le risque d'un arrêt long, dont le coût dépend de la marge perdue, des pénalités et du rattrapage. La cyberassurance (2~M€) ne remplace pas la prévention.
 
-Chaque action doit avoir un responsable, une date, un indicateur et une preuve. Exemples de preuves : rapport de restauration, test de segmentation, revue des droits, tableau de bord du TRS, suivi des devis. Les risques restants sont présentés à la direction pour décision. Une amélioration progressive et mesurée est plus réaliste qu'un changement complet du SI en une fois. La priorité reste de protéger la production, la qualité des pièces et la confiance des clients.
+Chaque action a un responsable, une date, un indicateur et une preuve : rapport de restauration, test de segmentation, revue des droits, tableau de bord du TRS, suivi des devis. Les risques restants sont présentés à la direction pour décision. Une amélioration progressive et mesurée est plus réaliste qu'un changement complet du SI en une fois, avec une priorité : protéger la production, la qualité des pièces et la confiance des clients.
 \source{[1], p.~11, 27, 32--35, 42 · [2] · [5] · [7] à [9] · [16].}
 
 % =====================================================================
@@ -1238,7 +1163,6 @@ Le cas recommande de faire des hypothèses explicites quand des informations man
 ERP & SAP Business One déployé en 2019 (p.~19). Version actuelle : 10.0. Date de mise à niveau non précisée. & SAP S/4HANA (p.~6, 7, 12, 40). Nouvel ERP en 2020 (p.~4) & SAP Business One 10.0. S/4HANA est la cible de migration (p.~33)\\
 CRM & Dynamics 365 Sales (p.~17, 22) & Salesforce (p.~7, 35, 40) & Dynamics 365\\
 CAO et PLM & Windchill et Creo (p.~17, 21) & Siemens NX (p.~6, 40) & Windchill pour le PLM\\
-WMS & SAP WM et Easy WMS (p.~10) & \og WMS (sage)\fg{} (p.~17). Sage X3 [9, §2.1] & Non tranché, sans effet sur nos réponses\\
 MES & Logiciel en ligne, SaaS (p.~20, 30 et [9, §2.1]) & Sur site (p.~28) & Hébergement à confirmer. Connecteurs locaux dans tous les cas\\
 CA 2025 & 18,4~M€ (p.~4, 11, 36) & 13,2~M€ (p.~32) & 18,4~M€. Budget SI = 2,51~\% du CA\\
 Bilan 2025 & Total de l'actif : 13\,300~k€ (p.~11) & Somme des lignes du passif : 11\,300~k€ (p.~11) & Bilan déséquilibré. Pas de calcul financier fin sans vérification\\
@@ -1249,9 +1173,8 @@ Postes de travail & 45 postes Windows 11 Pro et 15 portables (p.~28, 30) & Windo
 Machines de mesure & 1 machine Zeiss listée (p.~6) & 3 CMM connectées (p.~20, 28) & 3 CMM, selon les données d'intégration\\
 ISO 27001 & Audit prévu au T4 2026 (p.~27, 34) & Certification en 2028 (p.~35) & T4 2026 est un objectif, pas un acquis\\
 NIS2 & Évaluation en cours (p.~27). \og Probable\fg{} (p.~34) & Entité importante (énoncé 9.2.5) & Hypothèse du sujet\\
-ISO 9001 & Acquise en 2010 (historique, p.~4) & Depuis 2012 (p.~4, 16) & Sans effet sur nos réponses\\
 NADCAP & Prochain audit en décembre 2026 (p.~16) & Accréditation en cours de renouvellement (p.~25) & Renouvellement à suivre\\
-Effectif & 127 salariés (p.~4) & Somme de l'organigramme : 128 (p.~13--14) & 127 salariés\\
+Écarts sans effet sur nos réponses & WMS : SAP WM et Easy WMS (p.~10). ISO 9001 acquise en 2010 (p.~4). Effectif : 127 salariés (p.~4) & WMS \og (sage)\fg{} (p.~17), Sage X3 [9, §2.1]. ISO 9001 depuis 2012 (p.~4, 16). Organigramme : 128 (p.~13--14) & WMS non tranché. 127 salariés\\
 Devis d'exemple & Lot de 500 pièces, sans quantité par ligne (p.~8) & Total HT égal à la somme des 3 prix affichés (p.~8) & Ambiguïté à clarifier (9.1.3)\\
 Support de SAP B1 10.0 & Fin 2027 (p.~33, énoncé 9.2.2) & 31/12/2028 selon la page officielle de SAP, date \og susceptible de changer\fg{} [17] & Échéance du sujet. Date réelle à confirmer\\
 Transposition de NIS2 & \og Loi n°~2025-379\fg{} [2, diap.~28, 30] & Loi sur la sûreté dans les transports [15]. Projet de loi adopté en première lecture par l'Assemblée le 17/11/2026, non promulgué au 25/11/2026 [14] & Transposition en cours\\
@@ -1260,8 +1183,9 @@ Transposition de NIS2 & \og Loi n°~2025-379\fg{} [2, diap.~28, 30] & Loi sur la
 % =====================================================================
 \section*{Sources et références}
 \addcontentsline{toc}{section}{Sources et références}
+\small
 \subsection*{Supports pédagogiques fournis par l'enseignant}
-\begin{enumerate}[label={[\arabic*]},leftmargin=*,itemsep=4pt]
+\begin{enumerate}[label={[\arabic*]},leftmargin=*,itemsep=2pt]
 \item Disson, E. (2026). \textit{Cas MétalTech Solutions SAS -- Formation M2 SIA / Audit et Cybersécurité des SI}. Version 1, juin 2026, 42 pages. Source principale. Questions p.~38--39, consignes p.~39, conseils p.~42.
 \item Disson, E. (2026). \textit{Fondamentaux en cybersécurité}. Support du 15 septembre 2026, 33 diapositives.
 \item Disson, E. (2026). \textit{Le chiffrement : fondamentaux, applications et réglementations}. Support du 22 septembre 2026, 54 diapositives.
@@ -1273,7 +1197,7 @@ Transposition de NIS2 & \og Loi n°~2025-379\fg{} [2, diap.~28, 30] & Loi sur la
 \item \textit{Plan d'assurance des reprises (PAR) -- MétalTech Solutions SAS}, réf. PAR-MTL-001, version 1.0, 21 septembre 2026, 11 pages. Fichier intitulé PRA. Cadre ISO/IEC 27031{:}2011.
 \end{enumerate}
 \subsection*{Sources officielles consultées les 24 et 25 novembre 2026}
-\begin{enumerate}[label={[\arabic*]},start=10,leftmargin=*,itemsep=4pt]
+\begin{enumerate}[label={[\arabic*]},start=10,leftmargin=*,itemsep=2pt]
 \item Union européenne. Directive (UE) 2022/2555 du 14 décembre 2022 (NIS2), art.~20, 21, 23, 34 et annexe II. EUR-Lex : \url{https://eur-lex.europa.eu/legal-content/FR/ALL/?uri=CELEX:32022L2555}
 \item Union européenne. Règlement (UE) 2016/679 (RGPD), art.~32 à 34 et 83. EUR-Lex : \url{https://eur-lex.europa.eu/eli/reg/2016/679/oj?locale=fr}
 \item CNIL. \textit{Violations de données personnelles : les règles à suivre}, page publiée le 19 juin 2018 : \url{https://www.cnil.fr/fr/violations-de-donnees-personnelles-les-regles-suivre}
