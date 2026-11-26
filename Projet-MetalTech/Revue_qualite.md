@@ -304,3 +304,65 @@ La matière restante remplit 31 pages. Les blancs résiduels (14 à 23 % des pag
 3. Licences Sophos (EDR), Entra ID et MDM, compatibilité FIDO2 du VPN : à confirmer.
 4. Cycle de vie du FortiGate 200E : non vérifiable sur une source officielle publique.
 5. Validation du fond par les cinq membres. Aucun envoi à l'enseignant, PR non fusionnée.
+
+
+## 14. V7 — corrections et simplification ciblées — 26/11/2026
+
+Base : V6, commit `d4cf674` (blob du source `20674044e53f634a6383a467c7e9b86ea7087b0e`, contrôlé après `git fetch` : aucun changement ultérieur du groupe). La V6 de 31 pages reste disponible à ce commit. Consigne appliquée : `MetalTech_V7_Execution_Ciblee.md` (textes de remplacement fournis par le groupe). Aucune nouvelle analyse, aucun chiffre ni source ajoutés. Résultat : **22 pages A4** (objectif 22–25), corps en 11 pt et marges V6 inchangés.
+
+### 14.1 Ce qui a été supprimé ou remplacé
+
+| Partie | Supprimé | Remplacé ou conservé |
+|---|---|---|
+| Introduction | Deux paragraphes d'introduction, quatre puces d'hypothèses | Texte court fourni. Paragraphe d'hypothèses fourni, renvois [1, p. 4, 11, 17–22, 32, 36] conservés. Données clés, SWOT et étiquettes conservés |
+| 9.1.1 | Figure des flux entre applications (doublon du tableau), paragraphe VSM, procédure PC-QNC-004, sous-section « Preuves d'audit » | Textes fournis. Tableau des goulots, figure 1 et tableau des informations conservés. Flux Power BI (API, 5 min) gardé dans une note sous le tableau. PC-QTR-005 et [5, diap. 28–29] conservés |
+| 9.1.2 | Paragraphes de définition, liste du pilote, encadré « À retenir » | Textes fournis. Tableau des six actions conservé |
+| 9.1.3 | Phrase sur les logiciels, sous-sections « Analyse » et « Définir le taux » | Texte fourni. Figure du parcours conservée (DSO défini en légende). Trois lignes du tableau renommées en risques. Exemple fourni |
+| 9.1.4 | Figure des flux de la supply chain, matrice des fournisseurs (seuils J+5 et 12 % arbitraires), formule statistique du stock de sécurité, encadré « À retenir » | Textes fournis. Tableau des fournisseurs (avec la réserve « d'autres fournisseurs peuvent exister »), plan d'actions et indicateurs conservés |
+| 9.2.1 | Tableau des 10 flux (ports, sens de session, PubSub), numéros sur la figure cible, six risques | Texte fourni, tableau de 4 risques, 3 mesures en liste, tableau de 4 familles de flux, note (SaaS, DNS/NTP/sauvegardes, retour arrière, test). Figures existant et cible conservées |
+| 9.2.2 | Explication ISO 27005, long paragraphe de vérifications, tableau des coûts déjà retiré en V6 | Textes fournis. Échelles, six risques R1–R6, matrice et Gantt conservés. Justification de R3 et R5 ajoutée. R2 : « choisir entre migration et maintien temporaire avec support confirmé ». « Dette technique » définie |
+| 9.2.3 | Tableau de classification, notions détaillées, « stocker maintenant, déchiffrer plus tard », agilité cryptographique | Textes fournis. Tableau de six mesures avec un contrôle par famille. Lien EN 9100/NADCAP et priorités fournis |
+| 9.2.4 | Figure de chronologie, matrice RACI, niveaux de crise, sous-section communication séparée | Texte fourni, tableau de six phases avec responsables et délais indicatifs, rôles explicites. Tableau RTO/RPO conservé (colonne « Mode dégradé ou moyen de reprise »). Commentaire, ordre de reprise et préparation fournis |
+| 9.2.5 | Figure des notifications, sous-section « Ce que cela demande », code NACE, dates parlementaires du corps | Texte fourni, tableau NIS2/RGPD fourni, texte ISO fourni, plan ISO en 5 lignes (pilotes repris de la V6) |
+| 9.2.6 | Tableaux séparés risques et mesures, paragraphes VPN/Zero Trust et prérequis, détail SAML | Texte fourni, tableau « risque → solution », figure conservée (état du poste : « si l'outil existe »), tableau des rôles, note PAM, texte de fin fourni |
+| Conclusion | Tableau des priorités | Paragraphe fourni, budget condensé, calcul SOC 15 / 28 = 53,6 %, réserve sur CAF et trésorerie |
+| Annexe A | WMS, effectif, CMM, ISO 9001, NADCAP dans le tableau | Note courte sous le tableau. Bilan, marge brute et compte de résultat reformulés selon la consigne |
+
+Figures : 12 → 7 (fabrication, parcours commercial, architecture existante, architecture cible, matrice des risques, Gantt, accès distants). Aucune référence ne renvoie à une figure supprimée.
+
+### 14.2 Vérifications de fond faites pendant l'application
+
+- **Chiffres recalculés** : 980 / 220 × 10 ≈ 45 k€ et 45 / 2 120 ≈ 2 % ; 48 % et 46 % (parts arrondies) ; 15 / 28 = 53,6 % ; 35 % et 40 % de 1,2 M€ = 420 et 480 k€ ; 110,4 h × 80 € = 8 832 €.
+- **Annexe financière contrôlée dans le cas (p. 11–12)** : passif affiché 13 300 k€, somme des lignes 11 300 k€ ; total des charges 18 050 k€ résultat net de 1 120 k€ compris ; produits 18 605 k€ ; écart 555 k€.
+- **Gantt** : pilote ERP décalé de M4 à M5 (après la fin de la migration Windows à M5), décision à M3, bascule M9–M12, stabilisation M12–M18. Flèche de dépendance adaptée.
+- **Loi NIS2** : Vie publique relue le 26/11/2026, dossier toujours daté du 18/11/2026, aucune nouvelle étape. Le statut daté du 25/11 n'est donc pas modifié.
+
+### 14.3 Points signalés au groupe (décision à prendre ensemble)
+
+1. **9.2.5, statut NIS2** : le texte fourni disait « Le cas indique que son statut reste à confirmer selon l'activité et la taille ». Le cas dit seulement « en cours d'évaluation » (p. 27) et « probable » (p. 34) ; le critère activité/taille vient de la directive. Formulation appliquée : « Le cas indique que ce statut reste à confirmer (p. 27, 34) ; il dépend de l'activité et de la taille de l'entreprise. » À valider.
+2. **Gantt** : en décalant le début du pilote ERP à M5 sans déplacer sa fin (M9), le pilote passe de 5 à 4 mois. À confirmer par le groupe.
+3. **Budget** : la ligne « Autres coûts » précise que le pare-feu peut déjà relever du budget matériel de 25 k€ par an, pour éviter de le compter deux fois (consigne). À confirmer avec le cas p. 33.
+4. **Ajouts de forme** (sigles et renvois, sans nouveau contenu) : phrase d'appel de la figure 2 en 9.1.3, définitions de PCA et PAR en 9.2.4, définition de la dette technique en 9.2.2, renvois [16]–[18] dans le paragraphe de vérifications, [5, diap. 28–29] dans la phrase de vérification de 9.1.1.
+
+Points que chaque membre doit pouvoir expliquer (consigne, §13) : priorité au titane, rôle de VLAN, DMZ et pare-feu OT, notes V × G et mesures R1–R6, RPO de 1 h face à des instantanés toutes les 4 h, délais de notification NIS2 et RGPD, choix du MFA.
+
+### 14.4 Compilation et contrôles
+
+```sh
+latexmk -pdf -interaction=nonstopmode -halt-on-error -file-line-error Projet_MetalTech.tex
+pdfinfo Projet_MetalTech.pdf
+pdftotext -enc UTF-8 -layout Projet_MetalTech.pdf metaltech-v7.txt
+```
+
+- Journal lu : code 0, deux passes, 0 erreur, 0 référence indéfinie, 0 `Overfull` (un dépassement de 5 pt sur « Responsabilité » corrigé en élargissant la colonne), 0 `Underfull`. 6 messages « ignored error » du noyau LaTeX autour des tableaux longs, sans effet (section 12.3).
+- `pdfinfo` : 22 pages A4, cinq auteurs dans les métadonnées. `pdftotext` : 10 énoncés dans l'ordre, 7 figures numérotées de 1 à 7, 11 liens externes, 16 signets, aucun texte provisoire.
+- Contrôle automatique : éléments indispensables de chaque question présents (chiffres, distinctions, termes clés). Les 19 références sont toutes citées dans le corps.
+- Contrôle visuel : 22 pages rendues en image et inspectées une par une. Correction faite : espace manquante après l'étiquette [Hypothèse] (page 8).
+- Limites : les contrôles vérifient la présence et la cohérence des éléments ; ils ne remplacent pas la relecture et la validation du fond par les cinq membres.
+
+### 14.5 Points encore ouverts
+
+1. Revérifier l'état de la loi NIS2 le jour de la remise.
+2. Hébergement du MES, OPC-UA sur les machines, mode d'accès des prestataires : hypothèses.
+3. Licences EDR, Entra ID et MDM, compatibilité FIDO2 du VPN, version et support du FortiGate : à vérifier.
+4. Validation collective des choix et des hypothèses, puis décision des cinq membres sur l'envoi. Aucun envoi à l'enseignant, PR non fusionnée.
