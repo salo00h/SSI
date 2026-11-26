@@ -279,7 +279,7 @@ Qualité & Mesures, spécifications, alertes du MES & Validation, NC, traçabili
 Finance & Coûts réels, factures, paiements & Marge par affaire, budget, reporting & ERP, Power BI. Hebdomadaire, comptabilité la nuit\\
 RH & Compétences, présence, recrutements & Planning d'affectation des opérateurs & SAP HCM, TalentSoft. Hebdomadaire\\
 \end{xltabular}
-\figsource{D'après [1], p.~13--25. Power BI reçoit aussi les données de l'ERP et du MES par API, toutes les 5 minutes, pour le pilotage. Le MES échange avec les machines par OPC-UA et MQTT.}
+\figsource{D'après [1], p.~13--25. Power BI reçoit les données de SAP Business One par un connecteur natif. Les données du MES arrivent par API REST, environ toutes les 5 minutes [1, p.~24]. Le MES échange avec les machines par OPC-UA et MQTT.}
 \source{[1], p.~5--8, 13--25, 40 · [5], diap.~28--29.}
 % ---------------------------------------------------------------------
 \question{9.1.2}{Optimisation du flux de production}{Proposez des améliorations pour optimiser le flux de production et réduire les temps de changement de série.}
@@ -419,7 +419,7 @@ L'IT correspond à l'informatique de gestion (ERP, messagerie, postes). L'OT cor
 \node[n,text width=42mm] (az) at (-5.6,0) {Cloud Azure : réplique PRA,\\dev/test, Azure AD, sauvegardes};
 \node[n,text width=42mm] (saas) at (5.6,0) {Services en ligne : Dynamics 365,\\Power BI, MES Opcenter (SaaS ?)};
 \node[n,fill=pale,text width=46mm] (fg) at (0,-1.75) {\textbf{Pare-feu FortiGate 200E}\\filtrage, VPN SSL (3 utilisateurs)};
-\node[n,text width=150mm,minimum height=8mm] (tor) at (0,-3.35) {Commutateurs \og Top of Rack \fg{} et segmentation en VLAN. 12 bornes Wi-Fi 6 communes à l'atelier et aux bureaux};
+\node[n,text width=150mm,minimum height=8mm] (tor) at (0,-3.35) {Commutateurs \og Top of Rack \fg{} et segmentation en VLAN. 12 bornes Wi-Fi 6 couvrant l'atelier et les bureaux};
 \node[v] (vb) at (-6.3,-5.25) {\textbf{VLAN bureau}\\45 postes fixes\\15 portables};
 \node[v] (vs) at (-3.15,-5.25) {\textbf{Serveurs}\\3 serveurs HP : ERP, base HANA, PLM, fichiers, AD};
 \node[v] (vp) at (0,-5.25) {\textbf{VLAN production}\\12 machines CN\\3 CMM};
@@ -445,7 +445,7 @@ L'IT correspond à l'informatique de gestion (ERP, messagerie, postes). L'OT cor
 Rançongiciel venu des bureaux & ERP et MES synchronisés en continu (p.~18). Règles entre VLAN non décrites & Arrêt du MES et de la production\\
 Compte distant volé & Support de niveau 2 assuré par les intégrateurs MES et SAP (p.~31), VPN SSL (p.~26), si ces prestataires se connectent à distance & Accès non autorisé avec un compte valide\\
 Échanges industriels ou programmes modifiés & OPC-UA et MQTT protègent les échanges seulement si l'authentification et le chiffrement sont activés. Programmes FAO envoyés des bureaux aux machines (p.~5) \tagH & Pièces non conformes, danger pour l'opérateur\\
-Panne d'Internet ou capteur compromis & MES décrit comme un logiciel en ligne (SaaS) : \og Panne internet = impact production\fg{} (p.~29). 25 capteurs sur un Wi-Fi partagé avec les bureaux (p.~26) & Perte du suivi de production, accès non autorisé\\
+Panne d'Internet ou capteur compromis & Le MES est décrit comme SaaS : une panne Internet peut toucher la production (p.~29). Le Wi-Fi couvre les bureaux et l'atelier (p.~26). Le mode de connexion des 25 capteurs et leur isolation restent à vérifier. & Perte du suivi de production, accès non autorisé\\
 \end{xltabular}
 Dans l'atelier, la disponibilité et l'intégrité sont généralement prioritaires [2, diap.~7], sans oublier la confidentialité des plans clients. Toute règle est testée avec la production : elle ne doit jamais mettre un opérateur en danger.
 
@@ -577,7 +577,7 @@ R1 (16), R2 et R3 (12) sont critiques selon les seuils. Pour R3, l'âge seul ne 
 \end{figure}
 
 \subsection*{Impact}
-Les logiciels et matériels qui ne sont plus maintenus forment une \og dette technique\fg{} : ils restent en service, mais sans correctifs. L'ERP, le réseau local et le pare-feu sont classés P1, avec un RTO de 4~h [9, §4]. Un rançongiciel entré par un poste non maintenu ou par le VPN peut arrêter la gestion et l'atelier. En ordre de grandeur, MétalTech réalise environ 84~k€ de CA par jour ouvré (18,4~M€ / 220 jours, hypothèse). Ce n'est pas une perte certaine, car une partie de la production peut être rattrapée. Cette dette freine aussi l'ISO 27001, car un auditeur attend une gestion maîtrisée des failles.
+Dans ce cas, la dette technique vient surtout des logiciels et équipements anciens ou difficiles à maintenir. Sans correctifs, certains deviennent plus risqués. L'ERP, le réseau local et le pare-feu sont classés P1, avec un RTO de 4~h [9, §4]. Un rançongiciel entré par un poste non maintenu ou par le VPN peut arrêter la gestion et l'atelier. En ordre de grandeur, MétalTech réalise environ 84~k€ de CA par jour ouvré (18,4~M€ / 220 jours, hypothèse). Ce n'est pas une perte certaine, car une partie de la production peut être rattrapée. Cette dette freine aussi l'ISO 27001, car un auditeur attend une gestion maîtrisée des failles.
 
 \subsection*{Plan sur 18 mois}
 Nous fixons M0 à décembre 2026. M12 correspond donc à décembre 2027, échéance du support de l'ERP selon le sujet. M18 correspond à juin 2028.
@@ -666,9 +666,9 @@ Le rançongiciel touche l'ERP et les fichiers. Le sujet prévoit trois personnes
 Détection & Repérer les alertes, les fichiers chiffrés, l'ERP indisponible. Noter les faits dans un journal hors SI et prévenir la direction & SI, H0 à H+1\\
 Confinement & Isoler les postes et serveurs touchés, couper les liens IT--OT et Azure selon le PAR [9, §7.3], protéger Veeam, bloquer les comptes suspects. Préserver les preuves sans mettre les personnes en danger [7, diap.~19] & SI et production, dès H0\\
 Investigation et nettoyage & Conserver les journaux et la note de rançon, identifier l'entrée, corriger la faille, nettoyer ou reconstruire l'annuaire et les serveurs, révoquer les sessions, renouveler les secrets et les comptes à privilèges [7, diap.~20] & SI, RSSI ou prestataire, H+4 à J+5\\
-Restauration & Choisir une sauvegarde saine antérieure à l'intrusion, la vérifier puis restaurer en zone isolée [9, §8.1]. Ne pas reconnecter automatiquement Azure & SI et prestataire, J+1 à J+5, si l'environnement est propre\\
+Restauration & Restaurer avec Veeam à partir d'une sauvegarde saine, antérieure à l'intrusion, dans une zone isolée [9, §7.3 et §8.1]. Garder Azure isolé. Utiliser la réplique seulement si son intégrité et l'absence de compromission ont été vérifiées. & SI et prestataire, J+1 à J+5, si l'environnement est propre\\
 Reprise & Contrôler les données et les plans, faire valider par les métiers avant la reconnexion, ressaisir les données papier sans doublons, surveiller au moins 48~h [9, §5.3] & Production, qualité et SI. J+5 à J+30 au plus tard, objectif indicatif à adapter\\
-Communication & Direction : clients clés touchés sous 4~h selon le PCA, assureur sous 24~h [8, §7.3], notifications légales selon 9.2.5. Canal hors SI. Retour d'expérience sous 10 jours [8, §7.1] et bilan à J+30 [7, diap.~25] & PDG, direction commerciale, RSSI et DPO, pendant toute la crise\\
+Communication & Informer la direction sous 30~min après activation, les salariés sous 2~h, les clients clés touchés sous 4~h et l'assureur sous 24~h [8, §7.3]. Faire un point interne toutes les 2~h [8, §7.1], sur un canal hors SI. Notifications : voir 9.2.5. Retour d'expérience sous 10 jours [8, §7.1], bilan à J+30 [7, diap.~25]. & PDG, direction commerciale, RSSI et DPO, pendant toute la crise\\
 \end{xltabular}
 Si une personne est en danger, sa sécurité passe en premier. Le PDG décide de la reprise avec la production et la qualité. Le SI mène les actions techniques. Le RSSI conseille et coordonne ; le DPO aide pour les données personnelles. Nous ne recommandons pas de payer la rançon.
 
@@ -685,7 +685,7 @@ Qualité (PCA, ACT-02) & 8 h & 4 h & Check-lists papier, PolyWorks local & Traç
 \end{xltabular}
 \figsource{Valeurs vérifiées dans les originaux [8, §4.1] et [9, §4]. Ce sont des objectifs, pas des garanties. Les documents présentent eux-mêmes plusieurs valeurs comme des estimations à valider en atelier BIA (analyse d'impact sur l'activité).}
 
-Le RTO est le temps de reprise visé et le RPO la durée maximale de données que l'on accepte de perdre [7, diap.~22]. Un test de bascule réussi en mars 2026 [1, p.~27] ne garantit pas une reprise après rançongiciel. Les instantanés toutes les 4~h ne suffisent pas seuls pour atteindre un RPO de 1~h. Il faut vérifier les journaux de transactions et disposer d'une copie hors ligne ou immuable. Nous proposons la règle 3-2-1 : trois copies, deux supports, une copie hors site [7, diap.~10]. Le PAR prévoit un test trimestriel [9, §6.3]. Si la reprise dépasse 4~h, le PCA prévoit le travail en mode dégradé.
+Le RTO est le temps de reprise visé et le RPO la durée maximale de données que l'on accepte de perdre [7, diap.~22]. Un test de bascule réussi en mars 2026 [1, p.~27] ne garantit pas une reprise après rançongiciel. Les instantanés toutes les 4~h ne suffisent pas seuls pour atteindre un RPO de 1~h. Pour viser 1~h de perte maximale, il faut vérifier les journaux de transactions et, si besoin, sauvegarder plus souvent. Il faut aussi une copie hors ligne ou immuable et tester la restauration. Nous proposons la règle 3-2-1 : trois copies, deux supports, une copie hors site [7, diap.~10]. Le PAR prévoit un test trimestriel [9, §6.3]. Si la reprise dépasse 4~h, le PCA prévoit le travail en mode dégradé.
 
 \textbf{Ordre de reprise.} 1. Zone propre et sauvegarde vérifiée ; 2. réseau et annuaire assainis ; 3. base HANA, ERP et intégration ; 4. fichiers critiques ; 5. MES et plans PLM validés, puis atelier et qualité ; 6. autres services. Aucune nouvelle série sans plans et programmes validés. Le travail papier reste possible seulement si les contrôles qualité et la sécurité des machines sont assurés.
 
@@ -694,15 +694,15 @@ Le RTO est le temps de reprise visé et le RPO la durée maximale de données qu
 % ---------------------------------------------------------------------
 \question{9.2.5}{Conformité réglementaire (RGPD / NIS2)}{MetalTech est qualifiée d'\og entité importante\fg{} au sens de la directive NIS2 et traite des données personnelles soumises au RGPD. Quelles obligations concrètes (notification d'incident, mesures de sécurité minimales, gouvernance) découlent de ce double cadre réglementaire, et quelles actions prioritaires proposeriez-vous pour atteindre la certification ISO 27001 visée au T4 2026 ?}
 
-Le sujet considère MétalTech comme une entité importante NIS2. Nous suivons cette hypothèse. Le cas indique que ce statut reste à confirmer (p.~27, 34) ; il dépend de l'activité et de la taille de l'entreprise. Le RGPD s'applique aux données personnelles ; NIS2 concerne la sécurité des systèmes et la gestion des incidents. Selon les sources officielles consultées le 25 novembre 2026, la transposition française de NIS2 était encore en cours [13, 14]. Nous présentons donc les exigences de la directive, sans les confondre avec une loi française déjà applicable. La référence à la loi n°~2025-379 dans le cours [2, diap.~28, 30] concerne en réalité la sûreté des transports [15].
+Le sujet considère MétalTech comme une entité importante NIS2. Nous suivons cette hypothèse. Le cas indique que ce statut reste à confirmer (p.~27, 34) ; il dépend de l'activité et de la taille de l'entreprise. Le RGPD protège les données personnelles, par exemple celles des salariés et des contacts clients. NIS2 concerne la sécurité des systèmes et la gestion des incidents. Selon les sources officielles consultées le 25 novembre 2026, la transposition française de NIS2 était encore en cours [13, 14]. Nous présentons donc les exigences de la directive, sans les confondre avec une loi française déjà applicable. La référence à la loi n°~2025-379 dans le cours [2, diap.~28, 30] concerne en réalité la sûreté des transports [15].
 
 \subsection*{Obligations concrètes : NIS2 et RGPD}
 \begin{xltabular}{\linewidth}{@{}P{24mm}YY@{}}\toprule
 \thd{Thème} & \thd{NIS2 (directive)} & \thd{RGPD}\\\midrule\endfirsthead
 \toprule \thd{Thème} & \thd{NIS2 (directive)} & \thd{RGPD}\\\midrule\endhead
 \bottomrule\endfoot
-Responsabilité & La direction approuve les mesures, suit les risques et se forme (art.~20) & MétalTech reste responsable du traitement. Le DPO conseille et contrôle. Registre des traitements et contrats avec les sous-traitants\\
-Sécurité & Analyse des risques, incidents, sauvegardes et continuité, fournisseurs, achats et maintenance sûrs, tests, formation, chiffrement, actifs et accès, MFA si appropriée (art.~21) & Mesures adaptées aux risques : confidentialité, intégrité, disponibilité, restauration et tests ; chiffrement ou pseudonymisation si appropriés (art.~32)\\
+Responsabilité & La direction approuve les mesures, suit les risques et se forme (art.~20) & MétalTech a déjà un registre des traitements à jour et un DPO externe [1, p.~27]. Le DPO conseille et contrôle, mais l'entreprise reste responsable. Elle doit maintenir le registre à jour et vérifier les contrats des sous-traitants.\\
+Sécurité & Analyse des risques, incidents, sauvegardes et continuité, fournisseurs, achats et maintenance sûrs, tests, formation, chiffrement, actifs et accès, MFA si nécessaire (art.~21) & Mesures adaptées aux risques : confidentialité, intégrité, disponibilité, restauration et tests ; chiffrement ou pseudonymisation si appropriés (art.~32)\\
 Incident & Incident important : perturbation grave des services ou pertes financières pour l'entité, ou dommage considérable à autrui, réel ou possible. Alerte précoce sous 24~h et notification sous 72~h après la prise de connaissance, sans retard injustifié. Rapport intermédiaire sur demande. Rapport final au plus tard un mois après la notification. Si l'incident dure, rapport d'avancement puis rapport final un mois après son traitement (art.~23) & Si une violation de données personnelles est susceptible de créer un risque pour les personnes : notification à la CNIL dans les meilleurs délais et, si possible, sous 72~h après la prise de connaissance ; tout retard est justifié. Information des personnes sans retard injustifié en cas de risque élevé, sauf exceptions. Toutes les violations sont documentées (art.~33--34)\\
 Sanctions & Entité importante : pour les violations des art.~21 et 23, plafond national au moins égal au plus élevé de 7~M€ ou 1,4~\% du CA annuel mondial de l'exercice précédent (art.~34.5). Ce n'est pas une amende automatique & Plafonds de 10~M€ ou 2~\%, ou de 20~M€ ou 4~\% du CA mondial, selon le manquement. Le montant le plus élevé du couple applicable est retenu (art.~83)\\
 \end{xltabular}
@@ -736,7 +736,7 @@ MétalTech utilise un VPN SSL Fortinet pour trois utilisateurs réguliers [1, p.
 Phishing et vol de mot de passe & MFA pour tous les accès distants. Préférer FIDO2 ou les clés d'accès (passkeys) si elles sont compatibles, sinon une application d'authentification [6, diap.~6--7]\\
 Déplacement vers d'autres serveurs & Zero Trust : vérifier l'identité, le poste et le contexte, et limiter l'accès aux ressources nécessaires [4, diap.~55--56] [2, diap.~13]. Tester ensuite le ZTNA (accès limité par application)\\
 Faille du VPN ou annuaire compromis & Vérifier les versions et les correctifs, séparer les comptes d'administration, vérifier l'état des postes si les outils le permettent, enregistrer les accès\\
-Prestataires & Comptes individuels temporaires, accès par le bastion et seulement à leur serveur, suppression à la fin de la mission [6, diap.~35]\\
+Prestataires & Comptes individuels temporaires, accès par le bastion et seulement à leur serveur, suppression à la fin de la mission [6, diap.~35]\\*
 Invités & Internet seulement, aucun accès au réseau interne\\
 \end{xltabular}
 
@@ -775,7 +775,7 @@ La figure~\ref{fig:acces} résume la cible : chaque connexion est vérifiée ava
 \end{figure}
 
 \subsection*{Filtrage par rôle}
-\begin{xltabular}{\linewidth}{@{}P{34mm}YP{42mm}@{}}\toprule
+\begin{xltabular}{\linewidth}{@{}P{30mm}YP{49mm}@{}}\toprule
 \thd{Profil} & \thd{Ressources autorisées} & \thd{Conditions}\\\midrule\endfirsthead
 \toprule \thd{Profil} & \thd{Ressources autorisées} & \thd{Conditions}\\\midrule\endhead
 \bottomrule\endfoot
