@@ -397,3 +397,8 @@ pdftotext -enc UTF-8 -layout Projet_MetalTech.pdf metaltech-v7.txt
 **Loi NIS2, revérifiée le 28/11/2026.** L'ANSSI indique toujours « transposition en cours ». Le dossier Vie publique est toujours daté du 18/11/2026 : la dernière étape est le texte modifié par l'Assemblée nationale le 17/11/2026, sans promulgation. Le texte du rapport n'est pas modifié.
 
 **Points ouverts.** Ceux de la section 14.5 restent valables.
+
+
+## 16. Présentation finale des références — 28/11/2026
+
+Base : commit `6bf198f`. Les références [1] à [19] sont conservées, avec des titres courts et 11 URL officielles distinctes accessibles par liens cliquables. Le PDF est passé de 22 à 21 pages par modification directe de la bibliographie. Contrôle indépendant : rendu des pages 1 à 20 identique pixel par pixel au PDF antérieur ; texte de l'annexe de la page 21 identique avant le titre des références ; contrôle visuel de la page 21 ; 11 destinations externes distinctes ; lien du sommaire et signet des références corrigés vers la page 21. Le bloc LaTeX est mis en cohérence sur les libellés et les liens, mais aucune compilation intégrale du nouveau source n'a été effectuée à ce stade. Le PDF versionné est la copie contrôlée. Aucune modification de fond et aucune validation collective présumée. Vérification NIS2 à la remise inchangée.

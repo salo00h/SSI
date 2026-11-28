@@ -61,7 +61,7 @@ La V6 de 31 pages reste disponible au commit `d4cf674` : https://github.com/salo
 
 ## Version finale à valider — V7 retouchée (28/11/2026)
 
-C'est la version actuelle du PDF : **22 pages**, A4, corps en 11 pt, dix réponses dans l'ordre, 7 figures, 19 références, cinq auteurs.
+C'était la version du PDF au commit `6bf198f` : **22 pages**, A4, corps en 11 pt, dix réponses dans l'ordre, 7 figures, 19 références, cinq auteurs.
 
 Elle part de la V7 et intègre deux séries de corrections du groupe :
 - les dernières corrections ciblées du 26/11 (commit `427f5cc`) ;
@@ -76,3 +76,7 @@ Compilation depuis un dossier vide : 0 erreur, 0 référence indéfinie, 0 `Over
 La V7 de départ reste disponible au commit `a987b54`.
 
 Avant l'envoi : revérifier l'état de la transposition NIS2 à la date effective de remise (dernière vérification : 28/11/2026, transposition toujours en cours). La validation collective reste nécessaire.
+
+## V7 — références allégées (28/11/2026)
+
+Le PDF actuel compte **21 pages**. Les références sont présentées en deux colonnes en fin de page 21, avec les 19 numéros et les 11 liens officiels distincts conservés. Les pages 1 à 20 sont identiques visuellement au PDF du commit `6bf198f` ; le texte de l'annexe en page 21 est également conservé. Le lien du sommaire et le signet des références pointent vers la page 21. Le PDF a été modifié directement, puis contrôlé. Le bloc LaTeX des références a été adapté avec les mêmes libellés et URL ; il n'a pas été recompilé intégralement dans cette intervention, de sorte que la pagination issue d'une future compilation devra être vérifiée. Le PDF versionné est la copie de remise proposée. La version de 22 pages reste accessible au commit `6bf198f`. Aucun envoi à l'enseignant ni fusion de la PR.
