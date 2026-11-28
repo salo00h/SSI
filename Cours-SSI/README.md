@@ -20,7 +20,7 @@ Total : 164 pages PDF et 61 diapositives PowerPoint.
 
 ## Organisation
 
-- Les documents originaux PDF/PPTX doivent être déposés dans ce dossier. Leur transfert binaire depuis la conversation n'est pas encore effectué.
+- Les neuf documents originaux PDF/PPTX sont dans `originaux/`, copiés à l'identique depuis l'archive `Cours-SSI.zip` (empreintes SHA-256 dans `Projet-MetalTech/Revue_qualite.md`).
 - Les éventuelles transcriptions dans `textes/` sont des aides à la recherche, non des substituts aux originaux : images, mise en page et certains éléments graphiques peuvent manquer.
 - Les faits et hypothèses du cas pédagogique doivent être distingués. Les valeurs RTO/RPO du PCA/PAR ne sont pas toutes validées.
 - Les supports restent les sources de référence ; ne pas diffuser hors du dépôt privé sans autorisation.
