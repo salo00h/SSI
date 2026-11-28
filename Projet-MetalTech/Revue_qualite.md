@@ -366,3 +366,34 @@ pdftotext -enc UTF-8 -layout Projet_MetalTech.pdf metaltech-v7.txt
 2. Hébergement du MES, OPC-UA sur les machines, mode d'accès des prestataires : hypothèses.
 3. Licences EDR, Entra ID et MDM, compatibilité FIDO2 du VPN, version et support du FortiGate : à vérifier.
 4. Validation collective des choix et des hypothèses, puis décision des cinq membres sur l'envoi. Aucun envoi à l'enseignant, PR non fusionnée.
+
+
+## 15. Version finale à valider (V7 retouchée) — 28/11/2026
+
+**Base.** Le travail part du commit `427f5cc`, qui contient les dernières corrections ciblées du 26/11 : Power BI, Wi-Fi et capteurs, dette technique, Veeam et Azure, communication, RPO, RGPD, « MFA si nécessaire ». Avant toute modification, la branche a été contrôlée : elle n'avait pas changé. Consigne appliquée : le message du groupe du 28/11 (propositions d'Adel, vérifiées par Saleh). Aucune nouvelle analyse n'a été ajoutée.
+
+**Références.**
+- Les lignes de synthèse « Sources » sont supprimées dans l'introduction, les dix réponses et la conclusion.
+- La réponse 9.1.2 se termine par la phrase fournie, avec le renvoi [1, p. 5–6, 20].
+- Les 19 références, les URL et les renvois précis du texte, des tableaux et des légendes sont conservés.
+
+**Contrôle documentaire des renvois retirés.** Pour chaque ligne supprimée, chaque page, diapositive ou section citée a été recherchée dans le texte de la même section. Un seul renvoi n'était justifié que par une ligne supprimée : la p. 7 du cas (devis sous Excel), en 9.1.1. Le renvoi « (p. 7) » est donc placé à côté d'« Excel », dans la ligne « Commercial » du tableau.
+
+**Textes fournis, appliqués tels quels.** Les faits cités ont été retrouvés dans le cas (p. 22, 27, 34 et 35) et dans le PCA (§7.1–7.2).
+- 9.1.3 : exemple de conversion, étiquette de la figure 2 et sa légende.
+- 9.2.4 : RTO présenté comme un objectif, mode dégradé dès l'activation du PCA.
+- 9.2.5 : paragraphe ISO 27001, première colonne renommée « Période (si report) ».
+
+**Mise en page seulement.**
+- « Excel » n'est plus coupé en fin de ligne.
+- Le paragraphe « Méthode » de 9.2.2 est resserré d'une ligne (`\looseness`) pour que la note du tableau R1–R6 reste sur la même page que le tableau.
+
+**Contrôles.**
+- `latexmk` dans un dossier vide : code 0, 0 erreur, 0 référence indéfinie, 0 `Overfull`, 0 `Underfull`.
+- PDF : 22 pages A4, cinq auteurs, 10 énoncés, 7 figures, 19 références citées dans le corps, 17 liens externes, 19 liens internes. Sommaire et 16 signets inchangés.
+- Comparaison mot à mot avec `427f5cc` : seules les modifications demandées apparaissent.
+- Contrôle visuel : les 15 pages modifiées ont été inspectées en image, les 7 autres sont identiques au pixel près.
+
+**Loi NIS2, revérifiée le 28/11/2026.** L'ANSSI indique toujours « transposition en cours ». Le dossier Vie publique est toujours daté du 18/11/2026 : la dernière étape est le texte modifié par l'Assemblée nationale le 17/11/2026, sans promulgation. Le texte du rapport n'est pas modifié.
+
+**Points ouverts.** Ceux de la section 14.5 restent valables.

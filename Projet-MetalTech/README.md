@@ -9,7 +9,7 @@ Auteurs : Saleh BA-ZIGHIFAN, Abdulrahman BA GUBAIR, Abdulaziz AL-KHULAQI, Mouham
 | Fichier | Rôle |
 |---|---|
 | `Projet_MetalTech.tex` | Source LaTeX complète (un seul fichier, figures en TikZ, aucune image externe) |
-| `Projet_MetalTech.pdf` | PDF V7 compilé à partir du source final (A4, 22 pages) |
+| `Projet_MetalTech.pdf` | PDF de la version finale à valider (V7 retouchée, 28/11/2026), compilé à partir du source final (A4, 22 pages) |
 | `Revue_qualite.md` | Journal de travail interne : corrections, preuves, hypothèses ouvertes, contrôles réalisés |
 
 Il n'y a pas de dossier `figures/` : les 7 figures de la V7 sont dessinées en TikZ dans le `.tex`.
@@ -59,4 +59,20 @@ La V7 applique les consignes ciblées du groupe à partir de la V6 (commit `d4cf
 
 La V6 de 31 pages reste disponible au commit `d4cf674` : https://github.com/salo00h/SSI/blob/d4cf6745a717086953a19896cd53b179917467b6/Projet-MetalTech/Projet_MetalTech.pdf
 
-Avant l'envoi : revérifier l'état de la transposition NIS2 à la date effective de remise. La validation collective reste nécessaire.
+## Version finale à valider — V7 retouchée (28/11/2026)
+
+C'est la version actuelle du PDF : **22 pages**, A4, corps en 11 pt, dix réponses dans l'ordre, 7 figures, 19 références, cinq auteurs.
+
+Elle part de la V7 et intègre deux séries de corrections du groupe :
+- les dernières corrections ciblées du 26/11 (commit `427f5cc`) ;
+- la retouche du 28/11 :
+  - lignes « Sources » supprimées, les renvois restant portés par le texte, les tableaux et les légendes ;
+  - exemple de conversion de 9.1.3 ;
+  - RTO et mode dégradé en 9.2.4 ;
+  - objectif ISO 27001 fin 2026 en 9.2.5.
+
+Compilation depuis un dossier vide : 0 erreur, 0 référence indéfinie, 0 `Overfull`. Détails et contrôles dans `Revue_qualite.md`, section 15.
+
+La V7 de départ reste disponible au commit `a987b54`.
+
+Avant l'envoi : revérifier l'état de la transposition NIS2 à la date effective de remise (dernière vérification : 28/11/2026, transposition toujours en cours). La validation collective reste nécessaire.
